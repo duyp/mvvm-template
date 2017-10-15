@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
-def cfg = rootProject.ext.configuration;
-def libs = rootProject.ext.libraries;
+def cfg         = rootProject.ext.configuration;
+def libs        = rootProject.ext.libraries;
+def testLibs    = rootProject.ext.testLibraries;
 
 android {
     compileSdkVersion cfg.compileVersion
@@ -31,4 +32,28 @@ android {
 }
 
 dependencies {
+    compile libs.supportAnnotation
+
+    compile libs.dagger
+    annotationProcessor libs.daggerCompiler
+
+    compile libs.androidUtils_core
+    compile libs.androidUtils_realm
+
+    compile libs.retrofit
+    compile libs.retrofitRxAdapter
+    compile libs.retrofitConverterGson
+    compile libs.retrofitConverterScalars
+
+    compile libs.okhttp
+    compile libs.okhttpLogging
+
+    compile libs.lombok
+
+    compile libs.parceler
+
+    compile libs.eventBus
+
+    testCompile testLibs.jUnit
+    androidTestCompile testLibs.espresso_core
 }
