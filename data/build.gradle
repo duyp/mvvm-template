@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+
+    compile project(":injection")
+
     compile libs.supportAnnotation
 
     compile libs.dagger

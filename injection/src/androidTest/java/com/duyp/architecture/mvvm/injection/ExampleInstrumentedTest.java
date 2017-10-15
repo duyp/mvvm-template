@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.data;
+package com.duyp.architecture.mvvm.injection;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.duyp.architecture.mvvm.data.test", appContext.getPackageName());
+        assertEquals("com.duyp.architecture.mvvm.test_utils.test", appContext.getPackageName());
     }
 }
