@@ -1,6 +1,6 @@
 package com.duyp.architecture.mvvm.data.model;
 
-import com.duyp.architecture.mvp.data.model.def.IssueStates;
+import com.duyp.architecture.mvvm.data.model.def.IssueStates;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +14,7 @@ import lombok.Setter;
 
 /**
  * Created by duypham on 9/17/17.
+ *
  */
 
 

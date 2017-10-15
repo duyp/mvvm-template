@@ -5,9 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-
-        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
 
         classpath "io.realm:realm-gradle-plugin:3.7.2"
 
@@ -31,7 +29,7 @@ allprojects {
 ext {
     configuration = [
             package             : "com.duyp.architecture.mvvm",
-            buildToolsVersion   : "26.0.1",
+            buildToolsVersion   : "26.0.2",
             compileVersion      : 26,
             minSdk              : 17,
             targetSdk           : 26,

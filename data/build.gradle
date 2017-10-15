@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 def cfg         = rootProject.ext.configuration;
 def libs        = rootProject.ext.libraries;
@@ -15,7 +15,7 @@ android {
         versionCode cfg.version_code
         versionName cfg.version_name
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.duyp.architecture.mvvm.data.MockTestRunner"
 
     }
     buildTypes {
@@ -25,10 +25,19 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -39,9 +48,11 @@ dependencies {
 
     compile libs.dagger
     annotationProcessor libs.daggerCompiler
+    androidTestAnnotationProcessor libs.daggerCompiler
 
     compile libs.androidUtils_core
     compile libs.androidUtils_realm
+    compile libs.androidUtils_network
 
     compile libs.retrofit
     compile libs.retrofitRxAdapter
@@ -51,7 +62,8 @@ dependencies {
     compile libs.okhttp
     compile libs.okhttpLogging
 
-    compile libs.lombok
+    provided libs.lombok
+    annotationProcessor libs.lombok
 
     compile libs.parceler
 
