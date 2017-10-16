@@ -35,9 +35,6 @@ public abstract class BaseDaoTest extends BaseTest {
     @Inject
     Gson gson;
 
-    @Inject
-    Realm realm;
-
     @Before
     public void setUp() throws Exception {
         Log.d(TAG, "setUp: ");

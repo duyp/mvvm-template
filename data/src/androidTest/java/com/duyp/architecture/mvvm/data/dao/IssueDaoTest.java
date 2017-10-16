@@ -23,7 +23,13 @@ public class IssueDaoTest extends BaseDaoTest{
     @Override
     public void inject(TestAppComponent appComponent) {
         appComponent.inject(this);
-        issueDao = realmDatabase.getIssueDao();
+        issueDao = realmDatabase.newIssueDao();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        issueDao.closeRealm();
     }
 
     @Test
@@ -34,7 +40,7 @@ public class IssueDaoTest extends BaseDaoTest{
         Issue savedIssue = issueDao.getById(issue.getId()).getData();
 
         String originalJson = gson.toJson(issue);
-        String savedJson = gson.toJson(realm.copyFromRealm(savedIssue));
+        String savedJson = gson.toJson(issueDao.getRealm().copyFromRealm(savedIssue));
 
         assertEquals(originalJson, savedJson);
     }

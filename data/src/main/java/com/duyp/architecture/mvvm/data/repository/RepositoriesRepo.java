@@ -39,10 +39,10 @@ public class RepositoriesRepo extends BaseRepo {
     private final User mUser;
 
     @Inject
-    public RepositoriesRepo(LifecycleOwner owner, GithubService githubService, RealmDatabase realmDatabase,
+    public RepositoriesRepo(GithubService githubService, RealmDatabase realmDatabase,
                             UserDataStore userDataStore) {
-        super(owner, githubService, realmDatabase);
-        this.repositoryDao = realmDatabase.getRepositoryDao();
+        super(githubService, realmDatabase);
+        this.repositoryDao = realmDatabase.newRepositoryDao();
         mUser = userDataStore.getUser();
     }
 
@@ -60,7 +60,7 @@ public class RepositoriesRepo extends BaseRepo {
         }
 //        data = repositoryDao.getAll(currentPage * PER_PAGE);
         data = repositoryDao.getAll();
-        return createResource(getGithubService().getAllPublicRepositories(sinceId), repositoryDao::addAll);
+        return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(sinceId), repositoryDao::addAll);
     }
 
     /**
@@ -71,7 +71,7 @@ public class RepositoriesRepo extends BaseRepo {
     public Flowable<Resource<List<Repository>>> findRepositories(String repoName) {
         Log.d(TAG, "RepositoriesRepo: finding repo: " + repoName);
         data = repositoryDao.getRepositoriesWithNameLike(repoName);
-        return createResource(getGithubService().getAllPublicRepositories(null), repositoryDao::addAll);
+        return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(null), repositoryDao::addAll);
     }
 
     /**
@@ -87,7 +87,7 @@ public class RepositoriesRepo extends BaseRepo {
         Single<Response<List<Repository>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
                 getGithubService().getUserRepositories(userNameLogin, RepoTypes.ALL);
 
-        return createResource(remote, repositories -> {
+        return createRemoteSourceMapper(remote, repositories -> {
             if (isOwner) {
                 for (Repository repository : repositories) {
                     if (!repository.getOwner().getLogin().equals(mUser.getLogin())) {
@@ -97,5 +97,10 @@ public class RepositoriesRepo extends BaseRepo {
             }
             repositoryDao.addAll(repositories);
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        repositoryDao.closeRealm();
     }
 }

@@ -3,7 +3,7 @@ package com.duyp.architecture.mvvm.data.dao;
 import android.util.Log;
 
 import com.duyp.architecture.mvvm.data.dagger.TestAppComponent;
-import com.duyp.architecture.mvvm.data.local.dao.UserDao;
+import com.duyp.architecture.mvvm.data.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.data.model.User;
 
 import org.junit.Test;
@@ -18,12 +18,18 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserDaoTest extends BaseDaoTest {
 
-    private UserDao userDao;
+    private UserDaoImpl userDao;
 
     @Override
     public void inject(TestAppComponent appComponent) {
         appComponent.inject(this);
         userDao = realmDatabase.getUserDao();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        userDao.closeRealm();
     }
 
     @Test

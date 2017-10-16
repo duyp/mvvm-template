@@ -27,20 +27,6 @@ public class DataModule {
 
     public DataModule(@ApplicationContext Context context) {
         mContext = context;
-        initRealm();
-    }
-
-    private void initRealm() {
-        int schemaVersion = 1; // first version
-        Realm.init(mContext);
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
-                .schemaVersion(schemaVersion)
-                .migration((realm, oldVersion, newVersion) -> {
-                    // migrate realm here
-                })
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(realmConfig);
     }
 
     @Provides
@@ -51,13 +37,23 @@ public class DataModule {
 
     @Provides
     @Singleton
-    Realm provideRealm() {
-        return Realm.getDefaultInstance();
+    RealmConfiguration provideRealmConfiguration() {
+        int schemaVersion = 1; // first version
+        Realm.init(mContext);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .schemaVersion(schemaVersion)
+                .migration((realm, oldVersion, newVersion) -> {
+                    // migrate realm here
+                })
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
+        return realmConfig;
     }
 
     @Provides
     @Singleton
-    RealmDatabase provideRealmDatabase(Realm realm) {
-        return new RealmDatabase(realm);
+    RealmDatabase provideRealmDatabase(RealmConfiguration realmConfig) {
+        return new RealmDatabase(realmConfig);
     }
 }

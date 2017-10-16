@@ -4,12 +4,13 @@ import com.duyp.architecture.mvvm.data.local.dao.IssueDao;
 import com.duyp.architecture.mvvm.data.local.dao.IssueDaoImpl;
 import com.duyp.architecture.mvvm.data.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.data.local.dao.RepositoryDaoImpl;
-import com.duyp.architecture.mvvm.data.local.dao.UserDao;
+import com.duyp.architecture.mvvm.data.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.Repository;
 import com.duyp.architecture.mvvm.data.model.User;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by duypham on 9/20/17.
@@ -18,48 +19,26 @@ import io.realm.Realm;
 
 public class RealmDatabase {
 
-    private final Realm mRealm;
+    private final RealmConfiguration mRealmConfiguration;
 
-    private RepositoryDao repositoryDao;
-
-    private IssueDao issueDao;
-
-    private UserDao userDao;
-
-    public RealmDatabase(Realm realm) {
-        mRealm = realm;
+    public RealmDatabase(RealmConfiguration realmConfiguration) {
+        this.mRealmConfiguration = realmConfiguration;
     }
 
-    public RepositoryDao getRepositoryDao() {
-        if (repositoryDao == null) {
-            repositoryDao = new RepositoryDaoImpl(mRealm);
-        }
-        return repositoryDao;
+    public RepositoryDao newRepositoryDao() {
+        return new RepositoryDaoImpl(Realm.getInstance(mRealmConfiguration));
     }
 
-    public IssueDao getIssueDao() {
-        if (issueDao == null) {
-            issueDao = new IssueDaoImpl(mRealm);
-        }
-        return issueDao;
+    public IssueDao newIssueDao() {
+        return new IssueDaoImpl(Realm.getInstance(mRealmConfiguration));
     }
 
-    public UserDao getUserDao() {
-        if (userDao == null) {
-            userDao = new UserDao(mRealm);
-        }
-        return userDao;
-    }
-
-    /**
-     * Closes the Realm instance and all its resources.
-     * see {@link Realm#close()}
-     */
-    public void close() {
-        mRealm.close();
+    public UserDaoImpl getUserDao() {
+        return new UserDaoImpl(Realm.getInstance(mRealmConfiguration));
     }
 
     public void clearAll() {
+        Realm mRealm = Realm.getDefaultInstance();
         mRealm.beginTransaction();
         mRealm.delete(Repository.class);
         mRealm.delete(Issue.class);

@@ -30,9 +30,14 @@ public class RepositoryDetailRepo extends BaseRepo {
     private LiveRealmObject<Repository> data;
 
     @Inject
-    public RepositoryDetailRepo(LifecycleOwner owner, GithubService githubService, RealmDatabase realmDatabase) {
-        super(owner, githubService, realmDatabase);
-        mRepositoryDao = realmDatabase.getRepositoryDao();
+    public RepositoryDetailRepo(GithubService githubService, RealmDatabase realmDatabase) {
+        super(githubService, realmDatabase);
+        mRepositoryDao = realmDatabase.newRepositoryDao();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRepositoryDao.closeRealm();
     }
 
     public LiveRealmObject<Repository> initRepo(@NonNull Long repoId) {

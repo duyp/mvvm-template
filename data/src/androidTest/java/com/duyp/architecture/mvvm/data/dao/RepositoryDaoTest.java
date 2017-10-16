@@ -27,7 +27,13 @@ public class RepositoryDaoTest extends BaseDaoTest {
     @Override
     public void inject(TestAppComponent appComponent) {
         appComponent.inject(this);
-        repositoryDao = realmDatabase.getRepositoryDao();
+        repositoryDao = realmDatabase.newRepositoryDao();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        repositoryDao.closeRealm();
     }
 
     @Test

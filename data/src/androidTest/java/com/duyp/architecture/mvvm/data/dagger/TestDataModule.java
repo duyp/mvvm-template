@@ -37,15 +37,14 @@ public class TestDataModule {
 
     @Provides
     @Singleton
-    protected Realm provideRealm() {
+    RealmConfiguration provideRealmConfiguration() {
         Realm.init(mContext);
-        RealmConfiguration configuration = new RealmConfiguration.Builder().inMemory().name("test-realm").build();
-        return Realm.getInstance(configuration);
+        return new RealmConfiguration.Builder().inMemory().name("test-realm").build();
     }
 
     @Provides
     @Singleton
-    RealmDatabase provideRealmDatabase(Realm realm) {
+    RealmDatabase provideRealmDatabase(RealmConfiguration realm) {
         return new RealmDatabase(realm);
     }
 }

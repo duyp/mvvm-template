@@ -27,13 +27,10 @@ public abstract class BaseRepo {
 
     private final GithubService githubService;
 
-    private final LifecycleOwner owner;
-
     private final RealmDatabase realmDatabase;
 
-    public BaseRepo(LifecycleOwner owner, GithubService githubService, RealmDatabase realmDatabase) {
+    public BaseRepo(GithubService githubService, RealmDatabase realmDatabase) {
         this.githubService = githubService;
-        this.owner = owner;
         this.realmDatabase = realmDatabase;
     }
 
@@ -57,4 +54,6 @@ public abstract class BaseRepo {
             };
         }, BackpressureStrategy.BUFFER);
     }
+
+    public abstract void onDestroy();
 }
