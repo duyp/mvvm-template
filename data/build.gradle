@@ -46,14 +46,18 @@ dependencies {
 
     compile libs.supportAnnotation
 
+    // dagger
     compile libs.dagger
     annotationProcessor libs.daggerCompiler
     androidTestAnnotationProcessor libs.daggerCompiler
 
+    // android utils
     compile libs.androidUtils_core
     compile libs.androidUtils_realm
     compile libs.androidUtils_network
+    compile libs.androidUtils_rx
 
+    // retrofit
     compile libs.retrofit
     compile libs.retrofitRxAdapter
     compile libs.retrofitConverterGson
