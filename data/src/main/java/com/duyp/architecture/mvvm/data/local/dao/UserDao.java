@@ -2,7 +2,6 @@ package com.duyp.architecture.mvvm.data.local.dao;
 
 import com.duyp.androidutils.realm.BaseRealmDao;
 import com.duyp.androidutils.realm.LiveRealmObject;
-import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.User;
 

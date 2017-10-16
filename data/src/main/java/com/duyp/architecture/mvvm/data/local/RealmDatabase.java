@@ -19,7 +19,7 @@ import io.realm.RealmConfiguration;
 
 public class RealmDatabase {
 
-    private final RealmConfiguration mRealmConfiguration;
+    protected final RealmConfiguration mRealmConfiguration;
 
     public RealmDatabase(RealmConfiguration realmConfiguration) {
         this.mRealmConfiguration = realmConfiguration;

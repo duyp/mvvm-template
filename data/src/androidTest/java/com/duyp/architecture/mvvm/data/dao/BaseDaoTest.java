@@ -18,7 +18,6 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 
 /**
@@ -49,41 +48,4 @@ public abstract class BaseDaoTest extends BaseTest {
     }
 
     public abstract void inject(TestAppComponent appComponent);
-
-    User sampleUser(Long id) {
-        return sampleUser(id, "duyp");
-    }
-
-    User sampleUser(Long id, String login) {
-        User user = new User();
-        user.setLogin(login);
-        user.setBio("This is test user");
-        user.setId(id);
-        return user;
-    }
-
-    Issue sampleIssue(Long id) {
-        return sampleIssue(id, 123L);
-    }
-
-    Issue sampleIssue(Long id, Long repoId) {
-        Issue issue = new Issue();
-        issue.setId(id);
-        issue.setRepoId(repoId);
-        issue.setTitle("This is title of issue " + id);
-        issue.setBody("This is body of issue " + id);
-        issue.setCreatedAt(new Date());
-        issue.setUser(sampleUser(43L));
-        issue.setLabels(new RealmList<>());
-        return issue;
-    }
-
-    Repository sampleRepository(Long id, @NonNull User owner) {
-        Repository repository = new Repository();
-        repository.setId(id);
-        repository.setOwner(owner);
-        repository.setName("repo" + id);
-        repository.setFullName(owner.getLogin() + "/" + repository.getName());
-        return repository;
-    }
 }

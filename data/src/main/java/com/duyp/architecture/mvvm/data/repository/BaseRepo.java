@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.data.repository;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;

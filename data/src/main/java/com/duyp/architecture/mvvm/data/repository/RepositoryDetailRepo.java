@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.data.repository;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.support.annotation.NonNull;
 
 import com.duyp.androidutils.realm.LiveRealmObject;

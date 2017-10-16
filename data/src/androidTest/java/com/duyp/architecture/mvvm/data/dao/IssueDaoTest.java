@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static com.duyp.architecture.mvvm.data.TestUtils.sampleIssue;
 
 /**
  * Created by duypham on 9/21/17.

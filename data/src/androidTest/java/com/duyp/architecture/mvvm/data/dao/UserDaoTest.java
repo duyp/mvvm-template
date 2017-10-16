@@ -11,6 +11,8 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+
+import static com.duyp.architecture.mvvm.data.TestUtils.sampleUser;
 /**
  * Created by duypham on 9/21/17.
  *

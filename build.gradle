@@ -47,8 +47,12 @@ ext {
     androidUtilsVersion     = "2.2.3"
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
+
     mockitoVersion          = "1.10.19"
-    dexMakerVersion         = "1.4"
+    powerMockVersion        = "1.6.5"
+    jUnitVersion            = "4.12"
+    espressoVersion         = "2.2.2"
+    robolectricVersion      = "3.3.2"
 
     libraries = [
 
@@ -127,8 +131,17 @@ ext {
     ]
 
     testLibraries = [
-            jUnit           : 'junit:junit:4.12',
-            espresso_core   : 'com.android.support.test.espresso:espresso-core:2.2.2'
+            jUnit                   : "junit:junit:${jUnitVersion}",
+            espresso_core           : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            mockito                 : "org.mockito:mockito-core:${mockitoVersion}",
+
+            // power mockito
+            powerMockito            : "org.powermock:powermock-api-mockito2:${powerMockVersion}",
+            powerMockJUnit          : "org.powermock:powermock-module-junit4:${powerMockVersion}",
+            powerMockRule           : "org.powermock:powermock-module-junit4-rule:${powerMockVersion}",
+            powerMockClassLoading   : "org.powermock:powermock-classloading-xstream:${powerMockVersion}",
+
+            robolectric             : "org.robolectric:robolectric:${robolectricVersion}"
     ]
 }
 

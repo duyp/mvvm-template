@@ -12,8 +12,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.duyp.architecture.mvvm.data.TestUtils.sampleRepoList;
+import static com.duyp.architecture.mvvm.data.TestUtils.sampleRepository;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+
+import static com.duyp.architecture.mvvm.data.TestUtils.sampleUser;
 
 /**
  * Created by duypham on 9/21/17.
@@ -115,17 +119,5 @@ public class RepositoryDaoTest extends BaseDaoTest {
         assertThat(repositoryDao.getRepositoriesWithNameLike("test30").getData().size(), equalTo(1));
         assertThat(repositoryDao.getRepositoriesWithNameLike("st30").getData().size(), equalTo(1));
         assertThat(repositoryDao.getRepositoriesWithNameLike("st3").getData().size(), equalTo(11));
-    }
-
-    private List<Repository> sampleRepoList(int size, @NonNull User owner) {
-        return sampleRepoList(0, size, owner);
-    }
-
-    private List<Repository> sampleRepoList(int startIndex, int size, @NonNull User owner) {
-        List<Repository> list = new ArrayList<>();
-        for (int i = startIndex; i < startIndex + size; i++) {
-            list.add(sampleRepository((long)i, owner));
-        }
-        return list;
     }
 }

@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.data.repository;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
