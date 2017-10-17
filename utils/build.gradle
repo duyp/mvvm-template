@@ -63,5 +63,4 @@ dependencies {
 
     // testing
     testImplementation testLibs.jUnit
-    testImplementation libs.liveData
 }

@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.utils.test;
+package com.duyp.architecture.mvvm.test_utils;
 
 import android.support.annotation.NonNull;
 

@@ -39,33 +39,14 @@ android {
 
 dependencies {
 
-//    compile project(":model")
-//
-//    compile libs.supportAnnotation
-//
-//    compile libs.dagger
-//
-//    // android utils
-//    compile libs.androidUtils_core
-//    compile libs.androidUtils_network
-//    compile libs.androidUtils_rx
-//
-//    // retrofit
-//    compile libs.retrofit
-//    compile libs.retrofitRxAdapter
-//    compile libs.retrofitConverterGson
-//    compile libs.retrofitConverterScalars
-//
-//    compile libs.okhttp
-//    compile libs.okhttpLogging
-//
-//    // testing
-//    testImplementation testLibs.jUnit
-//    testImplementation libs.liveData
+    implementation project(":model")
+
+    implementation libs.supportAnnotation
+    implementation libs.liveData
+    implementation libs.androidUtils_realm
 
     implementation testLibs.jUnit
     implementation testLibs.mockito
-
     implementation testLibs.powerMockito
     implementation testLibs.powerMockJUnit
     implementation testLibs.powerMockRule
