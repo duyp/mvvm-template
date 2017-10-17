@@ -17,12 +17,14 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import lombok.Getter;
+import retrofit2.http.GET;
 
 /**
  * Created by duypham on 9/17/17.
  *
  */
 
+@Getter
 public class IssuesRepo extends BaseRepo {
 
     private Repository mRepository;

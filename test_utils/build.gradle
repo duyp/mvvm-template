@@ -41,6 +41,9 @@ dependencies {
 
     implementation project(":model")
 
+    implementation libs.rxJava
+    implementation libs.rxAndroid
+
     implementation libs.supportAnnotation
     implementation libs.liveData
     implementation libs.androidUtils_realm

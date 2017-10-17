@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.data;
+package com.duyp.architecture.mvvm.test_utils;
 
 
 import org.junit.rules.TestRule;

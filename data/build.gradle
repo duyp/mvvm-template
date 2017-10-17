@@ -75,10 +75,12 @@ dependencies {
     compile libs.eventBus
 
     // testing
-    testImplementation testLibs.jUnit
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito
 
+    testImplementation project(":test_utils")
+
+    testImplementation testLibs.jUnit
     testImplementation testLibs.powerMockito
     testImplementation testLibs.powerMockJUnit
     testImplementation testLibs.powerMockRule
