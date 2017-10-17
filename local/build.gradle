@@ -58,6 +58,9 @@ dependencies {
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
 
+    testImplementation project(":test_utils")
+    androidTestImplementation project(":test_utils")
+
     testImplementation testLibs.jUnit
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito

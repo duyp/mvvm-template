@@ -53,4 +53,7 @@ dependencies {
     implementation testLibs.powerMockClassLoading
 
     implementation testLibs.robolectric
+
+    // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
+    testImplementation 'io.reactivex:rxjava:1.2.9'
 }

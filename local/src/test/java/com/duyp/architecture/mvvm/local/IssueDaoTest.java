@@ -11,13 +11,15 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleIssueList;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initFindAllSorted;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initRealmQuery;
+import static com.duyp.architecture.mvvm.test_utils.TestUtils.sampleIssueList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
-import static org.powermock.api.mockito.PowerMockito.when;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * Created by duypham on 10/16/17.

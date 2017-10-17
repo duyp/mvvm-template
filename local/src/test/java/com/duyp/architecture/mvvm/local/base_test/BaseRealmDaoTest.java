@@ -2,25 +2,21 @@ package com.duyp.architecture.mvvm.local.base_test;
 
 import com.duyp.architecture.mvvm.local.BaseRealmTest;
 
-import org.junit.After;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Matchers;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmModel;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initFindAllSorted;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initRealmQuery;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
