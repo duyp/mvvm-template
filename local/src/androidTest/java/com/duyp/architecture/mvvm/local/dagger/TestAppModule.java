@@ -3,10 +3,10 @@ package com.duyp.architecture.mvvm.local.dagger;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
-import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.local.TestApplication;
 import com.duyp.architecture.mvvm.local.TestConstants;
 import com.duyp.architecture.mvvm.utils.ServiceFactory;
+import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;

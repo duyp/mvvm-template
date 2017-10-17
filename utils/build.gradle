@@ -41,10 +41,11 @@ android {
 
 dependencies {
 
-    compile project(":injection")
     compile project(":model")
 
     compile libs.supportAnnotation
+
+    compile libs.dagger
 
     // android utils
     compile libs.androidUtils_core

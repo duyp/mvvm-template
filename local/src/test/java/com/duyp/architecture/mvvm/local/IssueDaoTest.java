@@ -11,7 +11,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleIssueList;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleIssueList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;

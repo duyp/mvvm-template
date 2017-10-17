@@ -41,7 +41,6 @@ android {
 
 dependencies {
 
-    compile project(":injection")
     compile project(":local")
     compile project(":utils")
 

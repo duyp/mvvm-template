@@ -6,6 +6,7 @@ import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
+import com.duyp.architecture.mvvm.local.dao.UserDao;
 import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.User;
 
@@ -20,7 +21,7 @@ import io.reactivex.Flowable;
 
 public class UserRepo extends BaseRepo{
 
-    private final UserDaoImpl userDao;
+    private final UserDao userDao;
 
     private LiveRealmObject<User> user;
 

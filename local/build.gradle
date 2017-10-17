@@ -40,8 +40,8 @@ android {
 }
 
 dependencies {
-    implementation project(":injection")
     implementation project(":model")
+    implementation project(":utils")
 
     implementation libs.supportAnnotation
 
@@ -55,9 +55,6 @@ dependencies {
     implementation libs.parceler
 
     // testing
-    testImplementation project(":utils")
-    androidTestImplementation project(":utils")
-
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
 

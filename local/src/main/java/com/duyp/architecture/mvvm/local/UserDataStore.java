@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.CustomSharedPreferences;
+import com.duyp.architecture.mvvm.local.dao.UserDao;
 import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.User;
 import com.google.gson.Gson;
@@ -30,7 +31,7 @@ public class UserDataStore {
     @NonNull
     private final MutableLiveData<User> mUserLiveData;
 
-    private final UserDaoImpl userDao;
+    private final UserDao userDao;
 
     @Inject
     public UserDataStore(@NonNull CustomSharedPreferences sharedPreferences, @NonNull Gson gson, RealmDatabase realmDatabase) {

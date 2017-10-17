@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.realm.LiveRealmResultPair;
+import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.local.dagger.DaggerTestComponent;
 import com.duyp.architecture.mvvm.local.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dagger.TestDataModule;
@@ -118,18 +119,18 @@ public abstract class BaseRealmTest {
         verify(mockRealm, times(1)).commitTransaction();
     }
 
-    public <T extends RealmObject> RealmQuery<T> initRealmQuery(Realm realm, Class<T> tClass) {
+    public static <T extends RealmObject> RealmQuery<T> initRealmQuery(Realm realm, Class<T> tClass) {
         RealmQuery<T> query = mockRealmQuery();
         when(realm.where(tClass)).thenReturn(query);
         when(query.equalTo(anyString(), anyLong())).thenReturn(query);
         return query;
     }
 
-    public <T extends RealmObject> RealmResults<T> initFindAllSorted(RealmQuery<T> query) throws Exception {
+    public static <T extends RealmObject> RealmResults<T> initFindAllSorted(RealmQuery<T> query) throws Exception {
         return initFindAllSorted(query, null);
     }
 
-    public <T extends RealmObject> RealmResults<T> initFindAllSorted(RealmQuery<T> query, @Nullable List<T> returnValue) throws Exception {
+    public static <T extends RealmObject> RealmResults<T> initFindAllSorted(RealmQuery<T> query, @Nullable List<T> returnValue) throws Exception {
         RealmResults<T> realmResults = mockRealmResults();
         initLiveRealmResults(realmResults);
         when(query.findAll()).thenReturn(realmResults);
@@ -146,20 +147,21 @@ public abstract class BaseRealmTest {
         return realmResults;
     }
 
-    public <T extends RealmObject> void initLiveRealmResults(RealmResults<T> results) throws Exception {
+    public static <T extends RealmObject> LiveRealmResults<T> initLiveRealmResults(RealmResults<T> results) throws Exception {
         // noinspection unchecked
         LiveRealmResultPair<T> pair = mock(LiveRealmResultPair.class);
         PowerMockito.whenNew(LiveRealmResultPair.class).withAnyArguments().thenReturn(pair);
         when(pair.getData()).thenReturn(results);
+        return LiveRealmResults.asLiveData(results);
     }
 
     @SuppressWarnings("unchecked")
-    protected  <T extends RealmObject> RealmQuery<T> mockRealmQuery() {
+    public  static <T extends RealmObject> RealmQuery<T> mockRealmQuery() {
         return mock(RealmQuery.class);
     }
 
     @SuppressWarnings("unchecked")
-    protected <T extends RealmObject> RealmResults<T> mockRealmResults() {
+    public static <T extends RealmObject> RealmResults<T> mockRealmResults() {
         return mock(RealmResults.class);
     }
 }

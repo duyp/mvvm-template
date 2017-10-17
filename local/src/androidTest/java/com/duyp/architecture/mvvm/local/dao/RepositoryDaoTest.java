@@ -9,9 +9,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleRepoList;
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleRepository;
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleUser;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleRepoList;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleRepository;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 

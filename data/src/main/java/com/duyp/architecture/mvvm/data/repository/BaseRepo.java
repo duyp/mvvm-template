@@ -33,7 +33,6 @@ public abstract class BaseRepo {
         this.realmDatabase = realmDatabase;
     }
 
-
     protected <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<Response<T>> remote,
                                                        @Nullable PlainConsumer<T> onSave) {
         return Flowable.create(emitter -> {

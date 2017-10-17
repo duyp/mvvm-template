@@ -5,7 +5,7 @@ import android.content.Context;
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.data.TestApplication;
 import com.duyp.architecture.mvvm.data.TestConstants;
-import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
+import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.utils.ServiceFactory;
 import com.google.gson.Gson;
 

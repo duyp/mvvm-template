@@ -4,6 +4,7 @@ import com.duyp.architecture.mvvm.local.dao.IssueDao;
 import com.duyp.architecture.mvvm.local.dao.IssueDaoImpl;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDaoImpl;
+import com.duyp.architecture.mvvm.local.dao.UserDao;
 import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.Issue;
 import com.duyp.architecture.mvvm.model.Repository;
@@ -33,7 +34,7 @@ public class RealmDatabase {
         return new IssueDaoImpl(Realm.getInstance(mRealmConfiguration));
     }
 
-    public UserDaoImpl getUserDao() {
+    public UserDao getUserDao() {
         return new UserDaoImpl(Realm.getInstance(mRealmConfiguration));
     }
 

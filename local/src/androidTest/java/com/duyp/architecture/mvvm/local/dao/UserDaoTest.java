@@ -7,7 +7,7 @@ import com.duyp.architecture.mvvm.model.User;
 
 import org.junit.Test;
 
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleUser;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 

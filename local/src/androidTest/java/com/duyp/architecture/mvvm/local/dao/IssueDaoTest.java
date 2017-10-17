@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.duyp.architecture.mvvm.utils.TestUtils.sampleIssue;
+import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleIssue;
 import static org.junit.Assert.assertEquals;
 
 /**
