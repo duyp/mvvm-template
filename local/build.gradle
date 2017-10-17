@@ -58,10 +58,14 @@ dependencies {
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
 
-    androidTestImplementation testLibs.espresso_core
+    // android test
+    androidTestImplementation testLibs.jUnit;
+    androidTestImplementation testLibs.hamcrest;
+    androidTestImplementation testLibs.supportTestRunner;
 
     testImplementation project(":test_utils")
 
+    testImplementation testLibs.hamcrest
     testImplementation testLibs.jUnit
     testImplementation testLibs.mockito
     testImplementation testLibs.powerMockito
