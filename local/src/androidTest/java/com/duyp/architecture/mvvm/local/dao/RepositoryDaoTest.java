@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.local.dao;
 
 import com.duyp.architecture.mvvm.local.dagger.TestAppComponent;
+import com.duyp.architecture.mvvm.model.ModelUtils;
 import com.duyp.architecture.mvvm.model.Repository;
 import com.duyp.architecture.mvvm.model.User;
 
@@ -9,12 +10,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleRepoList;
-import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleRepository;
-import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleUser;
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepoList;
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
 /**
  * Created by duypham on 9/21/17.
  *

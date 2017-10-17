@@ -58,18 +58,16 @@ dependencies {
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
 
+    androidTestImplementation testLibs.espresso_core
+
     testImplementation project(":test_utils")
-    androidTestImplementation project(":test_utils")
 
     testImplementation testLibs.jUnit
-    androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito
-
     testImplementation testLibs.powerMockito
     testImplementation testLibs.powerMockJUnit
     testImplementation testLibs.powerMockRule
     testImplementation testLibs.powerMockClassLoading
-
     testImplementation testLibs.robolectric
 
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable

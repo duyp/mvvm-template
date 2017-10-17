@@ -7,10 +7,10 @@ import com.duyp.architecture.mvvm.model.User;
 
 import org.junit.Test;
 
-import static com.duyp.architecture.mvvm.utils.test.TestUtils.sampleUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
 /**
  * Created by duypham on 9/21/17.
  *
@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserDaoTest extends BaseDaoTest {
 
-    private UserDaoImpl userDao;
+    private UserDao userDao;
 
     @Override
     public void inject(TestAppComponent appComponent) {

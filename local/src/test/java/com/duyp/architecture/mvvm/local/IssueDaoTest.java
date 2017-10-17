@@ -13,7 +13,8 @@ import io.realm.Sort;
 
 import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initFindAllSorted;
 import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initRealmQuery;
-import static com.duyp.architecture.mvvm.test_utils.TestUtils.sampleIssueList;
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleIssueList;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;

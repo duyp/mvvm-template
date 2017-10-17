@@ -1,10 +1,6 @@
-package com.duyp.architecture.mvvm.test_utils;
+package com.duyp.architecture.mvvm.model;
 
 import android.support.annotation.NonNull;
-
-import com.duyp.architecture.mvvm.model.Issue;
-import com.duyp.architecture.mvvm.model.Repository;
-import com.duyp.architecture.mvvm.model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +13,7 @@ import io.realm.RealmList;
  *
  */
 
-public class TestUtils {
+public class ModelUtils {
 
     // =======================================================================================
     // Sample Users creator
