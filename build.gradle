@@ -44,7 +44,7 @@ ext {
     retrofitVersion         = "2.3.0"
     rxJavaVersion           = "2.1.5"
     rxAndroidVersion        = "2.0.1"
-    androidUtilsVersion     = "2.2.3"
+    androidUtilsVersion     = "2.2.5"
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
 

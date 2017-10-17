@@ -4,14 +4,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.duyp.androidutils.realm.LiveRealmResults;
-import com.duyp.architecture.mvvm.data.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.local.UserDataStore;
-import com.duyp.architecture.mvvm.data.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.data.model.Repository;
-import com.duyp.architecture.mvvm.data.model.User;
-import com.duyp.architecture.mvvm.data.model.def.RepoTypes;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.local.RealmDatabase;
+import com.duyp.architecture.mvvm.local.UserDataStore;
+import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
+import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.User;
+import com.duyp.architecture.mvvm.model.def.RepoTypes;
 
 import java.util.List;
 

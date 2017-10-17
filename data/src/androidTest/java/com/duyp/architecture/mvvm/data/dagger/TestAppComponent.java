@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.data.dagger;
 
-import com.duyp.architecture.mvvm.data.TestApplication;
 import com.duyp.architecture.mvvm.data.dao.IssueDaoTest;
 import com.duyp.architecture.mvvm.data.dao.RepositoryDaoTest;
 import com.duyp.architecture.mvvm.data.dao.UserDaoTest;

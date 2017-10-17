@@ -1,6 +1,6 @@
 package com.duyp.architecture.mvvm.data.remote;
 
-import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.model.User;
 
 import io.reactivex.Single;
 import retrofit2.Response;

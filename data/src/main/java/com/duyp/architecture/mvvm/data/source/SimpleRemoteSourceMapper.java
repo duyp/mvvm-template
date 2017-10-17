@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.data.source;
 
 import android.util.Log;
 
-import com.duyp.architecture.mvvm.data.ApiUtils;
+import com.duyp.architecture.mvvm.utils.ApiUtils;
 
 import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;

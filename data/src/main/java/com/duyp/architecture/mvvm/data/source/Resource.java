@@ -3,7 +3,9 @@ package com.duyp.architecture.mvvm.data.source;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.duyp.architecture.mvvm.data.source.Status.*;
+import static com.duyp.architecture.mvvm.data.source.Status.ERROR;
+import static com.duyp.architecture.mvvm.data.source.Status.LOADING;
+import static com.duyp.architecture.mvvm.data.source.Status.SUCCESS;
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>

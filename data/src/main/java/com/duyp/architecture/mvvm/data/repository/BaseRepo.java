@@ -3,10 +3,10 @@ package com.duyp.architecture.mvvm.data.repository;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.data.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper;
+import com.duyp.architecture.mvvm.local.RealmDatabase;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;

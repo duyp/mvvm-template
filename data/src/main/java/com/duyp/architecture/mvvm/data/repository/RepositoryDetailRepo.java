@@ -3,12 +3,12 @@ package com.duyp.architecture.mvvm.data.repository;
 import android.support.annotation.NonNull;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
-import com.duyp.architecture.mvvm.data.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.data.model.Repository;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.injection.scopes.PerFragment;
+import com.duyp.architecture.mvvm.local.RealmDatabase;
+import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
+import com.duyp.architecture.mvvm.model.Repository;
 
 import javax.inject.Inject;
 

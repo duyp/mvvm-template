@@ -37,12 +37,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
 
     compile project(":injection")
+    compile project(":local")
+    compile project(":utils")
 
     compile libs.supportAnnotation
 

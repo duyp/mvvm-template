@@ -2,11 +2,12 @@ package com.duyp.architecture.mvvm.data.remote;
 
 import android.support.annotation.Nullable;
 
-import com.duyp.architecture.mvvm.data.model.Commit;
-import com.duyp.architecture.mvvm.data.model.Issue;
-import com.duyp.architecture.mvvm.data.model.Repository;
-import com.duyp.architecture.mvvm.data.model.User;
-import com.duyp.architecture.mvvm.data.model.def.RepoTypes;
+import com.duyp.architecture.mvvm.model.Commit;
+import com.duyp.architecture.mvvm.model.Issue;
+import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.User;
+import com.duyp.architecture.mvvm.model.def.RepoTypes;
+import com.duyp.architecture.mvvm.utils.RemoteConstants;
 
 import java.util.List;
 
