@@ -24,7 +24,9 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * Created by duypham on 10/17/17.
- *
+ * Test all functions in {@link com.duyp.androidutils.realm.BaseRealmDao}
+ * Since all DAOs we would create is rely on {@link com.duyp.androidutils.realm.BaseRealmDaoImpl},
+ * thus this tests is most importance in this module
  */
 
 public class BaseRealmDaoTest extends BaseRealmTest {
