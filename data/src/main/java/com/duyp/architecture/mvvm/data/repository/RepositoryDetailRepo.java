@@ -20,12 +20,11 @@ import lombok.Getter;
  *
  */
 
-@PerFragment
+@Getter
 public class RepositoryDetailRepo extends BaseRepo {
 
     private final RepositoryDao mRepositoryDao;
 
-    @Getter
     private LiveRealmObject<Repository> data;
 
     @Inject

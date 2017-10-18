@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.data.dagger;
 
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
+import com.duyp.architecture.mvvm.local.UserDataStore;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 
@@ -18,10 +19,18 @@ import dagger.Provides;
 @Module
 public class DataModule {
 
-    RealmDatabase mockRealmDatabase;
+    private final RealmDatabase mockRealmDatabase;
+    private final UserDataStore mockUserDataStore;
 
-    public DataModule(RealmDatabase mockRealmDatabase) {
+    public DataModule(RealmDatabase mockRealmDatabase, UserDataStore userDataStore) {
         this.mockRealmDatabase = mockRealmDatabase;
+        this.mockUserDataStore = userDataStore;
+    }
+
+    @Provides
+    @Singleton
+    UserDataStore provideUserDataStore() {
+        return mockUserDataStore;
     }
 
     @Provides

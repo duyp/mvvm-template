@@ -48,9 +48,9 @@ public class RepositoriesRepo extends BaseRepo {
     /**
      * Get all public repositories from github api
      * @param sinceId last repository item got
-     * @return
+     * @return resource mapper flowable
      */
-    public Flowable<Resource<List<Repository>>> getAllRepositories(Long sinceId) {
+    public Flowable<Resource<List<Repository>>> getAllRepositories(@Nullable Long sinceId) {
         Log.d(TAG, "RepositoriesRepo: getting all repo with sinceId = " + sinceId);
         if (sinceId != null) {
             currentPage ++;
@@ -65,7 +65,7 @@ public class RepositoriesRepo extends BaseRepo {
     /**
      * Find repositories by given repository name
      * @param repoName
-     * @return
+     * @return resource mapper flowable
      */
     public Flowable<Resource<List<Repository>>> findRepositories(String repoName) {
         Log.d(TAG, "RepositoriesRepo: finding repo: " + repoName);
@@ -77,7 +77,7 @@ public class RepositoriesRepo extends BaseRepo {
      * Get repositories of given user
      * if given user is current saved user, we get his own repositories by {@link GithubService#getMyRepositories(String)}
      * @param userNameLogin user login name
-     * @return
+     * @return resource mapper flowable
      */
     public Flowable<Resource<List<Repository>>> getUserRepositories(String userNameLogin) {
         data = repositoryDao.getUserRepositories(userNameLogin);
