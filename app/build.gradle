@@ -23,9 +23,25 @@ android {
         }
     }
 
+//    productFlavors {
+//        devBackend {
+//            applicationIdSuffix ".dev"
+//            resValue "string", "app_name", "MVVM Dev"
+//            buildConfigField "String", "BASE_URL", "\"github Base URL\""
+//        }
+//        productionBackend {
+//            resValue "string", "app_name", "MVVM Production"
+//            buildConfigField "String", "BASE_URL", "\"github Base URL\""
+//        }
+//    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     lintOptions {
@@ -39,9 +55,6 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
     }
-
-
-
 }
 
 dependencies {
@@ -55,6 +68,8 @@ dependencies {
     implementation libs.androidUtils_realm
     implementation libs.androidUtils_glide
     implementation libs.androidUtils_navigation
+
+    implementation libs.rxPermission
 
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
