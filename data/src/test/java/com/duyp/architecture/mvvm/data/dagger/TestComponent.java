@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.data.dagger;
 
+import com.duyp.architecture.mvvm.data.UserManagerTest;
 import com.duyp.architecture.mvvm.data.repository.IssuesRepoTest;
 import com.duyp.architecture.mvvm.data.repository.RepositoriesRepoTest;
 import com.duyp.architecture.mvvm.data.repository.RepositoryDetailRepoTest;
@@ -22,4 +23,5 @@ public interface TestComponent {
     void inject(IssuesRepoTest test);
     void inject(RepositoriesRepoTest test);
     void inject(RepositoryDetailRepoTest test);
+    void inject(UserManagerTest test);
 }

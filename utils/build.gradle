@@ -47,6 +47,9 @@ dependencies {
 
     compile libs.dagger
 
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
     // android utils
     compile libs.androidUtils_core
     compile libs.androidUtils_network

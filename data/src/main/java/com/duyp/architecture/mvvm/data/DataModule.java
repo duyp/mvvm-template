@@ -3,9 +3,9 @@ package com.duyp.architecture.mvvm.data;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
+import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.UserDataStore;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -33,6 +33,12 @@ public class DataModule {
     @Singleton
     UserDataStore provideUserRepo(CustomSharedPreferences sharedPreferences, Gson gson, RealmDatabase database) {
         return new UserDataStore(sharedPreferences, gson, database);
+    }
+
+    @Provides
+    @Singleton
+    UserManager provideUserManager(UserDataStore userDataStore, GithubService githubService) {
+        return new UserManager(mContext, userDataStore, githubService);
     }
 
     @Provides

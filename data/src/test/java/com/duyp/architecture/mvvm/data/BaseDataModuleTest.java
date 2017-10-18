@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.data.repository;
+package com.duyp.architecture.mvvm.data;
 
 import android.arch.lifecycle.MutableLiveData;
 
@@ -7,7 +7,6 @@ import com.duyp.architecture.mvvm.data.dagger.DataModule;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.UserDataStore;
 import com.duyp.architecture.mvvm.model.User;
 import com.duyp.architecture.mvvm.test_utils.RxSchedulersOverrideRule;
 
@@ -24,7 +23,6 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
-import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
@@ -34,7 +32,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RealmResults.class, RealmQuery.class, MutableLiveData.class})
-public abstract class BaseRepoTest {
+public abstract class BaseDataModuleTest {
 
     @Rule
     public RxSchedulersOverrideRule rxSchedulersOverrideRule = new RxSchedulersOverrideRule();
@@ -62,8 +60,7 @@ public abstract class BaseRepoTest {
         // noinspection unchecked
         mMockUserLiveData = PowerMockito.mock(MutableLiveData.class);
         mockUserDataStore = PowerMockito.mock(UserDataStore.class);
-        when(mockUserDataStore.getUser()).thenReturn(mUser);
-        when(mMockUserLiveData.getValue()).thenReturn(mUser);
+
         when(mockUserDataStore.getUserLiveData()).thenReturn(mMockUserLiveData);
 
         // ============ init test component ===================
@@ -71,6 +68,11 @@ public abstract class BaseRepoTest {
                 .dataModule(new DataModule(mockRealmDatabase, mockUserDataStore))
                 .build();
         inject(testComponent);
+    }
+
+    protected void initUserSession() {
+        when(mMockUserLiveData.getValue()).thenReturn(mUser);
+        when(mockUserDataStore.getUser()).thenReturn(mUser);
     }
 
     /**

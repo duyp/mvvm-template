@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.local;
+package com.duyp.architecture.mvvm.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.CustomSharedPreferences;
+import com.duyp.architecture.mvvm.local.Constants;
+import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.dao.UserDao;
 import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.User;
@@ -20,7 +22,7 @@ import javax.inject.Inject;
 
 public class UserDataStore {
 
-    private static final long USER_ID_NOT_EXIST = -1;
+    public static final long USER_ID_NOT_EXIST = -1;
 
     @NonNull
     private final Gson mGson;
@@ -51,7 +53,7 @@ public class UserDataStore {
      */
     public LiveData<User> setUser(@NonNull User user) {
         mSharedPreferences.setPreferences(Constants.PREF_USER, mGson.toJson(user));
-        mUserLiveData.setValue(user);
+        setUserLiveDataValueSafely(user);
         userDao.addOrUpdate(user);
         return mUserLiveData;
     }
@@ -111,7 +113,7 @@ public class UserDataStore {
         mSharedPreferences.setPreferences(Constants.PREF_USER_ID, USER_ID_NOT_EXIST);
         mSharedPreferences.setPreferences(Constants.PREF_USER_TOKEN, "");
         mSharedPreferences.setPreferences(Constants.PREF_USER, "");
-        mUserLiveData.setValue(null);
+        setUserLiveDataValueSafely(null);
     }
 
     /**
@@ -131,5 +133,20 @@ public class UserDataStore {
     public User cloneUser(@NonNull User user) {
         String userJson = mGson.toJson(user);
         return fromJson(userJson);
+    }
+
+
+    /**
+     * Safely update value for mUserLiveData
+     * in case of can't perform {@link MutableLiveData#setValue(Object)} (not in mainThread),
+     * we should use postValue instead
+     * @param user user to be set
+     */
+    private void setUserLiveDataValueSafely(User user) {
+        try {
+            mUserLiveData.setValue(user); // in case of can't perform setValue (not in mainThread), we should use postValueInstead
+        } catch (Exception e) {
+            mUserLiveData.postValue(user);
+        }
     }
 }

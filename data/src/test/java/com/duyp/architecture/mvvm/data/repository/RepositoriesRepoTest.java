@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.data.repository;
 
 import com.duyp.androidutils.realm.LiveRealmResults;
+import com.duyp.architecture.mvvm.data.BaseDataModuleTest;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Repository;
@@ -36,7 +37,7 @@ import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepoList;
  * Created by duypham on 10/18/17.
  *
  */
-public class RepositoriesRepoTest extends BaseRepoTest {
+public class RepositoriesRepoTest extends BaseDataModuleTest {
 
     @Inject
     RepositoriesRepo repositoriesRepo;
@@ -47,6 +48,7 @@ public class RepositoriesRepoTest extends BaseRepoTest {
     protected void inject(TestComponent component) throws Exception {
         repositoryDao = mock(RepositoryDao.class);
         when(mockRealmDatabase.newRepositoryDao()).thenReturn(repositoryDao);
+        initUserSession();
         component.inject(this);
     }
 
@@ -127,7 +129,6 @@ public class RepositoriesRepoTest extends BaseRepoTest {
 
     @Test
     public void getMyUserRepositoriesSuccess() throws Exception {
-
         List<Repository> list = sampleRepoList(10, sampleUser(111L, "abcd"));
         when(githubService.getMyRepositories(any())).thenReturn(successResponse(list));
 

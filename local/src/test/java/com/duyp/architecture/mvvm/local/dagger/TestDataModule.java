@@ -18,12 +18,6 @@ public class TestDataModule {
 
     public TestDataModule() {}
 
-//    @Provides
-//    @Singleton
-//    UserDataStore provideUserRepo(CustomSharedPreferences sharedPreferences, Gson gson, RealmDatabase database) {
-//        return new UserDataStore(sharedPreferences, gson, database);
-//    }
-
     @Provides
     @Singleton
     RealmConfiguration provideRealmConfiguration() {

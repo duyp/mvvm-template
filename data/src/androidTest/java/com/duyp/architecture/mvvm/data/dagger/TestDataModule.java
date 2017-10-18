@@ -5,7 +5,7 @@ import android.content.Context;
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.UserDataStore;
+import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;

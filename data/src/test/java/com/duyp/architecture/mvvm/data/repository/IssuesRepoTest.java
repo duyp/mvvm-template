@@ -2,10 +2,8 @@ package com.duyp.architecture.mvvm.data.repository;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.androidutils.realm.LiveRealmResults;
+import com.duyp.architecture.mvvm.data.BaseDataModuleTest;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
-import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.source.Resource;
-import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.local.dao.IssueDao;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Issue;
@@ -25,18 +23,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
 import io.realm.RealmResults;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -49,7 +43,7 @@ import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.*;
  * Created by duypham on 10/17/17.
  *
  */
-public class IssuesRepoTest extends BaseRepoTest {
+public class IssuesRepoTest extends BaseDataModuleTest {
 
     private static final Long sampleRepoId = 10L;
 

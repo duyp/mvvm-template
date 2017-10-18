@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 def cfg = rootProject.ext.configuration;
 def libs = rootProject.ext.libraries;
+def testLibs = rootProject.ext.testLibraries
 
 android {
     compileSdkVersion cfg.compileVersion
@@ -45,12 +46,35 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
 
-//    compile project(":data")
+    implementation project(":data")
 
-    compile libs.supportAppCompatV7
+    implementation libs.supportAppCompatV7
+
+    implementation libs.androidUtils_core
+    implementation libs.androidUtils_realm
+    implementation libs.androidUtils_glide
+    implementation libs.androidUtils_navigation
+
+    debugImplementation libs.leakCanary
+    releaseImplementation libs.leakCanaryNoOp
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    // testing
+    testImplementation project(":test_utils")
+
+    androidTestImplementation testLibs.espresso_core
+
+    testImplementation testLibs.mockito
+    testImplementation testLibs.jUnit
+    testImplementation testLibs.powerMockito
+    testImplementation testLibs.powerMockJUnit
+    testImplementation testLibs.powerMockRule
+    testImplementation testLibs.powerMockClassLoading
+    testImplementation testLibs.robolectric
+
+    // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
+    testImplementation 'io.reactivex:rxjava:1.2.9'
 }

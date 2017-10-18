@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.data.repository;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
+import com.duyp.architecture.mvvm.data.BaseDataModuleTest;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Repository;
@@ -30,7 +31,7 @@ import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successRespo
  * Created by duypham on 10/18/17.
  *
  */
-public class RepositoryDetailRepoTest extends BaseRepoTest{
+public class RepositoryDetailRepoTest extends BaseDataModuleTest {
 
     @Inject
     RepositoryDetailRepo repositoryDetailRepo;

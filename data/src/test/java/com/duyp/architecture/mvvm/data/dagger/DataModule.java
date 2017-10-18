@@ -1,8 +1,11 @@
 package com.duyp.architecture.mvvm.data.dagger;
 
+import android.content.Context;
+
+import com.duyp.architecture.mvvm.data.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.UserDataStore;
+import com.duyp.architecture.mvvm.data.UserDataStore;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 
@@ -31,6 +34,12 @@ public class DataModule {
     @Singleton
     UserDataStore provideUserDataStore() {
         return mockUserDataStore;
+    }
+
+    @Provides
+    @Singleton
+    UserManager provideUserManager(GithubService githubService) {
+        return new UserManager(mock(Context.class), mockUserDataStore, githubService);
     }
 
     @Provides
