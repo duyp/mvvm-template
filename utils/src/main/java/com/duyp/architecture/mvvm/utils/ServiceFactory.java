@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -72,16 +73,20 @@ public class ServiceFactory {
         }
 
         // : 4/26/2017 add the UnauthorisedInterceptor to this retrofit, or 401
-        OkHttpClient.Builder builder = null;
+        OkHttpClient.Builder builder;
         builder = new OkHttpClient.Builder()
                 //.addInterceptor(new UnauthorisedInterceptor(context))
                 .addInterceptor(chain -> {
-                    // github accept header
-                    // https://developer.github.com/v3/#current-version
-                    Request.Builder requestBuilder = chain.request().newBuilder()
-                            .addHeader("Accept", "application/vnd.github.v3+json");
+                    Request request = chain.request();
+                    Request.Builder requestBuilder = request.newBuilder();
 
-                    String header = chain.request().header(RemoteConstants.HEADER_AUTH);
+                    if (TextUtils.isEmpty(request.header("Accept"))) {
+                        // github accept header
+                        // https://developer.github.com/v3/#current-version
+                        requestBuilder.addHeader("Accept", "application/vnd.github.v3+json");
+                    }
+
+                    String header = request.header(RemoteConstants.HEADER_AUTH);
 
                     String token;
                     if (TextUtils.isEmpty(header) && !(token = producer.getUserToken()).isEmpty()) {
@@ -178,7 +183,7 @@ public class ServiceFactory {
         @Override
         public Date deserialize(JsonElement element, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
             String date = element.getAsString();
-            SimpleDateFormat formatter = new SimpleDateFormat(RemoteConstants.DATE_TIME_FORMAT);
+            SimpleDateFormat formatter = new SimpleDateFormat(RemoteConstants.DATE_TIME_FORMAT, Locale.getDefault());
             formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             try {
                 return formatter.parse(date);

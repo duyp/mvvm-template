@@ -22,17 +22,20 @@ public final class ApiUtils {
 
     /**
      * Create new retrofit api request
-     * @param request observable request
-     * @param shouldUpdateUi true if should update UI after response returned
-     * @param responseConsumer consume response data
-     * @param errorConsumer consume errors
+     * @param request single api request
+     * @param shouldUpdateUi true if should update UI after request done
+     * @param responseConsumer consume parsed response data (in pojo object)
+     * @param errorConsumer consume {@link ErrorEntity} object which is construct by which error is occurred
+     *                      with a code and an message (will be shown to user)
+     *                      the error might by a HttpException, Runtime Exception, or an error respond from back-end api...
+     *
      * @param <T> Type of response body
+     * @return a disposable
      */
     public static <T> Disposable makeRequest(
             Single<Response<T>> request, boolean shouldUpdateUi,
             @NonNull PlainConsumer<T> responseConsumer,
-            @Nullable PlainConsumer<ErrorEntity> errorConsumer,
-            @Nullable Action onComplete) {
+            @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
 
         Single<Response<T>> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
         if (shouldUpdateUi) {
@@ -45,9 +48,6 @@ public final class ApiUtils {
             } else if (errorConsumer != null) {
                 errorConsumer.accept(ErrorEntity.getError(response.message()));
             }
-            if (onComplete != null) {
-                onComplete.run();
-            }
         }, throwable -> {
             if (throwable instanceof RuntimeException) {
                 // must be fixed while developing
@@ -57,68 +57,6 @@ public final class ApiUtils {
             if (errorConsumer != null) {
                 errorConsumer.accept(ErrorEntity.getError(throwable));
             }
-            if (onComplete != null) {
-                onComplete.run();
-            }
         });
     }
-
-    public static <T> Disposable makeRequest(Single<Response<T>> request, boolean shouldUpdateUi, @NonNull PlainConsumer<T> responseConsumer) {
-        return makeRequest(request, shouldUpdateUi, responseConsumer, null, null);
-    }
-
-    public static <T> Disposable makeRequest(Single<Response<T>> request, boolean shouldUpdateUi,
-                                             @NonNull PlainConsumer<T> responseConsumer,
-                                             @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
-        return makeRequest(request, shouldUpdateUi, responseConsumer, errorConsumer, null);
-    }
-
-
-    /// for RESOURCE processing
-//    /**
-//     * Create new retrofit api request
-//     * @param request observable request
-//     * @param shouldUpdateUi true if should update UI after response returned
-//     * @param responseConsumer consume response data
-//     * @param errorConsumer consume errors
-//     * @param <T> Type of response body
-//     */
-//    public static <T> Disposable makeRequest(
-//            Single<Response<T>> request, boolean shouldUpdateUi,
-//            @NonNull PlainConsumer<T> responseConsumer,
-//            @Nullable PlainConsumer<ErrorEntity> errorConsumer,
-//            @Nullable Action onComplete) {
-//
-//        Single<Response<T>> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
-//        if (shouldUpdateUi) {
-//            single = single.observeOn(AndroidSchedulers.mainThread());
-//        }
-//
-//        return single.subscribe(response -> {
-//            if (response.isSuccessful()) {
-//                responseConsumer.accept(response.body());
-//            } else if (errorConsumer != null) {
-//                errorConsumer.accept(ErrorEntity.getError(response.message()));
-//            }
-//            if (onComplete != null) {
-//                onComplete.run();
-//            }
-//        }, throwable -> {
-//            if (throwable instanceof RuntimeException) {
-//                // must be fixed while developing
-//                throw new Exception(throwable);
-//            }
-//            // handle error
-//            if (errorConsumer != null) {
-//                errorConsumer.accept(ErrorEntity.getError(throwable));
-//            }
-//            if (onComplete != null) {
-//                onComplete.run();
-//            }
-//        });
-//    }
-//
-//    public static <T> Disposable makeRequest(Single<Response<T>> request, boolean shouldUpdateUi, @NonNull PlainConsumer<T> responseConsumer) {
-//        return makeRequest(request, shouldUpdateUi, responseConsumer, null, null);
-//    }
 }
