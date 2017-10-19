@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
-import com.duyp.architecture.mvvm.utils.scopes.PerFragment;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Repository;

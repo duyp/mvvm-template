@@ -2,9 +2,6 @@ package com.duyp.architecture.mvvm.base.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +9,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -20,61 +16,36 @@ import android.view.ViewTreeObserver;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.androidutils.CommonUtils;
-import com.duyp.androidutils.functions.PlainAction;
-import com.duyp.androidutils.functions.PlainConsumer;
-import com.duyp.architecture.mvp.app.MyApplication;
-import com.duyp.architecture.mvp.base.BaseView;
-import com.duyp.architecture.mvp.dagger.InjectionHelper;
-import com.duyp.architecture.mvp.dagger.component.ActivityComponent;
-import com.duyp.architecture.mvp.dagger.component.DaggerActivityComponent;
-import com.duyp.architecture.mvp.dagger.component.UserActivityComponent;
-import com.duyp.architecture.mvp.dagger.module.ActivityModule;
-import com.duyp.architecture.mvp.data.local.user.UserManager;
-import com.duyp.architecture.mvp.data.model.base.ErrorEntity;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.ButterKnife;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Created by Duy Pham on 12/29/2015.
- * Base activity
+ * Base activity that will be injected automatically by implementing {@link HasSupportFragmentInjector}
+ * SEE {@link com.duyp.architecture.mvvm.injection.AppInjector}
+ * All fragment inside this activity is injected as well
  */
-public abstract class BaseActivity extends BasePermissionActivity implements BaseView, LifecycleRegistryOwner {
+public abstract class BaseActivity extends BasePermissionActivity implements HasSupportFragmentInjector {
 
-    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return mRegistry;
-    }
-
-    private ActivityComponent mActivityComponent;
-
-    private UserActivityComponent mUserActivityComponent;
-
+    @Inject
     protected RefWatcher refWatcher;
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        // for custom font
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+    // dispatch android injector to all fragments
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        refWatcher = MyApplication.get(this).getRefWatcher();
 
-        if (shouldUseLayoutStableFullscreen()) {
-            View decorView = getWindow().getDecorView();
-            // Hide the status bar.
-            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
+        setupLayoutStableFullscreen();
 
         setContentView(getLayout());
 
@@ -82,23 +53,15 @@ public abstract class BaseActivity extends BasePermissionActivity implements Bas
             ActivityCompat.postponeEnterTransition(this);
         }
 
-        ButterKnife.bind(this);
         CommonUtils.hideSoftKeyboard(this);
     }
 
-    protected void ensureInUserScope(@NonNull PlainConsumer<UserActivityComponent> componentConsumer,
-                                     @NonNull PlainAction onError) {
-        UserManager userManager = InjectionHelper.getAppComponent(this).userManager();
-        if (userManager.checkForSavedUserAndStartSessionIfHas()) {
-            // noinspection ConstantConditions
-            mUserActivityComponent = userManager.getUserComponent().getUserActivityComponent(new ActivityModule(this));
-            componentConsumer.accept(mUserActivityComponent);
-        } else {
-            onError.run();
-        }
-    }
-
     public abstract int getLayout();
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 
     @Override
     protected void onStart() {
@@ -119,28 +82,7 @@ public abstract class BaseActivity extends BasePermissionActivity implements Bas
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (refWatcher != null) {
-            if(mActivityComponent != null) {
-                refWatcher.watch(mActivityComponent);
-            }
-            refWatcher.watch(this);
-            if (mUserActivityComponent != null) {
-                refWatcher.watch(mUserActivityComponent);
-            }
-        }
-        mUserActivityComponent = null;
-        mActivityComponent = null;
-    }
-
-    // activity component, activity may or may not need this
-    public ActivityComponent activityComponent() {
-        if (mActivityComponent == null) {
-            mActivityComponent = DaggerActivityComponent.builder()
-                    .activityModule(new ActivityModule(this))
-                    .appComponent(InjectionHelper.getAppComponent(this))
-                    .build();
-        }
-        return mActivityComponent;
+        refWatcher.watch(this);
     }
 
     public void addFragment(@IdRes int res, Fragment fragment, @Nullable String tag) {
@@ -189,40 +131,10 @@ public abstract class BaseActivity extends BasePermissionActivity implements Bas
         }
     }
 
-    @Override
-    public void showProgress() {
-        showProgressDialog();
-    }
-
-    @Override
-    public void showProgress(String message) {
-        showProgressDialog(message);
-    }
-
-    @Override
-    public void hideProgress() {
-        hideProgressDialog();
-    }
-
-    @Override
-    public void setProgress(boolean show) {
-        if (show) {
-            showProgress();
-        } else {
-            hideProgress();
-        }
-    }
-
-    @Override
-    public void showMessage(String message) {
-        showToastLongMessage(message);
-    }
-
-    @Override
-    public void onError(ErrorEntity errorEntity) {
-        AlertUtils.showToastLongMessage(this, errorEntity.getMessage());
-    }
-
+    /**
+     * Return activity result to source activity which called {@link #startActivityForResult(Intent, int)}
+     * @param data data to be returned
+     */
     public void returnResult(Intent data) {
         if (getParent() == null) {
             setResult(Activity.RESULT_OK, data);
@@ -240,28 +152,22 @@ public abstract class BaseActivity extends BasePermissionActivity implements Bas
         }
     }
 
-    public void showDialog(DialogFragment dialog) {
-
-        // DialogFragment.show() will take care of adding the fragment
-        // in a transaction.  We also want to remove any currently showing
-        // dialog, so make our own transaction and take care of that here.
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // show the dialog.
-        dialog.show(ft, "dialog");
-    }
-
     public void showToastLongMessage(String message) {
         AlertUtils.showToastLongMessage(this, message);
     }
 
     public void showToastShortMessage(String message){
         AlertUtils.showToastShortMessage(this, message);
+    }
+
+    private void setupLayoutStableFullscreen() {
+        if (shouldUseLayoutStableFullscreen()) {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
     /**

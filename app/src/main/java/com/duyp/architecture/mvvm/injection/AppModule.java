@@ -1,13 +1,16 @@
-package com.duyp.architecture.mvvm.injection.module;
+package com.duyp.architecture.mvvm.injection;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
-import com.duyp.architecture.mvp.app.Constants;
-import com.duyp.architecture.mvp.dagger.qualifier.ApplicationContext;
-import com.duyp.architecture.mvp.data.remote.ServiceFactory;
+import com.duyp.architecture.mvvm.MyApplication;
+import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
+import com.duyp.architecture.mvvm.local.Constants;
+import com.duyp.architecture.mvvm.utils.ServiceFactory;
+import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,10 +24,10 @@ import dagger.Provides;
  * Module for app component
  */
 
-@Module
+@Module(includes = ViewModelModule.class)
 public class AppModule {
 
-    protected Application application;
+    private Application application;
 
     public AppModule(Application application) {
         this.application = application;
@@ -46,12 +49,18 @@ public class AppModule {
     @Provides
     @Singleton
     CustomSharedPreferences provideMySharedPreferences(@ApplicationContext Context context) {
-        return CustomSharedPreferences.getInstance(context, Constants.PREF_NAME);
+        return CustomSharedPreferences.getInstance(context, Constants.PREF_FILE_NAME);
     }
 
     @Provides
     @Singleton
     EventBus provideEventBus() {
         return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    RefWatcher provideRefWatcher() {
+        return MyApplication.getInstance().getRefWatcher();
     }
 }

@@ -1,11 +1,13 @@
-package com.duyp.architecture.mvvm.data;
+package com.duyp.architecture.mvvm.injection;
 
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
+import com.duyp.architecture.mvvm.data.UserDataStore;
+import com.duyp.architecture.mvvm.data.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
+import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -23,11 +25,7 @@ import io.realm.RealmConfiguration;
 @Module
 public class DataModule {
 
-    private final Context mContext;
-
-    public DataModule(@ApplicationContext Context context) {
-        mContext = context;
-    }
+    public DataModule() {}
 
     @Provides
     @Singleton
@@ -37,15 +35,15 @@ public class DataModule {
 
     @Provides
     @Singleton
-    UserManager provideUserManager(UserDataStore userDataStore, GithubService githubService) {
-        return new UserManager(mContext, userDataStore, githubService);
+    UserManager provideUserManager(@ApplicationContext Context context, UserDataStore userDataStore, GithubService githubService) {
+        return new UserManager(context, userDataStore, githubService);
     }
 
     @Provides
     @Singleton
-    RealmConfiguration provideRealmConfiguration() {
+    RealmConfiguration provideRealmConfiguration(@ApplicationContext Context context) {
         int schemaVersion = 1; // first version
-        Realm.init(mContext);
+        Realm.init(context);
         RealmConfiguration realmConfig = new RealmConfiguration.Builder()
                 .schemaVersion(schemaVersion)
                 .migration((realm, oldVersion, newVersion) -> {

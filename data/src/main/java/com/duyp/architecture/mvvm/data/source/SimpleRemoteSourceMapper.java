@@ -34,7 +34,7 @@ public abstract class SimpleRemoteSourceMapper<T> {
         });
 
         // set emitter disposable to ensure that when it is going to be disposed, our api request should be disposed as well
-//        emitter.setDisposable(disposable);
+        emitter.setDisposable(disposable);
     }
 
     public abstract Single<ApiResponse<T>> getRemote();

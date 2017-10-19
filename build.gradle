@@ -31,7 +31,7 @@ ext {
             package             : "com.duyp.architecture.mvvm",
             buildToolsVersion   : "26.0.2",
             compileVersion      : 26,
-            minSdk              : 17,
+            minSdk              : 21,
             targetSdk           : 26,
             version_name        : "1.0",
             version_code        : 1
@@ -48,6 +48,7 @@ ext {
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
     timberVersion           = "4.5.1"
+    butterKnifeVersion      = "8.6.0"
 
     mockitoVersion          = "1.10.19"
     powerMockVersion        = "1.6.5"
@@ -72,11 +73,18 @@ ext {
             rxJava                  : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
 
             // dagger
-            dagger                  : "com.google.dagger:dagger:${daggerVersion}",
-            daggerCompiler          : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger                  : "com.google.dagger:dagger:$daggerVersion",
+            daggerAndroid           : "com.google.dagger:dagger-android:$daggerVersion",
+            daggerSupport           : "com.google.dagger:dagger-android-support:$daggerVersion",
+
+            daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerAndroidCompiler   : "com.google.dagger:dagger-android-processor:$daggerVersion",
 
             //lombok
             lombok                  : "org.projectlombok:lombok:1.16.16",
+
+            butterKnife             : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
 
             // android utils
             androidUtils_core       : "com.github.duyp.android-utils:core:${androidUtilsVersion}", // core (basic | common utils)

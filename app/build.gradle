@@ -14,6 +14,8 @@ android {
         versionCode cfg.version_code
         versionName cfg.version_name
 
+        multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -59,11 +61,19 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation project(":data")
 
     implementation libs.supportAppCompatV7
 
+    // dagger
+    implementation libs.dagger
+    implementation libs.daggerAndroid
+    implementation libs.daggerSupport
+
+    annotationProcessor libs.daggerCompiler
+    annotationProcessor libs.daggerAndroidCompiler
+
+    // android utils
     implementation libs.androidUtils_core
     implementation libs.androidUtils_realm
     implementation libs.androidUtils_glide
@@ -71,9 +81,11 @@ dependencies {
 
     implementation libs.rxPermission
 
+    // leak canary
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
 
+    // lombok
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 

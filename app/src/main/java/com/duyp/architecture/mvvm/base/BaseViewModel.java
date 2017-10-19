@@ -79,7 +79,7 @@ public abstract class BaseViewModel extends ViewModel {
     /**
      * see {@link #execute(boolean, Flowable, PlainConsumer)}
      */
-    public <T> void execute(Flowable<Resource<T>> resourceFlowable, PlainConsumer<ApiResponse<T>> response) {
+    protected  <T> void execute(Flowable<Resource<T>> resourceFlowable, PlainConsumer<ApiResponse<T>> response) {
         execute(true, resourceFlowable, response);
     }
 }

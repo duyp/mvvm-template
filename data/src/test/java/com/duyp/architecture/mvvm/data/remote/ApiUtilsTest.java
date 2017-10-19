@@ -66,7 +66,7 @@ public class ApiUtilsTest {
                 consumer.accept(response1);
         }, errorEntityPlainConsumer);
 
-        verify(consumer).accept(succesResponse);
+        verify(consumer, times(1)).accept(succesResponse);
         verify(errorEntityPlainConsumer, times(0)).accept(any());
     }
 
@@ -84,6 +84,6 @@ public class ApiUtilsTest {
         });
 
         verify(consumer, times(0)).accept(any());
-        verify(errorEntityPlainConsumer).accept(any());
+        verify(errorEntityPlainConsumer, times(1)).accept(any());
     }
 }

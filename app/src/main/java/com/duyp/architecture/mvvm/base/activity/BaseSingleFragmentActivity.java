@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 
-import com.duyp.architecture.mvp.R;
-import com.duyp.architecture.mvp.base.fragment.BaseFragment;
+import com.duyp.architecture.mvvm.base.fragment.BaseFragment;
 
 /**
  * Created by phamd on 7/3/2017.
@@ -25,7 +24,8 @@ public abstract class BaseSingleFragmentActivity<T extends BaseFragment> extends
 
     @Override
     public int getLayout() {
-        return R.layout.container;
+//        return R.layout.container;
+        return 0;
     }
 
     protected abstract T createFragment();
@@ -38,7 +38,8 @@ public abstract class BaseSingleFragmentActivity<T extends BaseFragment> extends
 
     @IdRes
     protected int getContainerId() {
-        return R.id.container;
+//        return R.id.container;
+        return 0;
     }
 
     @Override
@@ -54,9 +55,9 @@ public abstract class BaseSingleFragmentActivity<T extends BaseFragment> extends
     public void onBackPressed() {
         T fragment = getFragment();
         if (fragment != null) {
-            if (!fragment.onBackPressed()) {
-                finishWithAnimation();
-            }
+//            if (!fragment.onBackPressed()) {
+//                finishWithAnimation();
+//            }
         }
     }
 }

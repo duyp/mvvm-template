@@ -104,20 +104,21 @@ public abstract class BasePermissionActivity extends AppCompatActivity {
                         onGranted.run();
                     } else if (grantedCount + deniedCount == permissions.length) {
                         if (deniedForever) {
-                            AlertUtils.showConfirmDialog(this, null, getString(R.string.alert_permission_open_app_setting),
-                                    (dialog, which) -> {
-                                        isWaitingForPermissionSetting = true;
-                                        NavigationUtils.openAppSetting(this);
-                                    },
-                                    (dialog, which) -> {
-                                        if (onFailToForce != null) {
-                                            onFailToForce.run();
-                                        }
-                                    });
+                            // TODO: 10/19/17 create alert string
+//                            AlertUtils.showConfirmDialog(this, null, getString(R.string.alert_permission_open_app_setting),
+//                                    (dialog, which) -> {
+//                                        isWaitingForPermissionSetting = true;
+//                                        NavigationUtils.openAppSetting(this);
+//                                    },
+//                                    (dialog, which) -> {
+//                                        if (onFailToForce != null) {
+//                                            onFailToForce.run();
+//                                        }
+//                                    });
                         } else if (isMandatory) {
                             requestPermission(onGranted, true, onFailToForce, permissions);
                         } else {
-                            AlertUtils.showToastShortMessage(BasePermissionActivity.this, getString(R.string.alert_permission_not_granted));
+//                            AlertUtils.showToastShortMessage(BasePermissionActivity.this, getString(R.string.alert_permission_not_granted));
                         }
                     }
                 });
