@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.model.base;
+package com.duyp.architecture.mvvm.model.remote;
 
 import android.support.annotation.Nullable;
 
@@ -60,11 +60,11 @@ public class ErrorEntity {
         return e;
     }
 
-    public static ErrorEntity getError(String reason) {
+    public static ErrorEntity getError(int code, String reason) {
         if (reason != null) {
-            return new ErrorEntity(reason, 0);
+            return new ErrorEntity(reason, code);
         } else {
-            return new ErrorEntity(OOPS, 0);
+            return new ErrorEntity(OOPS, code);
         }
     }
 

@@ -2,12 +2,12 @@ package com.duyp.architecture.mvvm.data.source;
 
 import android.util.Log;
 
+import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.utils.ApiUtils;
 
 import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
-import retrofit2.Response;
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -26,7 +26,7 @@ public abstract class SimpleRemoteSourceMapper<T> {
         // by setting shouldUpdateUi params = true
         Disposable disposable = ApiUtils.makeRequest(getRemote(), true, response -> {
             Log.d(TAG, "SimpleRemoteSourceMapper: call API success!");
-            saveCallResult(response);
+            saveCallResult(response.body);
             emitter.onNext(Resource.success(response));
         }, errorEntity -> {
             Log.d(TAG, "SimpleRemoteSourceMapper: call API error: " + errorEntity.getMessage());
@@ -34,10 +34,10 @@ public abstract class SimpleRemoteSourceMapper<T> {
         });
 
         // set emitter disposable to ensure that when it is going to be disposed, our api request should be disposed as well
-        emitter.setDisposable(disposable);
+//        emitter.setDisposable(disposable);
     }
 
-    public abstract Single<Response<T>> getRemote();
+    public abstract Single<ApiResponse<T>> getRemote();
 
     public abstract void saveCallResult(T data);
 }

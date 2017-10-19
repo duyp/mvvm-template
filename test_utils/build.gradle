@@ -41,6 +41,10 @@ dependencies {
 
     implementation project(":model")
 
+    // retrofit
+    implementation libs.retrofitConverterGson
+    implementation libs.retrofitConverterScalars
+
     implementation libs.rxJava
     implementation libs.rxAndroid
 

@@ -11,6 +11,7 @@ import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Repository;
 import com.duyp.architecture.mvvm.model.User;
+import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.model.def.RepoTypes;
 
 import java.util.List;
@@ -20,19 +21,14 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import lombok.Getter;
-import retrofit2.Response;
 
 public class RepositoriesRepo extends BaseRepo {
-
-    public static final int PER_PAGE = 100;
 
     @Getter
     protected final RepositoryDao repositoryDao;
 
     @Getter
     private LiveRealmResults<Repository> data;
-
-    private int currentPage = 1;
 
     @Nullable
     private final User mUser;
@@ -52,11 +48,11 @@ public class RepositoriesRepo extends BaseRepo {
      */
     public Flowable<Resource<List<Repository>>> getAllRepositories(@Nullable Long sinceId) {
         Log.d(TAG, "RepositoriesRepo: getting all repo with sinceId = " + sinceId);
-        if (sinceId != null) {
-            currentPage ++;
-        } else {
-            currentPage = 1;
-        }
+//        if (sinceId != null) {
+//            currentPage ++;
+//        } else {
+//            currentPage = 1;
+//        }
 //        data = repositoryDao.getAll(currentPage * PER_PAGE);
         data = repositoryDao.getAll();
         return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(sinceId), repositoryDao::addAll);
@@ -83,7 +79,7 @@ public class RepositoriesRepo extends BaseRepo {
         data = repositoryDao.getUserRepositories(userNameLogin);
 
         boolean isOwner = mUser != null && mUser.getLogin().equals(userNameLogin);
-        Single<Response<List<Repository>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
+        Single<ApiResponse<List<Repository>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
                 getGithubService().getUserRepositories(userNameLogin, RepoTypes.ALL);
 
         return createRemoteSourceMapper(remote, repositories -> {

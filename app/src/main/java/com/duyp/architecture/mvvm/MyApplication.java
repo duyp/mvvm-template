@@ -1,10 +1,7 @@
 //package com.duyp.architecture.mvvm;
 //
-//import android.app.Activity;
 //import android.app.Application;
 //import android.content.Context;
-//import android.support.annotation.Nullable;
-//import android.support.v4.app.Fragment;
 //
 //import com.duyp.architecture.mvvm.data.UserManager;
 //import com.squareup.leakcanary.LeakCanary;
@@ -21,8 +18,10 @@
 // */
 //public class MyApplication extends Application {
 //
+//    private static MyApplication sInstance;
+//
 //    @Setter
-//    protected AppComponent appComponent;
+//    private static AppComponent sAppComponent;
 //
 //    @Getter
 //    @Inject
@@ -39,40 +38,21 @@
 //    @Override
 //    public void onCreate() {
 //        super.onCreate();
+//        sInstance = this;
+//        sAppComponent = setupAppComponent();
 //        refWatcher = LeakCanary.install(this);
 //    }
 //
 //    // component
-//    protected void setupAppComponent() {
-//        appComponent = DaggerAppComponent.builder()
+//    protected AppComponent setupAppComponent() {
+//         return DaggerAppComponent.builder()
 //                .appModule(new AppModule(this))
 //                .networkModule(new NetworkModule(this))
 //                .dataModule(new DataModule(this))
 //                .build();
-//        appComponent.inject(this);
 //    }
 //
 //    public AppComponent getAppComponent() {
-//        if (appComponent == null) {
-//            setupAppComponent();
-//        }
-//        return appComponent;
-//    }
-//
-//    @Nullable
-//    public UserComponent getUserComponent() {
-//        return userManager.getUserComponent();
-//    }
-//
-//    public static MyApplication get(Activity activity) {
-//        return (MyApplication)activity.getApplication();
-//    }
-//
-//    public static MyApplication get(Fragment fragment) {
-//        return get(fragment.getActivity());
-//    }
-//
-//    public static MyApplication get(Context context) {
-//        return (MyApplication)context.getApplicationContext();
+//        return sAppComponent;
 //    }
 //}

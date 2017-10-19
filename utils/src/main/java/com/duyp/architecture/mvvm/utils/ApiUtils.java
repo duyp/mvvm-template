@@ -4,14 +4,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.model.base.ErrorEntity;
+import com.duyp.architecture.mvvm.model.remote.ApiResponse;
+import com.duyp.architecture.mvvm.model.remote.ErrorEntity;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 /**
  * Created by duypham on 9/10/17.
@@ -33,26 +35,26 @@ public final class ApiUtils {
      * @return a disposable
      */
     public static <T> Disposable makeRequest(
-            Single<Response<T>> request, boolean shouldUpdateUi,
-            @NonNull PlainConsumer<T> responseConsumer,
+            Single<ApiResponse<T>> request, boolean shouldUpdateUi,
+            @NonNull PlainConsumer<ApiResponse<T>> responseConsumer,
             @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
 
-        Single<Response<T>> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
+        Single<ApiResponse<T>> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
         if (shouldUpdateUi) {
             single = single.observeOn(AndroidSchedulers.mainThread());
         }
 
         return single.subscribe(response -> {
             if (response.isSuccessful()) {
-                responseConsumer.accept(response.body());
+                responseConsumer.accept(response);
             } else if (errorConsumer != null) {
-                errorConsumer.accept(ErrorEntity.getError(response.message()));
+                errorConsumer.accept(ErrorEntity.getError(response.code, response.errorMessage));
             }
         }, throwable -> {
-            if (throwable instanceof RuntimeException) {
-                // must be fixed while developing
-                throw new Exception(throwable);
-            }
+//            if (throwable instanceof RuntimeException) {
+//                // must be fixed while developing
+//                throw new Exception(throwable);
+//            }
             // handle error
             if (errorConsumer != null) {
                 errorConsumer.accept(ErrorEntity.getError(throwable));

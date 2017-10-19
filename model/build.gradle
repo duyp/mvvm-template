@@ -40,16 +40,19 @@ android {
 }
 
 dependencies {
-    compile libs.supportAnnotation
+    implementation libs.supportAnnotation
+
+    implementation libs.timber
 
     // retrofit
-    compile libs.retrofitConverterGson
-    compile libs.retrofitConverterScalars
+    implementation libs.retrofitConverterGson
+    implementation libs.retrofitConverterScalars
 
-    provided libs.lombok
+    // lombok
+    compileOnly libs.lombok
     annotationProcessor libs.lombok
 
-    compile libs.parceler
+    implementation libs.parceler
 
     // testing
     testImplementation testLibs.jUnit

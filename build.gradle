@@ -47,6 +47,7 @@ ext {
     androidUtilsVersion     = "2.2.5"
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
+    timberVersion           = "4.5.1"
 
     mockitoVersion          = "1.10.19"
     powerMockVersion        = "1.6.5"
@@ -128,7 +129,10 @@ ext {
             parceler                : 'org.parceler:parceler-api:1.1.9',
 
             // image blur
-            blurry                  : 'jp.wasabeef:blurry:2.1.1'
+            blurry                  : 'jp.wasabeef:blurry:2.1.1',
+
+            // timber
+            timber                  : "com.jakewharton.timber:timber:$timberVersion"
     ]
 
     testLibraries = [

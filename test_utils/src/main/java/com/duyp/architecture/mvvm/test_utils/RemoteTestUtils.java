@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.test_utils;
 
+import com.duyp.architecture.mvvm.model.remote.ApiResponse;
+
 import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
@@ -14,12 +16,12 @@ import retrofit2.Response;
 
 public class RemoteTestUtils {
 
-    public static <T> Single<Response<T>> successResponse(T data) {
-        return Single.just(Response.success(data));
+    public static <T> Single<ApiResponse<T>> successResponse(T data) {
+        return Single.just(new ApiResponse<T>(Response.success(data)));
     }
 
-    public static <T> Single<Response<T>> errorResponse(int httpCode) {
-        return Single.just(Response.error(httpCode, emptyResponseBody()));
+    public static <T> Single<ApiResponse<T>> errorResponse(int httpCode) {
+        return Single.just(new ApiResponse<T>(Response.error(httpCode, emptyResponseBody())));
     }
 
     private static ResponseBody emptyResponseBody() {

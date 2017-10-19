@@ -74,6 +74,8 @@ dependencies {
 
     compile libs.eventBus
 
+    implementation libs.timber
+
     // testing
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito
