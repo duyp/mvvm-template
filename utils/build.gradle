@@ -17,6 +17,9 @@ android {
 
         testInstrumentationRunner "com.duyp.architecture.mvvm.data.MockTestRunner"
 
+        // speed up debug build
+        defaultPublishConfig 'release'
+        publishNonDefault true
     }
     buildTypes {
         release {
@@ -43,26 +46,26 @@ dependencies {
 
     compile project(":model")
 
-    compile libs.supportAnnotation
+    implementation libs.supportAnnotation
 
-    compile libs.dagger
+    implementation libs.dagger
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
     // android utils
-    compile libs.androidUtils_core
-    compile libs.androidUtils_network
-    compile libs.androidUtils_rx
+    implementation libs.androidUtils_core
+    implementation libs.androidUtils_network
+    implementation libs.androidUtils_rx
 
     // retrofit
-    compile libs.retrofit
-    compile libs.retrofitRxAdapter
-    compile libs.retrofitConverterGson
-    compile libs.retrofitConverterScalars
+    implementation libs.retrofit
+    implementation libs.retrofitRxAdapter
+    implementation libs.retrofitConverterGson
+    implementation libs.retrofitConverterScalars
 
-    compile libs.okhttp
-    compile libs.okhttpLogging
+    implementation libs.okhttp
+    implementation libs.okhttpLogging
 
     // testing
     testImplementation testLibs.jUnit

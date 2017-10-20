@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui;
+package com.duyp.architecture.mvvm.utils;
 
 import com.duyp.androidutils.navigation.FragmentNavigator;
 import com.duyp.androidutils.navigation.Navigator;

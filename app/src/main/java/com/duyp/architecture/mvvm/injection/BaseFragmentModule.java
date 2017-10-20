@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager;
 import com.duyp.androidutils.glide.loader.SimpleGlideLoader;
 import com.duyp.androidutils.navigation.ChildFragmentNavigator;
 import com.duyp.androidutils.navigation.FragmentNavigator;
-import com.duyp.architecture.mvvm.ui.FragmentNavigatorHelper;
+import com.duyp.architecture.mvvm.utils.FragmentNavigatorHelper;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 import com.duyp.architecture.mvvm.utils.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.utils.qualifier.ActivityFragmentManager;

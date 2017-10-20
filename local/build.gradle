@@ -17,6 +17,9 @@ android {
 
         testInstrumentationRunner "com.duyp.architecture.mvvm.local.MockTestRunner"
 
+        // speed up debug build
+        defaultPublishConfig 'release'
+        publishNonDefault true
     }
     buildTypes {
         release {

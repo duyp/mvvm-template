@@ -30,7 +30,6 @@ public class TestFragment extends BaseViewModelFragment<ActivityMainBinding, Tes
     @Inject
     AvatarLoader avatarLoader;
 
-
     @Inject
     FragmentNavigator fragmentNavigator;
 

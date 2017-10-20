@@ -24,12 +24,12 @@ import javax.inject.Inject;
  * through {@link BaseViewModel#stateLiveData}
  */
 
-public abstract class BaseViewModelActivity<B extends ViewDataBinding, T extends BaseViewModel> extends BaseActivity {
+public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    protected T viewModel;
+    protected VM viewModel;
 
     protected B binding;
 
@@ -42,7 +42,7 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, T extends
 
         // int view model
         // noinspection unchecked
-        Class<T> viewModelClass = (Class<T>) ((ParameterizedType) getClass()
+        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);

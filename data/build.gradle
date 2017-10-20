@@ -17,6 +17,9 @@ android {
 
         testInstrumentationRunner "com.duyp.architecture.mvvm.data.MockTestRunner"
 
+        // speed up debug build
+        defaultPublishConfig 'release'
+        publishNonDefault true
     }
     buildTypes {
         release {
@@ -47,49 +50,37 @@ dependencies {
     compile libs.supportAnnotation
 
     // dagger
-    compile libs.dagger
+    implementation libs.dagger
     annotationProcessor libs.daggerCompiler
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
-
     // android utils
-    compile libs.androidUtils_core
-    compile libs.androidUtils_realm
-    compile libs.androidUtils_network
-    compile libs.androidUtils_rx
-
+    implementation libs.androidUtils_core
+    implementation libs.androidUtils_realm
+    implementation libs.androidUtils_network
+    implementation libs.androidUtils_rx
     // retrofit
-    compile libs.retrofit
-    compile libs.retrofitRxAdapter
-    compile libs.retrofitConverterGson
-    compile libs.retrofitConverterScalars
-
-    compile libs.okhttp
-    compile libs.okhttpLogging
-
-    provided libs.lombok
+    implementation libs.retrofit
+    implementation libs.retrofitRxAdapter
+    implementation libs.retrofitConverterGson
+    implementation libs.retrofitConverterScalars
+    implementation libs.okhttp
+    implementation libs.okhttpLogging
+    compileOnly libs.lombok
     annotationProcessor libs.lombok
-
-    compile libs.parceler
-
-    compile libs.eventBus
-
+    implementation libs.parceler
+    implementation libs.eventBus
     implementation libs.timber
-
     // testing
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito
-
-    testImplementation project(":test_utils")
-
+    testImplementation project(':test_utils')
     testImplementation testLibs.jUnit
     testImplementation testLibs.powerMockito
     testImplementation testLibs.powerMockJUnit
     testImplementation testLibs.powerMockRule
     testImplementation testLibs.powerMockClassLoading
-
     testImplementation testLibs.robolectric
-
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
     testImplementation 'io.reactivex:rxjava:1.2.9'
 }
