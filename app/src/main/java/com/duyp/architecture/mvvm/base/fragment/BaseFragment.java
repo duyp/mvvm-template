@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.base.fragment;
 
-import android.arch.lifecycle.LifecycleFragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;

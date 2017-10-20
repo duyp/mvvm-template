@@ -4,9 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
-import com.duyp.architecture.mvvm.ui.MyApplication;
 import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
 import com.duyp.architecture.mvvm.local.Constants;
+import com.duyp.architecture.mvvm.ui.MyApplication;
 import com.duyp.architecture.mvvm.utils.ServiceFactory;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;

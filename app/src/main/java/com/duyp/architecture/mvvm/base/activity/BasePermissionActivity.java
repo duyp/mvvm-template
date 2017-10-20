@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.duyp.androidutils.AlertUtils;
-import com.duyp.androidutils.navigation.NavigationUtils;
 import com.duyp.androidutils.rx.Rx;
 import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;

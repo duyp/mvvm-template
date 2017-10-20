@@ -2,8 +2,6 @@ package com.duyp.architecture.mvvm.injection.view_model;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.duyp.architecture.mvvm.base.BaseViewModel;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

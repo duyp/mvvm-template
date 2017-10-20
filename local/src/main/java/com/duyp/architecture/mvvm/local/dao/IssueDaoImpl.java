@@ -6,8 +6,6 @@ import com.duyp.androidutils.realm.BaseRealmDaoImpl;
 import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.model.Issue;
 
-import javax.inject.Inject;
-
 import io.realm.Realm;
 
 /**
@@ -17,7 +15,6 @@ import io.realm.Realm;
 
 public class IssueDaoImpl extends BaseRealmDaoImpl<Issue> implements IssueDao {
 
-    @Inject
     public IssueDaoImpl(Realm realm) {
         super(realm, Issue.class);
     }

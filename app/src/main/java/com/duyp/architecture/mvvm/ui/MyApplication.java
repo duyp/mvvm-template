@@ -5,8 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.duyp.architecture.mvvm.data.UserManager;
-import com.duyp.architecture.mvvm.injection.AppInjector;
 import com.duyp.architecture.mvvm.injection.AppComponent;
+import com.duyp.architecture.mvvm.injection.AppInjector;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 

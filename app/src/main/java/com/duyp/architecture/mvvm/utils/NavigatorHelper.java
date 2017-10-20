@@ -3,8 +3,6 @@ package com.duyp.architecture.mvvm.utils;
 import com.duyp.androidutils.navigation.Navigator;
 import com.duyp.architecture.mvvm.ui.TestFragment;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Created by duypham on 9/7/17.
  * Util class for navigating common page in application

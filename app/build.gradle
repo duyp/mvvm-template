@@ -72,7 +72,6 @@ dependencies {
     implementation libs.dagger
     implementation libs.daggerAndroid
     implementation libs.daggerSupport
-
     annotationProcessor libs.daggerCompiler
     annotationProcessor libs.daggerAndroidCompiler
 
@@ -82,6 +81,14 @@ dependencies {
     implementation libs.androidUtils_glide
     implementation libs.androidUtils_navigation
 
+    // event bus
+    implementation libs.eventBus
+
+    // retrofit
+    implementation libs.retrofitConverterGson
+    implementation libs.retrofitConverterScalars
+
+            // rx permission
     implementation libs.rxPermission
 
     // leak canary

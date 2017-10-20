@@ -11,7 +11,6 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.base.fragment.BaseViewModelFragment;
 import com.duyp.architecture.mvvm.databinding.ActivityMainBinding;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
-import com.duyp.architecture.mvvm.utils.NavigatorHelper;
 import com.duyp.architecture.mvvm.utils.qualifier.ActivityFragmentManager;
 import com.duyp.architecture.mvvm.utils.qualifier.ChildFragmentManager;
 

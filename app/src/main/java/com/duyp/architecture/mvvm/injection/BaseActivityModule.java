@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.injection;
 
-import android.app.Activity;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;

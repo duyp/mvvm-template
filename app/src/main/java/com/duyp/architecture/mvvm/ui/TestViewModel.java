@@ -1,7 +1,6 @@
 package com.duyp.architecture.mvvm.ui;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 
 import com.duyp.architecture.mvvm.base.BaseUserViewModel;
 import com.duyp.architecture.mvvm.data.UserManager;

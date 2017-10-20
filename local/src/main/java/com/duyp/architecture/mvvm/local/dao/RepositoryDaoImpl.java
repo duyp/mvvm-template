@@ -4,8 +4,6 @@ import com.duyp.androidutils.realm.BaseRealmDaoImpl;
 import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.model.Repository;
 
-import javax.inject.Inject;
-
 import io.realm.Realm;
 
 /**
@@ -15,7 +13,6 @@ import io.realm.Realm;
 
 public class RepositoryDaoImpl extends BaseRealmDaoImpl<Repository> implements RepositoryDao {
 
-    @Inject
     public RepositoryDaoImpl(Realm realm) {
         super(realm, Repository.class);
     }

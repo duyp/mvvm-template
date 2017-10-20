@@ -16,10 +16,8 @@
 
 package com.duyp.architecture.mvvm.utils;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * A value holder that automatically clears the reference if the Fragment's view is destroyed.
