@@ -3,7 +3,7 @@ package com.duyp.architecture.mvvm.injection.view_model;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.duyp.architecture.mvvm.TestViewModel;
+import com.duyp.architecture.mvvm.ui.TestViewModel;
 import com.duyp.architecture.mvvm.base.BaseViewModel;
 
 import java.util.Map;

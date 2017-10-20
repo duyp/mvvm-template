@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.injection.activity_modules;
+package com.duyp.architecture.mvvm.injection;
 
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleOwner;
@@ -25,32 +25,32 @@ public abstract class BaseActivityModule<T extends AppCompatActivity> {
 
     @Provides
     @ActivityContext
-    Context provideContext(T activity) { return activity; }
+    public Context provideContext(T activity) { return activity; }
 
     @Provides
     @ActivityFragmentManager
-    FragmentManager provideFragmentManager(T activity) { return activity.getSupportFragmentManager(); }
+    public FragmentManager provideFragmentManager(T activity) { return activity.getSupportFragmentManager(); }
 
     @Provides
-    Navigator provideNavigator(T activity) { return new ActivityNavigator(activity); }
+    public Navigator provideNavigator(T activity) { return new ActivityNavigator(activity); }
 
     @Provides
-    NavigatorHelper provideNavigatorHelper(Navigator navigator) {
+    public NavigatorHelper provideNavigatorHelper(Navigator navigator) {
         return new NavigatorHelper(navigator);
     }
 
     @Provides
-    SimpleGlideLoader provideDefaultGlide(T activity) {
+    public SimpleGlideLoader provideDefaultGlide(T activity) {
         return new SimpleGlideLoader(activity);
     }
 
     @Provides
-    AvatarLoader provideAvatarLoader(T activity) {
+    public AvatarLoader provideAvatarLoader(T activity) {
         return new AvatarLoader(activity);
     }
 
     @Provides
-    LifecycleOwner provideLifeCycleOwner(T activity) {
+    public LifecycleOwner provideLifeCycleOwner(T activity) {
         return activity;
     }
 }

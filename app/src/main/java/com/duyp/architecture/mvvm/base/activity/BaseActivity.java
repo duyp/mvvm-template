@@ -34,13 +34,11 @@ import dagger.android.support.HasSupportFragmentInjector;
  * SEE {@link com.duyp.architecture.mvvm.injection.AppInjector}
  * All fragment inside this activity is injected as well
  */
-public abstract class BaseActivity<B extends ViewDataBinding> extends BasePermissionActivity
+public abstract class BaseActivity extends BasePermissionActivity
         implements HasSupportFragmentInjector {
 
     @Inject
     protected RefWatcher refWatcher;
-
-    protected B binding;
 
     // dispatch android injector to all fragments
     @Inject
@@ -52,7 +50,10 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends BasePermis
 
         setupLayoutStableFullscreen();
 
-        binding = DataBindingUtil.setContentView(this, getLayout());
+        if (!shouldUserDataBinding()) {
+            // set contentView if child activity not use dataBinding
+            setContentView(getLayout());
+        }
 
         if (shouldPostponeTransition()) {
             ActivityCompat.postponeEnterTransition(this);
@@ -90,15 +91,31 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends BasePermis
         refWatcher.watch(this);
     }
 
+    /**
+     * @return true if this activity should use layout stable fullscreen (status bar overlap activity's content)
+     */
     protected boolean shouldUseLayoutStableFullscreen() {
         return false;
     }
 
+    /**
+     * @return true if this activity should postpone transition (in case of destination view is in viewpager)
+     */
     protected boolean shouldPostponeTransition() {
         return false;
     }
 
+    /**
+     * @return true if should register event bus (onStart - onStop)
+     */
     protected boolean shouldRegisterEventBus() {
+        return false;
+    }
+
+    /**
+     * @return true if child activity should use data binding instead of {@link #setContentView(View)}
+     */
+    protected boolean shouldUserDataBinding() {
         return false;
     }
 

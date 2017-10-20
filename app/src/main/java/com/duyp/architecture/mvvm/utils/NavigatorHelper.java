@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.utils;
 
 import com.duyp.androidutils.navigation.Navigator;
+import com.duyp.architecture.mvvm.ui.TestFragment;
 
 import lombok.AllArgsConstructor;
 
@@ -9,14 +10,21 @@ import lombok.AllArgsConstructor;
  * Util class for navigating common page in application
  */
 
-@AllArgsConstructor
 public class NavigatorHelper {
 
     private static final String TAG_LOGIN = "TAG_LOGIN";
     private static final String TAG_PROFILE = "TAG_PROFILE";
     private static final String TAG_ALL_REPO = "TAG_ALL_REPO";
 
-    Navigator mNavigator;
+    private final Navigator mNavigator;
+
+    public NavigatorHelper(Navigator navigator) {
+        this.mNavigator = navigator;
+    }
+
+    public void replaceTestFragment() {
+        mNavigator.replaceFragment(R.id.container, new TestFragment());
+    }
 
 //    public void navigateUserProfile(@IdRes int containerId, @Nullable User user) {
 //        ProfileFragment fragment = mNavigator.findFragmentByTag(TAG_PROFILE);

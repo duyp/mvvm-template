@@ -1,6 +1,6 @@
-package com.duyp.architecture.mvvm.injection.activity_modules;
+package com.duyp.architecture.mvvm.ui;
 
-import com.duyp.architecture.mvvm.MainActivity;
+import com.duyp.architecture.mvvm.injection.BaseActivityModule;
 
 import dagger.Module;
 

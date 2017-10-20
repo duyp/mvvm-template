@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm;
+package com.duyp.architecture.mvvm.ui;
 
 import android.app.Activity;
 import android.app.Application;
