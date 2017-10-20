@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 
 import com.duyp.architecture.mvvm.base.BaseUserViewModel;
 import com.duyp.architecture.mvvm.data.UserManager;
@@ -18,4 +19,6 @@ public class TestViewModel extends BaseUserViewModel {
     public TestViewModel(@NonNull UserManager userManager) {
         super(userManager);
     }
+
+
 }

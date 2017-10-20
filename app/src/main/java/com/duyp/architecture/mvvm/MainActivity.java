@@ -8,10 +8,11 @@ import android.os.Handler;
 import com.duyp.androidutils.glide.loader.SimpleGlideLoader;
 import com.duyp.architecture.mvvm.base.activity.BaseActivity;
 import com.duyp.architecture.mvvm.data.UserManager;
+import com.duyp.architecture.mvvm.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Inject
     SimpleGlideLoader glideLoader;
@@ -22,9 +23,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, TestActivity.class));
-        }, 3000);
     }
 
     @Override

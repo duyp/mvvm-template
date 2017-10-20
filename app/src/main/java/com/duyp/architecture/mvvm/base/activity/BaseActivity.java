@@ -3,6 +3,8 @@ package com.duyp.architecture.mvvm.base.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -32,10 +34,13 @@ import dagger.android.support.HasSupportFragmentInjector;
  * SEE {@link com.duyp.architecture.mvvm.injection.AppInjector}
  * All fragment inside this activity is injected as well
  */
-public abstract class BaseActivity extends BasePermissionActivity implements HasSupportFragmentInjector {
+public abstract class BaseActivity<B extends ViewDataBinding> extends BasePermissionActivity
+        implements HasSupportFragmentInjector {
 
     @Inject
     protected RefWatcher refWatcher;
+
+    protected B binding;
 
     // dispatch android injector to all fragments
     @Inject
@@ -47,7 +52,7 @@ public abstract class BaseActivity extends BasePermissionActivity implements Has
 
         setupLayoutStableFullscreen();
 
-        setContentView(getLayout());
+        binding = DataBindingUtil.setContentView(this, getLayout());
 
         if (shouldPostponeTransition()) {
             ActivityCompat.postponeEnterTransition(this);
@@ -83,19 +88,6 @@ public abstract class BaseActivity extends BasePermissionActivity implements Has
     protected void onDestroy() {
         super.onDestroy();
         refWatcher.watch(this);
-    }
-
-    public void addFragment(@IdRes int res, Fragment fragment, @Nullable String tag) {
-        getSupportFragmentManager().beginTransaction()
-                .add(res, fragment, tag)
-                .commit();
-    }
-
-    public void replaceFragmentWithBackStack(@IdRes int frameId, Fragment fragment, @Nullable String tag) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(frameId, fragment, tag);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     protected boolean shouldUseLayoutStableFullscreen() {
@@ -135,7 +127,7 @@ public abstract class BaseActivity extends BasePermissionActivity implements Has
      * Return activity result to source activity which called {@link #startActivityForResult(Intent, int)}
      * @param data data to be returned
      */
-    public void returnResult(Intent data) {
+    protected void returnResult(Intent data) {
         if (getParent() == null) {
             setResult(Activity.RESULT_OK, data);
         } else {

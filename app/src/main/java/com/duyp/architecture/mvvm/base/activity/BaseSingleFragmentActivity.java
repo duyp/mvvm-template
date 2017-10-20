@@ -18,7 +18,7 @@ public abstract class BaseSingleFragmentActivity<T extends BaseFragment> extends
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            addFragment(getContainerId(), createFragment(), null);
+//            addFragment(getContainerId(), createFragment(), null);
         }
     }
 
