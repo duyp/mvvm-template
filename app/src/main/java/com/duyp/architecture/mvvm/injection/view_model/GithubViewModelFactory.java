@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.duyp.architecture.mvvm.base;
+package com.duyp.architecture.mvvm.injection.view_model;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+
+import com.duyp.architecture.mvvm.base.BaseViewModel;
 
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import javax.inject.Singleton;
  * Factory class to create view_models instance
  * reference: Google Android Open Source Project
  */
+
 @Singleton
 public class GithubViewModelFactory implements ViewModelProvider.Factory {
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;

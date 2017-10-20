@@ -25,18 +25,14 @@ import dagger.Provides;
  */
 
 @Module(includes = ViewModelModule.class)
-public class AppModule {
+class AppModule {
 
-    private Application application;
-
-    public AppModule(Application application) {
-        this.application = application;
-    }
+    AppModule() {}
 
     @Provides
     @Singleton
     @ApplicationContext
-    Context provideContext() {
+    Context provideContext(Application application) {
         return application;
     }
 

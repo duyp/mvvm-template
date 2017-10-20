@@ -1,24 +1,25 @@
 package com.duyp.architecture.mvvm.base.activity;
 
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.base.BaseViewModel;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
+
+import java.lang.reflect.ParameterizedType;
 
 import javax.inject.Inject;
 
 /**
  * Created by duypham on 10/19/17.
- * Base activity class that has a {@link BaseViewModel}. The viewModel will be provide automatically
- * All children classes and all inside fragment will be inject automatically
- * by implementing {@link dagger.android.support.HasSupportFragmentInjector}
- * SEE {@link com.duyp.architecture.mvvm.injection.AppInjector}
+ * Base activity class that has a {@link BaseViewModel}. The viewModel will be provided automatically
  *
- * Progress showing and message showing will be handled automatically when viewModel 's state changed
+ * Progress showing and message showing will be handled automatically when viewModel's state changed
  * through {@link BaseViewModel#stateLiveData}
  */
 
@@ -27,12 +28,16 @@ public abstract class BaseViewModelActivity<T extends BaseViewModel> extends Bas
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    T viewModel;
+    protected T viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass());
+        // noinspection unchecked
+        Class<T> viewModelClass = (Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
         viewModel.getStateLiveData().observe(this, state -> {
             if (state != null) {
@@ -50,9 +55,11 @@ public abstract class BaseViewModelActivity<T extends BaseViewModel> extends Bas
 
     protected void handleMessageState(@NonNull State state) {
         if (state.getMessage() != null) {
-            showToastLongMessage(state.getMessage());
+            if (state.isHardAlert()) {
+                AlertUtils.showAlertDialog(this, state.getMessage());
+            } else {
+                showToastLongMessage(state.getMessage());
+            }
         }
     }
-
-    protected abstract Class<T> getViewModelClass();
 }

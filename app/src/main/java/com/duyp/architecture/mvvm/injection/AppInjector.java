@@ -40,7 +40,6 @@ public class AppInjector {
 
         AppComponent component = DaggerAppComponent.builder()
                 .application(application)
-                .appModule(new AppModule(application))
                 .build();
         component.inject(application);
 

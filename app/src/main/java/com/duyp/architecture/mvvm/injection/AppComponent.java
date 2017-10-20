@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.injection;
 
 import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 
 import com.duyp.architecture.mvvm.MyApplication;
 
@@ -32,10 +33,6 @@ public interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance Builder application(Application application);
-
-        Builder appModule(AppModule module);
-//        Builder networkModule(NetworkModule module);
-//        Builder dataModule(DataModule module);
 
         AppComponent build();
     }

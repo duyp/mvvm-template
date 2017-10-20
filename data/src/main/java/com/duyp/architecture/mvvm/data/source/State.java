@@ -21,6 +21,8 @@ public class State {
     @Nullable
     String message;
 
+    boolean hardAlert = false;
+
     public State(@NonNull Status status, @Nullable String message) {
         this.status = status;
         this.message = message;

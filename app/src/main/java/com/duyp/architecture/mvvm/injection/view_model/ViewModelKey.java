@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.injection.view_model;
 
+import android.arch.lifecycle.ViewModel;
+
 import com.duyp.architecture.mvvm.base.BaseViewModel;
 
 import java.lang.annotation.Documented;
@@ -15,5 +17,5 @@ import dagger.MapKey;
 @Retention(RetentionPolicy.RUNTIME)
 @MapKey
 @interface ViewModelKey {
-    Class<? extends BaseViewModel> value();
+    Class<? extends ViewModel> value();
 }
