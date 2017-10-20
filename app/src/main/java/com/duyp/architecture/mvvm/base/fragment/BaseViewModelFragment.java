@@ -23,7 +23,7 @@ import javax.inject.Inject;
 
 /**
  * Created by duypham on 10/20/17.
- * Base fragment class that has a ViewModel extending {@link BaseViewModel}. The viewModel will be provided automatically
+ * Base fragment class that has a ViewModel extending {@link BaseViewModel}.
  * All fragments extend this fragment must be added into {@link BaseActivity}
  *
  * Progress showing and message showing will be handled automatically when viewModel's state changed
@@ -45,7 +45,6 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
             throw new IllegalStateException("All fragment's container must extend BaseActivity");
         }
 
-        // int view model
         // noinspection unchecked
         Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
