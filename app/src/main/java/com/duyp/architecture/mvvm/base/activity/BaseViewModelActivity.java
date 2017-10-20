@@ -47,18 +47,24 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
-        viewModel.getStateLiveData().observe(this, state -> {
-            if (state != null) {
-                if (state.getStatus() == Status.LOADING) {
-                    showProgressDialog();
-                } else {
-                    hideProgressDialog();
-                    handleMessageState(state);
-                }
+        viewModel.getStateLiveData().observe(this, this::handleState);
+    }
+
+    /**
+     * Default state handling, can be override
+     * @param state viewModel's state
+     */
+    protected void handleState(State state) {
+        if (state != null) {
+            if (state.getStatus() == Status.LOADING) {
+                showProgressDialog();
             } else {
                 hideProgressDialog();
+                handleMessageState(state);
             }
-        });
+        } else {
+            hideProgressDialog();
+        }
     }
 
     protected void handleMessageState(@NonNull State state) {

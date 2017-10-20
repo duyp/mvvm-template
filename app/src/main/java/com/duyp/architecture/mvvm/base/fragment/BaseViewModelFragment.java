@@ -38,9 +38,12 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
 
     protected VM viewModel;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (! (getActivity() instanceof BaseActivity)) {
+            throw new IllegalStateException("All fragment's container must extend BaseActivity");
+        }
 
         // int view model
         // noinspection unchecked
@@ -49,27 +52,23 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
-        viewModel.getStateLiveData().observe(this, state -> {
-            if (state != null) {
-                if (state.getStatus() == Status.LOADING) {
-                    showProgressDialog();
-                } else {
-                    hideProgressDialog();
-                    handleMessageState(state);
-                }
-            } else {
-                hideProgressDialog();
-            }
-        });
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+        viewModel.getStateLiveData().observe(this, this::handleState);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (! (getActivity() instanceof BaseActivity)) {
-            throw new IllegalStateException("All fragments must extend BaseActivity");
+    /**
+     * Default state handling, can be override
+     * @param state viewModel's state
+     */
+    protected void handleState(State state) {
+        if (state != null) {
+            if (state.getStatus() == Status.LOADING) {
+                showProgressDialog();
+            } else {
+                hideProgressDialog();
+                handleMessageState(state);
+            }
+        } else {
+            hideProgressDialog();
         }
     }
 
