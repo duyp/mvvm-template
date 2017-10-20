@@ -54,6 +54,7 @@ dependencies {
     annotationProcessor libs.daggerCompiler
     androidTestAnnotationProcessor libs.daggerCompiler
     testAnnotationProcessor libs.daggerCompiler
+
     // android utils
     implementation libs.androidUtils_core
     implementation libs.androidUtils_realm
@@ -71,6 +72,7 @@ dependencies {
     implementation libs.parceler
     implementation libs.eventBus
     implementation libs.timber
+
     // testing
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito

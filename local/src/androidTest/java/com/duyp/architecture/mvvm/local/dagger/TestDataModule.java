@@ -2,9 +2,7 @@ package com.duyp.architecture.mvvm.local.dagger;
 
 import android.content.Context;
 
-import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.UserDataStore;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 
@@ -27,12 +25,6 @@ public class TestDataModule {
 
     public TestDataModule(@ApplicationContext Context context) {
         mContext = context;
-    }
-
-    @Provides
-    @Singleton
-    UserDataStore provideUserRepo(CustomSharedPreferences sharedPreferences, Gson gson, RealmDatabase database) {
-        return new UserDataStore(sharedPreferences, gson, database);
     }
 
     @Provides
