@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.androidutils.realm.LiveRealmResultPair;
 import com.duyp.androidutils.realm.LiveRealmResults;
-import com.duyp.architecture.mvvm.model.Repository;
 
 import org.powermock.api.mockito.PowerMockito;
 

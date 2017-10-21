@@ -7,7 +7,7 @@ import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import javax.inject.Inject;
 
@@ -24,7 +24,7 @@ public class RepositoryDetailRepo extends BaseRepo {
 
     private final RepositoryDao mRepositoryDao;
 
-    private LiveRealmObject<Repository> data;
+    private LiveRealmObject<Repo> data;
 
     @Inject
     public RepositoryDetailRepo(GithubService githubService, RealmDatabase realmDatabase) {
@@ -37,13 +37,13 @@ public class RepositoryDetailRepo extends BaseRepo {
         mRepositoryDao.closeRealm();
     }
 
-    public LiveRealmObject<Repository> initRepo(@NonNull Long repoId) {
+    public LiveRealmObject<Repo> initRepo(@NonNull Long repoId) {
         data = mRepositoryDao.getById(repoId);
         return data;
     }
 
-    public Flowable<Resource<Repository>> getRepository() {
-        Repository localRepo = data.getData();
+    public Flowable<Resource<Repo>> getRepository() {
+        Repo localRepo = data.getData();
         return createRemoteSourceMapper(getGithubService().getRepository(localRepo.getOwner().getLogin(), localRepo.getName()),repository -> {
                     // github api dose not support, so we need do it manually
                     repository.setMemberLoginName(localRepo.getMemberLoginName());

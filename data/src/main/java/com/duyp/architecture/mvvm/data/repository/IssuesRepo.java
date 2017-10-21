@@ -9,7 +9,7 @@ import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.dao.IssueDao;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Issue;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import java.util.List;
 
@@ -17,7 +17,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import lombok.Getter;
-import retrofit2.http.GET;
 
 /**
  * Created by duypham on 9/17/17.
@@ -27,7 +26,7 @@ import retrofit2.http.GET;
 @Getter
 public class IssuesRepo extends BaseRepo {
 
-    private Repository mRepository;
+    private Repo mRepo;
 
     private IssueDao mIssuesDao;
 
@@ -42,15 +41,15 @@ public class IssuesRepo extends BaseRepo {
 
     public void initRepo(@NonNull Long repoId) {
         RepositoryDao repositoryDao = getRealmDatabase().newRepositoryDao();
-        this.mRepository = repositoryDao.getById(repoId).getData();
-        data = mIssuesDao.getRepoIssues(mRepository.getId());
+        this.mRepo = repositoryDao.getById(repoId).getData();
+        data = mIssuesDao.getRepoIssues(mRepo.getId());
         repositoryDao.closeRealm();
     }
 
     public Flowable<Resource<List<Issue>>> getRepoIssues() {
-        return createRemoteSourceMapper(getGithubService().getRepoIssues(mRepository.getOwner().getLogin(), mRepository.getName()), issues -> {
+        return createRemoteSourceMapper(getGithubService().getRepoIssues(mRepo.getOwner().getLogin(), mRepo.getName()), issues -> {
             for (Issue issue : issues) {
-                issue.setRepoId(mRepository.getId());
+                issue.setRepoId(mRepo.getId());
             }
             mIssuesDao.addAll(issues);
         });

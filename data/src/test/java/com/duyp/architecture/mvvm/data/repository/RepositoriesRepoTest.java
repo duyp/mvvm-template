@@ -4,7 +4,7 @@ import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.BaseDataModuleTest;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import org.junit.Test;
 
@@ -64,11 +64,11 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         Long sinceId = 1L;
 
         // local
-        LiveRealmResults<Repository> liveRealmResults = initLiveRealmResults(mockRealmResults());
+        LiveRealmResults<Repo> liveRealmResults = initLiveRealmResults(mockRealmResults());
         when(repositoryDao.getAll()).thenReturn(liveRealmResults);
 
         doNothing().when(repositoryDao).addAll(any());
-        List<Repository> repositories = sampleRepoList(10, sampleUser(2L));
+        List<Repo> repositories = sampleRepoList(10, sampleUser(2L));
         when(githubService.getAllPublicRepositories(sinceId)).thenReturn(successResponse(repositories));
 
         repositoriesRepo.getAllRepositories(sinceId).subscribe();
@@ -82,7 +82,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         Long sinceId = 1L;
 
         // local
-        LiveRealmResults<Repository> liveRealmResults = initLiveRealmResults(mockRealmResults());
+        LiveRealmResults<Repo> liveRealmResults = initLiveRealmResults(mockRealmResults());
         when(repositoryDao.getAll()).thenReturn(liveRealmResults);
 
         when(githubService.getAllPublicRepositories(sinceId)).thenReturn(errorResponse(405));
@@ -97,12 +97,12 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
     public void findRepositoriesSuccess() throws Exception {
 
         // local
-        LiveRealmResults<Repository> liveRealmResults = initLiveRealmResults(mockRealmResults());
+        LiveRealmResults<Repo> liveRealmResults = initLiveRealmResults(mockRealmResults());
         when(repositoryDao.getRepositoriesWithNameLike("name")).thenReturn(liveRealmResults);
         doNothing().when(repositoryDao).addAll(any());
 
         // remote
-        List<Repository> list = sampleRepoList(10, sampleUser(1L));
+        List<Repo> list = sampleRepoList(10, sampleUser(1L));
         when(githubService.getAllPublicRepositories(any())).thenReturn(successResponse(list));
 
         repositoriesRepo.findRepositories("name").subscribe();
@@ -115,7 +115,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
     public void findRepositoriesError() throws Exception {
 
         // local
-        LiveRealmResults<Repository> liveRealmResults = initLiveRealmResults(mockRealmResults());
+        LiveRealmResults<Repo> liveRealmResults = initLiveRealmResults(mockRealmResults());
         when(repositoryDao.getRepositoriesWithNameLike("name")).thenReturn(liveRealmResults);
 
         // remote
@@ -129,7 +129,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
 
     @Test
     public void getMyUserRepositoriesSuccess() throws Exception {
-        List<Repository> list = sampleRepoList(10, sampleUser(111L, "abcd"));
+        List<Repo> list = sampleRepoList(10, sampleUser(111L, "abcd"));
         when(githubService.getMyRepositories(any())).thenReturn(successResponse(list));
 
         repositoriesRepo.getUserRepositories(mUser.getLogin()).subscribe();
@@ -138,8 +138,8 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         verify(githubService, times(0)).getUserRepositories(anyString(), any());
         verify(repositoryDao).addAll(list);
 
-        for (Repository repository : list) {
-            assertEquals(repository.getMemberLoginName(), mUser.getLogin());
+        for (Repo repo : list) {
+            assertEquals(repo.getMemberLoginName(), mUser.getLogin());
         }
     }
 
@@ -159,7 +159,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
     public void getOtherUserRepositoriesSuccess() throws Exception {
         String sampleLogin = "abcd";
 
-        List<Repository> list = sampleRepoList(10, sampleUser(111L, sampleLogin));
+        List<Repo> list = sampleRepoList(10, sampleUser(111L, sampleLogin));
         when(githubService.getUserRepositories(anyString(), any())).thenReturn(successResponse(list));
 
         repositoriesRepo.getUserRepositories(sampleLogin).subscribe();
@@ -168,8 +168,8 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         verify(githubService, times(1)).getUserRepositories(anyString(), any());
         verify(repositoryDao).addAll(list);
 
-        for (Repository repository : list) {
-            assertNotEquals(repository.getMemberLoginName(), mUser.getLogin());
+        for (Repo repo : list) {
+            assertNotEquals(repo.getMemberLoginName(), mUser.getLogin());
         }
     }
 

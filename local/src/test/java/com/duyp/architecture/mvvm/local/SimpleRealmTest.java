@@ -1,6 +1,6 @@
 package com.duyp.architecture.mvvm.local;
 
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -68,11 +68,11 @@ public class SimpleRealmTest {
 
     @Test
     public void shouldBeAbleToCreateARealmObject() {
-        Repository repository = new Repository();
-        when(mockRealm.createObject(Repository.class)).thenReturn(repository);
+        Repo repo = new Repo();
+        when(mockRealm.createObject(Repo.class)).thenReturn(repo);
 
-        Repository output = mockRealm.createObject(Repository.class);
+        Repo output = mockRealm.createObject(Repo.class);
 
-        assertThat(output, is(repository));
+        assertThat(output, is(repo));
     }
 }

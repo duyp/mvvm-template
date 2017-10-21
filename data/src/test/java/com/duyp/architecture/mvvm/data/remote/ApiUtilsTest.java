@@ -1,7 +1,7 @@
 package com.duyp.architecture.mvvm.data.remote;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.model.remote.ErrorEntity;
 import com.duyp.architecture.mvvm.test_utils.RxSchedulersOverrideRule;
@@ -10,19 +10,14 @@ import com.duyp.architecture.mvvm.utils.ApiUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
 import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.errorResponse;
@@ -31,7 +26,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepoList;
 
 import static org.junit.Assert.assertThat;
@@ -54,11 +48,11 @@ public class ApiUtilsTest {
     @Test
     public void successRequest() throws Exception{
 
-        List<Repository> list = sampleRepoList(10, sampleUser(1L));
-        ApiResponse<List<Repository>> succesResponse = new ApiResponse<List<Repository>>(retrofit2.Response.success(list));
+        List<Repo> list = sampleRepoList(10, sampleUser(1L));
+        ApiResponse<List<Repo>> succesResponse = new ApiResponse<List<Repo>>(retrofit2.Response.success(list));
         when(githubService.getAllPublicRepositories(any())).thenReturn(Single.just(succesResponse));
 
-        PlainConsumer<ApiResponse<List<Repository>>> consumer = PowerMockito.mock(PlainConsumer.class);
+        PlainConsumer<ApiResponse<List<Repo>>> consumer = PowerMockito.mock(PlainConsumer.class);
         PlainConsumer<ErrorEntity> errorEntityPlainConsumer = PowerMockito.mock(PlainConsumer.class);
 
         ApiUtils.makeRequest(githubService.getAllPublicRepositories(null), true, response1 -> {
@@ -73,7 +67,7 @@ public class ApiUtilsTest {
     @Test
     public void errorRequest() throws Exception {
 
-        Consumer<ApiResponse<List<Repository>>> consumer = PowerMockito.mock(Consumer.class);
+        Consumer<ApiResponse<List<Repo>>> consumer = PowerMockito.mock(Consumer.class);
         PlainConsumer<ErrorEntity> errorEntityPlainConsumer = PowerMockito.mock(PlainConsumer.class);
 
         when(githubService.getAllPublicRepositories(any())).thenReturn(errorResponse(406));

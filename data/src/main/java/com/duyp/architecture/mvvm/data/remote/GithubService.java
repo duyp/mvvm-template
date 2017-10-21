@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.duyp.architecture.mvvm.model.Commit;
 import com.duyp.architecture.mvvm.model.Issue;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 import com.duyp.architecture.mvvm.model.def.RepoTypes;
 import com.duyp.architecture.mvvm.model.remote.ApiResponse;
@@ -32,17 +32,17 @@ public interface GithubService {
     Single<ApiResponse<User>> getUser(@Path("username") String username);
 
     @GET("repositories")
-    Single<ApiResponse<List<Repository>>> getAllPublicRepositories(@Query("since") @Nullable Long sinceRepoId);
+    Single<ApiResponse<List<Repo>>> getAllPublicRepositories(@Query("since") @Nullable Long sinceRepoId);
 
     @GET("repos/{owner}/{repo}")
-    Single<ApiResponse<Repository>> getRepository(@Path("owner") String owner, @Path("repo") String repoName
+    Single<ApiResponse<Repo>> getRepository(@Path("owner") String owner, @Path("repo") String repoName
     );
 
     @GET("user/repos")
-    Single<ApiResponse<List<Repository>>> getMyRepositories(@Query("type") @RepoTypes String type);
+    Single<ApiResponse<List<Repo>>> getMyRepositories(@Query("type") @RepoTypes String type);
 
     @GET("users/{username}/repos")
-    Single<ApiResponse<List<Repository>>> getUserRepositories(
+    Single<ApiResponse<List<Repo>>> getUserRepositories(
             @Path("username") String userName, @Query("type") @RepoTypes String type
     );
 

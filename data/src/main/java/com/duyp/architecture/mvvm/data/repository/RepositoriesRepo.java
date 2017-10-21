@@ -9,7 +9,7 @@ import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.model.def.RepoTypes;
@@ -28,7 +28,7 @@ public class RepositoriesRepo extends BaseRepo {
     protected final RepositoryDao repositoryDao;
 
     @Getter
-    private LiveRealmResults<Repository> data;
+    private LiveRealmResults<Repo> data;
 
     @Nullable
     private final User mUser;
@@ -46,7 +46,7 @@ public class RepositoriesRepo extends BaseRepo {
      * @param sinceId last repository item got
      * @return resource mapper flowable
      */
-    public Flowable<Resource<List<Repository>>> getAllRepositories(@Nullable Long sinceId) {
+    public Flowable<Resource<List<Repo>>> getAllRepositories(@Nullable Long sinceId) {
         Log.d(TAG, "RepositoriesRepo: getting all repo with sinceId = " + sinceId);
 //        if (sinceId != null) {
 //            currentPage ++;
@@ -63,7 +63,7 @@ public class RepositoriesRepo extends BaseRepo {
      * @param repoName
      * @return resource mapper flowable
      */
-    public Flowable<Resource<List<Repository>>> findRepositories(String repoName) {
+    public Flowable<Resource<List<Repo>>> findRepositories(String repoName) {
         Log.d(TAG, "RepositoriesRepo: finding repo: " + repoName);
         data = repositoryDao.getRepositoriesWithNameLike(repoName);
         return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(null), repositoryDao::addAll);
@@ -75,18 +75,18 @@ public class RepositoriesRepo extends BaseRepo {
      * @param userNameLogin user login name
      * @return resource mapper flowable
      */
-    public Flowable<Resource<List<Repository>>> getUserRepositories(String userNameLogin) {
+    public Flowable<Resource<List<Repo>>> getUserRepositories(String userNameLogin) {
         data = repositoryDao.getUserRepositories(userNameLogin);
 
         boolean isOwner = mUser != null && mUser.getLogin().equals(userNameLogin);
-        Single<ApiResponse<List<Repository>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
+        Single<ApiResponse<List<Repo>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
                 getGithubService().getUserRepositories(userNameLogin, RepoTypes.ALL);
 
         return createRemoteSourceMapper(remote, repositories -> {
             if (isOwner) {
-                for (Repository repository : repositories) {
-                    if (!repository.getOwner().getLogin().equals(mUser.getLogin())) {
-                        repository.setMemberLoginName(mUser.getLogin());
+                for (Repo repo : repositories) {
+                    if (!repo.getOwner().getLogin().equals(mUser.getLogin())) {
+                        repo.setMemberLoginName(mUser.getLogin());
                     }
                 }
             }

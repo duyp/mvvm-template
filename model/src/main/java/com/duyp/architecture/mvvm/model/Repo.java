@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 //@Parcel
-public class Repository extends RealmObject {
+public class Repo extends RealmObject {
 
     @PrimaryKey
     @SerializedName("id")

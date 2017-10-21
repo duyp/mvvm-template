@@ -4,7 +4,7 @@ import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.BaseDataModuleTest;
 import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import org.junit.Test;
 
@@ -31,14 +31,14 @@ import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successRespo
  * Created by duypham on 10/18/17.
  *
  */
-public class RepositoryDetailRepoTest extends BaseDataModuleTest {
+public class RepoDetailRepoTest extends BaseDataModuleTest {
 
     @Inject
     RepositoryDetailRepo repositoryDetailRepo;
 
     private RepositoryDao repositoryDao;
 
-    private final Repository mRepository = sampleRepository(1L, sampleUser(1L));
+    private final Repo mRepo = sampleRepository(1L, sampleUser(1L));
 
     @Override
     protected void inject(TestComponent component) throws Exception {
@@ -63,25 +63,25 @@ public class RepositoryDetailRepoTest extends BaseDataModuleTest {
     public void initRepo() throws Exception {
 
         // noinspection unchecked
-        LiveRealmObject<Repository> liveRealmObject = initLiveRealmObject(mRepository);
+        LiveRealmObject<Repo> liveRealmObject = initLiveRealmObject(mRepo);
 
-        when(repositoryDao.getById(mRepository.getId())).thenReturn(liveRealmObject);
+        when(repositoryDao.getById(mRepo.getId())).thenReturn(liveRealmObject);
 
-        repositoryDetailRepo.initRepo(mRepository.getId());
+        repositoryDetailRepo.initRepo(mRepo.getId());
 
         assertThat(repositoryDetailRepo.getData(), is(liveRealmObject));
-        assertThat(repositoryDetailRepo.getData().getData(), is(mRepository));
+        assertThat(repositoryDetailRepo.getData().getData(), is(mRepo));
     }
 
     @Test
     public void getRepositorySuccess() throws Exception {
         initRepo();
 
-        mRepository.setMemberLoginName("abcd");
+        mRepo.setMemberLoginName("abcd");
 
-        Repository repo = sampleRepository(mRepository.getId(), mRepository.getOwner());
+        Repo repo = sampleRepository(mRepo.getId(), mRepo.getOwner());
 
-        when(githubService.getRepository(mRepository.getOwner().getLogin(), mRepository.getName()))
+        when(githubService.getRepository(mRepo.getOwner().getLogin(), mRepo.getName()))
                 .thenReturn(successResponse(repo));
 
         repositoryDetailRepo.getRepository().subscribe();
@@ -94,7 +94,7 @@ public class RepositoryDetailRepoTest extends BaseDataModuleTest {
     public void getRepositoryError() throws Exception {
         initRepo();
 
-        when(githubService.getRepository(mRepository.getOwner().getLogin(), mRepository.getName()))
+        when(githubService.getRepository(mRepo.getOwner().getLogin(), mRepo.getName()))
                 .thenReturn(errorResponse(435));
 
         verify(repositoryDao, times(0)).addOrUpdate(any());

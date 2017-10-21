@@ -7,7 +7,7 @@ import com.duyp.architecture.mvvm.data.dagger.TestComponent;
 import com.duyp.architecture.mvvm.local.dao.IssueDao;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Issue;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleIssueList;
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
@@ -52,7 +52,7 @@ public class IssuesRepoTest extends BaseDataModuleTest {
 
     private IssueDao issueDao;
 
-    private Repository mSampleRepository = sampleRepository(sampleRepoId, sampleUser(1L));
+    private Repo mSampleRepo = sampleRepository(sampleRepoId, sampleUser(1L));
 
     @Override
     protected void inject(TestComponent component) throws Exception {
@@ -72,7 +72,7 @@ public class IssuesRepoTest extends BaseDataModuleTest {
     public void initRepo() throws Exception {
         RepositoryDao repositoryDao = mock(RepositoryDao.class);
         when(mockRealmDatabase.newRepositoryDao()).thenReturn(repositoryDao);
-        when(repositoryDao.getById(sampleRepoId)).thenReturn(LiveRealmObject.asLiveData(mSampleRepository));
+        when(repositoryDao.getById(sampleRepoId)).thenReturn(LiveRealmObject.asLiveData(mSampleRepo));
 
         RealmResults<Issue> issues = mockRealmResults();
         LiveRealmResults<Issue> liveIssues = initLiveRealmResults(issues);
@@ -93,7 +93,7 @@ public class IssuesRepoTest extends BaseDataModuleTest {
         initRepo();
 
         List<Issue> issueList = sampleIssueList(10, sampleRepoId);
-        when(githubService.getRepoIssues(mSampleRepository.getOwner().getLogin(), mSampleRepository.getName()))
+        when(githubService.getRepoIssues(mSampleRepo.getOwner().getLogin(), mSampleRepo.getName()))
                 .thenReturn(successResponse(issueList));
 
         doNothing().when(issueDao).addAll(any());
@@ -106,7 +106,7 @@ public class IssuesRepoTest extends BaseDataModuleTest {
     public void getRepoIssuesError() throws Exception {
         initRepo();
 
-        when(githubService.getRepoIssues(mSampleRepository.getOwner().getLogin(), mSampleRepository.getName()))
+        when(githubService.getRepoIssues(mSampleRepo.getOwner().getLogin(), mSampleRepo.getName()))
                 .thenReturn(errorResponse(401));
 
         issuesRepo.getRepoIssues().subscribe();

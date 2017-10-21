@@ -1,7 +1,7 @@
 package com.duyp.architecture.mvvm.local.dagger;
 
 import com.duyp.architecture.mvvm.local.dao.IssueDaoTest;
-import com.duyp.architecture.mvvm.local.dao.RepositoryDaoTest;
+import com.duyp.architecture.mvvm.local.dao.RepoDaoTest;
 import com.duyp.architecture.mvvm.local.dao.UserDaoTest;
 
 import javax.inject.Singleton;
@@ -21,5 +21,5 @@ public interface TestAppComponent{
 
     void inject(UserDaoTest test);
     void inject(IssueDaoTest test);
-    void inject(RepositoryDaoTest test);
+    void inject(RepoDaoTest test);
 }

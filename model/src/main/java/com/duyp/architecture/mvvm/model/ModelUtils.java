@@ -69,21 +69,21 @@ public class ModelUtils {
     // Sample Repositories creator
     // =======================================================================================
 
-    public static Repository sampleRepository(Long id, @NonNull User owner) {
-        Repository repository = new Repository();
-        repository.setId(id);
-        repository.setOwner(owner);
-        repository.setName("repo" + id);
-        repository.setFullName(owner.getLogin() + "/" + repository.getName());
-        return repository;
+    public static Repo sampleRepository(Long id, @NonNull User owner) {
+        Repo repo = new Repo();
+        repo.setId(id);
+        repo.setOwner(owner);
+        repo.setName("repo" + id);
+        repo.setFullName(owner.getLogin() + "/" + repo.getName());
+        return repo;
     }
 
-    public static List<Repository> sampleRepoList(int size, @NonNull User owner) {
+    public static List<Repo> sampleRepoList(int size, @NonNull User owner) {
         return sampleRepoList(0, size, owner);
     }
 
-    public static List<Repository> sampleRepoList(int startIndex, int size, @NonNull User owner) {
-        List<Repository> list = new ArrayList<>();
+    public static List<Repo> sampleRepoList(int startIndex, int size, @NonNull User owner) {
+        List<Repo> list = new ArrayList<>();
         for (int i = startIndex; i < startIndex + size; i++) {
             list.add(sampleRepository((long)i, owner));
         }

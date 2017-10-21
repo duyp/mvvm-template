@@ -7,7 +7,7 @@ import com.duyp.architecture.mvvm.local.dao.RepositoryDaoImpl;
 import com.duyp.architecture.mvvm.local.dao.UserDao;
 import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.Issue;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 
 import io.realm.Realm;
@@ -41,7 +41,7 @@ public class RealmDatabase {
     public void clearAll() {
         Realm mRealm = Realm.getDefaultInstance();
         mRealm.beginTransaction();
-        mRealm.delete(Repository.class);
+        mRealm.delete(Repo.class);
         mRealm.delete(Issue.class);
         mRealm.delete(User.class);
         mRealm.commitTransaction();

@@ -67,6 +67,10 @@ dependencies {
     implementation project(":data")
 
     implementation libs.supportAppCompatV7
+    implementation libs.supportDesign
+    implementation libs.supportRecyclerView
+    implementation libs.supportCardView
+    implementation libs.supportTransition
 
     // dagger
     implementation libs.dagger

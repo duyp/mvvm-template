@@ -1,8 +1,7 @@
 package com.duyp.architecture.mvvm.local.dao;
 
 import com.duyp.architecture.mvvm.local.dagger.TestAppComponent;
-import com.duyp.architecture.mvvm.model.ModelUtils;
-import com.duyp.architecture.mvvm.model.Repository;
+import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 
 import org.junit.Test;
@@ -21,7 +20,7 @@ import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
  *
  */
 
-public class RepositoryDaoTest extends BaseDaoTest {
+public class RepoDaoTest extends BaseDaoTest {
 
     private RepositoryDao repositoryDao;
 
@@ -39,12 +38,12 @@ public class RepositoryDaoTest extends BaseDaoTest {
 
     @Test
     public void addAndGetRepository() throws Exception{
-        Repository repository = sampleRepository(1L, sampleUser(11L));
-        repositoryDao.addOrUpdate(repository);
+        Repo repo = sampleRepository(1L, sampleUser(11L));
+        repositoryDao.addOrUpdate(repo);
 
-        Repository savedRepo = repositoryDao.getById(repository.getId()).getData();
+        Repo savedRepo = repositoryDao.getById(repo.getId()).getData();
 
-        assertThat(savedRepo.getFullName(), equalTo(repository.getFullName()));
+        assertThat(savedRepo.getFullName(), equalTo(repo.getFullName()));
     }
 
     @Test
@@ -71,9 +70,9 @@ public class RepositoryDaoTest extends BaseDaoTest {
     public void memberRepositories() throws Exception {
         String memberLogin = "duy_member";
         User owner = sampleUser(1L, "owner");
-        List<Repository> list = sampleRepoList(20, owner);
-        for (Repository repository : list) {
-            repository.setMemberLoginName(memberLogin);
+        List<Repo> list = sampleRepoList(20, owner);
+        for (Repo repo : list) {
+            repo.setMemberLoginName(memberLogin);
         }
 
         // distraction
@@ -94,10 +93,10 @@ public class RepositoryDaoTest extends BaseDaoTest {
 
     @Test
     public void searchRepoByName() throws Exception {
-        List<Repository> repositories = new ArrayList<>();
+        List<Repo> repositories = new ArrayList<>();
         User owner = sampleUser(2L, "user");
         for (long i = 0; i < 100; i++) {
-            Repository repo = sampleRepository(i, owner);
+            Repo repo = sampleRepository(i, owner);
             repo.setName("test" + i);
             repositories.add(repo);
         }
