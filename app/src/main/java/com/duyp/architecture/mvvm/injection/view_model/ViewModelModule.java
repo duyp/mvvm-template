@@ -3,7 +3,7 @@ package com.duyp.architecture.mvvm.injection.view_model;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.duyp.architecture.mvvm.ui.TestViewModel;
+import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -14,19 +14,9 @@ public abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(TestViewModel.class)
-    abstract ViewModel bindUserViewModel(TestViewModel userViewModel);
-//
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(SearchViewModel.class)
-//    abstract ViewModel bindSearchViewModel(SearchViewModel searchViewModel);
-//
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(RepoViewModel.class)
-//    abstract ViewModel bindRepoViewModel(RepoViewModel repoViewModel);
-//
+    @ViewModelKey(LoginViewModel.class)
+    abstract ViewModel bindUserViewModel(LoginViewModel viewModel);
+
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
 }

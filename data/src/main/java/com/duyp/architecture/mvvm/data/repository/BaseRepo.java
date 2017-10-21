@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.source.Resource;
-import com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper;
+import com.duyp.architecture.mvvm.utils.source.Resource;
+import com.duyp.architecture.mvvm.utils.source.SimpleRemoteSourceMapper;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 
@@ -33,13 +33,13 @@ public abstract class BaseRepo {
         this.realmDatabase = realmDatabase;
     }
 
-    protected <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<ApiResponse<T>> remote,
+    protected <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<T> remote,
                                                        @Nullable PlainConsumer<T> onSave) {
         return Flowable.create(emitter -> {
             new SimpleRemoteSourceMapper<T>(emitter) {
 
                 @Override
-                public Single<ApiResponse<T>> getRemote() {
+                public Single<T> getRemote() {
                     return remote;
                 }
 

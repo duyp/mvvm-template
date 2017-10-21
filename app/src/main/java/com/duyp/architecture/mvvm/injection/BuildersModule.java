@@ -1,9 +1,9 @@
 package com.duyp.architecture.mvvm.injection;
 
-import com.duyp.architecture.mvvm.ui.MainActivity;
-import com.duyp.architecture.mvvm.ui.MainActivityModule;
-import com.duyp.architecture.mvvm.ui.TestFragment;
-import com.duyp.architecture.mvvm.ui.TestFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
+import com.duyp.architecture.mvvm.ui.modules.login.LoginActivityModule;
+import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivity;
+import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivityModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -16,9 +16,9 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract class BuildersModule {
 
-    @ContributesAndroidInjector(modules = MainActivityModule.class)
-    abstract MainActivity contributeMainActivity();
+    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    abstract LoginActivity loginActivity();
 
-    @ContributesAndroidInjector(modules = TestFragmentModule.class)
-    abstract TestFragment testFragment();
+    @ContributesAndroidInjector(modules = SplashActivityModule.class)
+    abstract SplashActivity splashActivity();
 }

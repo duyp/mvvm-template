@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentRequestModel extends RealmObject {
+public class CommentRequestModel {
 
     public String body;
     @SerializedName("in_reply_to")

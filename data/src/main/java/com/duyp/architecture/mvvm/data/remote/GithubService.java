@@ -7,7 +7,6 @@ import com.duyp.architecture.mvvm.model.Issue;
 import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 import com.duyp.architecture.mvvm.model.def.RepoTypes;
-import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.utils.RemoteConstants;
 
 import java.util.List;
@@ -26,29 +25,29 @@ import retrofit2.http.Query;
 public interface GithubService {
 
     @GET("user")
-    Single<ApiResponse<User>> login(@Header(RemoteConstants.HEADER_AUTH) String basicToken);
+    Single<User> login(@Header(RemoteConstants.HEADER_AUTH) String basicToken);
 
     @GET("users/{username}")
-    Single<ApiResponse<User>> getUser(@Path("username") String username);
+    Single<User> getUser(@Path("username") String username);
 
     @GET("repositories")
-    Single<ApiResponse<List<Repo>>> getAllPublicRepositories(@Query("since") @Nullable Long sinceRepoId);
+    Single<List<Repo>> getAllPublicRepositories(@Query("since") @Nullable Long sinceRepoId);
 
     @GET("repos/{owner}/{repo}")
-    Single<ApiResponse<Repo>> getRepository(@Path("owner") String owner, @Path("repo") String repoName
+    Single<Repo> getRepository(@Path("owner") String owner, @Path("repo") String repoName
     );
 
     @GET("user/repos")
-    Single<ApiResponse<List<Repo>>> getMyRepositories(@Query("type") @RepoTypes String type);
+    Single<List<Repo>> getMyRepositories(@Query("type") @RepoTypes String type);
 
     @GET("users/{username}/repos")
-    Single<ApiResponse<List<Repo>>> getUserRepositories(
+    Single<List<Repo>> getUserRepositories(
             @Path("username") String userName, @Query("type") @RepoTypes String type
     );
 
     @GET("repos/{owner}/{repo}/issues")
-    Single<ApiResponse<List<Issue>>> getRepoIssues(@Path("owner") String owner, @Path("repo") String repo);
+    Single<List<Issue>> getRepoIssues(@Path("owner") String owner, @Path("repo") String repo);
 
     @GET("repos/{owner}/{repo}/commits")
-    Single<ApiResponse<List<Commit>>> getRepoCommits(@Path("owner") String owner, @Path("repo") String repo);
+    Single<List<Commit>> getRepoCommits(@Path("owner") String owner, @Path("repo") String repo);
 }

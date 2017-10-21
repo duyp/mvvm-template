@@ -5,13 +5,12 @@ import android.util.Log;
 
 import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.utils.source.Resource;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
-import com.duyp.architecture.mvvm.model.remote.ApiResponse;
 import com.duyp.architecture.mvvm.model.def.RepoTypes;
 
 import java.util.List;
@@ -79,7 +78,7 @@ public class RepositoriesRepo extends BaseRepo {
         data = repositoryDao.getUserRepositories(userNameLogin);
 
         boolean isOwner = mUser != null && mUser.getLogin().equals(userNameLogin);
-        Single<ApiResponse<List<Repo>>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
+        Single<List<Repo>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
                 getGithubService().getUserRepositories(userNameLogin, RepoTypes.ALL);
 
         return createRemoteSourceMapper(remote, repositories -> {

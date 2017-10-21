@@ -10,22 +10,19 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
 import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initLiveRealmObject;
 import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.errorResponse;
+import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.verify;
-
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
 
 /**
  * Created by duypham on 10/18/17.
@@ -95,7 +92,7 @@ public class RepoDetailRepoTest extends BaseDataModuleTest {
         initRepo();
 
         when(githubService.getRepository(mRepo.getOwner().getLogin(), mRepo.getName()))
-                .thenReturn(errorResponse(435));
+                .thenReturn(errorResponse());
 
         verify(repositoryDao, times(0)).addOrUpdate(any());
     }

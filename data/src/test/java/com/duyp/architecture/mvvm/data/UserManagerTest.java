@@ -11,14 +11,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.inject.Inject;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.mockito.Mockito.times;
-import static org.powermock.api.mockito.PowerMockito.when;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.when;
 /**
  * Created by duypham on 10/18/17.
  *

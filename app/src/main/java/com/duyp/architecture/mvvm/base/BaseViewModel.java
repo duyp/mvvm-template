@@ -7,10 +7,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.data.source.Resource;
-import com.duyp.architecture.mvvm.data.source.State;
-import com.duyp.architecture.mvvm.data.source.Status;
-import com.duyp.architecture.mvvm.model.remote.ApiResponse;
+import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
+import com.duyp.architecture.mvvm.utils.source.Resource;
+import com.duyp.architecture.mvvm.utils.source.State;
+import com.duyp.architecture.mvvm.utils.source.Status;
+import com.duyp.architecture.mvvm.utils.ApiUtils;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -23,7 +24,7 @@ import lombok.Getter;
 /**
  * Created by duypham on 10/19/17.
  * Base class that provides base implementation for handling loading status and hole api request disposable.
- * All api requests called from {@link com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper}
+ * All api requests called from {@link com.duyp.architecture.mvvm.utils.source.SimpleRemoteSourceMapper}
  * will be added to a composite disposable which is disposed when view model is cleared
  *
  * Reference: https://developer.android.com/topic/libraries/architecture/viewmodel.html
@@ -36,7 +37,7 @@ public abstract class BaseViewModel extends ViewModel {
 
     @Getter
     @NonNull
-    protected final MutableLiveData<State> stateLiveData = new MutableLiveData<>();
+    protected final SafeMutableLiveData<State> stateLiveData = new SafeMutableLiveData<>();
 
     public BaseViewModel() {}
 
@@ -52,12 +53,12 @@ public abstract class BaseViewModel extends ViewModel {
      * Loading, error, success status will be updated automatically via {@link #stateLiveData} which should be observed
      * by fragments / activities to update UI appropriately
      * @param showProgress true if should show progress when executing, false if not
-     * @param resourceFlowable flowable resource, see {@link com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper}
+     * @param resourceFlowable flowable resource, see {@link com.duyp.architecture.mvvm.utils.source.SimpleRemoteSourceMapper}
      * @param responseConsumer consume response data
      * @param <T> type of response
      */
     protected  <T> void execute(boolean showProgress, Flowable<Resource<T>> resourceFlowable,
-                               @Nullable PlainConsumer<ApiResponse<T>> responseConsumer) {
+                               @Nullable PlainConsumer<T> responseConsumer) {
         Disposable disposable = resourceFlowable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(resource -> {
@@ -79,7 +80,17 @@ public abstract class BaseViewModel extends ViewModel {
     /**
      * see {@link #execute(boolean, Flowable, PlainConsumer)}
      */
-    protected  <T> void execute(Flowable<Resource<T>> resourceFlowable, PlainConsumer<ApiResponse<T>> response) {
+    protected  <T> void execute(Flowable<Resource<T>> resourceFlowable, PlainConsumer<T> response) {
         execute(true, resourceFlowable, response);
+    }
+
+    protected <T> void execute(boolean showProgress, Single<T> request,
+                               @Nullable PlainConsumer<T> responseConsumer) {
+        Disposable disposable = ApiUtils.makeRequest(request, true, tApiResponse -> {
+
+        }, errorEntity -> {
+
+        });
+        mCompositeDisposable.add(disposable);
     }
 }

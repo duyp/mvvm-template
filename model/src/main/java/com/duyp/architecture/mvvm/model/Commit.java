@@ -34,6 +34,9 @@ public class Commit extends RealmObject{
     @SerializedName("author")
     @Expose
     private User author;
+    @SerializedName("ref")
+    @Expose
+    String ref;
 
     @Nullable
     public User getUser() {

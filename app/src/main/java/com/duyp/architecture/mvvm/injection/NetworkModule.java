@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.utils.ServiceFactory;
+import com.duyp.architecture.mvvm.data.remote.ServiceFactory;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 

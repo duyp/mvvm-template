@@ -1,7 +1,9 @@
 package com.duyp.architecture.mvvm.utils;
 
+import android.content.Intent;
+
 import com.duyp.androidutils.navigation.Navigator;
-import com.duyp.architecture.mvvm.ui.TestFragment;
+import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 
 /**
  * Created by duypham on 9/7/17.
@@ -20,8 +22,12 @@ public class NavigatorHelper {
         this.mNavigator = navigator;
     }
 
-    public void replaceTestFragment() {
-        mNavigator.replaceFragment(R.id.container, new TestFragment());
+    public void navigateLoginActivity(boolean clearAllPrevious) {
+        mNavigator.startActivity(LoginActivity.class, intent -> {
+            if (clearAllPrevious) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+        });
     }
 
 //    public void navigateUserProfile(@IdRes int containerId, @Nullable User user) {

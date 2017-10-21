@@ -6,11 +6,12 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.base.BaseViewModel;
-import com.duyp.architecture.mvvm.data.source.State;
-import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.utils.source.State;
+import com.duyp.architecture.mvvm.utils.source.Status;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -54,21 +55,13 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
      * Default state handling, can be override
      * @param state viewModel's state
      */
-    protected void handleState(State state) {
-        if (state != null) {
-            if (state.getStatus() == Status.LOADING) {
-                showProgressDialog();
-            } else {
-                hideProgressDialog();
-                handleMessageState(state);
-            }
-        } else {
-            hideProgressDialog();
-        }
+    protected void handleState(@Nullable State state) {
+        setLoading(state != null && state.getStatus() == Status.LOADING);
+        handleMessageState(state);
     }
 
-    protected void handleMessageState(@NonNull State state) {
-        if (state.getMessage() != null) {
+    protected void handleMessageState(@Nullable State state) {
+        if (state != null && state.getMessage() != null) {
             if (state.isHardAlert()) {
                 AlertUtils.showAlertDialog(this, state.getMessage());
             } else {

@@ -2,17 +2,17 @@ package com.duyp.architecture.mvvm.data.dagger;
 
 import android.content.Context;
 
+import com.duyp.architecture.mvvm.data.UserDataStore;
 import com.duyp.architecture.mvvm.data.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.UserDataStore;
-
-import static org.powermock.api.mockito.PowerMockito.mock;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 /**
  * Created by duypham on 10/17/17.

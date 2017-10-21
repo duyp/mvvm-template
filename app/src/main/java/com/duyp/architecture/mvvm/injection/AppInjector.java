@@ -23,7 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-import com.duyp.architecture.mvvm.ui.MyApplication;
+import com.duyp.architecture.mvvm.MyApplication;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
@@ -85,7 +85,7 @@ public class AppInjector {
     }
 
     private static void handleActivity(Activity activity) {
-        if (activity instanceof HasSupportFragmentInjector) {
+        if (activity instanceof HasSupportFragmentInjector || activity instanceof Injectable) {
             AndroidInjection.inject(activity);
         }
         if (activity instanceof FragmentActivity) {

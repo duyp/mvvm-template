@@ -20,11 +20,18 @@ android {
         // speed up debug build
         defaultPublishConfig 'release'
         publishNonDefault true
+
+        // github base url
+        buildConfigField "String", "REST_URL", '"https://api.github.com/"'
+        buildConfigField "String", "IMGUR_URL", '"https://api.imgur.com/3/"'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
         }
     }
 

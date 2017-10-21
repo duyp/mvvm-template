@@ -48,7 +48,7 @@ ext {
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
     timberVersion           = "4.5.1"
-    butterKnifeVersion      = "8.6.0"
+    streamVersion           = "1.1.9"
 
     mockitoVersion          = "1.10.19"
     powerMockVersion        = "1.6.5"
@@ -83,8 +83,7 @@ ext {
             //lombok
             lombok                  : "org.projectlombok:lombok:1.16.16",
 
-            butterKnife             : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            stream                  : "com.annimon:stream:$streamVersion",
 
             // android utils
             androidUtils_core       : "com.github.duyp.android-utils:core:${androidUtilsVersion}", // core (basic | common utils)

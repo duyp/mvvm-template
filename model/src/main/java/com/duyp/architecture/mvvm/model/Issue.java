@@ -69,12 +69,12 @@ public class Issue extends RealmObject{
     @SerializedName("assignee")
     @Expose
     User assignee;
-//    @SerializedName("assignees")
-//    @Expose
-//    List<User> assignees = null;
-//    @SerializedName("milestone")
-//    @Expose
-//    Object milestone;
+    @SerializedName("assignees")
+    @Expose
+    RealmList<User> assignees = null;
+    @SerializedName("milestone")
+    @Expose
+    MilestoneModel milestone;
     @SerializedName("comments")
     @Expose
     long comments;

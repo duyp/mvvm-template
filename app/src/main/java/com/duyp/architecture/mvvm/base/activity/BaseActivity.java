@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -116,13 +117,17 @@ public abstract class BaseActivity extends BasePermissionActivity
 
     private ProgressDialog progress_dialog;
 
-    public void showProgressDialog(String... message) {
+    public void showProgressDialog() {
+        showProgressDialog(null);
+    }
+
+    public void showProgressDialog(@Nullable String message) {
         if (progress_dialog == null) {
             progress_dialog = new ProgressDialog(this);
         }
 
         if (!progress_dialog.isShowing()) {
-            progress_dialog.setMessage(message == null || message.length == 0 ? "Loading" : message[0]);
+            progress_dialog.setMessage(message == null? "Loading" : message);
             progress_dialog.setCancelable(false);
             progress_dialog.show();
         }
@@ -132,6 +137,14 @@ public abstract class BaseActivity extends BasePermissionActivity
     public void hideProgressDialog() {
         if (progress_dialog != null && progress_dialog.isShowing()) {
             progress_dialog.dismiss();
+        }
+    }
+
+    public void setLoading(boolean loading) {
+        if (loading) {
+            showProgressDialog();
+        } else {
+            hideProgressDialog();
         }
     }
 

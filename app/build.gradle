@@ -92,7 +92,7 @@ dependencies {
     implementation libs.retrofitConverterGson
     implementation libs.retrofitConverterScalars
 
-            // rx permission
+    // rx permission
     implementation libs.rxPermission
 
     // leak canary
@@ -103,10 +103,16 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
+    implementation libs.stream
+
     // testing
     testImplementation project(":test_utils")
 
     androidTestImplementation testLibs.espresso_core
+
+    // dagger test
+    testAnnotationProcessor libs.daggerCompiler
+    testAnnotationProcessor libs.daggerAndroidCompiler
 
     testImplementation testLibs.mockito
     testImplementation testLibs.jUnit

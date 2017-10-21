@@ -4,12 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.model.remote.ApiResponse;
-import com.duyp.architecture.mvvm.model.remote.ErrorEntity;
+import com.duyp.architecture.mvvm.model.GitHubErrorResponse;
+import com.duyp.architecture.mvvm.model.ErrorEntity;
+import com.duyp.architecture.mvvm.utils.source.Resource;
+import com.duyp.architecture.mvvm.utils.source.SimpleRemoteSourceMapper;
+import com.google.gson.Gson;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -21,6 +23,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public final class ApiUtils {
+
+    private static Gson cGson;
+
+    public static void initGson(Gson gson) {
+        cGson = gson;
+    }
 
     /**
      * Create new retrofit api request
@@ -35,30 +43,50 @@ public final class ApiUtils {
      * @return a disposable
      */
     public static <T> Disposable makeRequest(
-            Single<ApiResponse<T>> request, boolean shouldUpdateUi,
-            @NonNull PlainConsumer<ApiResponse<T>> responseConsumer,
+            Single<T> request, boolean shouldUpdateUi,
+            @NonNull PlainConsumer<T> responseConsumer,
             @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
 
-        Single<ApiResponse<T>> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
+        Single<T> single = request.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io());
         if (shouldUpdateUi) {
             single = single.observeOn(AndroidSchedulers.mainThread());
         }
 
-        return single.subscribe(response -> {
-            if (response.isSuccessful()) {
-                responseConsumer.accept(response);
-            } else if (errorConsumer != null) {
-                errorConsumer.accept(ErrorEntity.getError(response.code, response.errorMessage));
-            }
-        }, throwable -> {
-//            if (throwable instanceof RuntimeException) {
-//                // must be fixed while developing
-//                throw new Exception(throwable);
-//            }
+        return single.subscribe(responseConsumer, throwable -> {
             // handle error
+            throwable.printStackTrace();
             if (errorConsumer != null) {
-                errorConsumer.accept(ErrorEntity.getError(throwable));
+                int code = RestHelper.getErrorCode(throwable);
+                String message;
+
+                GitHubErrorResponse errorResponse = RestHelper.getErrorResponse(cGson, throwable);
+                if (errorResponse != null && errorResponse.getMessage() != null) {
+                    message = errorResponse.getMessage();
+                } else {
+                    message = RestHelper.getPrettifiedErrorMessage(throwable);
+                }
+                errorConsumer.accept(new ErrorEntity(message, code));
             }
         });
+    }
+
+    public static <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<T> remote,
+                                                                 @Nullable PlainConsumer<T> onSave) {
+        return Flowable.create(emitter -> {
+            new SimpleRemoteSourceMapper<T>(emitter) {
+
+                @Override
+                public Single<T> getRemote() {
+                    return remote;
+                }
+
+                @Override
+                public void saveCallResult(T data) {
+                    if (onSave != null) {
+                        onSave.accept(data);
+                    }
+                }
+            };
+        }, BackpressureStrategy.BUFFER);
     }
 }

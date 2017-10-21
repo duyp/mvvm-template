@@ -1,0 +1,39 @@
+package com.duyp.architecture.mvvm.ui.modules.login;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.base.activity.BaseActivity;
+import com.duyp.architecture.mvvm.base.activity.BaseViewModelActivity;
+import com.duyp.architecture.mvvm.databinding.ActivityLoginBinding;
+import com.duyp.architecture.mvvm.utils.source.State;
+
+/**
+ * Created by duypham on 10/21/17.
+ *
+ */
+
+public class LoginActivity extends BaseViewModelActivity<ActivityLoginBinding, LoginViewModel> {
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding.setVm(viewModel);
+    }
+
+    @Override
+    protected void handleState(@Nullable State state) {
+        if (state != null) {
+            binding.setState(state);
+            if (state.getMessage() != null) {
+                showToastLongMessage(state.getMessage());
+            }
+        }
+    }
+}

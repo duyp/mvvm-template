@@ -135,7 +135,7 @@
     <string name="no_data">No data available</string>
     <string name="search">Search</string>
     <string name="please_login">Please sign in to begin using FastHub</string>
-    <string name="sign_in_to_github">Sign in using your GitHub account to use FastHub</string>
+    <string name="sign_in_to_github">Sign in using your GitHub account</string>
     <string name="failed_login">Sign in failed</string>
     <string name="sign_in">Sign in</string>
     <string name="share">Share</string>

@@ -9,12 +9,6 @@ import com.duyp.architecture.mvvm.local.dao.RepositoryDao;
 import com.duyp.architecture.mvvm.model.Issue;
 import com.duyp.architecture.mvvm.model.Repo;
 
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleIssueList;
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
-import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initLiveRealmResults;
-import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.mockRealmResults;
-import static org.hamcrest.CoreMatchers.is;
-
 import org.junit.Test;
 import org.powermock.api.mockito.PowerMockito;
 
@@ -22,22 +16,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
 import io.realm.RealmResults;
 
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleIssueList;
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepository;
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initLiveRealmResults;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.mockRealmResults;
+import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.errorResponse;
+import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
-
-import static org.junit.Assert.assertThat;
-
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.*;
 
 /**
  * Created by duypham on 10/17/17.
@@ -107,7 +103,7 @@ public class IssuesRepoTest extends BaseDataModuleTest {
         initRepo();
 
         when(githubService.getRepoIssues(mSampleRepo.getOwner().getLogin(), mSampleRepo.getName()))
-                .thenReturn(errorResponse(401));
+                .thenReturn(errorResponse(401, "Unauthorized"));
 
         issuesRepo.getRepoIssues().subscribe();
         verify(issueDao, times(0)).addAll(any());

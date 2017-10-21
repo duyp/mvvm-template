@@ -4,10 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.utils.source.Resource;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.dao.UserDao;
-import com.duyp.architecture.mvvm.local.dao.UserDaoImpl;
 import com.duyp.architecture.mvvm.model.User;
 
 import javax.inject.Inject;

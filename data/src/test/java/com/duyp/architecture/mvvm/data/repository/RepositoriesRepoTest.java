@@ -12,26 +12,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
+import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepoList;
 import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
+import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initLiveRealmResults;
 import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.mockRealmResults;
 import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.errorResponse;
+import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
-import static  org.hamcrest.CoreMatchers.is;
-
-import static org.mockito.Mockito.verify;
-
-import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initLiveRealmResults;
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleRepoList;
 
 /**
  * Created by duypham on 10/18/17.
@@ -85,7 +83,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         LiveRealmResults<Repo> liveRealmResults = initLiveRealmResults(mockRealmResults());
         when(repositoryDao.getAll()).thenReturn(liveRealmResults);
 
-        when(githubService.getAllPublicRepositories(sinceId)).thenReturn(errorResponse(405));
+        when(githubService.getAllPublicRepositories(sinceId)).thenReturn(errorResponse());
 
         repositoriesRepo.getAllRepositories(sinceId).subscribe();
 
@@ -119,7 +117,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
         when(repositoryDao.getRepositoriesWithNameLike("name")).thenReturn(liveRealmResults);
 
         // remote
-        when(githubService.getAllPublicRepositories(any())).thenReturn(errorResponse(405));
+        when(githubService.getAllPublicRepositories(any())).thenReturn(errorResponse());
 
         repositoriesRepo.findRepositories("name").subscribe();
 
@@ -146,7 +144,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
     @Test
     public void getMyUserRepositoriesError() throws Exception {
 
-        when(githubService.getMyRepositories(any())).thenReturn(errorResponse(444));
+        when(githubService.getMyRepositories(any())).thenReturn(errorResponse());
 
         repositoriesRepo.getUserRepositories(mUser.getLogin()).subscribe();
 
@@ -177,7 +175,7 @@ public class RepositoriesRepoTest extends BaseDataModuleTest {
     public void getOtherUserRepositoriesError() throws Exception {
         String sampleLogin = "abcd";
 
-        when(githubService.getUserRepositories(anyString(), any())).thenReturn(errorResponse(444));
+        when(githubService.getUserRepositories(anyString(), any())).thenReturn(errorResponse());
 
         repositoriesRepo.getUserRepositories(sampleLogin).subscribe();
 

@@ -53,6 +53,8 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
+    implementation libs.liveData
+
     // android utils
     implementation libs.androidUtils_core
     implementation libs.androidUtils_network

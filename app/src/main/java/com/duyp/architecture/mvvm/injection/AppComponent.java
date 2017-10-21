@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.injection;
 
 import android.app.Application;
 
-import com.duyp.architecture.mvvm.ui.MyApplication;
+import com.duyp.architecture.mvvm.MyApplication;
 
 import javax.inject.Singleton;
 

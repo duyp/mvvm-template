@@ -4,10 +4,11 @@ import android.app.Application;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
+import com.duyp.architecture.mvvm.MyApplication;
 import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
 import com.duyp.architecture.mvvm.local.Constants;
-import com.duyp.architecture.mvvm.ui.MyApplication;
-import com.duyp.architecture.mvvm.utils.ServiceFactory;
+import com.duyp.architecture.mvvm.utils.ApiUtils;
+import com.duyp.architecture.mvvm.utils.GsonUtils;
 import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 import com.squareup.leakcanary.RefWatcher;
@@ -39,7 +40,9 @@ class AppModule {
     @Provides
     @Singleton
     static Gson provideGson() {
-        return ServiceFactory.makeGsonForRealm();
+        Gson gson = GsonUtils.makeGsonForRealm();
+        ApiUtils.initGson(gson);
+        return gson;
     }
 
     @Provides
