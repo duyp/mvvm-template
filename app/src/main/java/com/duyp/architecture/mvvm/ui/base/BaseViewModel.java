@@ -1,11 +1,15 @@
 package com.duyp.architecture.mvvm.ui.base;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 import com.duyp.architecture.mvvm.data.source.Resource;
@@ -38,12 +42,32 @@ public abstract class BaseViewModel extends ViewModel {
     @NonNull
     protected final SafeMutableLiveData<State> stateLiveData = new SafeMutableLiveData<>();
 
-    public BaseViewModel() {}
+    @Getter
+    protected final UserManager userManager;
+
+    public BaseViewModel(UserManager userManager) {
+        this.userManager = userManager;
+    }
 
     @Override
     protected void onCleared() {
         super.onCleared();
         mCompositeDisposable.dispose();
+    }
+
+    /**
+     * ensure we are in user scope (has saved user - user logged in)
+     * should be called when activity / fragment is created
+     * @param userConsumer consume user live data which would be observed to update UI
+     * @param onError will be run if user data isn't exist
+     *               (show no login button, or navigate user to login page...)
+     */
+    public void ensureInUserScope(PlainConsumer<LiveData<User>> userConsumer, PlainAction onError) {
+        if (userManager.checkForSavedUserAndStartSessionIfHas()) {
+            userConsumer.accept(userManager.getUserRepo().getUserLiveData());
+        } else {
+            onError.run();
+        }
     }
 
     /**

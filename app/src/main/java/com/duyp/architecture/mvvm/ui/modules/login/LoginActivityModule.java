@@ -9,7 +9,4 @@ import dagger.Module;
  *
  */
 @Module
-public class LoginActivityModule extends BaseActivityModule<LoginActivity> {
-
-
-}
+public class LoginActivityModule extends BaseActivityModule<LoginActivity> {}

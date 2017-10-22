@@ -21,15 +21,14 @@ import lombok.Setter;
 public class LoginViewModel extends BaseViewModel {
 
     private final GithubService githubService;
-    private final UserManager userManager;
 
     private String userName = "duyp1";
     private String password = "Duy1234";
 
     @Inject
-    public LoginViewModel(GithubService githubService, UserManager userManager) {
+    LoginViewModel(GithubService githubService, UserManager userManager) {
+        super(userManager);
         this.githubService = githubService;
-        this.userManager = userManager;
     }
 
     public void login() {

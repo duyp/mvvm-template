@@ -85,7 +85,6 @@
                     android:layout_gravity="center_horizontal">
 
                     <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/login"
                         android:layout_width="@dimen/fab_size"
                         android:layout_height="@dimen/fab_size"
                         android:layout_gravity="center"
