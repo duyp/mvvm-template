@@ -1,10 +1,10 @@
 package com.duyp.architecture.mvvm;
 
-import com.duyp.architecture.mvvm.base.BaseViewModel;
+import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.test_utils.RxSchedulersOverrideRule;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
-import com.duyp.architecture.mvvm.utils.source.State;
+import com.duyp.architecture.mvvm.data.source.State;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 

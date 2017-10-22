@@ -1,8 +1,6 @@
 package com.duyp.architecture.mvvm.dagger;
 
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.remote.ServiceFactory;
-import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 

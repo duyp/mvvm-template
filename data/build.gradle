@@ -83,7 +83,6 @@ dependencies {
     // testing
     androidTestImplementation testLibs.espresso_core
     testImplementation testLibs.mockito
-    testImplementation project(':test_utils')
     testImplementation testLibs.jUnit
     testImplementation testLibs.powerMockito
     testImplementation testLibs.powerMockJUnit

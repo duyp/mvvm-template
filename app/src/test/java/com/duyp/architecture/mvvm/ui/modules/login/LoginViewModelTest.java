@@ -4,13 +4,13 @@ package com.duyp.architecture.mvvm.ui.modules.login;
 import com.duyp.androidutils.StringUtils;
 import com.duyp.architecture.mvvm.BaseViewModelTest;
 import com.duyp.architecture.mvvm.dagger.TestAppComponent;
-import com.duyp.architecture.mvvm.model.User;
-import com.duyp.architecture.mvvm.utils.source.State;
+import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.data.source.State;
 
 import org.junit.Test;
 
 
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.errorResponse;
+import static com.duyp.architecture.mvvm.utils.test.RemoteTestUtils.errorResponse;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
@@ -18,8 +18,8 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.mockito.Mockito.verify;
 
-import static com.duyp.architecture.mvvm.test_utils.RemoteTestUtils.successResponse;
-import static com.duyp.architecture.mvvm.model.ModelUtils.sampleUser;
+import static com.duyp.architecture.mvvm.utils.test.RemoteTestUtils.successResponse;
+import static com.duyp.architecture.mvvm.utils.test.ModelTestUtils.sampleUser;
 /**
  * Created by duypham on 10/21/17.
  *

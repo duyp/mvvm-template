@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.injection;
 import android.app.Application;
 
 import com.duyp.architecture.mvvm.MyApplication;
+import com.duyp.architecture.mvvm.injection.ui_modules.BuildersModule;
 
 import javax.inject.Singleton;
 

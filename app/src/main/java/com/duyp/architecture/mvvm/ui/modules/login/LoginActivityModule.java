@@ -1,6 +1,6 @@
 package com.duyp.architecture.mvvm.ui.modules.login;
 
-import com.duyp.architecture.mvvm.injection.BaseActivityModule;
+import com.duyp.architecture.mvvm.injection.ui_modules.BaseActivityModule;
 
 import dagger.Module;
 

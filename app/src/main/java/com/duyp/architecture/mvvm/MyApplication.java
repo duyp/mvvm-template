@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.duyp.architecture.mvvm.data.UserManager;
+import com.duyp.architecture.mvvm.data.user.UserManager;
 import com.duyp.architecture.mvvm.injection.AppComponent;
 import com.duyp.architecture.mvvm.injection.AppInjector;
 import com.squareup.leakcanary.LeakCanary;
@@ -16,7 +16,6 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Created by Duy Pham on 09/2017.

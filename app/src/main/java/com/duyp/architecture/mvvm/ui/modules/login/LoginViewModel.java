@@ -1,14 +1,13 @@
 package com.duyp.architecture.mvvm.ui.modules.login;
 
 import com.duyp.androidutils.StringUtils;
-import com.duyp.architecture.mvvm.base.BaseViewModel;
-import com.duyp.architecture.mvvm.data.UserManager;
+import com.duyp.architecture.mvvm.data.provider.RestHelper;
+import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
+import com.duyp.architecture.mvvm.data.user.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.utils.ApiUtils;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +34,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public void login() {
         String auth = StringUtils.getBasicAuth(userName, password);
-        execute(ApiUtils.createRemoteSourceMapper(githubService.login(auth), null), user -> {
+        execute(RestHelper.createRemoteSourceMapper(githubService.login(auth), null), user -> {
             userManager.startUserSession(user, auth);
         });
     }

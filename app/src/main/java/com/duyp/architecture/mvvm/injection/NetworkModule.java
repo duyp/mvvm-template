@@ -2,10 +2,10 @@ package com.duyp.architecture.mvvm.injection;
 
 import android.content.Context;
 
-import com.duyp.architecture.mvvm.data.UserDataStore;
+import com.duyp.architecture.mvvm.data.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
-import com.duyp.architecture.mvvm.data.remote.ServiceFactory;
-import com.duyp.architecture.mvvm.utils.qualifier.ApplicationContext;
+import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
+import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;

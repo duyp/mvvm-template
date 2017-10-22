@@ -1,1 +1,1 @@
-include ':app', ':data', ':local', ':model', ':utils', ':test_utils'
+include ':app', ':data', ':local', ':model', ':utils'

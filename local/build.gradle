@@ -71,8 +71,6 @@ dependencies {
     androidTestImplementation libs.retrofitConverterScalars
 
 
-    testImplementation project(":test_utils")
-
     testImplementation testLibs.hamcrest
     testImplementation testLibs.jUnit
     testImplementation testLibs.mockito

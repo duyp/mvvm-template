@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="user" type="com.duyp.architecture.mvvm.model.User"/>
+        <variable name="user" type="com.duyp.architecture.mvvm.data.model.User"/>
     </data>
 
     <LinearLayout
