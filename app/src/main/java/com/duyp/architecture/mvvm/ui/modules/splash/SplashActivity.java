@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.injection.Injectable;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 

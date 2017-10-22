@@ -12,9 +12,9 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-import static com.duyp.architecture.mvvm.utils.test.ModelTestUtils.sampleIssueList;
-import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initFindAllSorted;
-import static com.duyp.architecture.mvvm.test_utils.RealmTestUtils.initRealmQuery;
+import static com.duyp.architecture.mvvm.test_utils.ModelTestUtils.sampleIssueList;
+import static com.duyp.architecture.mvvm.local.RealmTestUtils.initFindAllSorted;
+import static com.duyp.architecture.mvvm.local.RealmTestUtils.initRealmQuery;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyLong;

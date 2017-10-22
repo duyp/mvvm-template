@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.injection;
 
 import android.content.Context;
 
-import com.duyp.architecture.mvvm.data.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;

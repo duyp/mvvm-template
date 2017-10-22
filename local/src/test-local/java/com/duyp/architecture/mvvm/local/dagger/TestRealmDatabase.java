@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.local.dagger;
+package com.duyp.architecture.mvvm.dagger;
 
 import com.duyp.architecture.mvvm.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.base_test.TestDao;

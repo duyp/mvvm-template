@@ -10,7 +10,7 @@ import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
-import com.duyp.architecture.mvvm.data.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.model.def.RepoTypes;
 
 import java.util.List;

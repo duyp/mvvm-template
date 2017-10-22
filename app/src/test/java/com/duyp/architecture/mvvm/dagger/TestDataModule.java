@@ -1,8 +1,11 @@
 package com.duyp.architecture.mvvm.dagger;
 
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.user.UserDataStore;
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.provider.GsonProvider;
+import com.duyp.architecture.mvvm.helper.RestHelper;
+import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
@@ -38,5 +41,4 @@ public class TestDataModule {
     RealmDatabase provideRealmDatabase() {
         return mock(RealmDatabase.class);
     }
-
 }

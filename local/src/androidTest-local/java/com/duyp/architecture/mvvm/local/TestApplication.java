@@ -2,10 +2,10 @@ package com.duyp.architecture.mvvm.local;
 
 import android.app.Application;
 
-import com.duyp.architecture.mvvm.local.dagger.DaggerTestAppComponent;
-import com.duyp.architecture.mvvm.local.dagger.TestAppComponent;
-import com.duyp.architecture.mvvm.local.dagger.TestAppModule;
-import com.duyp.architecture.mvvm.local.dagger.TestDataModule;
+import com.duyp.architecture.mvvm.dagger.DaggerTestAppComponent;
+import com.duyp.architecture.mvvm.dagger.TestAppComponent;
+import com.duyp.architecture.mvvm.dagger.TestAppModule;
+import com.duyp.architecture.mvvm.dagger.TestDataModule;
 
 /**
  * Created by duypham on 9/21/17.

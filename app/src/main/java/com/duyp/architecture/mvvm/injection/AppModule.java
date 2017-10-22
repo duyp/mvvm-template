@@ -6,7 +6,7 @@ import android.content.Context;
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.MyApplication;
 import com.duyp.architecture.mvvm.data.local.Constants;
-import com.duyp.architecture.mvvm.data.provider.RestHelper;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
 import com.duyp.architecture.mvvm.data.provider.GsonProvider;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
@@ -40,9 +40,7 @@ class AppModule {
     @Provides
     @Singleton
     static Gson provideGson() {
-        Gson gson = GsonProvider.makeGsonForRealm();
-        RestHelper.initGson(gson);
-        return gson;
+        return GsonProvider.makeGsonForRealm();
     }
 
     @Provides

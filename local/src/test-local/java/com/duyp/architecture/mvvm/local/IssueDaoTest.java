@@ -1,6 +1,6 @@
 package com.duyp.architecture.mvvm.local;
 
-import com.duyp.architecture.mvvm.local.dao.IssueDao;
+import com.duyp.architecture.mvvm.dao.IssueDao;
 import com.duyp.architecture.mvvm.model.Issue;
 
 import org.junit.Test;

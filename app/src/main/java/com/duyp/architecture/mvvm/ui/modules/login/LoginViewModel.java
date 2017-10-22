@@ -1,9 +1,9 @@
 package com.duyp.architecture.mvvm.ui.modules.login;
 
 import com.duyp.androidutils.StringUtils;
-import com.duyp.architecture.mvvm.data.provider.RestHelper;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 
 import javax.inject.Inject;

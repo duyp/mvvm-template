@@ -30,8 +30,6 @@ public interface TestAppComponent extends AppComponent{
 
     @Component.Builder
     interface Builder {
-        @BindsInstance Builder application(TestApplication application);
-
         TestAppComponent build();
     }
 

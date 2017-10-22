@@ -1,10 +1,10 @@
-package com.duyp.architecture.mvvm.local.dao;
+package com.duyp.architecture.mvvm.dao;
 
 import android.util.Log;
 
 import com.duyp.architecture.mvvm.local.BaseTest;
 import com.duyp.architecture.mvvm.local.RealmDatabase;
-import com.duyp.architecture.mvvm.local.dagger.TestAppComponent;
+import com.duyp.architecture.mvvm.dagger.TestAppComponent;
 import com.google.gson.Gson;
 
 import org.junit.After;

@@ -41,9 +41,7 @@ public class TestAppInjector {
 
     public static TestAppComponent init(TestApplication application) {
 
-        TestAppComponent component = DaggerTestAppComponent.builder()
-                .application(application)
-                .build();
+        TestAppComponent component = DaggerTestAppComponent.builder().build();
         component.inject(application);
 
         // handle injection for all activities created

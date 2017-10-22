@@ -4,7 +4,8 @@ import android.support.annotation.CallSuper;
 
 import com.duyp.architecture.mvvm.dagger.DaggerTestAppComponent;
 import com.duyp.architecture.mvvm.dagger.TestAppComponent;
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.google.gson.Gson;
 
 import org.junit.Before;
 

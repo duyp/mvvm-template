@@ -1,8 +1,8 @@
-package com.duyp.architecture.mvvm.local.dagger;
+package com.duyp.architecture.mvvm.dagger;
 
-import com.duyp.architecture.mvvm.local.dao.IssueDaoTest;
-import com.duyp.architecture.mvvm.local.dao.RepoDaoTest;
-import com.duyp.architecture.mvvm.local.dao.UserDaoTest;
+import com.duyp.architecture.mvvm.dao.IssueDaoTest;
+import com.duyp.architecture.mvvm.dao.RepoDaoTest;
+import com.duyp.architecture.mvvm.dao.UserDaoTest;
 
 import javax.inject.Singleton;
 

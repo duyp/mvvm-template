@@ -1,6 +1,6 @@
-package com.duyp.architecture.mvvm.local.dao;
+package com.duyp.architecture.mvvm.dao;
 
-import com.duyp.architecture.mvvm.local.dagger.TestAppComponent;
+import com.duyp.architecture.mvvm.dagger.TestAppComponent;
 import com.duyp.architecture.mvvm.model.Repo;
 import com.duyp.architecture.mvvm.model.User;
 

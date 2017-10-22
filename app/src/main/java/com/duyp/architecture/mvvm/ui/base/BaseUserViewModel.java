@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.User;
 
 import lombok.Getter;

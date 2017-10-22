@@ -9,7 +9,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.duyp.architecture.mvvm.utils.test.ModelTestUtils.sampleUser;
+import static com.duyp.architecture.mvvm.test_utils.ModelTestUtils.sampleUser;
 import static org.mockito.Mockito.verify;
 
 /**

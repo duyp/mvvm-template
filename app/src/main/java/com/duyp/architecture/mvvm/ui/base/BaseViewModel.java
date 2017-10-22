@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
-import com.duyp.architecture.mvvm.data.provider.RestHelper;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;

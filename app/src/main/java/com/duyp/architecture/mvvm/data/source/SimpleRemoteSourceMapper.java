@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.data.source;
 
 import android.util.Log;
 
-import com.duyp.architecture.mvvm.data.provider.RestHelper;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 
 import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;

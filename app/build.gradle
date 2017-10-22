@@ -17,7 +17,7 @@ android {
 
         multiDexEnabled true
 
-        testInstrumentationRunner "com.duyp.architecture.mvvm.local.MockTestRunner"
+        testInstrumentationRunner "com.duyp.architecture.mvvm.MockTestRunner"
 
         // github base url
         buildConfigField "String", "REST_URL", '"https://api.github.com/"'
@@ -63,9 +63,12 @@ android {
     }
 
     sourceSets {
-        androidTest.java.srcDirs += "src/androidTest-local/java"
+        androidTest.java.srcDirs += "src/androidTest/java"
         test.java.srcDirs += "src/test-local/java"
+        test.java.srcDirs += "src/test-data/java"
+
         test.java.srcDirs += "src/test-common/java"
+        androidTest.java.srcDirs += "src/test-common/java"
     }
 
     configurations.all {
@@ -146,7 +149,7 @@ dependencies {
     testImplementation testLibs.powerMockClassLoading
     testImplementation testLibs.robolectric
 
-    // android test
+    // android test (instrumentation)
     androidTestImplementation testLibs.espresso_core
 
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable

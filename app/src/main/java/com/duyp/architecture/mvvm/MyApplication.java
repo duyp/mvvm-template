@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.injection.AppComponent;
 import com.duyp.architecture.mvvm.injection.AppInjector;
 import com.squareup.leakcanary.LeakCanary;

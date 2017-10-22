@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.data.provider;
 
+import com.duyp.architecture.mvvm.data.remote.RemoteConstants;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;

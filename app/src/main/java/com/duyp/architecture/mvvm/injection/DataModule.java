@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.user.UserDataStore;
-import com.duyp.architecture.mvvm.data.user.UserManager;
+import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.google.gson.Gson;

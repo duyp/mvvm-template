@@ -2,10 +2,10 @@ package com.duyp.architecture.mvvm.local;
 
 import android.content.Context;
 
-import com.duyp.architecture.mvvm.local.dagger.DaggerTestComponent;
-import com.duyp.architecture.mvvm.local.dagger.TestComponent;
-import com.duyp.architecture.mvvm.local.dagger.TestDataModule;
-import com.duyp.architecture.mvvm.local.dagger.TestRealmDatabase;
+import com.duyp.architecture.mvvm.dagger.DaggerTestComponent;
+import com.duyp.architecture.mvvm.dagger.TestComponent;
+import com.duyp.architecture.mvvm.dagger.TestDataModule;
+import com.duyp.architecture.mvvm.dagger.TestRealmDatabase;
 
 import org.junit.After;
 import org.junit.Before;
