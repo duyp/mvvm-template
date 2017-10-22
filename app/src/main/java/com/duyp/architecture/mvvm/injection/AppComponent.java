@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.injection;
 
 import android.app.Application;
 
-import com.duyp.architecture.mvvm.MyApplication;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.injection.ui_modules.BuildersModule;
 
 import javax.inject.Singleton;
@@ -37,5 +37,5 @@ public interface AppComponent {
         AppComponent build();
     }
 
-    void inject(MyApplication application);
+    void inject(App application);
 }

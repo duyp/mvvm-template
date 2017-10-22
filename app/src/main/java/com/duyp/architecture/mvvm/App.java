@@ -21,9 +21,9 @@ import lombok.Getter;
  * Created by Duy Pham on 09/2017.
  *
  */
-public class MyApplication extends Application implements HasActivityInjector {
+public class App extends Application implements HasActivityInjector {
 
-    private static MyApplication sInstance;
+    private static App sInstance;
 
     protected static AppComponent sAppComponent;
 
@@ -58,7 +58,7 @@ public class MyApplication extends Application implements HasActivityInjector {
         return sAppComponent;
     }
 
-    public static MyApplication getInstance() {
+    public static App getInstance() {
         return sInstance;
     }
 

@@ -23,8 +23,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-import com.duyp.architecture.mvvm.MyApplication;
-import com.duyp.architecture.mvvm.injection.AppComponent;
 import com.duyp.architecture.mvvm.injection.DaggerAppComponent;
 import com.duyp.architecture.mvvm.injection.Injectable;
 

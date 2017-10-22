@@ -23,7 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-import com.duyp.architecture.mvvm.MyApplication;
+import com.duyp.architecture.mvvm.App;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
@@ -36,7 +36,7 @@ public class AppInjector {
 
     private AppInjector() {}
 
-    public static AppComponent init(MyApplication application) {
+    public static AppComponent init(App application) {
 
         AppComponent component = DaggerAppComponent.builder()
                 .application(application)

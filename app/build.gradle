@@ -84,6 +84,7 @@ dependencies {
     implementation libs.supportRecyclerView
     implementation libs.supportCardView
     implementation libs.supportTransition
+    implementation libs.supportPreference
 
     // dagger
     implementation libs.dagger
@@ -108,6 +109,9 @@ dependencies {
     implementation libs.okhttp
     implementation libs.okhttpLogging
 
+    // butter knife
+    implementation libs.butterKnife
+
     // event bus
     implementation libs.eventBus
 
@@ -129,6 +133,12 @@ dependencies {
     implementation libs.parceler
     implementation libs.timber
     implementation libs.stream
+
+    implementation('com.mikepenz:aboutlibraries:5.9.7@aar') { transitive = true }
+    implementation 'com.github.daniel-stoneuk:material-about-library:2.1.0'
+    implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.2'
+    implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
+    implementation "com.evernote:android-state:${state_version}"
 
     // =============================================================================================
     // TESTING DEPENDENCIES

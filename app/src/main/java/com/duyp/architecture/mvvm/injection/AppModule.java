@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.duyp.androidutils.CustomSharedPreferences;
-import com.duyp.architecture.mvvm.MyApplication;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.Constants;
-import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
 import com.duyp.architecture.mvvm.data.provider.GsonProvider;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
@@ -58,6 +57,6 @@ class AppModule {
     @Provides
     @Singleton
     RefWatcher provideRefWatcher() {
-        return MyApplication.getInstance().getRefWatcher();
+        return App.getInstance().getRefWatcher();
     }
 }
