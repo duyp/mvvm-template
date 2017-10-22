@@ -125,6 +125,7 @@ dependencies {
     // leak canary
     debugImplementation libs.leakCanary
     releaseImplementation libs.leakCanaryNoOp
+    testImplementation libs.leakCanaryNoOp
 
     // lombok
     compileOnly libs.lombok

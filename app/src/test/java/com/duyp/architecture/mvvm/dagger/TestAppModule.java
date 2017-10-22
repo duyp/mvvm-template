@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.injection;
+package com.duyp.architecture.mvvm.dagger;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Context;
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.Constants;
-import com.duyp.architecture.mvvm.injection.view_model.ViewModelModule;
 import com.duyp.architecture.mvvm.data.provider.GsonProvider;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.google.gson.Gson;
@@ -20,19 +19,17 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by air on 4/30/17.
- * Module for app component
+ * Created by duypham on 10/23/17.
+ * test module for {@link com.duyp.architecture.mvvm.injection.AppModule}
  */
 
-@Module(includes = ViewModelModule.class)
-public class AppModule {
-
-    public AppModule() {}
+@Module
+public class TestAppModule {
 
     @Provides
     @Singleton
     @ApplicationContext
-    Context provideContext(Application application) {
+    Context provideContext(TestApplication application) {
         return application;
     }
 

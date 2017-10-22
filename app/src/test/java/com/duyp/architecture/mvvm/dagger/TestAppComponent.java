@@ -1,8 +1,11 @@
 package com.duyp.architecture.mvvm.dagger;
 
 import com.duyp.architecture.mvvm.injection.AppComponent;
+import com.duyp.architecture.mvvm.injection.AppModule_ProvideMySharedPreferencesFactory;
+import com.duyp.architecture.mvvm.injection.ui_modules.BuildersModule;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModelTest;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivityTest;
+import com.duyp.architecture.mvvm.injection.AppModule;
 
 import javax.inject.Singleton;
 
@@ -21,9 +24,10 @@ import dagger.android.support.AndroidSupportInjectionModule;
         modules = {
                 AndroidInjectionModule.class,
                 AndroidSupportInjectionModule.class,
-                TestBuilderModule.class,
+                BuildersModule.class,
                 TestDataModule.class,
-                TestNetworkModule.class
+                TestNetworkModule.class,
+                AppModule.class
         }
 )
 public interface TestAppComponent extends AppComponent{
