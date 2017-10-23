@@ -37,7 +37,7 @@ public class LoginViewModel extends BaseViewModel {
     public void login() {
         String auth = StringUtils.getBasicAuth(userName, password);
         execute(RestHelper.createRemoteSourceMapper(githubService.login(auth), null), user -> {
-//            userManager.startUserSession(user, auth);
+            userManager.startUserSession(user, auth);
             navigatorHelper.navigateMainActivity(true);
         });
     }

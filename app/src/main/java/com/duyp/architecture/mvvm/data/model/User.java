@@ -156,4 +156,8 @@ public class User extends RealmObject{
         user.setBio(bio);
         return user;
     }
+
+    public boolean isOrganizationType() {
+        return type != null && type.equalsIgnoreCase("Organization");
+    }
 }

@@ -5,22 +5,16 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
+import com.duyp.androidutils.glide.loader.GlideLoader;
 import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
-import com.duyp.architecture.mvvm.utils.InputHelper;
 
 /**
  * Created by Kosh on 14 Nov 2016, 7:59 PM
@@ -28,16 +22,8 @@ import com.duyp.architecture.mvvm.utils.InputHelper;
 
 public class AvatarLayout extends FrameLayout {
 
-    @BindView(R.id.avatar)
     ShapedImageView avatar;
-    @Nullable private String login;
-    private boolean isOrg;
-    private boolean isEnterprise;
-
-    @OnClick(R.id.avatar) void onClick(@NonNull View view) {
-        if (InputHelper.isEmpty(login)) return;
-//        UserPagerActivity.startActivity(view.getContext(), login, isOrg, isEnterprise, -1);
-    }
+    private User user;
 
     public AvatarLayout(@NonNull Context context) {
         super(context);
@@ -55,38 +41,31 @@ public class AvatarLayout extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    @Override protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
     @Override protected void onFinishInflate() {
         super.onFinishInflate();
-        inflate(getContext(), R.layout.avatar_layout, this);
         if (isInEditMode()) return;
-        ButterKnife.bind(this);
+        inflate(getContext(), R.layout.avatar_layout, this);
         setBackground();
+        avatar = findViewById(R.id.avatar);
         if (PrefGetter.isRectAvatar()) {
             avatar.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15);
         }
+        avatar.setOnClickListener(v -> {
+            // TODO: 10/24/17 navigate profile
+        });
     }
 
-    public void setUrl(@Nullable String url, @Nullable String login, boolean isOrg, boolean isEnterprise) {
-        this.login = login;
-        this.isOrg = isOrg;
-        this.isEnterprise = isEnterprise;
-        avatar.setContentDescription(login);
-        if (login != null) {
-            TooltipCompat.setTooltipText(avatar, login);
+    public void bindData(GlideLoader glideLoader, @Nullable User user) {
+        this.user = user;
+        if (user != null) {
+            avatar.setContentDescription(user.getLogin());
+            TooltipCompat.setTooltipText(avatar, user.getLogin());
+            glideLoader.loadImage(user.getAvatarUrl(), avatar);
         } else {
             avatar.setOnClickListener(null);
             avatar.setOnLongClickListener(null);
+            avatar.setImageResource(R.drawable.ic_github);
         }
-        Glide.with(getContext())
-                .load(url)
-                .fallback(ContextCompat.getDrawable(getContext(), R.drawable.ic_fasthub_mascot))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .into(avatar);
     }
     
     private void setBackground() {

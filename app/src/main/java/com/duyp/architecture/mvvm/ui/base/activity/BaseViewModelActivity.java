@@ -11,6 +11,7 @@ import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -31,8 +32,9 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
     public String TAG;
 
-    @Inject
-    protected VM viewModel;
+    @Inject protected VM viewModel;
+
+    @Inject NavigatorHelper navigatorHelper;
 
     protected B binding;
 
@@ -44,6 +46,7 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
         //init data binding
         binding = DataBindingUtil.setContentView(this, getLayout());
+        initViews();
 
         // int view model
         // noinspection unchecked
@@ -77,5 +80,9 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
                 showToastLongMessage(state.getMessage());
             }
         }
+    }
+
+    public void navigateLogin() {
+        navigatorHelper.navigateLoginActivity(true);
     }
 }

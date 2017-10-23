@@ -20,7 +20,7 @@
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">
@@ -52,7 +52,7 @@
                 android:id="@+id/addAccLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">
@@ -89,7 +89,7 @@
                 android:id="@+id/toggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">
@@ -141,7 +141,7 @@
                 android:id="@+id/togglePinned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">
@@ -183,7 +183,7 @@
                 android:id="@+id/repos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">
@@ -215,7 +215,7 @@
                 android:id="@+id/starred"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_xs_large">

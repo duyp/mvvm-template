@@ -8,6 +8,7 @@
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
     app:itemBackground="@color/transparent"
+    android:scrollbarSize="20dp"
     app:itemIconTint="@color/search_tab_highlighter"
     app:itemTextColor="@color/search_tab_highlighter">
 
@@ -20,7 +21,7 @@
         android:fitsSystemWindows="true"
         android:focusable="true"
         app:headerLayout="@layout/drawer_header"
-        app:itemBackground="@color/transparent"
+        app:itemBackground="?attr/selectableItemBackground"
         app:itemIconTint="@color/search_tab_highlighter"
         app:itemTextColor="@color/search_tab_highlighter"
         app:menu="@menu/drawer_menu"/>

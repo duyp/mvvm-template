@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#3a85ff</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#eeeeee</color>
+    <color name="colorAccent">@color/material_blue_400</color>
 
     <color name="transparent">#00000000</color>
     <color name="black">#FF000000</color>

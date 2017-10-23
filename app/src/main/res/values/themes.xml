@@ -7,7 +7,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="icon_color">@color/white</item>
+        <item name="icon_color">@color/darkWindowBackground</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -15,7 +17,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="icon_color">@color/white</item>
+        <item name="icon_color">@color/darkWindowBackground</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="AppThemeTranslucent" parent="AppTheme">
@@ -31,7 +35,7 @@
         <item name="colorPrimary">@color/material_indigo_700</item>
         <item name="colorPrimaryDark">@color/material_indigo_900</item>
         <item name="colorAccent">@color/material_blue_accent_700</item>
-        <item name="colorControlNormal">?colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
         <item name="icon_color">@color/white</item>
         <item name="card_background">@color/material_light_white</item>
     </style>
@@ -40,7 +44,7 @@
         <item name="colorPrimary">@color/material_blue_accent_700</item>
         <item name="colorPrimaryDark">@color/material_indigo_900</item>
         <item name="colorAccent">@color/material_blue_accent_700</item>
-        <item name="colorControlNormal">?colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
         <item name="icon_color">@color/white</item>
     </style>
 

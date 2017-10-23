@@ -11,6 +11,7 @@
             android:id="@+id/mainView"
             android:icon="@drawable/ic_home"
             android:title="@string/home"
+            android:checked="true"
             android:visible="true"/>
     </group>
 

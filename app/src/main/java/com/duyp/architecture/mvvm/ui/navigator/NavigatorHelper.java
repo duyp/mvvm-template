@@ -29,6 +29,9 @@ public class NavigatorHelper {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         });
+        if (clearAllPrevious) {
+            mNavigator.finishActivity();
+        }
     }
 
     public void navigateMainActivity(boolean clearAllPrevious) {
@@ -37,6 +40,9 @@ public class NavigatorHelper {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         });
+        if (clearAllPrevious) {
+            mNavigator.finishActivity();
+        }
     }
 
 

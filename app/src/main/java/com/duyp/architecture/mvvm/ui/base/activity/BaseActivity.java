@@ -21,7 +21,6 @@ import com.duyp.androidutils.AlertUtils;
 import com.duyp.androidutils.CommonUtils;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
-import com.duyp.architecture.mvvm.helper.ThemeEngine;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.squareup.leakcanary.RefWatcher;
@@ -65,6 +64,7 @@ public abstract class BaseActivity extends BasePermissionActivity
         if (!shouldUseDataBinding()) {
             // set contentView if child activity not use dataBinding
             setContentView(getLayout());
+            initViews();
         }
 
         if (shouldPostponeTransition()) {
@@ -72,12 +72,9 @@ public abstract class BaseActivity extends BasePermissionActivity
         }
 
         CommonUtils.hideSoftKeyboard(this);
-
-        setupTheme();
-        initViews();
     }
 
-    private void initViews() {
+    protected void initViews() {
         appBar = findViewById(R.id.appbar);
         toolbar = findViewById(R.id.toolbar);
         setupToolbarAndStatusBar(toolbar);
@@ -121,7 +118,7 @@ public abstract class BaseActivity extends BasePermissionActivity
      * @return true if should use transparent status bar
      */
     protected boolean isTransparent() {
-        return false;
+        return true;
     }
 
     /**
@@ -160,10 +157,6 @@ public abstract class BaseActivity extends BasePermissionActivity
     // ========================================================================================
     // UI setting
     // ========================================================================================
-
-    private void setupTheme() {
-        ThemeEngine.INSTANCE.apply(this);
-    }
 
     private void setupToolbarAndStatusBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
         changeStatusBarColor(isTransparent());
@@ -251,6 +244,16 @@ public abstract class BaseActivity extends BasePermissionActivity
         if (hadContentDescription) toolbar.setNavigationContentDescription(null);
         return navIcon;
     }
+
+    private void setupLayoutStableFullscreen() {
+        if (shouldUseLayoutStableFullscreen()) {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
     // ========================================================================================
     // Progress showing
     // ========================================================================================
@@ -314,16 +317,6 @@ public abstract class BaseActivity extends BasePermissionActivity
 
     public void showToastShortMessage(String message){
         AlertUtils.showToastShortMessage(this, message);
-    }
-
-    private void setupLayoutStableFullscreen() {
-        if (shouldUseLayoutStableFullscreen()) {
-            View decorView = getWindow().getDecorView();
-            // Hide the status bar.
-            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
     }
 
     @Override
