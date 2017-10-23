@@ -5,18 +5,30 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.androidutils.CommonUtils;
+import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.helper.PrefGetter;
+import com.duyp.architecture.mvvm.helper.ThemeEngine;
+import com.duyp.architecture.mvvm.helper.ViewHelper;
+import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -40,13 +52,17 @@ public abstract class BaseActivity extends BasePermissionActivity
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
+    @Nullable protected AppBarLayout appBar;
+    @Nullable protected Toolbar toolbar;
+    private long backPressTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupLayoutStableFullscreen();
 
-        if (!shouldUserDataBinding()) {
+        if (!shouldUseDataBinding()) {
             // set contentView if child activity not use dataBinding
             setContentView(getLayout());
         }
@@ -56,14 +72,18 @@ public abstract class BaseActivity extends BasePermissionActivity
         }
 
         CommonUtils.hideSoftKeyboard(this);
+
+        setupTheme();
+        initViews();
+    }
+
+    private void initViews() {
+        appBar = findViewById(R.id.appbar);
+        toolbar = findViewById(R.id.toolbar);
+        setupToolbarAndStatusBar(toolbar);
     }
 
     public abstract int getLayout();
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
-    }
 
     @Override
     protected void onStart() {
@@ -86,6 +106,28 @@ public abstract class BaseActivity extends BasePermissionActivity
         super.onDestroy();
         refWatcher.watch(this);
     }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        if (canBack()) {
+            if (item.getItemId() == android.R.id.home) {
+                onBackPressed();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * @return true if should use transparent status bar
+     */
+    protected boolean isTransparent() {
+        return false;
+    }
+
+    /**
+     * @return true if should use back button on toolbar
+     */
+    protected abstract boolean canBack();
 
     /**
      * @return true if this activity should use layout stable fullscreen (status bar overlap activity's content)
@@ -111,12 +153,109 @@ public abstract class BaseActivity extends BasePermissionActivity
     /**
      * @return true if child activity should use data binding instead of {@link #setContentView(View)}
      */
-    protected boolean shouldUserDataBinding() {
+    protected boolean shouldUseDataBinding() {
         return false;
     }
 
-    private ProgressDialog progress_dialog;
+    // ========================================================================================
+    // UI setting
+    // ========================================================================================
 
+    private void setupTheme() {
+        ThemeEngine.INSTANCE.apply(this);
+    }
+
+    private void setupToolbarAndStatusBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
+        changeStatusBarColor(isTransparent());
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (canBack()) {
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    if (canBack()) {
+                        View navIcon = getToolbarNavigationIcon(toolbar);
+                        if (navIcon != null) {
+                            navIcon.setOnLongClickListener(v -> {
+                                Intent intent = new Intent(this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                                return true;
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected void setToolbarIcon(@DrawableRes int res) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(res);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    protected void hideShowShadow(boolean show) {
+        if (appBar != null) {
+            appBar.setElevation(show ? getResources().getDimension(R.dimen.spacing_micro) : 0.0f);
+        }
+    }
+
+    protected void changeStatusBarColor(boolean isTransparent) {
+        if (!isTransparent) {
+            getWindow().setStatusBarColor(ViewHelper.getPrimaryDarkColor(this));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        boolean clickTwiceToExit = !PrefGetter.isTwiceBackButtonDisabled();
+        superOnBackPressed(clickTwiceToExit);
+    }
+
+    private void superOnBackPressed(boolean didClickTwice) {
+        if (this instanceof MainActivity) {
+            if (didClickTwice) {
+                if (canExit()) {
+                    super.onBackPressed();
+                }
+            } else {
+                super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private boolean canExit() {
+        if (backPressTimer + 2000 > System.currentTimeMillis()) {
+            return true;
+        } else {
+            showToastLongMessage(getString(R.string.press_again_to_exit));
+        }
+        backPressTimer = System.currentTimeMillis();
+        return false;
+    }
+
+    @Nullable private View getToolbarNavigationIcon(android.support.v7.widget.Toolbar toolbar) {
+        boolean hadContentDescription = TextUtils.isEmpty(toolbar.getNavigationContentDescription());
+        String contentDescription = !hadContentDescription ? String.valueOf(toolbar.getNavigationContentDescription()) : "navigationIcon";
+        toolbar.setNavigationContentDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<>();
+        toolbar.findViewsWithText(potentialViews, contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        View navIcon = null;
+        if (potentialViews.size() > 0) {
+            navIcon = potentialViews.get(0);
+        }
+        if (hadContentDescription) toolbar.setNavigationContentDescription(null);
+        return navIcon;
+    }
+    // ========================================================================================
+    // Progress showing
+    // ========================================================================================
+
+    private ProgressDialog progress_dialog;
     public void showProgressDialog() {
         showProgressDialog(null);
     }
@@ -185,6 +324,11 @@ public abstract class BaseActivity extends BasePermissionActivity
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(uiOptions);
         }
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
     }
 
     /**

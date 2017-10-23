@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
 def cfg = rootProject.ext.configuration;
@@ -78,6 +79,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile libs.kotlin
+    kapt libs.kotlinDatabinding
 
     implementation libs.supportAppCompatV7
     implementation libs.supportDesign
@@ -165,4 +168,7 @@ dependencies {
 
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
     testImplementation 'io.reactivex:rxjava:1.2.9'
+}
+repositories {
+    mavenCentral()
 }

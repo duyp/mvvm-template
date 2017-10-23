@@ -21,6 +21,11 @@ public class LoginActivity extends BaseViewModelActivity<ActivityLoginBinding, L
     }
 
     @Override
+    protected boolean canBack() {
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding.setVm(viewModel);

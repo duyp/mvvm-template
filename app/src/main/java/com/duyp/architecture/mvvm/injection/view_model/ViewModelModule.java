@@ -12,11 +12,11 @@ import dagger.multibindings.IntoMap;
 @Module
 public abstract class ViewModelModule {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(LoginViewModel.class)
-    abstract ViewModel bindUserViewModel(LoginViewModel viewModel);
-
-    @Binds
-    abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(LoginViewModel.class)
+//    abstract ViewModel bindUserViewModel(LoginViewModel viewModel);
+//
+//    @Binds
+//    abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
 }

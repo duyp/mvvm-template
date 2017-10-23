@@ -29,9 +29,10 @@ import javax.inject.Inject;
 public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment<B>
     implements Injectable {
 
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
+//    @Inject
+//    ViewModelProvider.Factory viewModelFactory;
 
+    @Inject
     protected VM viewModel;
 
     @Override
@@ -42,10 +43,10 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
         }
 
         // noinspection unchecked
-        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
+//        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
+//                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
+//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
         viewModel.getStateLiveData().observe(this, this::handleState);
     }

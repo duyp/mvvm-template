@@ -26,9 +26,12 @@ import javax.inject.Inject;
 
 public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity {
 
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
+//    @Inject
+//    ViewModelProvider.Factory viewModelFactory;
 
+    public String TAG;
+
+    @Inject
     protected VM viewModel;
 
     protected B binding;
@@ -37,17 +40,24 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        TAG = getLocalClassName();
+
         //init data binding
         binding = DataBindingUtil.setContentView(this, getLayout());
 
         // int view model
         // noinspection unchecked
-        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
+//        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
+//                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
+//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
         viewModel.getStateLiveData().observe(this, this::handleState);
+    }
+
+    @Override
+    protected boolean shouldUseDataBinding() {
+        return true;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.injection.ui_modules;
 
+import android.app.Activity;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,9 @@ public abstract class BaseActivityModule<T extends AppCompatActivity> {
     @Provides
     @ActivityContext
     public Context provideContext(T activity) { return activity; }
+
+    @Provides
+    public Activity provideActivity(T activity) { return activity; }
 
     @Provides
     @ActivityFragmentManager
