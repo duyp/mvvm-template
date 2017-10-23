@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.duyp.androidutils.navigation.Navigator;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
+import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 
 /**
  * Created by duypham on 9/7/17.
@@ -29,6 +30,15 @@ public class NavigatorHelper {
             }
         });
     }
+
+    public void navigateMainActivity(boolean clearAllPrevious) {
+        mNavigator.startActivity(MainActivity.class, intent -> {
+            if (clearAllPrevious) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+        });
+    }
+
 
 //    public void navigateUserProfile(@IdRes int containerId, @Nullable User user) {
 //        ProfileFragment fragment = mNavigator.findFragmentByTag(TAG_PROFILE);

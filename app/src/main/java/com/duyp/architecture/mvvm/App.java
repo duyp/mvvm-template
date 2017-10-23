@@ -23,7 +23,7 @@ import lombok.Getter;
  */
 public class App extends Application implements HasActivityInjector {
 
-    private static App sInstance;
+    protected static App sInstance;
 
     protected static AppComponent sAppComponent;
 

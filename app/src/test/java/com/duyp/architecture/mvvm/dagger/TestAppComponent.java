@@ -38,6 +38,5 @@ public interface TestAppComponent extends AppComponent{
     }
 
     void inject(LoginViewModelTest test);
-
     void inject(SplashActivityTest test);
 }

@@ -1,16 +1,26 @@
 package com.duyp.architecture.mvvm.ui.modules.splash;
 
 import com.duyp.architecture.mvvm.BuildConfig;
+import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.dagger.TestApplication;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.ui.modules.BaseActivityTest;
+import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
+import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static com.duyp.architecture.mvvm.test_utils.ModelTestUtils.sampleUser;
-import static org.mockito.Mockito.verify;
+import javax.inject.Inject;
+
+import static com.duyp.architecture.mvvm.RobolectricHelper.assertNextActivity;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by duypham on 10/21/17.
@@ -19,15 +29,39 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, minSdk = 21, application = TestApplication.class)
-public class SplashActivityTest {
+public class SplashActivityTest extends BaseActivityTest<SplashActivity>{
+
+    @Inject
+    UserManager userManager;
+
+    @Override
+    public void setup() {
+        super.setup();
+        TestApplication.getAppComponent().inject(this);
+    }
 
     @Test
-    public void hasUserTest() {
-//        User user = sampleUser(1L);
-//        userManager.startUserSession(user, "abc");
+    public void isActivityNotNull() {
+        assertThat(controller.get(), is(notNullValue()));
+        assertThat(userManager, is(notNullValue()));
+    }
 
-        SplashActivity activity = Robolectric.setupActivity(SplashActivity.class);
-//        verify(activity).
+    @Test
+    public void haveCorrectResourceAppName() {
+        assertEquals("Git Client", controller.get().getResources().getString(R.string.app_name));
+    }
 
+    @Test
+    public void hasUserShouldNavigateToMainActivity() {
+        when(userManager.checkForSavedUserAndStartSessionIfHas()).thenReturn(true);
+
+        controller.create().resume();
+        assertNextActivity(controller.get(), MainActivity.class);
+    }
+
+    @Test
+    public void noUserShouldNavigateToLoginActivity() {
+        controller.create().resume();
+        assertNextActivity(controller.get(), LoginActivity.class);
     }
 }

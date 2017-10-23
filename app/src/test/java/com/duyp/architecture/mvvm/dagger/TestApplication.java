@@ -9,6 +9,14 @@ import com.duyp.architecture.mvvm.App;
 
 public class TestApplication extends App {
 
+    private static TestApplication sInstance;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sInstance = this;
+    }
+
     @Override
     protected void initAppComponent() {
         sAppComponent = TestAppInjector.init(this);
@@ -18,4 +26,7 @@ public class TestApplication extends App {
         return (TestAppComponent)sAppComponent;
     }
 
+    public static TestApplication getInstance() {
+        return sInstance;
+    }
 }
