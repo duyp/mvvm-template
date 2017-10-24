@@ -4,9 +4,8 @@ import android.support.annotation.Nullable;
 
 /**
  *
- * @param <P>
  */
-public interface PaginationListener<P> {
+public interface PaginationListener {
         int getCurrentPage();
 
         int getPreviousTotal();
@@ -15,5 +14,5 @@ public interface PaginationListener<P> {
 
         void setPreviousTotal(int previousTotal);
 
-        boolean onCallApi(int page, @Nullable P parameter);
+        boolean onCallApi(int page);
 }

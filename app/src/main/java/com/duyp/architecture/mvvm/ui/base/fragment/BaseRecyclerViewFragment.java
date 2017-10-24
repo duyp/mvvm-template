@@ -7,10 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.R;
-import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
-import com.duyp.architecture.mvvm.ui.base.interfaces.Refreshable;
+import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.base.OnLoadMore;
 import com.duyp.architecture.mvvm.ui.widgets.StateLayout;
-import com.duyp.architecture.mvvm.ui.widgets.recyclerview.BaseRecyclerAdapter;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller;
 
@@ -21,7 +21,10 @@ import javax.inject.Inject;
  *
  */
 
-public abstract class BaseRecyclerViewFragment<B extends ViewDataBinding, VM extends BaseViewModel, A extends BaseRecyclerAdapter>
+public abstract class BaseRecyclerViewFragment<
+        B extends ViewDataBinding,
+        VM extends BaseListDataViewModel,
+        A extends BaseRecyclerViewAdapter>
         extends BaseViewModelFragment<B, VM> {
 
     protected SwipeRefreshLayout refreshLayout;
@@ -31,6 +34,9 @@ public abstract class BaseRecyclerViewFragment<B extends ViewDataBinding, VM ext
 
     @Inject
     A adapter;
+
+    @Inject
+    OnLoadMore onLoadMore;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -48,9 +54,10 @@ public abstract class BaseRecyclerViewFragment<B extends ViewDataBinding, VM ext
         refreshLayout.setColorSchemeResources(R.color.material_amber_700, R.color.material_blue_700,
                 R.color.material_purple_700, R.color.material_lime_700);
         refreshLayout.setOnRefreshListener(() -> {
-            if (viewModel instanceof Refreshable) {
-                ((Refreshable) viewModel).refresh();
+            if (viewModel != null) {
+                viewModel.refresh();
             }
+            onLoadMore.reset();
         });
     }
 
@@ -64,5 +71,17 @@ public abstract class BaseRecyclerViewFragment<B extends ViewDataBinding, VM ext
         if (refreshLayout != null && refreshLayout.isRefreshing() != loading) {
             refreshLayout.post(() -> refreshLayout.setRefreshing(loading));
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        onLoadMore.init(recyclerView, viewModel);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        onLoadMore.unRegisterListener(recyclerView);
     }
 }

@@ -143,6 +143,17 @@ dependencies {
     implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
     implementation "com.evernote:android-state:${state_version}"
 
+    implementation "com.atlassian.commonmark:commonmark:${commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-autolink:${commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-tables:${commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-ins:${commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${commonmark}"
+
+    implementation 'com.github.nightwhistler:HtmlSpanner:0.4'
+    implementation 'com.jaredrummler:android-device-names:1.1.5'
+    implementation 'org.jsoup:jsoup:1.10.3'
+
     // =============================================================================================
     // TESTING DEPENDENCIES
     // =============================================================================================

@@ -5,6 +5,8 @@ import android.content.Context;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
+import com.duyp.architecture.mvvm.data.remote.IssueService;
+import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.google.gson.Gson;
 
@@ -35,5 +37,17 @@ public class NetworkModule {
     @Singleton
     static GithubService provideGithubService(Gson gson, OkHttpClient okHttpClient) {
         return ServiceFactory.makeService(GithubService.class, gson, okHttpClient);
+    }
+
+    @Provides
+    @Singleton
+    static IssueService issueService(Gson gson, OkHttpClient okHttpClient) {
+        return ServiceFactory.makeService(IssueService.class, gson, okHttpClient);
+    }
+
+    @Provides
+    @Singleton
+    static RepoService repoService(Gson gson, OkHttpClient okHttpClient) {
+        return ServiceFactory.makeService(RepoService.class, gson, okHttpClient);
     }
 }

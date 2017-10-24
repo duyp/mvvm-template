@@ -4,12 +4,14 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
 
 /**
  * Created by duypham on 10/21/17.
  *
  */
 
+@Getter
 public class Comment extends RealmObject{
 
     @PrimaryKey

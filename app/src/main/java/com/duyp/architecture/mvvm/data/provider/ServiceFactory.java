@@ -8,7 +8,10 @@ import android.util.Log;
 import com.duyp.androidutils.network.Tls12SocketFactory;
 import com.duyp.architecture.mvvm.BuildConfig;
 import com.duyp.architecture.mvvm.data.remote.RemoteConstants;
+import com.duyp.architecture.mvvm.data.remote.converters.GithubResponseConverter;
 import com.duyp.architecture.mvvm.data.remote.interceptors.AuthorizationInterceptor;
+import com.duyp.architecture.mvvm.data.remote.interceptors.ContentTypeInterceptor;
+import com.duyp.architecture.mvvm.data.remote.interceptors.PaginationInterceptor;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -45,7 +48,7 @@ public class ServiceFactory {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.REST_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(new GithubResponseConverter(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build();
         return retrofit.create(serviceClass);
@@ -61,6 +64,8 @@ public class ServiceFactory {
         OkHttpClient.Builder builder;
         builder = new OkHttpClient.Builder()
                 .addInterceptor(new AuthorizationInterceptor(producer))
+                .addInterceptor(new PaginationInterceptor())
+                .addInterceptor(new ContentTypeInterceptor())
                 .addInterceptor(logging)
                 .followRedirects(true)
                 .followSslRedirects(true)

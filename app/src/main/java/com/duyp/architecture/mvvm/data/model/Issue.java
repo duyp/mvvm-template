@@ -21,76 +21,29 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Issue extends RealmObject{
-
-    @PrimaryKey
-    @SerializedName("id")
-    @Expose
-    Long id;
-
-    Long repoId;
-
-    @SerializedName("url")
-    @Expose
+    @PrimaryKey long id;
     String url;
-    @SerializedName("repository_url")
-    @Expose
-    String repositoryUrl;
-    @SerializedName("labels_url")
-    @Expose
-    String labelsUrl;
-    @SerializedName("comments_url")
-    @Expose
-    String commentsUrl;
-    @SerializedName("events_url")
-    @Expose
-    String eventsUrl;
-    @SerializedName("html_url")
-    @Expose
-    String htmlUrl;
-    @SerializedName("number")
-    @Expose
-    long number;
-    @SerializedName("title")
-    @Expose
-    String title;
-    @SerializedName("user")
-    @Expose
-    User user;
-    @SerializedName("labels")
-    @Expose
-    RealmList<Label> labels = null;
-    @SerializedName("state")
-    @Expose
-    @IssueStates
-    String state;
-    @SerializedName("locked")
-    @Expose
-    Boolean locked;
-    @SerializedName("assignee")
-    @Expose
-    User assignee;
-    @SerializedName("assignees")
-    @Expose
-    RealmList<User> assignees = null;
-    @SerializedName("milestone")
-    @Expose
-    MilestoneModel milestone;
-    @SerializedName("comments")
-    @Expose
-    long comments;
-    @SerializedName("created_at")
-    @Expose
-    Date createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    Date updatedAt;
-    @SerializedName("closed_at")
-    @Expose
-    Date closedAt;
-    @SerializedName("author_association")
-    @Expose
-    String authorAssociation;
-    @SerializedName("body")
-    @Expose
     String body;
+    String title;
+    int comments;
+    int number;
+    boolean locked;
+    String state; //IssueState
+    String repoUrl;
+    String bodyHtml;
+    String htmlUrl;
+    Date closedAt;
+    Date createdAt;
+    Date updatedAt;
+    String repoId;
+    String login;
+    User user;
+    User assignee;
+    RealmList<User> assignees;
+    RealmList<Label> labels;
+    MilestoneModel milestone;
+    Repo repository;
+    PullRequest pullRequest;
+    User closedBy;
+    ReactionsModel reactions;
 }

@@ -1,35 +1,42 @@
 package com.duyp.architecture.mvvm.ui.base;
 
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 
 import com.duyp.architecture.mvvm.ui.base.interfaces.PaginationListener;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.scroll.InfiniteScroll;
 
+import javax.inject.Inject;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class OnLoadMore<P> extends InfiniteScroll {
+public class OnLoadMore extends InfiniteScroll {
 
-    private final PaginationListener<P> presenter;
+    @Nullable
+    private PaginationListener listener;
 
-    @Getter @Setter @Nullable
-    private P parameter;
-
-    public OnLoadMore(PaginationListener<P> presenter) {
-        this(presenter, null);
-    }
-
-    public OnLoadMore(PaginationListener<P> presenter, @Nullable P parameter) {
-        super();
-        this.presenter = presenter;
-        this.parameter = parameter;
-    }
+    @Inject
+    public OnLoadMore() {}
 
     @Override public boolean onLoadMore(int page, int totalItemsCount) {
-        if (presenter != null) {
-            presenter.setPreviousTotal(totalItemsCount);
-            return presenter.onCallApi(page + 1, parameter);
+        if (listener != null) {
+            listener.setPreviousTotal(totalItemsCount);
+            return listener.onCallApi(page + 1);
         }
         return false;
+    }
+
+    public void init(RecyclerView recyclerView, @Nullable PaginationListener listener) {
+        this.listener = listener;
+        if (listener != null) {
+            this.initialize(listener.getCurrentPage(), listener.getPreviousTotal());
+        }
+        recyclerView.addOnScrollListener(this);
+    }
+
+    public void unRegisterListener(RecyclerView recyclerView) {
+        recyclerView.removeOnScrollListener(this);
+        this.listener = null;
     }
 }

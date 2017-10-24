@@ -44,13 +44,14 @@ ext {
     retrofitVersion         = "2.3.0"
     rxJavaVersion           = "2.1.5"
     rxAndroidVersion        = "2.0.1"
-    androidUtilsVersion     = "2.2.5"
+    androidUtilsVersion     = "2.2.6"
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
     timberVersion           = "4.5.1"
     streamVersion           = "1.1.9"
     butterKnifeVersion      = "8.6.0"
     state_version           = '1.1.0'
+    commonmark              = "0.9.0"
 
     mockitoVersion          = "1.10.19"
     powerMockVersion        = "1.6.5"

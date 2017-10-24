@@ -10,7 +10,7 @@ import com.duyp.architecture.mvvm.data.model.User;
 
 import java.util.Map;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Response;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -28,47 +28,47 @@ import retrofit2.http.Url;
 public interface UserRestService {
 
     @GET("user")
-    Observable<Login> getUser();
+    Single<Login> getUser();
 
     @GET("users/{username}")
-    Observable<User> getUser(@Path("username") @NonNull String username);
+    Single<User> getUser(@Path("username") @NonNull String username);
 
     @GET("users/{username}/received_events")
-    Observable<Pageable<Event>> getReceivedEvents(@NonNull @Path("username") String userName, @Query("page") int page);
+    Single<Pageable<Event>> getReceivedEvents(@NonNull @Path("username") String userName, @Query("page") int page);
 
     @GET("users/{username}/events")
-    Observable<Pageable<Event>> getUserEvents(@NonNull @Path("username") String userName, @Query("page") int page);
+    Single<Pageable<Event>> getUserEvents(@NonNull @Path("username") String userName, @Query("page") int page);
 
     @GET("users/{username}/repos")
-    Observable<Pageable<Repo>> getRepos(@Path("username") @NonNull String username, @QueryMap(encoded = true) Map<String, String> filterParams,
+    Single<Pageable<Repo>> getRepos(@Path("username") @NonNull String username, @QueryMap(encoded = true) Map<String, String> filterParams,
                                         @Query("page") int page);
 
     @GET("user/repos")
-    Observable<Pageable<Repo>> getRepos(@QueryMap(encoded = true) Map<String, String> filterParams, @Query(value = "page") int page);
+    Single<Pageable<Repo>> getRepos(@QueryMap(encoded = true) Map<String, String> filterParams, @Query(value = "page") int page);
 
     @GET("users/{username}/starred")
-    Observable<Pageable<Repo>>
+    Single<Pageable<Repo>>
     getStarred(@Path("username") @NonNull String username, @Query("page") int page);
 
     @GET("users/{username}/starred?per_page=1")
-    Observable<Pageable<Repo>>
+    Single<Pageable<Repo>>
     getStarredCount(@Path("username") @NonNull String username);
 
     @GET("users/{username}/following")
-    Observable<Pageable<User>> getFollowing(@Path("username") @NonNull String username, @Query("page") int page);
+    Single<Pageable<User>> getFollowing(@Path("username") @NonNull String username, @Query("page") int page);
 
     @GET("users/{username}/followers")
-    Observable<Pageable<User>> getFollowers(@Path("username") @NonNull String username, @Query("page") int page);
+    Single<Pageable<User>> getFollowers(@Path("username") @NonNull String username, @Query("page") int page);
 
     @GET("user/following/{username}")
-    Observable<Response<Boolean>> getFollowStatus(@Path("username") @NonNull String username);
+    Single<Response<Boolean>> getFollowStatus(@Path("username") @NonNull String username);
 
     @PUT("user/following/{username}")
-    Observable<Response<Boolean>> followUser(@Path("username") @NonNull String username);
+    Single<Response<Boolean>> followUser(@Path("username") @NonNull String username);
 
     @DELETE("user/following/{username}")
-    Observable<Response<Boolean>> unfollowUser(@Path("username") @NonNull String username);
+    Single<Response<Boolean>> unfollowUser(@Path("username") @NonNull String username);
 
     @GET
-    Observable<String> getContributions(@Url String url);
+    Single<String> getContributions(@Url String url);
 }

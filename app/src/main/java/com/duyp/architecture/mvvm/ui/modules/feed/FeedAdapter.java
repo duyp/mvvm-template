@@ -1,28 +1,32 @@
 package com.duyp.architecture.mvvm.ui.modules.feed;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.Event;
-import com.duyp.architecture.mvvm.ui.widgets.recyclerview.BaseRecyclerAdapter;
-import com.duyp.architecture.mvvm.ui.widgets.recyclerview.BaseViewHolder;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
 
 /**
  * Created by duypham on 10/24/17.
  *
  */
 
-public class FeedAdapter extends BaseRecyclerAdapter<Event, FeedViewHolder, BaseViewHolder.OnItemClickListener<Event>>{
+public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
 
-
-    @Override
-    protected FeedViewHolder viewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public FeedAdapter(Context context, @NonNull LifecycleOwner owner) {
+        super(context, owner);
     }
 
     @Override
-    protected void onBindView(FeedViewHolder holder, int position) {
+    protected void bindHolder(RecyclerView.ViewHolder viewHolder, @NonNull Event event) {
 
+    }
+
+    @Override
+    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int i) {
+        return null;
     }
 }
