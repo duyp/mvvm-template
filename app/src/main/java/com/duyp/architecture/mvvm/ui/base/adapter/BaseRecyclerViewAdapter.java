@@ -38,6 +38,7 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
 
     public BaseRecyclerViewAdapter(Context context, @NonNull LifecycleOwner owner) {
         super(context, owner);
+        setHasStableIds(true);
         this.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
