@@ -8,6 +8,7 @@ import com.duyp.architecture.mvvm.data.local.daos.RepositoryDao;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 
 import javax.inject.Inject;
 
@@ -44,7 +45,7 @@ public class RepositoryDetailRepo extends BaseRepo {
 
     public Flowable<Resource<Repo>> getRepository() {
         Repo localRepo = data.getData();
-        return createRemoteSourceMapper(getGithubService().getRepository(localRepo.getOwner().getLogin(), localRepo.getName()),repository -> {
+        return RestHelper.createRemoteSourceMapper(getGithubService().getRepository(localRepo.getOwner().getLogin(), localRepo.getName()), repository -> {
                     // github api dose not support, so we need do it manually
                     repository.setMemberLoginName(localRepo.getMemberLoginName());
                     mRepositoryDao.addOrUpdate(repository);

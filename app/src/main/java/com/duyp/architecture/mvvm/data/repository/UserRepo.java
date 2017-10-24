@@ -8,6 +8,7 @@ import com.duyp.architecture.mvvm.data.local.daos.UserDao;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 
 import javax.inject.Inject;
 
@@ -40,7 +41,7 @@ public class UserRepo extends BaseRepo{
     }
 
     public Flowable<Resource<User>> fetchUser() {
-        return createRemoteSourceMapper(getGithubService().getUser(user.getData().getLogin()), userDao::addOrUpdate);
+        return RestHelper.createRemoteSourceMapper(getGithubService().getUser(user.getData().getLogin()), userDao::addOrUpdate);
     }
 
 }

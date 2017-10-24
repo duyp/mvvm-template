@@ -12,6 +12,7 @@ import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.model.def.RepoTypes;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class RepositoriesRepo extends BaseRepo {
 //        }
 //        data = repositoryDao.getAll(currentPage * PER_PAGE);
         data = repositoryDao.getAll();
-        return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(sinceId), repositoryDao::addAll);
+        return RestHelper.createRemoteSourceMapper(getGithubService().getAllPublicRepositories(sinceId), repositoryDao::addAll);
     }
 
     /**
@@ -65,7 +66,7 @@ public class RepositoriesRepo extends BaseRepo {
     public Flowable<Resource<List<Repo>>> findRepositories(String repoName) {
         Log.d(TAG, "RepositoriesRepo: finding repo: " + repoName);
         data = repositoryDao.getRepositoriesWithNameLike(repoName);
-        return createRemoteSourceMapper(getGithubService().getAllPublicRepositories(null), repositoryDao::addAll);
+        return RestHelper.createRemoteSourceMapper(getGithubService().getAllPublicRepositories(null), repositoryDao::addAll);
     }
 
     /**
@@ -81,7 +82,7 @@ public class RepositoriesRepo extends BaseRepo {
         Single<List<Repo>> remote = isOwner ? getGithubService().getMyRepositories(RepoTypes.ALL) :
                 getGithubService().getUserRepositories(userNameLogin, RepoTypes.ALL);
 
-        return createRemoteSourceMapper(remote, repositories -> {
+        return RestHelper.createRemoteSourceMapper(remote, repositories -> {
             if (isOwner) {
                 for (Repo repo : repositories) {
                     if (!repo.getOwner().getLogin().equals(mUser.getLogin())) {

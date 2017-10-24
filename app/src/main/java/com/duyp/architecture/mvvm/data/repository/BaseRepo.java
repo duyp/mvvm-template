@@ -32,25 +32,5 @@ public abstract class BaseRepo {
         this.realmDatabase = realmDatabase;
     }
 
-    protected <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<T> remote,
-                                                       @Nullable PlainConsumer<T> onSave) {
-        return Flowable.create(emitter -> {
-            new SimpleRemoteSourceMapper<T>(emitter) {
-
-                @Override
-                public Single<T> getRemote() {
-                    return remote;
-                }
-
-                @Override
-                public void saveCallResult(T data) {
-                    if (onSave != null) {
-                        onSave.accept(data);
-                    }
-                }
-            };
-        }, BackpressureStrategy.BUFFER);
-    }
-
     public abstract void onDestroy();
 }

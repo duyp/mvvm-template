@@ -10,6 +10,7 @@ import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.helper.RestHelper;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class IssuesRepo extends BaseRepo {
     }
 
     public Flowable<Resource<List<Issue>>> getRepoIssues() {
-        return createRemoteSourceMapper(getGithubService().getRepoIssues(mRepo.getOwner().getLogin(), mRepo.getName()), issues -> {
+        return RestHelper.createRemoteSourceMapper(getGithubService().getRepoIssues(mRepo.getOwner().getLogin(), mRepo.getName()), issues -> {
             for (Issue issue : issues) {
                 issue.setRepoId(mRepo.getId());
             }
