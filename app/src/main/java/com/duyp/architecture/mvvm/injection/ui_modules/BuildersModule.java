@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.injection.ui_modules;
 
+import com.duyp.architecture.mvvm.ui.modules.feed.FeedFragment;
+import com.duyp.architecture.mvvm.ui.modules.feed.FeedModule;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
@@ -26,4 +28,7 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity mainActivity();
+
+    @ContributesAndroidInjector(modules = FeedModule.class)
+    abstract FeedFragment feedFragment();
 }

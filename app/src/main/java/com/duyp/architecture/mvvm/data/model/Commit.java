@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,29 +14,15 @@ import lombok.Setter;
 @Setter
 public class Commit extends RealmObject{
 
-    @SerializedName("sha")
-    @Expose
-    private String sha;
-    @SerializedName("commit")
-    @Expose
-    private CommitDetail commitDetail;
-    @SerializedName("url")
-    @Expose
-    private String url;
-    @SerializedName("html_url")
-    @Expose
-    private String htmlUrl;
-    @SerializedName("comments_url")
-    @Expose
-    private String commentsUrl;
-    @SerializedName("committer")
-    @Expose
-    private User committer;
-    @SerializedName("author")
-    @Expose
-    private User author;
-    @SerializedName("ref")
-    @Expose
+    public String sha;
+    public String url;
+    public String message;
+    public User author;
+    public User committer;
+    public User tree;
+    public @SerializedName("distinct") boolean distincted;
+    public RealmList<Commit> parents;
+    public int commentCount;
     String ref;
 
     @Nullable

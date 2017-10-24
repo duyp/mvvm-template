@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
 
 /**
  * Created by kosh on 03/08/2017.
@@ -21,7 +22,5 @@ public class ProgressBarViewHolder extends BaseViewHolder {
         return new ProgressBarViewHolder(getView(viewGroup, R.layout.progress_layout));
     }
 
-    @Override public void bind(@NonNull Object o) {
-
-    }
+    @Override public void bind(@NonNull Object o) {}
 }

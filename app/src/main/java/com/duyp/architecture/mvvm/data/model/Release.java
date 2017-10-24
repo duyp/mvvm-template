@@ -7,12 +7,14 @@ import java.util.Date;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
 
 /**
  * Created by duypham on 10/21/17.
  *
  */
 
+@Getter
 public class Release extends RealmObject {
     @PrimaryKey
     long id;

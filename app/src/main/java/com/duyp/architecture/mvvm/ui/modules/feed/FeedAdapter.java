@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.Event;
+import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+
+import javax.inject.Inject;
 
 /**
  * Created by duypham on 10/24/17.
@@ -16,17 +19,18 @@ import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
 
 public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
 
-    public FeedAdapter(Context context, @NonNull LifecycleOwner owner) {
+    @Inject
+    public FeedAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
         super(context, owner);
     }
 
     @Override
-    protected void bindHolder(RecyclerView.ViewHolder viewHolder, @NonNull Event event) {
-
+    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int i) {
+        return new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, false));
     }
 
     @Override
-    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int i) {
-        return null;
+    protected void bindHolder(RecyclerView.ViewHolder viewHolder, @NonNull Event event) {
+        ((FeedsViewHolder)viewHolder).bind(event);
     }
 }

@@ -8,9 +8,6 @@ import com.duyp.architecture.mvvm.ui.widgets.recyclerview.scroll.InfiniteScroll;
 
 import javax.inject.Inject;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class OnLoadMore extends InfiniteScroll {
 
     @Nullable
@@ -24,7 +21,7 @@ public class OnLoadMore extends InfiniteScroll {
             listener.setPreviousTotal(totalItemsCount);
             return listener.onCallApi(page + 1);
         }
-        return false;
+        return true;
     }
 
     public void init(RecyclerView recyclerView, @Nullable PaginationListener listener) {

@@ -11,27 +11,27 @@ import android.view.HapticFeedbackConstants;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.fastaccess.R;
-import com.fastaccess.helper.AppHelper;
-import com.fastaccess.helper.PrefGetter;
-import com.fastaccess.helper.ViewHelper;
-import com.fastaccess.provider.scheme.SchemeParser;
-import com.fastaccess.provider.timeline.handler.BetterLinkMovementExtended;
-import com.fastaccess.provider.timeline.handler.DrawableHandler;
-import com.fastaccess.provider.timeline.handler.EmojiHandler;
-import com.fastaccess.provider.timeline.handler.HeaderHandlerKt;
-import com.fastaccess.provider.timeline.handler.HrHandler;
-import com.fastaccess.provider.timeline.handler.ItalicHandler;
-import com.fastaccess.provider.timeline.handler.LinkHandler;
-import com.fastaccess.provider.timeline.handler.ListsHandler;
-import com.fastaccess.provider.timeline.handler.MarginHandler;
-import com.fastaccess.provider.timeline.handler.PreTagHandler;
-import com.fastaccess.provider.timeline.handler.QouteHandler;
-import com.fastaccess.provider.timeline.handler.StrikethroughHandler;
-import com.fastaccess.provider.timeline.handler.SubScriptHandler;
-import com.fastaccess.provider.timeline.handler.SuperScriptHandler;
-import com.fastaccess.provider.timeline.handler.TableHandler;
-import com.fastaccess.provider.timeline.handler.UnderlineHandler;
+import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.data.provider.scheme.SchemeParser;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.BetterLinkMovementExtended;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.DrawableHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.EmojiHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.HeaderHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.HrHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.ItalicHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.LinkHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.ListsHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.MarginHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.PreTagHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.QouteHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.StrikethroughHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.SubScriptHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.SuperScriptHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.TableHandler;
+import com.duyp.architecture.mvvm.data.provider.timeline.handler.UnderlineHandler;
+import com.duyp.architecture.mvvm.helper.AppHelper;
+import com.duyp.architecture.mvvm.helper.PrefGetter;
+import com.duyp.architecture.mvvm.helper.ViewHelper;
 
 import net.nightwhistler.htmlspanner.HtmlSpanner;
 import net.nightwhistler.htmlspanner.handlers.BoldHandler;
@@ -49,33 +49,34 @@ public class HtmlHelper {
     }
 
     private static void registerClickEvent(@NonNull TextView textView) {
-        BetterLinkMovementExtended betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(textView);
-        betterLinkMovementMethod.setOnLinkClickListener((view, url) -> {
-            SchemeParser.launchUri(view.getContext(), Uri.parse(url));
-            return true;
-        });
-        betterLinkMovementMethod.setOnLinkLongClickListener((view, url) -> {
-            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-            PopupMenu menu = new PopupMenu(view.getContext(), view);
-            menu.setOnMenuItemClickListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.copy:
-                        AppHelper.copyToClipboard(view.getContext(), url);
-                        return true;
-                    case R.id.open:
-                        SchemeParser.launchUri(view.getContext(), Uri.parse(url));
-                        return true;
-                    case R.id.open_new_window:
-                        SchemeParser.launchUri(view.getContext(), Uri.parse(url), false, true);
-                        return true;
-                    default:
-                        return false;
-                }
-            });
-            menu.inflate(R.menu.link_popup_menu);
-            menu.show();
-            return true;
-        });
+        // TODO: 10/24/17 Register click Event Html helper
+//        BetterLinkMovementExtended betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(textView);
+//        betterLinkMovementMethod.setOnLinkClickListener((view, url) -> {
+//            SchemeParser.launchUri(view.getContext(), Uri.parse(url));
+//            return true;
+//        });
+//        betterLinkMovementMethod.setOnLinkLongClickListener((view, url) -> {
+//            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+//            PopupMenu menu = new PopupMenu(view.getContext(), view);
+//            menu.setOnMenuItemClickListener(menuItem -> {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.copy:
+//                        AppHelper.copyToClipboard(view.getContext(), url);
+//                        return true;
+//                    case R.id.open:
+//                        SchemeParser.launchUri(view.getContext(), Uri.parse(url));
+//                        return true;
+//                    case R.id.open_new_window:
+//                        SchemeParser.launchUri(view.getContext(), Uri.parse(url), false, true);
+//                        return true;
+//                    default:
+//                        return false;
+//                }
+//            });
+//            menu.inflate(R.menu.link_popup_menu);
+//            menu.show();
+//            return true;
+//        });
     }
 
     private static HtmlSpanner initHtml(@NonNull TextView textView, int width) {
@@ -107,12 +108,12 @@ public class HtmlHelper {
         mySpanner.registerHandler("hr", new HrHandler(windowBackground, width, false));
         mySpanner.registerHandler("emoji", new EmojiHandler());
         mySpanner.registerHandler("mention", new LinkHandler());
-        mySpanner.registerHandler("h1", new HeaderHandlerKt(1.5F));
-        mySpanner.registerHandler("h2", new HeaderHandlerKt(1.4F));
-        mySpanner.registerHandler("h3", new HeaderHandlerKt(1.3F));
-        mySpanner.registerHandler("h4", new HeaderHandlerKt(1.2F));
-        mySpanner.registerHandler("h5", new HeaderHandlerKt(1.1F));
-        mySpanner.registerHandler("h6", new HeaderHandlerKt(1.0F));
+        mySpanner.registerHandler("h1", new HeaderHandler(1.5F));
+        mySpanner.registerHandler("h2", new HeaderHandler(1.4F));
+        mySpanner.registerHandler("h3", new HeaderHandler(1.3F));
+        mySpanner.registerHandler("h4", new HeaderHandler(1.2F));
+        mySpanner.registerHandler("h5", new HeaderHandler(1.1F));
+        mySpanner.registerHandler("h6", new HeaderHandler(1.0F));
         if (width > 0) {
             TableHandler tableHandler = new TableHandler();
             tableHandler.setTextColor(ViewHelper.generateTextColor(windowBackground));

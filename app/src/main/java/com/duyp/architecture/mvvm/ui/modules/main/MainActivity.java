@@ -1,17 +1,13 @@
 package com.duyp.architecture.mvvm.ui.modules.main;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.databinding.ActivityMainBinding;
-import com.duyp.architecture.mvvm.helper.TypeFaceHelper;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
 
 import javax.inject.Inject;

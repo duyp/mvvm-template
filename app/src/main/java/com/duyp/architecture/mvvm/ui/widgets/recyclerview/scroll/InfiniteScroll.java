@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
-import com.duyp.architecture.mvvm.ui.widgets.recyclerview.BaseRecyclerAdapter;
 
 /**
  * Created by Kosh on 8/2/2015. copyrights are reserved @
@@ -57,7 +56,7 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
             initLayoutManager(recyclerView.getLayoutManager());
         }
         if (adapter == null) {
-            if (recyclerView.getAdapter() instanceof BaseRecyclerAdapter) {
+            if (recyclerView.getAdapter() instanceof BaseRecyclerViewAdapter) {
                 adapter = (BaseRecyclerViewAdapter) recyclerView.getAdapter();
             }
         }
@@ -89,7 +88,9 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
             boolean isCallingApi = onLoadMore(currentPage, totalItemCount);
             loading = true;
             if (adapter != null && isCallingApi) {
-                adapter.addProgress();
+                recyclerView.post(() -> {
+                    adapter.addProgress();
+                });
             }
         }
     }

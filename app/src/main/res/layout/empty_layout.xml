@@ -32,6 +32,7 @@
             android:layout_marginBottom="@dimen/spacing_xs_large"
             android:gravity="center"
             android:text="@string/reload"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/carrot"/>
 

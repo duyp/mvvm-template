@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 
-import com.fastaccess.helper.Logger;
-import com.fastaccess.ui.widgets.SpannableBuilder;
+import com.duyp.architecture.mvvm.helper.Logger;
+import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 
 import net.nightwhistler.htmlspanner.TagNodeHandler;
 

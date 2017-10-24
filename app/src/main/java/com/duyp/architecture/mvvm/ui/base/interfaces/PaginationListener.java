@@ -1,7 +1,5 @@
 package com.duyp.architecture.mvvm.ui.base.interfaces;
 
-import android.support.annotation.Nullable;
-
 /**
  *
  */

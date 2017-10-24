@@ -15,10 +15,10 @@ import lombok.Setter;
 @Setter
 public class State {
     @NonNull
-    Status status;
+    public Status status;
 
     @Nullable
-    String message;
+    public String message;
 
     boolean hardAlert = false;
 

@@ -10,12 +10,12 @@ import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.User;
-import com.duyp.architecture.mvvm.helper.RestHelper;
-import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
-import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.helper.RestHelper;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
+import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;

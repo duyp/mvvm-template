@@ -29,6 +29,6 @@ public class AvatarLoader extends SimpleGlideLoader {
     protected void init() {
         super.init();
         setUseFixedSizeThumbnail(false);
-        setPlaceHolderRes(R.drawable.ic_github);
+//        setPlaceHolderRes(R.drawable.ic_github);
     }
 }

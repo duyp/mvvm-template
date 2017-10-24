@@ -6,12 +6,14 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
 
 /**
  * Created by duypham on 10/24/17.
  *
  */
 
+@Getter
 public class Gist extends RealmObject{
 
     @PrimaryKey

@@ -35,7 +35,7 @@ public class Issue extends RealmObject{
     Date closedAt;
     Date createdAt;
     Date updatedAt;
-    String repoId;
+    long repoId;
     String login;
     User user;
     User assignee;

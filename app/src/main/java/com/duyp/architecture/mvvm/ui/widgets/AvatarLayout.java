@@ -9,12 +9,12 @@ import android.support.v7.widget.TooltipCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
-
 import com.duyp.androidutils.glide.loader.GlideLoader;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
+
+import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 /**
  * Created by Kosh on 14 Nov 2016, 7:59 PM

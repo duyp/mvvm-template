@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.main;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -9,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
+import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityFragmentManager;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
@@ -83,7 +83,7 @@ public class MainViewModel extends BaseViewModel implements BottomNavigation.OnM
             ft.show(f).commit();
         } else {
             Log.d(TAG, "add fragment: " + f);
-            ft.add(f, f.getClass().getSimpleName()).commit();
+            ft.add(R.id.container, f, f.getClass().getSimpleName()).commit();
         }
     }
 

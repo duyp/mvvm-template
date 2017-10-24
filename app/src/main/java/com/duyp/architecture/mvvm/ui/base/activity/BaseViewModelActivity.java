@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
 import com.duyp.androidutils.AlertUtils;
-import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.lang.reflect.ParameterizedType;

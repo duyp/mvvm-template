@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import com.duyp.androidutils.glide.loader.SimpleGlideLoader;
 import com.duyp.androidutils.navigation.ChildFragmentNavigator;
 import com.duyp.androidutils.navigation.FragmentNavigator;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 import com.duyp.architecture.mvvm.ui.navigator.FragmentNavigatorHelper;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
@@ -58,8 +59,13 @@ public abstract class BaseFragmentModule<T extends Fragment> {
     }
 
     @Provides
-    public FragmentNavigatorHelper navigatorHelper(FragmentNavigator navigator) {
+    public FragmentNavigatorHelper fragmentNavigatorHelper(FragmentNavigator navigator) {
         return new FragmentNavigatorHelper(navigator);
+    }
+
+    @Provides
+    public NavigatorHelper navigatorHelper(FragmentNavigator navigator) {
+        return new NavigatorHelper(navigator);
     }
 
     @Provides

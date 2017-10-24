@@ -1,19 +1,15 @@
 package com.duyp.architecture.mvvm.ui.base.fragment;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.AlertUtils;
-import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
-import com.duyp.architecture.mvvm.ui.base.activity.BaseActivity;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.injection.Injectable;
-
-import java.lang.reflect.ParameterizedType;
+import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
+import com.duyp.architecture.mvvm.ui.base.activity.BaseActivity;
 
 import javax.inject.Inject;
 

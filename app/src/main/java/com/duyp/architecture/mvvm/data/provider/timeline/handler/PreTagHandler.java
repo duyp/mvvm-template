@@ -7,7 +7,7 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
 
-import com.fastaccess.helper.PrefGetter;
+import com.duyp.architecture.mvvm.helper.PrefGetter;
 
 import net.nightwhistler.htmlspanner.handlers.PreHandler;
 

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 def cfg = rootProject.ext.configuration;
@@ -80,6 +82,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 //    compile libs.kotlin
 //    kapt libs.kotlinDatabinding
+//    kapt libs.lombok
 
     implementation libs.supportAppCompatV7
     implementation libs.supportDesign
@@ -113,6 +116,7 @@ dependencies {
 
     // butter knife
     implementation libs.butterKnife
+    annotationProcessor libs.butterKnifeCompiler
 
     // event bus
     implementation libs.eventBus
@@ -178,6 +182,7 @@ dependencies {
 
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
     testImplementation 'io.reactivex:rxjava:1.2.9'
+//    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
     mavenCentral()

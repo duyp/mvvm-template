@@ -10,20 +10,54 @@ import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.Comment;
+import com.duyp.architecture.mvvm.data.model.Commit;
 import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.Issue;
+import com.duyp.architecture.mvvm.data.model.Label;
+import com.duyp.architecture.mvvm.data.model.PayloadModel;
+import com.duyp.architecture.mvvm.data.model.PullRequest;
+import com.duyp.architecture.mvvm.data.model.Release;
+import com.duyp.architecture.mvvm.data.model.TeamsModel;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.model.WikiModel;
-import com.duyp.architecture.mvvm.data.model.type.EventsType;
+import com.duyp.architecture.mvvm.data.provider.markdown.MarkDownProvider;
+import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
 import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
-
-import static com.duyp.architecture.mvvm.data.model.type.EventType.*;
+import com.duyp.architecture.mvvm.utils.AvatarLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.duyp.architecture.mvvm.data.model.type.EventType.CommitCommentEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.CreateEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.DeleteEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.DownloadEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.FollowEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ForkApplyEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ForkEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.GistEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.GollumEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.IssueCommentEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.IssuesEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.MemberEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.OrgBlockEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.OrganizationEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ProjectCardEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ProjectColumnEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ProjectEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.PublicEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.PullRequestEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.PullRequestReviewCommentEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.PullRequestReviewEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.PushEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.ReleaseEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.RepositoryEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.TeamAddEvent;
+import static com.duyp.architecture.mvvm.data.model.type.EventType.WatchEvent;
 
 /**
  * Created by Kosh on 11 Nov 2016, 2:08 PM
@@ -41,9 +75,12 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
     FontTextView date;
     private Resources resources;
 
+    private final AvatarLoader avatarLoader;
+
     public FeedsViewHolder(@NonNull View itemView) {
         super(itemView);
         this.resources = itemView.getResources();
+        avatarLoader = new AvatarLoader(itemView.getContext());
     }
 
     public static View getView(@NonNull ViewGroup viewGroup, boolean noImage) {
@@ -64,7 +101,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
         if (eventsModel.getType() != null) {
             String type = eventsModel.getType();
             if (type.equals(WatchEvent)) {
-                appendWatch(spannableBuilder, type, eventsModel);
+                appendWatch(spannableBuilder, eventsModel);
             } else if (type.equals(CreateEvent)) {
                 appendCreateEvent(spannableBuilder, eventsModel);
             } else if (type.equals(CommitCommentEvent)) {
@@ -117,7 +154,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
                 appendProjectCardEvent(spannableBuilder, eventsModel, false);
             }
             date.setGravity(Gravity.CENTER);
-            date.setEventsIcon(type.getDrawableRes());
+//            date.setEventsIcon(type.getDrawableRes());
         }
         title.setText(spannableBuilder);
         date.setText(ParseDateFormat.getTimeAgo(eventsModel.getCreatedAt()));
@@ -199,7 +236,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
                 .bold("at")
                 .append(" ")
                 .append(eventsModel.getRepo().getName());
-        final List<GitCommitModel> commits = eventsModel.getPayload().getCommits();
+        final List<Commit> commits = eventsModel.getPayload().getCommits();
         int size = commits != null ? commits.size() : -1;
         SpannableBuilder spanCommits = SpannableBuilder.builder();
         if (size > 0) {
@@ -207,7 +244,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
             else spanCommits.append("1 new commit").append("\n");
             int max = 5;
             int appended = 0;
-            for (GitCommitModel commit : commits) {
+            for (Commit commit : commits) {
                 if (commit == null) continue;
                 String sha = commit.getSha();
                 if (TextUtils.isEmpty(sha)) continue;
@@ -306,7 +343,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
     private void appendIssueEvent(SpannableBuilder spannableBuilder, Event eventsModel) {
         Issue issue = eventsModel.getPayload().getIssue();
         boolean isLabel = "label".equals(eventsModel.getPayload().getAction());
-        LabelModel label = isLabel ? issue.getLabels() != null && !issue.getLabels().isEmpty()
+        Label label = isLabel ? issue.getLabels() != null && !issue.getLabels().isEmpty()
                                      ? issue.getLabels().get(issue.getLabels().size() - 1) : null : null;
         spannableBuilder.bold(isLabel && label != null ? ("Labeled " + label.getName()) : eventsModel.getPayload().getAction())
                 .append(" ")
@@ -416,8 +453,8 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
         }
     }
 
-    private void appendWatch(SpannableBuilder spannableBuilder, EventsType type, Event eventsModel) {
-        spannableBuilder.bold(resources.getString(type.getType()).toLowerCase())
+    private void appendWatch(SpannableBuilder spannableBuilder, Event eventsModel) {
+        spannableBuilder.bold(resources.getString(R.string.starred).toLowerCase())
                 .append(" ")
                 .append(eventsModel.getRepo().getName());
     }
@@ -453,11 +490,9 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
     private void appendAvatar(@NonNull Event eventsModel) {
         if (avatar != null) {
             if (eventsModel.getActor() != null) {
-                avatar.setUrl(eventsModel.getActor().getAvatarUrl(), eventsModel.getActor().getLogin(),
-                        eventsModel.getActor().isOrganizationType(),
-                        LinkParserHelper.isEnterprise(eventsModel.getActor().getHtmlUrl()));
+                avatar.bindData(avatarLoader, eventsModel.getActor());
             } else {
-                avatar.setUrl(null, null, false, false);
+                avatar.bindData(null, null);
             }
         }
     }

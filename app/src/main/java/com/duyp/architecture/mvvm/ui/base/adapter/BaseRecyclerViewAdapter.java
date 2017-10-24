@@ -4,8 +4,8 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.duyp.androidutils.realm.BaseRealmLiveDataAdapter;
 import com.duyp.architecture.mvvm.R;
@@ -19,6 +19,8 @@ import lombok.Getter;
  */
 
 public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends BaseRealmLiveDataAdapter<T> {
+
+    private static final String TAG = "adapter";
 
     @Getter private boolean isProgressAdded = false;
 
@@ -45,12 +47,14 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
     }
 
     public void addProgress() {
+        Log.d(TAG, "addProgress: ");
         isProgressAdded = true;
         addFooter(getProgressView());
 //        this.registerAdapterDataObserver(adapterDataObserver);
     }
 
     public void removeProgress() {
+        Log.d(TAG, "removeProgress: ");
         isProgressAdded = false;
         removeFooter(getProgressView());
     }

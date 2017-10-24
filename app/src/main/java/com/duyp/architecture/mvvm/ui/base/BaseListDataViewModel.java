@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.ui.base;
 
+import android.support.annotation.CallSuper;
+
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
 import com.duyp.architecture.mvvm.ui.base.interfaces.PaginationListener;
@@ -32,6 +34,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
         super(userManager);
     }
 
+    @CallSuper
     public void initAdapter(A adapter) {
         this.adapter = adapter;
     }
