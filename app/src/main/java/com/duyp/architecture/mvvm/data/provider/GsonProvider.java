@@ -36,8 +36,8 @@ public class GsonProvider {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
-//                .registerTypeAdapter(Date.class, new DateDeserializer())
+//                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .registerTypeAdapter(Date.class, new DateDeserializer())
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
                 .create();
@@ -60,6 +60,10 @@ public class GsonProvider {
                         return false;
                     }
                 })
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+                .disableHtmlEscaping()
+                .setPrettyPrinting()
                 .registerTypeAdapter(Date.class, new DateDeserializer())
                 .create();
     }
@@ -73,6 +77,7 @@ public class GsonProvider {
             try {
                 return formatter.parse(date);
             } catch (ParseException e) {
+                e.printStackTrace();
                 return null;
             }
         }

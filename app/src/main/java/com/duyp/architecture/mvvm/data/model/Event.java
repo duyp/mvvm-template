@@ -22,7 +22,10 @@ public class Event extends RealmObject {
     long id;
     // EventsType type;
     @EventType String type; // TODO: 10/24/17 event type
+
+    @SerializedName("created_at")
     Date createdAt;
+
     User actor;
     Repo repo;
     PayloadModel payload;

@@ -46,7 +46,8 @@ public class FeedRepo extends BaseRepo {
     }
 
     public Flowable<Resource<Pageable<Event>>> getEvents(int page) {
-        return RestHelper.createRemoteSiourceMapper(page == 1, userRestService.getUserEvents(mUser.getLogin(), page), (events, isRefresh) -> {
+        return RestHelper.createRemoteSiourceMapper(page == 1,
+                userRestService.getUserEvents(mUser.getLogin(), page), (events, isRefresh) -> {
             if (isRefresh) {
                 eventDao.deleteAll();
             }
