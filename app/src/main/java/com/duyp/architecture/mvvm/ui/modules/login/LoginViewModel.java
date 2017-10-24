@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.ui.modules.login;
 
+import android.util.Log;
+
 import com.duyp.androidutils.StringUtils;
 import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
@@ -22,16 +24,15 @@ import lombok.Setter;
 public class LoginViewModel extends BaseViewModel {
 
     private final GithubService githubService;
-    private final NavigatorHelper navigatorHelper;
 
     private String userName = "duyp1";
     private String password = "Duy1234";
 
     @Inject
-    LoginViewModel(GithubService githubService, UserManager userManager, NavigatorHelper navigatorHelper) {
+    LoginViewModel(GithubService githubService, UserManager userManager) {
         super(userManager);
+        Log.d(TAG, "LoginViewModel: init");
         this.githubService = githubService;
-        this.navigatorHelper = navigatorHelper;
     }
 
     public void login() {

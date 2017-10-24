@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui.modules.main.feed;
+package com.duyp.architecture.mvvm.ui.modules.feed;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -13,7 +13,7 @@ import com.duyp.architecture.mvvm.ui.widgets.recyclerview.BaseViewHolder;
  *
  */
 
-public class FeedAdapter extends BaseRecyclerAdapter<Event, FeedAdapter.FeedViewHolder, BaseViewHolder.OnItemClickListener<Event>>{
+public class FeedAdapter extends BaseRecyclerAdapter<Event, FeedViewHolder, BaseViewHolder.OnItemClickListener<Event>>{
 
 
     @Override
@@ -24,17 +24,5 @@ public class FeedAdapter extends BaseRecyclerAdapter<Event, FeedAdapter.FeedView
     @Override
     protected void onBindView(FeedViewHolder holder, int position) {
 
-    }
-
-    final class FeedViewHolder extends BaseViewHolder<Event> {
-
-        protected FeedViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        public void bind(@NonNull Event event) {
-
-        }
     }
 }

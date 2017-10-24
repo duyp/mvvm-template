@@ -14,7 +14,13 @@
         android:title="@string/feeds"/>
 
     <item
-        android:id="@+id/pinned"
+        android:id="@+id/repos"
+        android:color="?colorPrimary"
+        android:icon="@drawable/ic_repo"
+        android:title="@string/repo"/>
+
+    <item
+        android:id="@+id/issues"
         android:color="?colorPrimary"
         android:icon="@drawable/ic_issues"
         android:title="@string/issues"/>

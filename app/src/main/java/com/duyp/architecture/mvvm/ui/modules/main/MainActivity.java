@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.modules.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.util.Log;
@@ -50,6 +51,15 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
 
             userLiveData.observe(this, drawerHolder::updateUser);
 
+            viewModel.setFragmentManager(getSupportFragmentManager());
+            Integer currentTab = viewModel.getCurrentTab().getValue();
+            int position = currentTab == null ? MainViewModel.FEEDS : currentTab;
+            binding.bottom.bottomNavigation.setSelectedIndex(position, true);
+            viewModel.onMenuItemReselect(0, position, false); // ensure onMenuItemReSelect if bottomNavigation wo'nt fire event
+
+            viewModel.getCurrentTab().observe(this, tab -> {
+                hideShowShadow(tab != null && tab == MainViewModel.FEEDS);
+            });
         }, this::navigateLogin);
     }
 

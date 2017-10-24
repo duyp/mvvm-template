@@ -11,6 +11,7 @@ import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.RestHelper;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
@@ -26,7 +27,7 @@ import lombok.Getter;
 
 /**
  * Created by duypham on 10/19/17.
- * Base class that provides base implementation for handling loading status and hole api request disposable.
+ * Base class that provides base implementation for handling loading status, and hole api request disposable.
  * All api requests called from {@link com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper}
  * will be added to a composite disposable which is disposed when view model is cleared
  *
@@ -34,6 +35,8 @@ import lombok.Getter;
  */
 
 public abstract class BaseViewModel extends ViewModel {
+
+    protected final String TAG;
 
     @NonNull
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -45,8 +48,11 @@ public abstract class BaseViewModel extends ViewModel {
     @Getter
     protected final UserManager userManager;
 
+    protected NavigatorHelper navigatorHelper;
+
     public BaseViewModel(UserManager userManager) {
         this.userManager = userManager;
+        TAG = this.getClass().getSimpleName();
     }
 
     @Override
@@ -68,6 +74,14 @@ public abstract class BaseViewModel extends ViewModel {
         } else {
             onError.run();
         }
+    }
+
+    /**
+     * Initialize navigator helper
+     * @param helper not null value
+     */
+    public void initNavigatorHelper(@NonNull NavigatorHelper helper) {
+        this.navigatorHelper = helper;
     }
 
     /**

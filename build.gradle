@@ -57,7 +57,7 @@ ext {
     jUnitVersion            = "4.12"
     hamcrestVersion         = "1.3"
     espressoVersion         = "2.2.2"
-    robolectricVersion      = "3.3.2"
+    robolectricVersion      = "3.5"
 
     libraries = [
 

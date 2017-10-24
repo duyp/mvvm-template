@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui.modules.main.feed;
+package com.duyp.architecture.mvvm.ui.modules.feed;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;

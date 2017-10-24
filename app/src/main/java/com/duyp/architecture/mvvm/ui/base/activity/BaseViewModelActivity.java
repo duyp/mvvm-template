@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
@@ -27,15 +28,16 @@ import javax.inject.Inject;
 
 public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity {
 
-//    @Inject
-//    ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     public String TAG;
 
-    @Inject protected VM viewModel;
+    protected VM viewModel;
 
     @Inject NavigatorHelper navigatorHelper;
 
+    @VisibleForTesting
     protected B binding;
 
     @Override
@@ -50,11 +52,12 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
         // int view model
         // noinspection unchecked
-//        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
-//                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
+        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
 
-//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
+        viewModel.initNavigatorHelper(navigatorHelper);
         viewModel.getStateLiveData().observe(this, this::handleState);
     }
 

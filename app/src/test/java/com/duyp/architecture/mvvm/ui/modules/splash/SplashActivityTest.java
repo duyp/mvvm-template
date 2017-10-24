@@ -27,8 +27,6 @@ import static org.mockito.Mockito.when;
  *
  */
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, minSdk = 21, application = TestApplication.class)
 public class SplashActivityTest extends BaseActivityTest<SplashActivity>{
 
     @Inject
