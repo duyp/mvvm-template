@@ -53,11 +53,13 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
             drawerHolder.init(binding.drawer);
             binding.bottom.bottomNavigation.setOnMenuItemClickListener(this);
 
+            binding.pager.setOffscreenPageLimit(3);
             binding.pager.setAdapter(adapter);
             binding.pager.addOnPageChangeListener(this);
             binding.pager.setCurrentItem(viewModel.getCurrentTab());
             onPageSelected(viewModel.getCurrentTab());
 
+            drawerHolder.updateUser(userLiveData.getValue());
             userLiveData.observe(this, drawerHolder::updateUser);
         }, this::navigateLogin);
     }
