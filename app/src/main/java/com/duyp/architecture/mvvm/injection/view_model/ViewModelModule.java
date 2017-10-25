@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedViewModel;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModel;
 import com.duyp.architecture.mvvm.ui.modules.main.MainViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -28,6 +29,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FeedViewModel.class)
     abstract ViewModel feedViewModel(FeedViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RepoListViewModel.class)
+    abstract ViewModel repoListViewModel(RepoListViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);

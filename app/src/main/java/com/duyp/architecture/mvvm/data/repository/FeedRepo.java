@@ -4,6 +4,7 @@ import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.local.daos.EventDao;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.Pageable;
 import com.duyp.architecture.mvvm.data.model.User;
@@ -25,11 +26,9 @@ import lombok.Getter;
  *
  */
 
-public class FeedRepo extends BaseRepo {
+public class FeedRepo extends BaseRepo<Event, EventDao> {
 
-    private final EventDao eventDao;
     private final UserRestService userRestService;
-    private final UserDataStore userDataStore;
 
     @Getter
     private LiveRealmResults<Event> data;
@@ -38,26 +37,23 @@ public class FeedRepo extends BaseRepo {
     private boolean isMyUser;
 
     @Inject
-    public FeedRepo(GithubService githubService, UserRestService userRestService,
-                    RealmDatabase realmDatabase, EventDao eventDao, UserDataStore userDataStore) {
-        super(githubService, realmDatabase);
-        this.userDataStore = userDataStore;
-        this.eventDao = eventDao;
+    public FeedRepo(UserManager userManager, UserRestService userRestService, EventDao eventDao) {
+        super(userManager, eventDao);
         this.userRestService = userRestService;
     }
 
     public void initTargetUser(String user) {
-        User myUser = userDataStore.getUser();
+        String myUser = getCurrentUserLogin();
         if (myUser == null && user == null) {
             throw new IllegalStateException("Both saved user and target user is null");
         }
-        isMyUser = user == null || (myUser != null && user.equals(myUser.getLogin()));
+        isMyUser = user == null || (myUser != null && user.equals(myUser));
         if (isMyUser) {
-            targetUser = myUser.getLogin();
-            data = eventDao.getReceivedEventsByUser(targetUser);
+            targetUser = myUser;
+            data = dao.getReceivedEventsByUser(targetUser);
         } else {
             targetUser = user;
-            data = eventDao.getEventsByActor(targetUser);
+            data = dao.getEventsByActor(targetUser);
         }
     }
 
@@ -67,9 +63,9 @@ public class FeedRepo extends BaseRepo {
                         userRestService.getUserEvents(targetUser, page), (events, isRefresh) -> {
             if (isRefresh) {
                 if (isMyUser) {
-                    eventDao.deleteAllUserReceivedEvents(targetUser);
+                    dao.deleteAllUserReceivedEvents(targetUser);
                 } else {
-                    eventDao.deleteAllEventsByActor(targetUser);
+                    dao.deleteAllEventsByActor(targetUser);
                 }
             }
             if (isMyUser) {
@@ -77,12 +73,7 @@ public class FeedRepo extends BaseRepo {
                     event.setReceivedOwner(targetUser);
                 }
             }
-            eventDao.addAll(events.getItems());
+            dao.addAll(events.getItems());
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        eventDao.closeRealm();
     }
 }

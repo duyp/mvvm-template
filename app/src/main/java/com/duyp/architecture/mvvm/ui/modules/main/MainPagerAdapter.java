@@ -8,6 +8,7 @@ import com.duyp.architecture.mvvm.injection.qualifier.ActivityFragmentManager;
 import com.duyp.architecture.mvvm.ui.modules.Issue.IssueFragment;
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedFragment;
 import com.duyp.architecture.mvvm.ui.modules.pullrequest.PullRequestFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.utils.FragmentUtils;
 
 import javax.inject.Inject;
@@ -30,11 +31,11 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new FeedFragment();
             case 1:
-                return FragmentUtils.createFragmentInstance(new FeedFragment(), "hungpn");
+                return RepoListFragment.newInstance(null);
             case 2:
-                return new IssueFragment();
+                return FeedFragment.newInstance("hungpn");
             case 3:
-                return new PullRequestFragment();
+                return RepoListFragment.newInstance("hungpn");
             default: return new FeedFragment();
         }
     }

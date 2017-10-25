@@ -15,7 +15,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@Parcel
 public class Repo extends RealmObject {
 
     @PrimaryKey
@@ -39,7 +38,7 @@ public class Repo extends RealmObject {
 
     @SerializedName("private")
     @Expose
-    Boolean _private;
+    boolean _private;
     @SerializedName("html_url")
     @Expose
     String htmlUrl;
@@ -48,7 +47,7 @@ public class Repo extends RealmObject {
     String description;
     @SerializedName("fork")
     @Expose
-    Boolean fork;
+    boolean fork;
     @SerializedName("url")
     @Expose
     String url;
@@ -198,19 +197,19 @@ public class Repo extends RealmObject {
     String language;
     @SerializedName("has_issues")
     @Expose
-    Boolean hasIssues;
+    boolean hasIssues;
     @SerializedName("has_projects")
     @Expose
-    Boolean hasProjects;
+    boolean hasProjects;
     @SerializedName("has_downloads")
     @Expose
-    Boolean hasDownloads;
+    boolean hasDownloads;
     @SerializedName("has_wiki")
     @Expose
-    Boolean hasWiki;
+    boolean hasWiki;
     @SerializedName("has_pages")
     @Expose
-    Boolean hasPages;
+    boolean hasPages;
     @SerializedName("forks_count")
     @Expose
     long forksCount;

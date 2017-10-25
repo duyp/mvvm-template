@@ -15,6 +15,7 @@ import com.duyp.androidutils.realm.LiveRealmResultPair;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
+import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 
 import io.realm.RealmObject;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
 
     private View progressView;
 
-    public BaseRecyclerViewAdapter(Context context, @NonNull LifecycleOwner owner) {
+    public BaseRecyclerViewAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
         super(context, owner);
         setHasStableIds(false);
     }
