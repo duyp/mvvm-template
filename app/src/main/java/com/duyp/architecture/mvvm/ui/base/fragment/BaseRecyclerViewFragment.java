@@ -11,6 +11,7 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 import com.duyp.architecture.mvvm.ui.base.OnLoadMore;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.base.interfaces.Scrollable;
 import com.duyp.architecture.mvvm.ui.base.interfaces.UiRefreshable;
 import com.duyp.architecture.mvvm.ui.widgets.StateLayout;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView;
@@ -22,6 +23,7 @@ import io.realm.RealmObject;
 
 /**
  * Created by duypham on 10/23/17.
+ * Base fragment with {@link SwipeRefreshLayout} and {@link DynamicRecyclerView} and basic configurations on these UI objects
  *
  */
 
@@ -30,7 +32,7 @@ public abstract class BaseRecyclerViewFragment<
         T extends RealmObject,
         A extends BaseRecyclerViewAdapter<T>,
         VM extends BaseListDataViewModel<T, A>>
-        extends BaseViewModelFragment<B, VM> implements UiRefreshable{
+        extends BaseViewModelFragment<B, VM> implements UiRefreshable, Scrollable{
 
     protected SwipeRefreshLayout refreshLayout;
     protected DynamicRecyclerView recyclerView;
@@ -75,7 +77,9 @@ public abstract class BaseRecyclerViewFragment<
             doneRefresh();
             adapter.removeProgress();
         } else {
-            refreshUi();
+            if (!adapter.isProgressAdded()) {
+                refreshUi();
+            }
         }
     }
 
@@ -89,6 +93,17 @@ public abstract class BaseRecyclerViewFragment<
     public void onStop() {
         super.onStop();
         onLoadMore.unRegisterListener(recyclerView);
+    }
+
+    @Override
+    public void scrollTop(boolean animate) {
+        if (recyclerView != null) {
+            if (animate) {
+                recyclerView.smoothScrollToPosition(0);
+            } else {
+                recyclerView.scrollToPosition(0);
+            }
+        }
     }
 
     @Override

@@ -63,7 +63,6 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
         Log.d(TAG, "addProgress: ");
         isProgressAdded = true;
         addFooter(getProgressView());
-//        this.registerAdapterDataObserver(adapterDataObserver);
     }
 
     public void removeProgress() {
@@ -89,15 +88,4 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
     @SuppressWarnings("WeakerAccess") public boolean isEnableAnimation() {
         return enableAnimation;
     }
-
-
-//    private final RecyclerView.AdapterDataObserver adapterDataObserver = new RecyclerView.AdapterDataObserver() {
-//        @Override
-//        public void onChanged() {
-//            super.onChanged();
-//            // remove progress and unRegister observer immediately
-//            removeProgress();
-//            unregisterAdapterDataObserver(adapterDataObserver);
-//        }
-//    };
 }

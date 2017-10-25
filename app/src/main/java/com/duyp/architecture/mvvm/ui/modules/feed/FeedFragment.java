@@ -16,14 +16,4 @@ import javax.inject.Inject;
  *
  */
 
-public class FeedFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Event, FeedAdapter, FeedViewModel> {
-
-    @Inject
-    FragmentNavigatorHelper navigatorHelper;
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel.ensureInUserScope(userLiveData -> {}, () -> navigatorHelper.navigateLoginActivity(true));
-    }
-}
+public class FeedFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Event, FeedAdapter, FeedViewModel> {}
