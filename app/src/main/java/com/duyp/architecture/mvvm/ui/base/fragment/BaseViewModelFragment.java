@@ -1,8 +1,12 @@
 package com.duyp.architecture.mvvm.ui.base.fragment;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.data.source.State;
@@ -10,6 +14,8 @@ import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.injection.Injectable;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseActivity;
+
+import java.lang.reflect.ParameterizedType;
 
 import javax.inject.Inject;
 
@@ -25,10 +31,10 @@ import javax.inject.Inject;
 public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment<B>
     implements Injectable {
 
-//    @Inject
-//    ViewModelProvider.Factory viewModelFactory;
-
     @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
+//    @Inject
     protected VM viewModel;
 
     @Override
@@ -37,15 +43,19 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
         if (! (getActivity() instanceof BaseActivity)) {
             throw new IllegalStateException("All fragment's container must extend BaseActivity");
         }
+    }
 
-        // noinspection unchecked
-//        Class<VM> viewModelClass = (Class<VM>) ((ParameterizedType) getClass()
-//                .getGenericSuperclass()).getActualTypeArguments()[1]; // 1 is BaseViewModel
+    @Override
+    @CallSuper
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass());
+        viewModel.onCreate(getFragmentArguments());
 
         viewModel.getStateLiveData().observe(this, this::handleState);
     }
+
     /**
      * Default state handling, can be override
      * @param state viewModel's state
@@ -68,4 +78,6 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
     public void setLoading(boolean loading) {
         ((BaseActivity)getActivity()).setLoading(loading);
     }
+
+    protected abstract Class<VM> getViewModelClass();
 }

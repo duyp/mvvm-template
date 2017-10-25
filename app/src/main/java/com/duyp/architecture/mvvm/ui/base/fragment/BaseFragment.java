@@ -30,4 +30,8 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
     }
 
     protected abstract int getLayout();
+
+    protected Bundle getFragmentArguments() {
+        return getArguments();
+    }
 }

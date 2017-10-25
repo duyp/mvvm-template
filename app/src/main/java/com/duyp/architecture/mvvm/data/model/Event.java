@@ -10,18 +10,19 @@ import java.util.Date;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by duypham on 10/24/17.
  *
  */
 
+@Setter
 @Getter
 public class Event extends RealmObject {
     @PrimaryKey
     long id;
-    // EventsType type;
-    @EventType String type; // TODO: 10/24/17 event type
+    @EventType String type;
 
     @SerializedName("created_at")
     Date createdAt;
@@ -33,5 +34,6 @@ public class Event extends RealmObject {
     @SerializedName("public")
     boolean publicEvent;
 
-    @Nullable String login;
+    // not a response field from github api, used to identify this event is belong to whom (user received events)
+    @Nullable String receivedOwner;
 }

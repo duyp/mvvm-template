@@ -106,7 +106,7 @@ ext {
             androidUtils_rx         : "com.github.duyp.android-utils:rx:${androidUtilsVersion}", // Rx utils (custom functions, task helper...)
             androidUtils_view       : "com.github.duyp.android-utils:view:${androidUtilsVersion}", // View utils, custom views...
 //            androidUtils_realm      : "com.github.duyp.android-utils:realm:${androidUtilsVersion}", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
-            androidUtils_realm      : "com.github.duyp.android-utils:realm:40fd265268", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
+            androidUtils_realm      : "com.github.duyp.android-utils:realm:7f6c3add3e", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
 
             // retrofit
             retrofit                : "com.squareup.retrofit2:retrofit:${retrofitVersion}",

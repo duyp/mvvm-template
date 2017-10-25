@@ -16,4 +16,10 @@ import javax.inject.Inject;
  *
  */
 
-public class FeedFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Event, FeedAdapter, FeedViewModel> {}
+public class FeedFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Event, FeedAdapter, FeedViewModel> {
+
+    @Override
+    protected Class<FeedViewModel> getViewModelClass() {
+        return FeedViewModel.class;
+    }
+}

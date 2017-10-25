@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.base;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -53,6 +54,14 @@ public abstract class BaseViewModel extends ViewModel {
     public BaseViewModel(UserManager userManager) {
         this.userManager = userManager;
         TAG = this.getClass().getSimpleName();
+    }
+
+    /**
+     * called after fragment / activity is created with input bundle arguments
+     * @param bundle argument data
+     */
+    public void onCreate(@Nullable Bundle bundle) {
+
     }
 
     @Override

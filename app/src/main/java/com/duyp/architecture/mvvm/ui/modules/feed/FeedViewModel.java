@@ -1,10 +1,13 @@
 package com.duyp.architecture.mvvm.ui.modules.feed;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.repository.FeedRepo;
+import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 
 import javax.inject.Inject;
@@ -23,6 +26,15 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
         super(userManager);
         this.feedRepo = repo;
         new Handler().postDelayed(this::refresh, 300);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle bundle) {
+        String targetUser = null;
+        if (bundle != null) {
+            targetUser = bundle.getString(BundleConstant.EXTRA);
+        }
+        feedRepo.initTargetUser(targetUser);
     }
 
     @Override

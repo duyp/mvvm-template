@@ -29,27 +29,53 @@ public class FeedRepo extends BaseRepo {
 
     private final EventDao eventDao;
     private final UserRestService userRestService;
+    private final UserDataStore userDataStore;
 
     @Getter
-    private final LiveRealmResults<Event> data;
+    private LiveRealmResults<Event> data;
 
-    private final User mUser;
+    private String targetUser;
+    private boolean isMyUser;
 
     @Inject
     public FeedRepo(GithubService githubService, UserRestService userRestService,
                     RealmDatabase realmDatabase, EventDao eventDao, UserDataStore userDataStore) {
         super(githubService, realmDatabase);
-        mUser = userDataStore.getUser();
+        this.userDataStore = userDataStore;
         this.eventDao = eventDao;
         this.userRestService = userRestService;
-        data = eventDao.getAll();
+    }
+
+    public void initTargetUser(String user) {
+        User myUser = userDataStore.getUser();
+        if (myUser == null && user == null) {
+            throw new IllegalStateException("Both saved user and target user is null");
+        }
+        isMyUser = user == null || (myUser != null && user.equals(myUser.getLogin()));
+        if (isMyUser) {
+            targetUser = myUser.getLogin();
+            data = eventDao.getReceivedEventsByUser(targetUser);
+        } else {
+            targetUser = user;
+            data = eventDao.getEventsByActor(targetUser);
+        }
     }
 
     public Flowable<Resource<Pageable<Event>>> getEvents(int page) {
         return RestHelper.createRemoteSiourceMapper(page == 1,
-                userRestService.getUserEvents(mUser.getLogin(), page), (events, isRefresh) -> {
+                isMyUser ? userRestService.getReceivedEvents(targetUser, page) :
+                        userRestService.getUserEvents(targetUser, page), (events, isRefresh) -> {
             if (isRefresh) {
-                eventDao.deleteAll();
+                if (isMyUser) {
+                    eventDao.deleteAllUserReceivedEvents(targetUser);
+                } else {
+                    eventDao.deleteAllEventsByActor(targetUser);
+                }
+            }
+            if (isMyUser) {
+                for (Event event : events.getItems()) {
+                    event.setReceivedOwner(targetUser);
+                }
             }
             eventDao.addAll(events.getItems());
         });

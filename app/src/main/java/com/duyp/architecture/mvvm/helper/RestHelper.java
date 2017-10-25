@@ -48,7 +48,7 @@ public class RestHelper {
 
         return single.subscribe(responseConsumer, throwable -> {
             // handle error
-            // throwable.printStackTrace();
+             throwable.printStackTrace();
             if (errorConsumer != null) {
                 int code = ResponseHelper.getErrorCode(throwable);
                 String message;

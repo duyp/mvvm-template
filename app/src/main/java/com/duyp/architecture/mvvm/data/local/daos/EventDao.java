@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmQuery;
 
 /**
  * Created by duypham on 10/24/17.
@@ -22,15 +23,37 @@ public class EventDao extends BaseRealmDaoImpl<Event> {
     public EventDao(RealmConfiguration config) {
         super(Realm.getInstance(config), Event.class);
     }
-//
-//    @Nullable
-//    @Override
-//    protected String getDefaultSortField() {
-//        return "createdAt";
-//    }
 
-    @Override
-    public LiveRealmResults<Event> getAll() {
-        return super.getAll();
+
+    // ===========================================================================================
+    // User's received events (event actor is others)
+    // ===========================================================================================
+    public LiveRealmResults<Event> getReceivedEventsByUser(String userLoginName) {
+        return findAllSorted(getUserReceivedEventQuery(userLoginName));
     }
+
+    public void deleteAllUserReceivedEvents(String userLoginName) {
+        deleteAll(getUserReceivedEventQuery(userLoginName));
+    }
+
+    private RealmQuery<Event> getUserReceivedEventQuery(String userLoginName) {
+        return query().equalTo("receivedOwner", userLoginName);
+    }
+
+    // ===========================================================================================
+    // User events (event actor is user)
+    // ===========================================================================================
+
+    public LiveRealmResults<Event> getEventsByActor(String actorLoginName) {
+        return findAllSorted(getEventsByActorQuery(actorLoginName));
+    }
+
+    public void deleteAllEventsByActor(String actorLoginName) {
+        deleteAll(getEventsByActorQuery(actorLoginName));
+    }
+
+    private RealmQuery<Event> getEventsByActorQuery(String actorLoginName) {
+        return query().equalTo("actor.login", actorLoginName);
+    }
+
 }
