@@ -55,7 +55,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
         currentPage = page;
         callApi(page, lastPage -> {
             this.lastPage = lastPage;
-            adapter.removeProgress();
+//            adapter.removeProgress();
         });
         return true;
     }

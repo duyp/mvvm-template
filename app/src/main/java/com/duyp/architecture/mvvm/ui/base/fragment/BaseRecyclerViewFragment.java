@@ -73,6 +73,7 @@ public abstract class BaseRecyclerViewFragment<
     public void setLoading(boolean loading) {
         if (!loading) {
             doneRefresh();
+            adapter.removeProgress();
         } else {
             refreshUi();
         }
@@ -102,9 +103,10 @@ public abstract class BaseRecyclerViewFragment<
     @Override
     public void doneRefresh() {
         if (refreshLayout != null) {
-            refreshLayout.post(() -> refreshLayout.setRefreshing(false));
+            refreshLayout.setRefreshing(false);
         }
         isRefreshing = false;
+        shouldRefreshUi = false;
     }
 
     @Override

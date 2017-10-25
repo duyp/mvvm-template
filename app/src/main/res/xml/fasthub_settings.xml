@@ -100,7 +100,7 @@
     <PreferenceCategory android:title="@string/animations">
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="recylerViewAnimation"
             android:summary="@string/recycler_view_animation_summary"
             android:title="@string/recycler_view_animation_title"/>

@@ -88,9 +88,9 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
             boolean isCallingApi = onLoadMore(currentPage, totalItemCount);
             loading = true;
             if (adapter != null && isCallingApi) {
-                recyclerView.post(() -> {
+//                recyclerView.post(() -> {
                     adapter.addProgress();
-                });
+//                });
             }
         }
     }

@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.data.local.daos;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.realm.BaseRealmDaoImpl;
+import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.model.Event;
 
 import javax.inject.Inject;
@@ -21,10 +22,15 @@ public class EventDao extends BaseRealmDaoImpl<Event> {
     public EventDao(RealmConfiguration config) {
         super(Realm.getInstance(config), Event.class);
     }
+//
+//    @Nullable
+//    @Override
+//    protected String getDefaultSortField() {
+//        return "createdAt";
+//    }
 
-    @Nullable
     @Override
-    protected String getDefaultSortField() {
-        return "createdAt";
+    public LiveRealmResults<Event> getAll() {
+        return super.getAll();
     }
 }

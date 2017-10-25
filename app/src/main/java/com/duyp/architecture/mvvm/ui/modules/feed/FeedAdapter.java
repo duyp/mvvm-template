@@ -30,7 +30,7 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
     }
 
     @Override
-    protected void bindHolder(RecyclerView.ViewHolder viewHolder, @NonNull Event event) {
+    protected void bindItemViewHolder(RecyclerView.ViewHolder viewHolder, @NonNull Event event) {
         ((FeedsViewHolder)viewHolder).bind(event);
     }
 }

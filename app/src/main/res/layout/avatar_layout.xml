@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="centerCrop"
-        android:src="?colorPrimaryDark"
+        android:src="@drawable/ic_github_shortcut"
         android:transitionName="@string/icon_transition"
         app:shape_mode="circle"/>
 </merge>

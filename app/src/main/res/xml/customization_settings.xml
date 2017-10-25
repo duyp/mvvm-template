@@ -38,7 +38,7 @@
 
 
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:icon="@drawable/ic_filter"
         android:key="recylerViewAnimation"
         android:summary="@string/recycler_view_animation_summary"
