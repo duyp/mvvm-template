@@ -44,7 +44,7 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TAG = getLocalClassName();
+        TAG = getClass().getSimpleName();
 
         //init data binding
         binding = DataBindingUtil.setContentView(this, getLayout());

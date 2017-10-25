@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.ui.modules.feed;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Event;
@@ -25,6 +26,7 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
     public FeedViewModel(UserManager userManager, FeedRepo repo) {
         super(userManager);
         this.feedRepo = repo;
+        Log.d(TAG, "FeedViewModel: creating..." + this);
         new Handler().postDelayed(this::refresh, 300);
     }
 

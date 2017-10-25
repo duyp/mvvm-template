@@ -3,6 +3,8 @@ package com.duyp.architecture.mvvm.ui.modules.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,15 +14,21 @@ import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
 
 import javax.inject.Inject;
 
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+
 /**
  * Created by duypham on 10/23/17.
  *
  */
 
-public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, MainViewModel> {
+public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, MainViewModel>
+        implements BottomNavigation.OnMenuItemSelectionListener, ViewPager.OnPageChangeListener{
 
     @Inject
     MainDrawerHolder drawerHolder;
+
+    @Inject
+    MainPagerAdapter adapter;
 
     @Override
     public int getLayout() {
@@ -43,19 +51,14 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
 
             setToolbarIcon(R.drawable.ic_menu);
             drawerHolder.init(binding.drawer);
-            binding.bottom.bottomNavigation.setOnMenuItemClickListener(viewModel);
+            binding.bottom.bottomNavigation.setOnMenuItemClickListener(this);
+
+            binding.pager.setAdapter(adapter);
+            binding.pager.addOnPageChangeListener(this);
+            binding.pager.setCurrentItem(viewModel.getCurrentTab());
+            onPageSelected(viewModel.getCurrentTab());
 
             userLiveData.observe(this, drawerHolder::updateUser);
-
-            viewModel.setFragmentManager(getSupportFragmentManager());
-            Integer currentTab = viewModel.getCurrentTab().getValue();
-            int position = currentTab == null ? MainViewModel.FEEDS : currentTab;
-            binding.bottom.bottomNavigation.setSelectedIndex(position, true);
-            viewModel.onMenuItemReselect(0, position, false); // ensure onMenuItemReSelect if bottomNavigation wo'nt fire event
-
-            viewModel.getCurrentTab().observe(this, tab -> {
-                hideShowShadow(tab != null && tab == MainViewModel.FEEDS);
-            });
         }, this::navigateLogin);
     }
 
@@ -78,4 +81,27 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onMenuItemSelect(int id, int position, boolean fromUser) {
+        if (fromUser) {
+            binding.pager.setCurrentItem(position);
+        }
+    }
+
+    @Override
+    public void onMenuItemReselect(int id, int position, boolean fromUser) {}
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        hideShowShadow(position < 2);
+        viewModel.setCurrentTab(position);
+        binding.bottom.bottomNavigation.setSelectedIndex(position, true);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
 }

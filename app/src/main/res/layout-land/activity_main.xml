@@ -22,6 +22,8 @@
             <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/bbn_bottom_navigation_width"
+                tools:ignore="MergeRootFrame"
                 android:id="@+id/pager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

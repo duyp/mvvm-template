@@ -24,6 +24,11 @@ public class EventDao extends BaseRealmDaoImpl<Event> {
         super(Realm.getInstance(config), Event.class);
     }
 
+    @Nullable
+    @Override
+    protected String getDefaultSortField() {
+        return "createdAt";
+    }
 
     // ===========================================================================================
     // User's received events (event actor is others)
