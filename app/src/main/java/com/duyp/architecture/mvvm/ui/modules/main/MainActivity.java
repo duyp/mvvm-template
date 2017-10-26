@@ -95,6 +95,13 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
     public void onMenuItemReselect(int id, int position, boolean fromUser) {}
 
     @Override
+    public void onBackPressed() {
+        if (!drawerHolder.closeDrawer()) {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
     @Override
