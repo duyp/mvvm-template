@@ -137,7 +137,6 @@ dependencies {
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
-    implementation libs.parceler
     implementation libs.timber
     implementation libs.stream
 
@@ -160,6 +159,8 @@ dependencies {
     implementation 'com.jaredrummler:android-device-names:1.1.5'
     implementation 'org.jsoup:jsoup:1.10.3'
 
+    // image plur
+    compile 'jp.wasabeef:blurry:2.1.1'
     // =============================================================================================
     // TESTING DEPENDENCIES
     // =============================================================================================

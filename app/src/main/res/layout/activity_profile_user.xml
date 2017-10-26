@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="vm"
-            type="com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel" />
-    </data>
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,18 +50,7 @@
                         android:layout_marginLeft="@dimen/layout_margin"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_marginTop="@dimen/base120"
-                        android:background="@drawable/bg_color_solid_white">
-
-                        <ImageView
-                            android:layout_width="@dimen/base50"
-                            android:layout_height="@dimen/base32"
-                            android:src="@{vm.followed ? @drawable/ic_followed_white : @drawable/ic_follow_black}"
-                            android:padding="@dimen/spacing_normal"
-                            android:background="@{vm.followed ? @drawable/bg_corner_solid_blue : @color/white}"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_margin="@dimen/layout_margin"
-                            android:id="@+id/btnFollow"/>
+                        android:background="@drawable/bg_corner_solid_white">
 
                         <TextView
                             android:id="@+id/tvName"
@@ -75,18 +58,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/layout_margin"
                             android:layout_marginTop="@dimen/layout_margin"
-                            android:text="@{vm.targetUser.displayName}"
                             android:textColor="@color/default_black"
+                            android:textStyle="bold"
+                            android:text="@string/sample_name"
                             android:textSize="@dimen/text_large" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/tvLink"
-                            android:text="@{vm.targetUser.url}"
                             android:textColor="@color/default_dark_gray"
                             android:layout_marginLeft="@dimen/layout_margin"
                             android:textSize="@dimen/text_small"
+                            android:text="@string/sample_user_name"
                             android:layout_below="@id/tvName"/>
 
                         <TextView
@@ -98,16 +82,17 @@
                             android:layout_marginRight="@dimen/layout_margin"
                             android:layout_marginTop="@dimen/spacing_normal"
                             android:layout_marginBottom="@dimen/layout_margin"
-                            android:text="@{vm.targetUser.bio}"
                             android:textSize="@dimen/text_normal"
+                            android:text="@string/lorem_short"
                             android:textColor="@color/default_dark_gray" />
 
                     </RelativeLayout>
 
                     <com.mikhaellopez.circularimageview.CircularImageView
-                        style="@style/avatar_circle_large"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/base100"
+                        style="@style/avatar_circle_large_extra"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/base50"
+                        android:layout_marginTop="@dimen/base80"
                         android:id="@+id/imvAvatar"/>
 
                 </RelativeLayout>

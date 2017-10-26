@@ -54,9 +54,9 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
             holder.imvAvatar.setOnClickListener(v -> {
                 Repo repo = getItem(holder.getAdapterPosition());
                 if (repo != null) {
-//                    Realm realm = Realm.getInstance(realmConfiguration);
-                    navigatorHelper.navigateUserProfile(repo.getOwner().partialClone());
-//                    realm.close();
+                    Realm realm = Realm.getInstance(realmConfiguration);
+                    navigatorHelper.navigateUserProfile(realm.copyFromRealm(repo.getOwner()));
+                    realm.close();
                 }
             });
         }

@@ -35,11 +35,11 @@ public class UserDataStore {
     private final UserDao userDao;
 
     @Inject
-    public UserDataStore(@NonNull CustomSharedPreferences sharedPreferences, @NonNull Gson gson, RealmDatabase realmDatabase) {
+    public UserDataStore(@NonNull CustomSharedPreferences sharedPreferences, @NonNull Gson gson, UserDao userDao) {
         this.mSharedPreferences = sharedPreferences;
         this.mGson = gson;
         mUserLiveData = new MutableLiveData<>();
-        this.userDao = realmDatabase.getUserDao();
+        this.userDao = userDao;
     }
 
     public CustomSharedPreferences getSharedPreferences() {
@@ -53,7 +53,7 @@ public class UserDataStore {
     public LiveData<User> setUser(@NonNull User user) {
         mSharedPreferences.setPreferences(Constants.PREF_USER, mGson.toJson(user));
         setUserLiveDataValueSafely(user);
-        userDao.addOrUpdate(user);
+//        userDao.addOrUpdate(user);
         return mUserLiveData;
     }
 

@@ -145,6 +145,7 @@ ext {
 
             // parcel
             parceler                : 'org.parceler:parceler-api:1.1.9',
+            parcelerAnnotation      : 'org.parceler:parceler:1.1.9',
 
             // image blur
             blurry                  : 'jp.wasabeef:blurry:2.1.1',

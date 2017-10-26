@@ -32,6 +32,7 @@
     <dimen name="base32">32dp</dimen>
     <dimen name="base50">50dp</dimen>
     <dimen name="base80">80dp</dimen>
+    <dimen name="base90">90dp</dimen>
     <dimen name="base100">100dp</dimen>
     <dimen name="base150">150dp</dimen>
     <dimen name="base180">180dp</dimen>
@@ -44,4 +45,7 @@
     <dimen name="base18">18dp</dimen>
     <dimen name="base45">45dp</dimen>
     <dimen name="base120">120dp</dimen>
+
+    <dimen name="line_thin">0.5dp</dimen>
+    <dimen name="line_normal">1dp</dimen>
 </resources>

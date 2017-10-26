@@ -10,8 +10,6 @@ import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
 
-import org.parceler.Parcels;
-
 /**
  * Created by duypham on 9/7/17.
  * Util class for navigating common page in application
@@ -53,7 +51,7 @@ public class NavigatorHelper {
 
     public void navigateUserProfile(@Nullable User user) {
         mNavigator.startActivity(ProfileActivity.class, intent -> {
-            intent.putExtra(BundleConstant.EXTRA, Parcels.wrap(user));
+            intent.putExtra(BundleConstant.EXTRA, user);
         });
     }
 //

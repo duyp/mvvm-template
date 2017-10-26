@@ -17,11 +17,12 @@ import lombok.Setter;
 /**
  * Created by duypham on 9/7/17.
  * Github User model
+ * Cloned from {@link User} to prevent realm to delete user data in some list (items contain nested user)
  */
 
 @Getter
 @Setter
-public class User extends RealmObject implements Parcelable {
+public class UserDetail extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("id")
@@ -137,7 +138,10 @@ public class User extends RealmObject implements Parcelable {
     @Expose
     public Plan plan;
 
-    public boolean equals(@Nullable User user) {
+    // store followed state
+    public boolean isFollowed = false;
+
+    public boolean equals(@Nullable UserDetail user) {
         return user != null && id.equals(user.getId());
     }
 
@@ -145,8 +149,8 @@ public class User extends RealmObject implements Parcelable {
         return TextUtils.isEmpty(name) ? login : name;
     }
 
-    public User partialClone() {
-        User user = new User();
+    public UserDetail partialClone() {
+        UserDetail user = new UserDetail();
         user.setId(id);
         user.setName(name);
         user.setAvatarUrl(avatarUrl);
@@ -205,10 +209,10 @@ public class User extends RealmObject implements Parcelable {
         dest.writeParcelable(this.plan, flags);
     }
 
-    public User() {
+    public UserDetail() {
     }
 
-    protected User(android.os.Parcel in) {
+    protected UserDetail(android.os.Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.login = in.readString();
         this.avatarUrl = in.readString();
@@ -250,15 +254,15 @@ public class User extends RealmObject implements Parcelable {
         this.plan = in.readParcelable(Plan.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<UserDetail> CREATOR = new Creator<UserDetail>() {
         @Override
-        public User createFromParcel(android.os.Parcel source) {
-            return new User(source);
+        public UserDetail createFromParcel(android.os.Parcel source) {
+            return new UserDetail(source);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public UserDetail[] newArray(int size) {
+            return new UserDetail[size];
         }
     };
 }
