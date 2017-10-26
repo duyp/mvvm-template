@@ -50,9 +50,6 @@ public class AvatarLayout extends FrameLayout {
         if (PrefGetter.isRectAvatar()) {
             avatar.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15);
         }
-        avatar.setOnClickListener(v -> {
-            // TODO: 10/24/17 navigate profile
-        });
     }
 
     public void bindData(GlideLoader glideLoader, @Nullable User user) {
@@ -62,8 +59,6 @@ public class AvatarLayout extends FrameLayout {
             TooltipCompat.setTooltipText(avatar, user.getLogin());
             glideLoader.loadImage(user.getAvatarUrl(), avatar);
         } else {
-            avatar.setOnClickListener(null);
-            avatar.setOnLongClickListener(null);
             avatar.setImageResource(R.drawable.ic_github);
         }
     }

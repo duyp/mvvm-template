@@ -10,11 +10,14 @@ import com.duyp.androidutils.glide.loader.GlideLoader;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 
 import javax.inject.Inject;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import lombok.Setter;
 
 /**
@@ -29,10 +32,14 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
     @Setter
     private boolean hasAvatar = true;
 
+    private final RealmConfiguration realmConfiguration;
+
     @Inject
-    public RepoAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner, AvatarLoader avatarLoader) {
-        super(context, owner);
+    public RepoAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner,
+                       AvatarLoader avatarLoader, NavigatorHelper navigatorHelper, RealmConfiguration realmConfiguration) {
+        super(context, owner, navigatorHelper);
         this.glideLoader = avatarLoader;
+        this.realmConfiguration = realmConfiguration;
     }
 
     @Override
@@ -42,6 +49,17 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
-        return ReposViewHolder.newInstance(glideLoader, viewGroup, false, hasAvatar);
+        ReposViewHolder holder = ReposViewHolder.newInstance(navigatorHelper, glideLoader, viewGroup, false, hasAvatar);
+        if (holder.imvAvatar != null) {
+            holder.imvAvatar.setOnClickListener(v -> {
+                Repo repo = getItem(holder.getAdapterPosition());
+                if (repo != null) {
+//                    Realm realm = Realm.getInstance(realmConfiguration);
+                    navigatorHelper.navigateUserProfile(repo.getOwner().partialClone());
+//                    realm.close();
+                }
+            });
+        }
+        return holder;
     }
 }

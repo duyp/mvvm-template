@@ -23,6 +23,7 @@ import com.duyp.architecture.mvvm.data.model.WikiModel;
 import com.duyp.architecture.mvvm.data.provider.markdown.MarkDownProvider;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
@@ -76,9 +77,11 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
     private Resources resources;
 
     private final AvatarLoader avatarLoader;
+    private final NavigatorHelper navigatorHelper;
 
-    public FeedsViewHolder(@NonNull View itemView) {
+    public FeedsViewHolder(@NonNull View itemView, NavigatorHelper navigatorHelper) {
         super(itemView);
+        this.navigatorHelper = navigatorHelper;
         this.resources = itemView.getResources();
         avatarLoader = new AvatarLoader(itemView.getContext());
     }

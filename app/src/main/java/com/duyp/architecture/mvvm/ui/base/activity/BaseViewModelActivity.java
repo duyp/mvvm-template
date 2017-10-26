@@ -57,6 +57,7 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
+        viewModel.onCreate(getIntent().getExtras());
         viewModel.initNavigatorHelper(navigatorHelper);
         viewModel.getStateLiveData().observe(this, this::handleState);
     }

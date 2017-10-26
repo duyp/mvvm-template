@@ -18,6 +18,7 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import io.realm.RealmObject;
 import lombok.Getter;
@@ -42,9 +43,12 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
     @Setter
     protected PlainConsumer<T> itemClickListener;
 
-    public BaseRecyclerViewAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
+    protected final NavigatorHelper navigatorHelper;
+
+    public BaseRecyclerViewAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner, NavigatorHelper navigatorHelper) {
         super(context, owner);
         setHasStableIds(false);
+        this.navigatorHelper = navigatorHelper;
     }
 
     @Override

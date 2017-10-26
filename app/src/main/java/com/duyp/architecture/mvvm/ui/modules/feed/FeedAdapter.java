@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import javax.inject.Inject;
 
@@ -25,15 +26,22 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
     private boolean hasAvatar = true;
 
     @Inject
-    public FeedAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
-        super(context, owner);
+    public FeedAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner, NavigatorHelper navigatorHelper) {
+        super(context, owner, navigatorHelper);
     }
-
-
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
-        return new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, !hasAvatar));
+        FeedsViewHolder holder = new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, !hasAvatar), navigatorHelper);
+        if (holder.avatar != null) {
+            holder.avatar.setOnClickListener(v -> {
+                Event event = getItem(holder.getAdapterPosition());
+                if (event != null) {
+                    navigatorHelper.navigateUserProfile(event.getActor());
+                }
+            });
+        }
+        return holder;
     }
 
     @Override

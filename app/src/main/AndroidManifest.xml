@@ -29,6 +29,7 @@
             android:theme="@style/AppThemeNoActionBar"/>
 
         <activity android:name=".ui.modules.main.MainActivity" />
+        <activity android:name=".ui.modules.profile.ProfileActivity" />
 
     </application>
 

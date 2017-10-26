@@ -77,7 +77,7 @@ public abstract class BaseActivity extends BasePermissionActivity
     protected void initViews() {
         appBar = findViewById(R.id.appbar);
         toolbar = findViewById(R.id.toolbar);
-        setupToolbarAndStatusBar(toolbar);
+        setupToolbarAndStatusBar();
     }
 
     public abstract int getLayout();
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends BasePermissionActivity
     // UI setting
     // ========================================================================================
 
-    private void setupToolbarAndStatusBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
+    private void setupToolbarAndStatusBar() {
         changeStatusBarColor(isTransparent());
         if (toolbar != null) {
             setSupportActionBar(toolbar);

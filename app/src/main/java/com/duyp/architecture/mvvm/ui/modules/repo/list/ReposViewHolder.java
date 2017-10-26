@@ -15,6 +15,7 @@ import com.duyp.architecture.mvvm.data.provider.color.ColorsProvider;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.LabelSpan;
@@ -53,19 +54,22 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
     private boolean withImage;
 
     private final GlideLoader loader;
+    private final NavigatorHelper navigatorHelper;
 
-    private ReposViewHolder(GlideLoader glideLoader, @NonNull View itemView, boolean isStarred, boolean withImage) {
+    private ReposViewHolder(NavigatorHelper navigatorHelper, GlideLoader glideLoader, @NonNull View itemView, boolean isStarred, boolean withImage) {
         super(itemView);
         this.isStarred = isStarred;
         this.withImage = withImage;
         this.loader = glideLoader;
+        this.navigatorHelper = navigatorHelper;
     }
 
-    public static ReposViewHolder newInstance(GlideLoader glideLoader, ViewGroup viewGroup, boolean isStarred, boolean withImage) {
+    public static ReposViewHolder newInstance(NavigatorHelper navigatorHelper, GlideLoader glideLoader,
+                                              ViewGroup viewGroup, boolean isStarred, boolean withImage) {
         if (withImage) {
-            return new ReposViewHolder(glideLoader, getView(viewGroup, R.layout.repos_row_item), isStarred, true);
+            return new ReposViewHolder(navigatorHelper, glideLoader, getView(viewGroup, R.layout.repos_row_item), isStarred, true);
         } else {
-            return new ReposViewHolder(glideLoader, getView(viewGroup, R.layout.repos_row_no_image_item), isStarred, false);
+            return new ReposViewHolder(navigatorHelper, glideLoader, getView(viewGroup, R.layout.repos_row_no_image_item), isStarred, false);
         }
     }
 
