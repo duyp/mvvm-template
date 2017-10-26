@@ -12,6 +12,8 @@ import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
 
 import javax.inject.Inject;
 
+import lombok.Setter;
+
 /**
  * Created by duypham on 10/24/17.
  *
@@ -19,14 +21,19 @@ import javax.inject.Inject;
 
 public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
 
+    @Setter
+    private boolean hasAvatar = true;
+
     @Inject
     public FeedAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
         super(context, owner);
     }
 
+
+
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
-        return new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, false));
+        return new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, !hasAvatar));
     }
 
     @Override

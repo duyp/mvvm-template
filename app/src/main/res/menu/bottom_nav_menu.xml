@@ -17,7 +17,7 @@
         android:id="@+id/repos"
         android:color="?colorPrimary"
         android:icon="@drawable/ic_repo"
-        android:title="@string/repo"/>
+        android:title="@string/repos"/>
 
     <item
         android:id="@+id/issues"

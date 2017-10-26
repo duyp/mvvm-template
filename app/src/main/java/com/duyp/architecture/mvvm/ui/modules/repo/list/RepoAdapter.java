@@ -15,6 +15,8 @@ import com.duyp.architecture.mvvm.utils.AvatarLoader;
 
 import javax.inject.Inject;
 
+import lombok.Setter;
+
 /**
  * Created by duypham on 10/25/17.
  *
@@ -23,6 +25,9 @@ import javax.inject.Inject;
 public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
 
     private final GlideLoader glideLoader;
+
+    @Setter
+    private boolean hasAvatar = true;
 
     @Inject
     public RepoAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner, AvatarLoader avatarLoader) {
@@ -37,6 +42,6 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
-        return ReposViewHolder.newInstance(glideLoader, viewGroup, false, true);
+        return ReposViewHolder.newInstance(glideLoader, viewGroup, false, hasAvatar);
     }
 }
