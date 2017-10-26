@@ -235,7 +235,7 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
                 .append(" ")
                 .bold("at")
                 .append(" ")
-                .append(eventsModel.getRepo().getName());
+                .append(eventsModel.getRepo() != null ? eventsModel.getRepo().getName() : "null repo");
         final List<Commit> commits = eventsModel.getPayload().getCommits();
         int size = commits != null ? commits.size() : -1;
         SpannableBuilder spanCommits = SpannableBuilder.builder();

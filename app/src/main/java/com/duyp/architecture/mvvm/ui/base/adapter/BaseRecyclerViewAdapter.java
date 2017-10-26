@@ -9,9 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.duyp.androidutils.realm.BaseRealmLiveDataAdapter;
 import com.duyp.androidutils.realm.LiveRealmResultPair;
+import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
@@ -19,6 +21,7 @@ import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 
 import io.realm.RealmObject;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by duypham on 10/24/17.
@@ -35,6 +38,10 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
 
     private View progressView;
 
+    @Nullable
+    @Setter
+    protected PlainConsumer<T> itemClickListener;
+
     public BaseRecyclerViewAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner) {
         super(context, owner);
         setHasStableIds(false);
@@ -48,10 +55,26 @@ public abstract class BaseRecyclerViewAdapter<T extends RealmObject> extends Bas
     }
 
     @Override
+    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int itemType) {
+        RecyclerView.ViewHolder holder = createItemHolder(viewGroup, itemType);
+        if (itemClickListener != null) {
+            holder.itemView.setOnClickListener(v -> {
+                T item = getItem(holder.getAdapterPosition());
+                if (item != null) {
+                    itemClickListener.accept(item);
+                }
+            });
+        }
+        return holder;
+    }
+
+    @Override
     protected void bindHolder(RecyclerView.ViewHolder viewHolder, @NonNull T t) {
         bindItemViewHolder(viewHolder, t);
         animate(viewHolder, viewHolder.getAdapterPosition());
     }
+
+    protected abstract RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int itemType);
 
     protected abstract void bindItemViewHolder(RecyclerView.ViewHolder viewHolder, @NonNull T t);
 

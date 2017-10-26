@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+        classpath 'com.android.tools.build:gradle:3.0.0'
 
         classpath "io.realm:realm-gradle-plugin:3.7.2"
 
@@ -67,7 +67,7 @@ ext {
 
             // kotlin
              kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
-             kotlinDatabinding       : "com.android.databinding:compiler:3.0.0-rc1",
+             kotlinDatabinding       : "com.android.databinding:compiler:3.0.0",
             // android support library
             supportCore             : "com.android.support:support-core-utils:${supportVersion}",
             supportAnnotation       : "com.android.support:support-annotations:${supportVersion}",

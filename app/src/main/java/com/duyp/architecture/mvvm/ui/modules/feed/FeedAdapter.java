@@ -25,7 +25,7 @@ public class FeedAdapter extends BaseRecyclerViewAdapter<Event>{
     }
 
     @Override
-    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int i) {
+    protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
         return new FeedsViewHolder(FeedsViewHolder.getView(viewGroup, false));
     }
 

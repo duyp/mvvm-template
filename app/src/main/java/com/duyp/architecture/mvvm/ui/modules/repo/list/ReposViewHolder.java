@@ -93,6 +93,9 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
             language.setText(repo.getLanguage());
             language.setTextColor(ColorsProvider.getColorAsColor(repo.getLanguage(), language.getContext()));
             language.setVisibility(View.VISIBLE);
+        } else {
+            language.setText("");
+            language.setVisibility(View.GONE);
         }
     }
 }

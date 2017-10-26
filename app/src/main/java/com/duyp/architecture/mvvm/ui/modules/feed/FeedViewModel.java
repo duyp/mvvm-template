@@ -53,6 +53,11 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
     }
 
     @Override
+    protected void onItemClick(Event item) {
+
+    }
+
+    @Override
     protected void onCleared() {
         super.onCleared();
         feedRepo.onDestroy();

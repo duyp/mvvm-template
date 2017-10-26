@@ -28,7 +28,7 @@ public class Event extends RealmObject {
     Date createdAt;
 
     User actor;
-    Repo repo;
+    EventRepo repo;
     PayloadModel payload;
 
     @SerializedName("public")

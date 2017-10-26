@@ -36,7 +36,7 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
     }
 
     @Override
-    protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int i) {
+    protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int i) {
         return ReposViewHolder.newInstance(glideLoader, viewGroup, false, true);
     }
 }

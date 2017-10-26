@@ -37,6 +37,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     @CallSuper
     public void initAdapter(A adapter) {
         this.adapter = adapter;
+        adapter.setItemClickListener(this::onItemClick);
     }
 
     @Override
@@ -61,6 +62,8 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     }
 
     protected abstract void callApi(int page, OnCallApiDone onCallApiDone);
+
+    protected abstract void onItemClick(T item);
 
     public interface OnCallApiDone {
         void onDone(int lastPage);
