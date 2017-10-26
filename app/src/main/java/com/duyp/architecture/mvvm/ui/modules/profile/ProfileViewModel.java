@@ -27,10 +27,11 @@ import lombok.Getter;
 @Getter
 public class ProfileViewModel extends BaseViewModel{
 
-    @Getter
     LiveRealmObject<UserDetail> user;
 
     private final UserRepo userRepo;
+
+    private String userLogin;
 
     @Inject
     public ProfileViewModel(UserManager userManager, UserRepo userRepo) {
@@ -49,6 +50,7 @@ public class ProfileViewModel extends BaseViewModel{
         if (target == null) {
             throw new IllegalStateException("Both target user and current user are NULL is not allowed!");
         }
+        userLogin = target.getLogin();
         this.user = userRepo.initUser(target);
     }
 

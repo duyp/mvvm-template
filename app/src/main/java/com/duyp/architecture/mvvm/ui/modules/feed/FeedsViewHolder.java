@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.Comment;
@@ -67,7 +68,7 @@ import static com.duyp.architecture.mvvm.data.model.type.EventType.WatchEvent;
 public class FeedsViewHolder extends BaseViewHolder<Event> {
 
     @Nullable @BindView(R.id.avatarLayout)
-    AvatarLayout avatar;
+    ImageView avatar;
     @BindView(R.id.description)
     FontTextView description;
     @BindView(R.id.title)
@@ -492,11 +493,12 @@ public class FeedsViewHolder extends BaseViewHolder<Event> {
 
     private void appendAvatar(@NonNull Event eventsModel) {
         if (avatar != null) {
-            if (eventsModel.getActor() != null) {
-                avatar.bindData(avatarLoader, eventsModel.getActor());
-            } else {
-                avatar.bindData(null, null);
-            }
+//            if (eventsModel.getActor() != null) {
+//                avatar.bindData(avatarLoader, eventsModel.getActor());
+//            } else {
+//                avatar.bindData(null, null);
+//            }
+            avatarLoader.loadImage(eventsModel.getActor().getAvatarUrl(), avatar);
         }
     }
 }

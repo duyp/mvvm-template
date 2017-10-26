@@ -49,8 +49,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/layout_margin"
                         android:layout_marginRight="@dimen/layout_margin"
+                        android:minHeight="@dimen/base60"
                         android:layout_marginTop="@dimen/base120"
-                        android:background="@drawable/bg_corner_solid_white">
+                        android:background="@drawable/bg_profile_corner_top">
 
                         <TextView
                             android:id="@+id/tvName"
@@ -84,6 +85,7 @@
                             android:layout_marginBottom="@dimen/layout_margin"
                             android:textSize="@dimen/text_normal"
                             android:text="@string/lorem_short"
+                            android:visibility="visible"
                             android:textColor="@color/default_dark_gray" />
 
                     </RelativeLayout>

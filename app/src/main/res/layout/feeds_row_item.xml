@@ -16,11 +16,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
-        <com.duyp.architecture.mvvm.ui.widgets.AvatarLayout
+        <com.mikhaellopez.circularimageview.CircularImageView
+            style="@style/avatar_circle"
             android:id="@+id/avatarLayout"
-            android:layout_width="@dimen/large_icon_zie"
-            android:layout_height="@dimen/large_icon_zie"
             android:layout_marginEnd="@dimen/avatar_margin_end"
             android:layout_marginStart="@dimen/avatar_margin"
             android:transitionName="@string/icon_transition"/>
