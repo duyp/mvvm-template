@@ -18,14 +18,22 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <com.duyp.architecture.mvvm.ui.widgets.AvatarLayout
-            android:id="@+id/avatarLayout"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/avatar_size_normal"
+            android:layout_height="@dimen/avatar_size_normal"
+            android:background="@color/transparent"
+            app:cardCornerRadius="@dimen/base5"
             android:layout_marginEnd="@dimen/avatar_margin_end"
             android:layout_marginStart="@dimen/avatar_margin"
-            android:visibility="gone"
-            tools:visibility="visible"/>
+            android:layout_gravity="center_vertical"
+            android:id="@+id/avatar">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imvAvatar"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_github_shortcut"/>
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,13 +51,19 @@
                 android:textStyle="bold"
                 tools:text="When one acquires music and afterlife, one is able to capture heaven."/>
 
+            <com.duyp.architecture.mvvm.ui.widgets.FontTextView
+                android:id="@+id/tvDes"
+                style="@style/text_description"
+                android:layout_marginTop="@dimen/base5"
+                android:layout_marginBottom="@dimen/base5"
+                android:text="@string/description" />
+
             <com.duyp.architecture.mvvm.ui.widgets.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_micro"
                 app:auto_gravity="start"
                 app:auto_orientation="horizontal">
-
 
                 <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                     android:id="@+id/stars"

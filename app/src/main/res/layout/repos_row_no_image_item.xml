@@ -29,6 +29,13 @@
             android:textStyle="bold"
             tools:text="When one acquires music and afterlife, one is able to capture heaven."/>
 
+        <com.duyp.architecture.mvvm.ui.widgets.FontTextView
+            android:id="@+id/tvDes"
+            style="@style/text_description"
+            android:layout_marginTop="@dimen/base5"
+            android:layout_marginBottom="@dimen/base5"
+            android:text="@string/description" />
+
         <com.duyp.architecture.mvvm.ui.widgets.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.duyp.androidutils.glide.loader.GlideLoader;
 import com.duyp.architecture.mvvm.R;
@@ -37,7 +38,13 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
     @BindView(R.id.forks) FontTextView forks;
     @BindView(R.id.language) FontTextView language;
     @BindView(R.id.size) FontTextView size;
-    @Nullable @BindView(R.id.avatarLayout) AvatarLayout avatarLayout;
+
+    @Nullable @BindView(R.id.imvAvatar)
+    ImageView imvAvatar;
+
+    @BindView(R.id.tvDes)
+    FontTextView tvDes;
+
     @BindString(R.string.forked) String forked;
     @BindString(R.string.private_repo) String privateRepo;
     @BindColor(R.color.material_indigo_700) int forkColor;
@@ -76,11 +83,14 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
         } else {
             title.setText(!isStarred ? repo.getName() : repo.getFullName());
         }
+
+        tvDes.setText(repo.getDescription());
+
         if (withImage) {
             // boolean isOrg = repo.getOwner() != null && repo.getOwner().isOrganizationType();
-            if (avatarLayout != null) {
-                avatarLayout.setVisibility(View.VISIBLE);
-                avatarLayout.bindData(loader, repo.getOwner());
+            if (imvAvatar != null) {
+                imvAvatar.setVisibility(View.VISIBLE);
+                loader.loadImage(repo.getOwner().getAvatarUrl(), imvAvatar);
             }
         }
         long repoSize = repo.getSize() > 0 ? (repo.getSize() * 1000) : repo.getSize();
