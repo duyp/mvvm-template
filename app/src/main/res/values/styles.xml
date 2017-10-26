@@ -8,5 +8,28 @@
         <item name="behavior_peekHeight">220dp</item>
     </style>
 
+    <style name="avatar_circle">
+        <item name="civ_border">true</item>
+        <item name="civ_border_width">0.5dp</item>
+        <item name="civ_shadow">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">@dimen/avatar_size_normal</item>
+        <item name="android:layout_height">@dimen/avatar_size_normal</item>
+        <item name="android:src">@drawable/ic_github_shortcut</item>
+    </style>
 
+    <style name="avatar_circle_large" parent="avatar_circle">
+        <item name="android:layout_width">@dimen/avatar_size_large</item>
+        <item name="android:layout_height">@dimen/avatar_size_large</item>
+    </style>
+
+    <style name="avatar_circle_large_extra" parent="avatar_circle">
+        <item name="android:layout_width">@dimen/avatar_size_large_extra</item>
+        <item name="android:layout_height">@dimen/avatar_size_large_extra</item>
+    </style>
+
+    <style name="avatar_circle_small" parent="avatar_circle">
+        <item name="android:layout_width">@dimen/avatar_size_small</item>
+        <item name="android:layout_height">@dimen/avatar_size_small</item>
+    </style>
 </resources>

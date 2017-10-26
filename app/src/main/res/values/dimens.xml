@@ -23,9 +23,25 @@
     <dimen name="divider_height">1px</dimen>
     <dimen name="avatar_margin">16dp</dimen>
     <dimen name="avatar_margin_end">16dp</dimen>
-    <dimen name="avatar_size_normal">48dp</dimen>
-    <dimen name="base5">5dp</dimen>
     <integer name="micro_spans">1</integer>
     <integer name="small_spans">1</integer>
     <item name="drawable_callback" type="id">drawable_callback</item>
+
+    <dimen name="base5">5dp</dimen>
+    <dimen name="base10">10dp</dimen>
+    <dimen name="base32">32dp</dimen>
+    <dimen name="base50">50dp</dimen>
+    <dimen name="base80">80dp</dimen>
+    <dimen name="base100">100dp</dimen>
+    <dimen name="base150">150dp</dimen>
+    <dimen name="base180">180dp</dimen>
+    <dimen name="base200">200dp</dimen>
+
+    <dimen name="avatar_size_small">@dimen/base32</dimen>
+    <dimen name="avatar_size_normal">@dimen/base50</dimen>
+    <dimen name="avatar_size_large">@dimen/base80</dimen>
+    <dimen name="avatar_size_large_extra">@dimen/base100</dimen>
+    <dimen name="base18">18dp</dimen>
+    <dimen name="base45">45dp</dimen>
+    <dimen name="base120">120dp</dimen>
 </resources>
