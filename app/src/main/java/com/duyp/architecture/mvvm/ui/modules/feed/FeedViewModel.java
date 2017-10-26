@@ -11,6 +11,8 @@ import com.duyp.architecture.mvvm.data.repository.FeedRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -40,15 +42,14 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
     }
 
     @Override
-    public void initAdapter(FeedAdapter adapter) {
-        super.initAdapter(adapter);
-        adapter.updateData(feedRepo.getData());
+    protected List<Event> getStartupLocalData() {
+        return feedRepo.getData().getData();
     }
 
     @Override
-    protected void callApi(int page, OnCallApiDone onCallApiDone) {
+    protected void callApi(int page, OnCallApiDone<Event> onCallApiDone) {
         execute(feedRepo.getEvents(page), eventPageable -> {
-            onCallApiDone.onDone(eventPageable.getLast());
+            onCallApiDone.onDone(eventPageable.getLast(), page == 1, eventPageable.getItems());
         });
     }
 

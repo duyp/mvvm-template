@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.modules.repo.list;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.AlertUtils;
@@ -13,6 +14,8 @@ import com.duyp.architecture.mvvm.data.repository.UserReposRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,11 +31,13 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     FilterOptionsModel filterOptions = new FilterOptionsModel();
 
     private final Context context;
+
     @Inject
     public UserReposViewModel(@ApplicationContext Context context, UserManager userManager, UserReposRepo repo) {
         super(userManager);
         this.repo = repo;
         this.context = context;
+        new Handler().postDelayed(this::refresh, 300);
     }
 
     @Override
@@ -45,15 +50,14 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     }
 
     @Override
-    public void initAdapter(RepoAdapter adapter) {
-        super.initAdapter(adapter);
-        adapter.updateData(repo.getData());
+    protected List<Repo> getStartupLocalData() {
+        return repo.getData().getData();
     }
 
     @Override
-    protected void callApi(int page, OnCallApiDone onCallApiDone) {
+    protected void callApi(int page, OnCallApiDone<Repo> onCallApiDone) {
         execute(repo.getUserRepositories(filterOptions, page), repoPageable -> {
-            onCallApiDone.onDone(repoPageable.getLast());
+            onCallApiDone.onDone(repoPageable.getLast(), page == 1, repoPageable.getItems());
         });
     }
 

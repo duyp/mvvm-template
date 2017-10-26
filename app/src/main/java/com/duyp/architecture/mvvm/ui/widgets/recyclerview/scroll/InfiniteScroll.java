@@ -5,10 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
+
+import io.realm.RealmResults;
 
 /**
  * Created by Kosh on 8/2/2015. copyrights are reserved @
+ * modified by Duy Pham
  */
 public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
 
@@ -19,7 +22,7 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
     private int startingPageIndex = 0;
     private RecyclerView.LayoutManager layoutManager;
 
-    private BaseRecyclerViewAdapter adapter;
+    private BaseAdapter adapter;
 
     private boolean newlyAdded = true;
 
@@ -56,8 +59,8 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
             initLayoutManager(recyclerView.getLayoutManager());
         }
         if (adapter == null) {
-            if (recyclerView.getAdapter() instanceof BaseRecyclerViewAdapter) {
-                adapter = (BaseRecyclerViewAdapter) recyclerView.getAdapter();
+            if (recyclerView.getAdapter() instanceof BaseAdapter) {
+                adapter = (BaseAdapter) recyclerView.getAdapter();
             }
         }
         if (adapter != null && adapter.isProgressAdded()) return;
@@ -83,7 +86,10 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
             loading = false;
             previousTotalItemCount = totalItemCount;
         }
-        if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
+
+        // if current data is load from realm, don't perform load more event
+        if (!loading && !(adapter.getData() instanceof RealmResults)
+                &&(lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
             currentPage++;
             boolean isCallingApi = onLoadMore(currentPage, totalItemCount);
             loading = true;

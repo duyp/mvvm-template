@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -64,5 +65,13 @@ public class MainDrawerHolder {
         ((AvatarLayout)header.findViewById(R.id.navAvatarLayout)).bindData(avatarLoader, user);
         ((TextView)header.findViewById(R.id.navFullName)).setText(user.getDisplayName());
         ((TextView)header.findViewById(R.id.navUsername)).setText(user.getLogin());
+    }
+
+    public boolean closeDrawer() {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
+        return false;
     }
 }

@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import com.duyp.androidutils.glide.loader.GlideLoader;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
-import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
-import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 
 import javax.inject.Inject;
@@ -25,7 +24,7 @@ import lombok.Setter;
  *
  */
 
-public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
+public class RepoAdapter extends BaseAdapter<Repo> {
 
     private final GlideLoader glideLoader;
 
@@ -35,9 +34,9 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
     private final RealmConfiguration realmConfiguration;
 
     @Inject
-    public RepoAdapter(@ActivityContext Context context, @NonNull LifecycleOwner owner,
+    public RepoAdapter(@ActivityContext Context context,
                        AvatarLoader avatarLoader, NavigatorHelper navigatorHelper, RealmConfiguration realmConfiguration) {
-        super(context, owner, navigatorHelper);
+        super(context, navigatorHelper);
         this.glideLoader = avatarLoader;
         this.realmConfiguration = realmConfiguration;
     }
@@ -54,9 +53,10 @@ public class RepoAdapter extends BaseRecyclerViewAdapter<Repo> {
             holder.imvAvatar.setOnClickListener(v -> {
                 Repo repo = getItem(holder.getAdapterPosition());
                 if (repo != null) {
-                    Realm realm = Realm.getInstance(realmConfiguration);
-                    navigatorHelper.navigateUserProfile(realm.copyFromRealm(repo.getOwner()));
-                    realm.close();
+//                    Realm realm = Realm.getInstance(realmConfiguration);
+//                    navigatorHelper.navigateUserProfile(realm.copyFromRealm(repo.getOwner()));
+//                    realm.close();
+                    navigatorHelper.navigateUserProfile(repo.getOwner());
                 }
             });
         }

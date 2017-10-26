@@ -62,11 +62,11 @@ public class FeedRepo extends BaseRepo<Event, EventDao> {
                 isMyUser ? userRestService.getReceivedEvents(targetUser, page) :
                         userRestService.getUserEvents(targetUser, page), (events, isRefresh) -> {
             if (isRefresh) {
-                if (isMyUser) {
-                    dao.deleteAllUserReceivedEvents(targetUser);
-                } else {
-                    dao.deleteAllEventsByActor(targetUser);
-                }
+//                if (isMyUser) {
+//                    dao.deleteAllUserReceivedEvents(targetUser);
+//                } else {
+//                    dao.deleteAllEventsByActor(targetUser);
+//                }
             }
             if (isMyUser) {
                 for (Event event : events.getItems()) {

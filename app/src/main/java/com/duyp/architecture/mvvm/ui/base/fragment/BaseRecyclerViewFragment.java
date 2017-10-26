@@ -10,7 +10,7 @@ import com.duyp.architecture.mvvm.Constants;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 import com.duyp.architecture.mvvm.ui.base.OnLoadMore;
-import com.duyp.architecture.mvvm.ui.base.adapter.BaseRecyclerViewAdapter;
+import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.base.interfaces.Scrollable;
 import com.duyp.architecture.mvvm.ui.base.interfaces.UiRefreshable;
 import com.duyp.architecture.mvvm.ui.widgets.StateLayout;
@@ -30,7 +30,7 @@ import io.realm.RealmObject;
 public abstract class BaseRecyclerViewFragment<
         B extends ViewDataBinding,
         T extends RealmObject,
-        A extends BaseRecyclerViewAdapter<T>,
+        A extends BaseAdapter<T>,
         VM extends BaseListDataViewModel<T, A>>
         extends BaseViewModelFragment<B, VM> implements UiRefreshable, Scrollable{
 

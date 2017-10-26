@@ -51,13 +51,13 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
     protected final LayoutInflater mInflater;
 
     public BaseAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
-        setHasStableIds(false);
+        setHasStableIds(true);
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
         this.navigatorHelper = navigatorHelper;
     }
 
-    public void setData(@NonNull List<T> newData) {
+    public void setData(@Nullable List<T> newData) {
         if (newData != data) {
             this.data = newData;
         }
@@ -94,6 +94,11 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
     @Override
     public int getItemCountExceptHeaderFooter() {
         return data != null ? data.size() : 0;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Nullable

@@ -57,9 +57,9 @@ public class UserReposRepo extends BaseRepo<Repo, UserReposDao> {
                 userRestService.getRepos(targetUser, filterOptions.getQueryMap(), page);
 
         return RestHelper.createRemoteSiourceMapper(page == 1, remote, (repositories, isRefresh) -> {
-            if (isRefresh) {
-                dao.deleteAlUseRepos(targetUser);
-            }
+//            if (isRefresh) {
+//                dao.deleteAlUseRepos(targetUser);
+//            }
             if (isOwner) {
                 for (Repo repo : repositories.getItems()) {
                     // store member login (target user is currentUser)
