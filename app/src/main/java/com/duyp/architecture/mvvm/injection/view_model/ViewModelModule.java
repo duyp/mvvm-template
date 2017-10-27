@@ -7,6 +7,8 @@ import com.duyp.architecture.mvvm.ui.modules.feed.FeedViewModel;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModel;
 import com.duyp.architecture.mvvm.ui.modules.main.MainViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.followers.ProfileFollowersViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
 
@@ -46,6 +48,18 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(OverviewViewModel.class)
     abstract ViewModel provideOverviewViewModel(OverviewViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileFollowingViewModel.class)
+    abstract ViewModel provideProfileFollowViewModel(ProfileFollowingViewModel viewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileFollowersViewModel.class)
+    abstract ViewModel provideProfileFollowersViewModel(ProfileFollowersViewModel viewModel);
+
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);

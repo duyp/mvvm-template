@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.data.model;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -137,6 +138,10 @@ public class User extends RealmObject implements Parcelable {
     @Expose
     public Plan plan;
 
+    @SerializedName("contributions")
+    @Expose
+    public int contributions;
+
     public boolean equals(String userLogin) {
         return this.login.equals(userLogin);
     }
@@ -153,23 +158,13 @@ public class User extends RealmObject implements Parcelable {
         return type != null && type.equalsIgnoreCase("Organization");
     }
 
-    public User partialClone() {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setAvatarUrl(avatarUrl);
-        user.setLogin(login);
-        user.setBio(bio);
-        return user;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(android.os.Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.id);
         dest.writeString(this.login);
         dest.writeString(this.avatarUrl);
@@ -207,12 +202,13 @@ public class User extends RealmObject implements Parcelable {
         dest.writeLong(this.collaborators);
         dest.writeValue(this.twoFactorAuthentication);
         dest.writeParcelable(this.plan, flags);
+        dest.writeInt(this.contributions);
     }
 
     public User() {
     }
 
-    protected User(android.os.Parcel in) {
+    protected User(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.login = in.readString();
         this.avatarUrl = in.readString();
@@ -252,11 +248,12 @@ public class User extends RealmObject implements Parcelable {
         this.collaborators = in.readLong();
         this.twoFactorAuthentication = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.plan = in.readParcelable(Plan.class.getClassLoader());
+        this.contributions = in.readInt();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public User createFromParcel(android.os.Parcel source) {
+        public User createFromParcel(Parcel source) {
             return new User(source);
         }
 

@@ -8,6 +8,10 @@ import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.main.ProfileActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
+import com.duyp.architecture.mvvm.ui.modules.profile.followers.ProfileFollowersFragment;
+import com.duyp.architecture.mvvm.ui.modules.profile.followers.ProfileFollowersFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingFragment;
+import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
@@ -47,4 +51,10 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = RepoListFragmentModule.class)
     abstract RepoListFragment repoListFragment();
+
+    @ContributesAndroidInjector(modules = ProfileFollowingFragmentModule.class)
+    abstract ProfileFollowingFragment profileFollowFragment();
+
+    @ContributesAndroidInjector(modules = ProfileFollowersFragmentModule.class)
+    abstract ProfileFollowersFragment profileFollowersFragment();
 }
