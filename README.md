@@ -1,4 +1,5 @@
-# Android MVVM template project
+Android MVVM template project
+======
 
 This project demonstrates how to use [Android Architecture Components][1] (ViewmModel, DataBinding, LiveData, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain and support offline mode).
 
@@ -52,3 +53,21 @@ JUnit 4, [Mockito][7], [PowerMock][8] and [Robolectric][9] for Unit testing.
 [14]: https://developer.android.com/topic/libraries/architecture/room.html
 [15]: https://developer.android.com/topic/libraries/architecture/livedata.html
 [16]: https://academy.realm.io/posts/android-architecture-components-and-realm/
+
+
+License
+=======
+
+    Copyright 2017 Duy Pham.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
