@@ -7,6 +7,9 @@ I used [official Github Rest API][4] to develop a Github Application on Android 
 
 This project focuses on android application architecture, so, to faster my work, I used some resources and helper classes of [Fasthub][5] open source project, but the architecture is definitely different (he used MVP design pattern and SQLite database). Thanks [k0shk0sh][6] so much for his amazing app!
 
+## Architecture diagram
+Comming soon...
+
 ### Persistence - why Realm, not Room?
 [Room Persistence Library][14] is a part of google's android acrhitecture components announced Google IO 2017. It provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite, works well with [LiveData][14].
 
