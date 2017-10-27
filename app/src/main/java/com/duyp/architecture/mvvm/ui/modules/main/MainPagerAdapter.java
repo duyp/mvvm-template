@@ -31,11 +31,11 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new FeedFragment();
             case 1:
-                return RepoListFragment.newInstance(null);
+                return RepoListFragment.newInstance(null, true);
             case 2:
                 return FeedFragment.newInstance("hungpn");
             case 3:
-                return RepoListFragment.newInstance("hungpn");
+                return RepoListFragment.newInstance("hungpn", true);
             default: return new FeedFragment();
         }
     }

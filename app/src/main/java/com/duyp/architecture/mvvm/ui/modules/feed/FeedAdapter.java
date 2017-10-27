@@ -25,8 +25,8 @@ public class FeedAdapter extends BaseAdapter<Event> {
     private boolean hasAvatar = true;
 
     @Inject
-    public FeedAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
-        super(context, navigatorHelper);
+    public FeedAdapter() {
+        super();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class FeedAdapter extends BaseAdapter<Event> {
         if (holder.avatar != null) {
             holder.avatar.setOnClickListener(v -> {
                 Event event = getItem(holder.getAdapterPosition());
-                if (event != null) {
+                if (event != null && navigatorHelper != null) {
                     navigatorHelper.navigateUserProfile(event.getActor());
                 }
             });

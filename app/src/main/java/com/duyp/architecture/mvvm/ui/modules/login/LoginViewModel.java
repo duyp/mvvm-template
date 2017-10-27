@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.ui.modules.login;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.duyp.androidutils.StringUtils;
@@ -36,4 +38,7 @@ public class LoginViewModel extends BaseViewModel {
             navigatorHelper.navigateMainActivity(true);
         });
     }
+
+    @Override
+    protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 }

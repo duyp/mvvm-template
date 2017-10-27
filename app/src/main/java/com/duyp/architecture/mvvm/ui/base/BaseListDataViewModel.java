@@ -1,12 +1,15 @@
 package com.duyp.architecture.mvvm.ui.base;
 
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.base.interfaces.PaginationListener;
 import com.duyp.architecture.mvvm.ui.base.interfaces.Refreshable;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ import lombok.Setter;
 public abstract class BaseListDataViewModel<T extends RealmObject, A extends BaseAdapter<T>>
         extends BaseViewModel implements PaginationListener, Refreshable{
 
-    protected A adapter;
+    protected final A adapter;
 
     @Setter
     private int currentPage;
@@ -36,17 +39,24 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     private List<T> data;
 
-    public BaseListDataViewModel(UserManager userManager) {
+    public BaseListDataViewModel(UserManager userManager, A adapter) {
         super(userManager);
+        this.adapter = adapter;
+        adapter.setItemClickListener(this::onItemClick);
     }
 
     @CallSuper
-    public void initAdapter(A adapter) {
-        this.adapter = adapter;
-        adapter.setItemClickListener(this::onItemClick);
-        setData(getStartupLocalData(), true);
+    @Override
+    public void onCreate(@Nullable Bundle bundle, NavigatorHelper navigatorHelper) {
+        super.onCreate(bundle, navigatorHelper);
+        adapter.initNavigator(navigatorHelper);
     }
 
+    /**
+     * Call this to fill data to {@link #adapter}
+     * @param list new data list
+     * @param refresh true if data come from refresh action (call remote api)
+     */
     protected void setData(@NonNull List<T> list, boolean refresh) {
         if (data == null || data instanceof RealmResults || list instanceof RealmResults) {
             if (list.size() > 0) { // we should ignore if new list is empty (eg. response from load more event)
@@ -81,8 +91,6 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
         });
         return true;
     }
-
-    protected abstract List<T> getStartupLocalData();
 
     protected abstract void callApi(int page, OnCallApiDone<T> onCallApiDone);
 

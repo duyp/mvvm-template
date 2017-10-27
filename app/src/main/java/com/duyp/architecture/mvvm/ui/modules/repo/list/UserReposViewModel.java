@@ -14,6 +14,7 @@ import com.duyp.architecture.mvvm.data.repository.UserReposRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
 
@@ -28,30 +29,27 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
 
     private final UserReposRepo repo;
 
-    FilterOptionsModel filterOptions = new FilterOptionsModel();
+    private FilterOptionsModel filterOptions = new FilterOptionsModel();
 
     private final Context context;
 
     @Inject
-    public UserReposViewModel(@ApplicationContext Context context, UserManager userManager, UserReposRepo repo) {
-        super(userManager);
+    public UserReposViewModel(@ApplicationContext Context context, UserManager userManager,
+                              UserReposRepo repo, RepoAdapter adapter) {
+        super(userManager, adapter);
         this.repo = repo;
         this.context = context;
         new Handler().postDelayed(this::refresh, 300);
     }
 
     @Override
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         String targetUser = null;
         if (bundle != null) {
             targetUser = bundle.getString(BundleConstant.EXTRA);
         }
         repo.initUser(targetUser);
-    }
-
-    @Override
-    protected List<Repo> getStartupLocalData() {
-        return repo.getData().getData();
+        setData(repo.getData().getData(), true);
     }
 
     @Override

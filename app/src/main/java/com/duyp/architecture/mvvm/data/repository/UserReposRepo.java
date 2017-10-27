@@ -21,7 +21,7 @@ import lombok.NonNull;
 
 /**
  * Created by duypham on 10/25/17.
- *
+ * Repository layer for User's github repositories
  */
 
 public class UserReposRepo extends BaseRepo<Repo, UserReposDao> {

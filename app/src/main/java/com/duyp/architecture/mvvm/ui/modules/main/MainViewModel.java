@@ -1,5 +1,8 @@
 package com.duyp.architecture.mvvm.ui.modules.main;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 
@@ -23,4 +26,7 @@ public class MainViewModel extends BaseViewModel {
     public MainViewModel(UserManager userManager) {
         super(userManager);
     }
+
+    @Override
+    protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 }

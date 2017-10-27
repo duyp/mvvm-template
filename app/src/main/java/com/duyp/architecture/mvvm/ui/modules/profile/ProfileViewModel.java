@@ -14,6 +14,7 @@ import com.duyp.architecture.mvvm.data.model.UserDetail;
 import com.duyp.architecture.mvvm.data.repository.UserRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import javax.inject.Inject;
 
@@ -40,8 +41,7 @@ public class ProfileViewModel extends BaseViewModel{
     }
 
     @Override
-    public void onCreate(@Nullable Bundle bundle) {
-        super.onCreate(bundle);
+    protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         User user = null;
         if (bundle != null) {
             user = bundle.getParcelable(BundleConstant.EXTRA);

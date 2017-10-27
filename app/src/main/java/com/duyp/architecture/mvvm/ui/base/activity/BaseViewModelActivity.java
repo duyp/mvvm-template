@@ -7,6 +7,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.data.source.State;
@@ -57,8 +58,7 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass);
 
-        viewModel.onCreate(getIntent().getExtras());
-        viewModel.initNavigatorHelper(navigatorHelper);
+        viewModel.onCreate(getIntent().getExtras(), navigatorHelper);
         viewModel.getStateLiveData().observe(this, this::handleState);
     }
 
@@ -80,8 +80,10 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
         if (state != null && state.getMessage() != null) {
             if (state.isHardAlert()) {
                 AlertUtils.showAlertDialog(this, state.getMessage());
+                Log.d(TAG, "handleMessageState: " + state.getMessage());
             } else {
                 showToastLongMessage(state.getMessage());
+                Log.d(TAG, "handleMessageState: " + state.getMessage());
             }
         }
     }

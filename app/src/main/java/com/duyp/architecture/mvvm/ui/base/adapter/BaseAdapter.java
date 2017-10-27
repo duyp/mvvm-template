@@ -15,6 +15,7 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
+import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
@@ -45,16 +46,13 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
 
     private View progressView;
 
-    protected final NavigatorHelper navigatorHelper;
+    protected LayoutInflater mInflater;
 
-    protected final Context mContext;
-    protected final LayoutInflater mInflater;
+    @Nullable
+    protected NavigatorHelper navigatorHelper;
 
-    public BaseAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
+    public BaseAdapter() {
         setHasStableIds(true);
-        this.mContext = context;
-        mInflater = LayoutInflater.from(context);
-        this.navigatorHelper = navigatorHelper;
     }
 
     public void setData(@Nullable List<T> newData) {
@@ -64,8 +62,15 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         notifyDataSetChanged();
     }
 
+    public void initNavigator(NavigatorHelper navigatorHelper) {
+        this.navigatorHelper = navigatorHelper;
+    }
+
     @Override
     protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int itemType) {
+        if (mInflater == null) {
+            mInflater = LayoutInflater.from(viewGroup.getContext());
+        }
         RecyclerView.ViewHolder holder = createItemHolder(viewGroup, itemType);
         if (itemClickListener != null) {
             holder.itemView.setOnClickListener(v -> {

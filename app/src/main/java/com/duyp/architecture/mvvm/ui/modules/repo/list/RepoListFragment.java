@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.modules.repo.list;
 
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.databinding.RefreshRecyclerViewBinding;
+import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseRecyclerViewFragment;
 import com.duyp.architecture.mvvm.utils.FragmentUtils;
 
@@ -12,8 +13,11 @@ import com.duyp.architecture.mvvm.utils.FragmentUtils;
 
 public class RepoListFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Repo, RepoAdapter, UserReposViewModel> {
 
-    public static RepoListFragment newInstance(String user) {
-        return FragmentUtils.createFragmentInstance(new RepoListFragment(), user);
+    public static RepoListFragment newInstance(String user, boolean hasImage) {
+        return FragmentUtils.createFragmentInstance(new RepoListFragment(), bundle -> {
+            bundle.putString(BundleConstant.EXTRA, user);
+            bundle.putBoolean(BundleConstant.EXTRA_TWO, hasImage);
+        });
     }
 
     @Override

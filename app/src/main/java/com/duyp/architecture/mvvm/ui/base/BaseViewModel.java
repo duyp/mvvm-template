@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.ui.base;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,6 +41,8 @@ public abstract class BaseViewModel extends ViewModel {
 
     protected final String TAG;
 
+    private boolean isFirstTimeUiCreate = true;
+
     @NonNull
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
@@ -61,9 +64,22 @@ public abstract class BaseViewModel extends ViewModel {
      * called after fragment / activity is created with input bundle arguments
      * @param bundle argument data
      */
-    public void onCreate(@Nullable Bundle bundle) {
-
+    @CallSuper
+    public void onCreate(@Nullable Bundle bundle, NavigatorHelper navigatorHelper) {
+        Log.d(TAG, "onCreate: UI creating...");
+        this.navigatorHelper = navigatorHelper;
+        if (isFirstTimeUiCreate) {
+            onFirsTimeUiCreate(bundle);
+            isFirstTimeUiCreate = false;
+        }
     }
+
+    /**
+     * Called when UI create for first time only, since activity / fragment might be rotated,
+     * we don't need to re-init data, because view model will survive, data aren't destroyed
+     * @param bundle
+     */
+    protected abstract void onFirsTimeUiCreate(@Nullable Bundle bundle);
 
     @CallSuper
     @Override
@@ -119,6 +135,9 @@ public abstract class BaseViewModel extends ViewModel {
                             // do nothing if progress showing is not allowed
                         } else {
                             stateLiveData.setValue(resource.state);
+                            // if state has a message, after show it, we should reset to prevent
+                            // message will still be shown if fragment / activity is rotated (re-observe state live data)
+                            new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
                         }
                     }
                 });

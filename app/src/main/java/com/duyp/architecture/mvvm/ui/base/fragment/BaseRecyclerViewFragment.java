@@ -40,7 +40,6 @@ public abstract class BaseRecyclerViewFragment<
     protected RecyclerViewFastScroller fastScroller;
     private boolean isRefreshing;
 
-    @Inject
     A adapter;
 
     @Inject
@@ -54,6 +53,7 @@ public abstract class BaseRecyclerViewFragment<
         stateLayout = view.findViewById(R.id.stateLayout);
         fastScroller = view.findViewById(R.id.fastScroller);
 
+        adapter = viewModel.getAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(stateLayout, refreshLayout);
         stateLayout.setOnReloadListener(v -> refreshWithUi());
@@ -63,7 +63,6 @@ public abstract class BaseRecyclerViewFragment<
         refreshLayout.setColorSchemeResources(R.color.material_amber_700, R.color.material_blue_700,
                 R.color.material_purple_700, R.color.material_lime_700);
         refreshLayout.setOnRefreshListener(this::refresh);
-        viewModel.initAdapter(adapter);
     }
 
     @Override

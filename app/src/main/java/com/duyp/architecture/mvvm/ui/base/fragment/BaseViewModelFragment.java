@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.duyp.androidutils.AlertUtils;
@@ -14,6 +15,7 @@ import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.injection.Injectable;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseActivity;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -37,6 +39,9 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
 //    @Inject
     protected VM viewModel;
 
+    @Inject
+    NavigatorHelper navigatorHelper;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -51,7 +56,7 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass());
-        viewModel.onCreate(getFragmentArguments());
+        viewModel.onCreate(getFragmentArguments(), navigatorHelper);
 
         viewModel.getStateLiveData().observe(this, this::handleState);
     }
@@ -69,8 +74,10 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
         if (state != null && state.getMessage() != null) {
             if (state.isHardAlert()) {
                 AlertUtils.showAlertDialog(getContext(), state.getMessage());
+                Log.d(TAG, "handleMessageState: " + state.getMessage());
             } else {
                 AlertUtils.showToastLongMessage(getContext(), state.getMessage());
+                Log.d(TAG, "handleMessageState: " + state.getMessage());
             }
         }
     }

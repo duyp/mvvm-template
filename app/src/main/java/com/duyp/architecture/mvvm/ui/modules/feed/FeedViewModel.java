@@ -10,6 +10,7 @@ import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.repository.FeedRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
 
@@ -25,25 +26,22 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
     private final FeedRepo feedRepo;
 
     @Inject
-    public FeedViewModel(UserManager userManager, FeedRepo repo) {
-        super(userManager);
+    public FeedViewModel(UserManager userManager, FeedRepo repo, FeedAdapter adapter) {
+        super(userManager, adapter);
         this.feedRepo = repo;
         Log.d(TAG, "FeedViewModel: creating..." + this);
         new Handler().postDelayed(this::refresh, 300);
     }
 
     @Override
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
+        Log.d(TAG, "onFirsTimeUiCreate: ");
         String targetUser = null;
         if (bundle != null) {
             targetUser = bundle.getString(BundleConstant.EXTRA);
         }
         feedRepo.initTargetUser(targetUser);
-    }
-
-    @Override
-    protected List<Event> getStartupLocalData() {
-        return feedRepo.getData().getData();
+        setData(feedRepo.getData().getData(), true);
     }
 
     @Override

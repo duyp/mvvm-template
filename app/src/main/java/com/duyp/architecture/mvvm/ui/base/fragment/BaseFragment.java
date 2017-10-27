@@ -19,11 +19,14 @@ import com.duyp.architecture.mvvm.utils.AutoClearedValue;
 
 public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
 
+    protected String TAG;
+
     B binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        TAG = this.getClass().getSimpleName();
         B dataBinding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
         this.binding = new AutoClearedValue<B>(this, dataBinding).get();
         return binding.getRoot();
