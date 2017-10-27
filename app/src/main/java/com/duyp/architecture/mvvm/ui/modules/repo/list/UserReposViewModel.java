@@ -45,10 +45,13 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         String targetUser = null;
+        boolean hasImage = true;
         if (bundle != null) {
             targetUser = bundle.getString(BundleConstant.EXTRA);
+            hasImage = bundle.getBoolean(BundleConstant.EXTRA_TWO, true);
         }
         repo.initUser(targetUser);
+        getAdapter().setHasAvatar(hasImage);
         setData(repo.getData().getData(), true);
     }
 

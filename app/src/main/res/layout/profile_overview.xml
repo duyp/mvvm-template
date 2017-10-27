@@ -52,7 +52,7 @@
                         android:drawableStart="@drawable/ic_group"
                         android:gravity="center|start"
                         android:paddingBottom="@dimen/spacing_xs_large"
-                        android:paddingTop="@dimen/spacing_xs_large"
+                        android:paddingTop="@dimen/spacing_normal"
                         tools:text="Cum classis nocere"/>
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView

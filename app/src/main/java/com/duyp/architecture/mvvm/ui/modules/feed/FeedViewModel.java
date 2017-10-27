@@ -37,10 +37,13 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         Log.d(TAG, "onFirsTimeUiCreate: ");
         String targetUser = null;
+        boolean hasImage = true;
         if (bundle != null) {
             targetUser = bundle.getString(BundleConstant.EXTRA);
+            hasImage = bundle.getBoolean(BundleConstant.EXTRA_TWO, true);
         }
         feedRepo.initTargetUser(targetUser);
+        getAdapter().setHasAvatar(hasImage);
         setData(feedRepo.getData().getData(), true);
     }
 

@@ -38,8 +38,8 @@ public class ProfilePagerAdapter extends BasePagerAdapterWithIcon{
         switch (position) {
             case 0: return new OverviewFragment();
             case 1: return RepoListFragment.newInstance(user, false);
-            case 2: return FeedFragment.newInstance(user);
-            default: return FeedFragment.newInstance(user);
+            case 2: return FeedFragment.newInstance(user, false);
+            default: return FeedFragment.newInstance(user, false);
         }
     }
 
