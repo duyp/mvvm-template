@@ -2,7 +2,9 @@ package com.duyp.architecture.mvvm.injection;
 
 import android.content.Context;
 
+import com.apollographql.apollo.ApolloClient;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.provider.ApolloProvider;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.data.remote.IssueService;
@@ -63,5 +65,11 @@ public class NetworkModule {
     @Singleton
     static OrganizationService organizationService(Gson gson, OkHttpClient okHttpClient) {
         return ServiceFactory.makeService(OrganizationService.class, gson, okHttpClient);
+    }
+
+    @Provides
+    @Singleton
+    static ApolloClient provideApolloClient(OkHttpClient okHttpClient) {
+        return ApolloProvider.getApollo(okHttpClient);
     }
 }

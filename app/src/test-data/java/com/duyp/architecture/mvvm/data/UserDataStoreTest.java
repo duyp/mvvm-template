@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.duyp.androidutils.CustomSharedPreferences;
 import com.duyp.architecture.mvvm.data.local.Constants;
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
-import com.duyp.architecture.mvvm.data.local.daos.UserDao;
+import com.duyp.architecture.mvvm.data.local.daos.UserDetailDao;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.google.gson.Gson;
@@ -50,7 +50,7 @@ public class UserDataStoreTest {
     private RealmDatabase mockRealmDatabase;
 
     @Mock
-    private UserDao userDao;
+    private UserDetailDao userDao;
 
     @Mock
     private MutableLiveData<User> mockUserLiveData;

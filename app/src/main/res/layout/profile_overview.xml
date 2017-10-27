@@ -13,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -22,6 +23,7 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_normal"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <Button
@@ -35,7 +37,6 @@
 
                 <include layout="@layout/profile_follow_action_layout"
                     android:id="@+id/follow"/>
-
 
                 <LinearLayout
                     android:id="@+id/section_container"
@@ -116,29 +117,26 @@
                 android:id="@+id/organizationsCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/organizations"
                 android:layout_marginBottom="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
-                android:text="@string/organizations"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:visibility="gone"
                 tools:visibility="visible"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/orgsCard"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:cardCornerRadius="0dp"
-                app:contentPaddingBottom="@dimen/spacing_normal"
-                app:contentPaddingLeft="@dimen/spacing_xs_large"
-                app:contentPaddingRight="@dimen/spacing_xs_large"
-                app:contentPaddingTop="@dimen/spacing_normal"
-                tools:visibility="visible">
+                android:paddingBottom="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_xs_large"
+                android:paddingRight="@dimen/spacing_xs_large"
+                android:paddingTop="@dimen/spacing_normal"
+                android:id="@+id/organsLayout"
+                android:animateLayoutChanges="true">
 
                 <com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView
-                    android:id="@+id/orgsList"
+                    android:id="@+id/organizationList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
@@ -147,7 +145,15 @@
                     app:spanCount="3"
                     tools:listitem="@layout/profile_org_row_item"/>
 
-            </android.support.v7.widget.CardView>
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/organizationPb"/>
+            </FrameLayout>
+
 
             <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                 android:id="@+id/pinnedReposTextView"
@@ -159,20 +165,17 @@
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:text="@string/pinned"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:visibility="gone"
                 tools:visibility="visible"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/pinnedReposCard"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:cardCornerRadius="0dp"
-                app:contentPaddingBottom="@dimen/spacing_normal"
-                app:contentPaddingLeft="@dimen/spacing_xs_large"
-                app:contentPaddingRight="@dimen/spacing_xs_large"
-                app:contentPaddingTop="@dimen/spacing_normal"
-                tools:visibility="visible">
+                android:paddingBottom="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_xs_large"
+                android:paddingRight="@dimen/spacing_xs_large"
+                android:paddingTop="@dimen/spacing_normal"
+                android:id="@+id/pinnedLayout"
+                android:animateLayoutChanges="true">
 
                 <com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView
                     android:id="@+id/pinnedList"
@@ -183,7 +186,14 @@
                     app:layoutManager="@string/grid_layout_manager"
                     app:spanCount="@integer/small_spans"/>
 
-            </android.support.v7.widget.CardView>
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/pinnedPb"/>
+            </FrameLayout>
 
             <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                 android:id="@+id/contributionsCaption"
@@ -195,21 +205,17 @@
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:text="@string/contributions"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:visibility="gone"
                 tools:visibility="visible"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/contributionCard"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_large"
-                android:visibility="gone"
-                app:cardCornerRadius="0dp"
-                app:contentPaddingBottom="@dimen/spacing_normal"
-                app:contentPaddingLeft="@dimen/spacing_xs_large"
-                app:contentPaddingRight="@dimen/spacing_xs_large"
-                app:contentPaddingTop="@dimen/spacing_normal"
-                tools:visibility="visible">
+                android:paddingBottom="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_xs_large"
+                android:paddingRight="@dimen/spacing_xs_large"
+                android:paddingTop="@dimen/spacing_normal"
+                android:id="@+id/contributionLayout"
+                android:animateLayoutChanges="true">
 
                 <com.duyp.architecture.mvvm.ui.widgets.contributions.GitHubContributionsView
                     android:id="@+id/contributionView"
@@ -222,7 +228,14 @@
                     app:lastWeeks="53"
                     app:textColor="?android:textColorPrimary"/>
 
-            </android.support.v7.widget.CardView>
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/contributionPb"/>
+            </FrameLayout>
 
         </LinearLayout>
 

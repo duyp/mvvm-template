@@ -10,6 +10,7 @@ buildscript {
 
         classpath "io.realm:realm-gradle-plugin:3.7.2"
 
+        classpath 'com.apollographql.apollo:gradle-plugin:0.4.1'
 //        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

@@ -2,7 +2,7 @@ package com.duyp.architecture.mvvm.local.dao;
 
 import android.util.Log;
 
-import com.duyp.architecture.mvvm.data.local.daos.UserDao;
+import com.duyp.architecture.mvvm.data.local.daos.UserDetailDao;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.dagger.TestAppComponent;
 
@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserDaoTest extends BaseDaoTest {
 
-    private UserDao userDao;
+    private UserDetailDao userDao;
 
     @Override
     public void inject(TestAppComponent appComponent) {

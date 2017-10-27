@@ -105,11 +105,12 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     /**
-     * Initialize navigator helper
-     * @param helper not null value
+     * Return true if given user is my user
+     * @param userLogin user to be checked
+     * @return is me or not
      */
-    public void initNavigatorHelper(@NonNull NavigatorHelper helper) {
-        this.navigatorHelper = helper;
+    public boolean isMe(String userLogin) {
+        return getUserManager().getCurrentUser() != null && getUserManager().getCurrentUser().equals(userLogin);
     }
 
     /**

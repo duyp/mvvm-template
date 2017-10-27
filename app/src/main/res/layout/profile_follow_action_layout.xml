@@ -67,7 +67,6 @@
             android:text="@string/follow"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/white"
-            android:visibility="gone"
             android:onClick="@{() -> vm.onFollowClick()}"
             tools:visibility="visible"/>
     </LinearLayout>

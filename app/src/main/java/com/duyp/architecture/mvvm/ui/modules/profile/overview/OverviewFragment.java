@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.ui.modules.profile.overview;
 
+import android.animation.LayoutTransition;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,13 +8,18 @@ import android.util.Log;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.model.UserDetail;
+import com.duyp.architecture.mvvm.data.source.Resource;
+import com.duyp.architecture.mvvm.data.source.State;
+import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.databinding.ProfileOverviewBinding;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseViewModelFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
+import com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -42,6 +48,13 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         binding.follow.setVm(viewModel);
         viewModel.initUser(profileViewModel.getUser().getData().getLogin(), profileViewModel.isMyOrOrganization());
         viewModel.getFollowState().observe(this, this::invalidateFollowBtn);
+        viewModel.getOrgansState().observe(this, this::invalidateOrgans);
+        viewModel.getPinnedState().observe(this, this::invalidatePinned);
+
+        binding.organsLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
+        binding.organizationList.setAdapter(viewModel.getOrganizationAdapter());
+        ((GridManager) binding.organizationList.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources()
+                .getDimensionPixelSize(R.dimen.spacing_xs_large));
     }
 
     private void populateUserDetail(UserDetail user) {
@@ -57,7 +70,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         binding.email.setVisibility(InputHelper.isEmpty(user.getEmail()) ? GONE : VISIBLE);
         binding.link.setVisibility(InputHelper.isEmpty(user.getBlog()) ? GONE : VISIBLE);
         binding.joined.setVisibility(InputHelper.isEmpty(user.getCreatedAt()) ? GONE : VISIBLE);
-        
+
         binding.follow.followers.setText(SpannableBuilder.builder()
                 .append(getString(R.string.followers))
                 .append(" (")
@@ -71,17 +84,21 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
     }
 
     public void invalidateFollowBtn(@Nullable OverviewViewModel.FollowingState state) {
-        if (state == null) {
-            binding.follow.followBtn.setVisibility(GONE);
-            return;
-        }
-        binding.follow.followBtn.setVisibility(View.VISIBLE);
-
         binding.follow.followBtn.setEnabled(state != OverviewViewModel.FollowingState.LOADING);
         binding.follow.followBtn.setActivated(state == OverviewViewModel.FollowingState.FOLLOWED);
 
         binding.follow.followBtn.setText(state == OverviewViewModel.FollowingState.FOLLOWED
                 ? getString(R.string.unfollow) : getString(R.string.follow));
+    }
+
+    public void invalidateOrgans(State state) {
+        binding.organizationPb.setVisibility(state.getStatus() == Status.LOADING ? VISIBLE : GONE);
+        binding.organizationList.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+    }
+
+    public void invalidatePinned(State state) {
+        binding.pinnedPb.setVisibility(state.getStatus() == Status.LOADING ? VISIBLE : GONE);
+        binding.pinnedList.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
     }
     
     @Override

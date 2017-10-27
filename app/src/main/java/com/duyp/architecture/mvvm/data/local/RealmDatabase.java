@@ -4,7 +4,6 @@ import com.duyp.architecture.mvvm.data.local.daos.IssueDao;
 import com.duyp.architecture.mvvm.data.local.daos.IssueDaoImpl;
 import com.duyp.architecture.mvvm.data.local.daos.RepositoryDao;
 import com.duyp.architecture.mvvm.data.local.daos.RepositoryDaoImpl;
-import com.duyp.architecture.mvvm.data.local.daos.UserDao;
 import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;

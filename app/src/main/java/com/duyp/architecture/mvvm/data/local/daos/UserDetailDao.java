@@ -19,12 +19,12 @@ import io.realm.RealmConfiguration;
  *
  */
 
-public class UserDao extends BaseRealmDaoImpl<UserDetail> {
+public class UserDetailDao extends BaseRealmDaoImpl<UserDetail> {
 
     private final Gson gson;
 
     @Inject
-    public UserDao(RealmConfiguration realmConfiguration, Gson gson) {
+    public UserDetailDao(RealmConfiguration realmConfiguration, Gson gson) {
         super(Realm.getInstance(realmConfiguration), UserDetail.class);
         this.gson = gson;
     }

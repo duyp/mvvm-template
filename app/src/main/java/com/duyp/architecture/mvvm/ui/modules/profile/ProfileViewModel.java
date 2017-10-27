@@ -60,7 +60,7 @@ public class ProfileViewModel extends BaseViewModel{
     }
 
     public boolean isMe() {
-        return getUserManager().getCurrentUser() != null && getUserManager().getCurrentUser().equals(userLogin);
+        return isMe(userLogin);
     }
 
     public boolean isMyOrOrganization() {
