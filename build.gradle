@@ -47,7 +47,7 @@ ext {
     retrofitVersion         = "2.3.0"
     rxJavaVersion           = "2.1.5"
     rxAndroidVersion        = "2.0.1"
-    androidUtilsVersion     = "2.2.7"
+    androidUtilsVersion     = "2.2.8"
     daggerVersion           = "2.12"
     leakCanaryVersion       = "1.5.4"
     timberVersion           = "4.5.1"
@@ -105,8 +105,8 @@ ext {
             androidUtils_animation  : "com.github.duyp.android-utils:animation:${androidUtilsVersion}", // Animation utils (YoYo...)
             androidUtils_rx         : "com.github.duyp.android-utils:rx:${androidUtilsVersion}", // Rx utils (custom functions, task helper...)
             androidUtils_view       : "com.github.duyp.android-utils:view:${androidUtilsVersion}", // View utils, custom views...
-//            androidUtils_realm      : "com.github.duyp.android-utils:realm:${androidUtilsVersion}", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
-            androidUtils_realm      : "com.github.duyp.android-utils:realm:7f6c3add3e", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
+            androidUtils_realm      : "com.github.duyp.android-utils:realm:${androidUtilsVersion}", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
+//            androidUtils_realm      : "com.github.duyp.android-utils:realm:7f6c3add3e", // Realm utils (realm data access objects, realm Live data mapper, Realm live data adapter
 
             // retrofit
             retrofit                : "com.squareup.retrofit2:retrofit:${retrofitVersion}",

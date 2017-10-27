@@ -73,7 +73,7 @@ public class FeedRepo extends BaseRepo<Event, EventDao> {
                     event.setReceivedOwner(targetUser);
                 }
             }
-            dao.addAll(events.getItems());
+            dao.addAllAsync(events.getItems());
         });
     }
 }

@@ -68,7 +68,7 @@ public class UserReposRepo extends BaseRepo<Repo, UserReposDao> {
                     }
                 }
             }
-            dao.addAll(repositories.getItems());
+            dao.addAllAsync(repositories.getItems());
         });
     }
 }
