@@ -6,6 +6,7 @@ import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
 import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.data.remote.IssueService;
+import com.duyp.architecture.mvvm.data.remote.OrganizationService;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
@@ -56,5 +57,11 @@ public class NetworkModule {
     @Singleton
     static UserRestService userRestService(Gson gson, OkHttpClient okHttpClient) {
         return ServiceFactory.makeService(UserRestService.class, gson, okHttpClient);
+    }
+
+    @Provides
+    @Singleton
+    static OrganizationService organizationService(Gson gson, OkHttpClient okHttpClient) {
+        return ServiceFactory.makeService(OrganizationService.class, gson, okHttpClient);
     }
 }

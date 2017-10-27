@@ -12,6 +12,7 @@ import android.util.Log;
 import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.model.ErrorEntity;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
@@ -151,12 +152,25 @@ public abstract class BaseViewModel extends ViewModel {
         execute(true, resourceFlowable, response);
     }
 
+    protected <T> void execute(boolean showProgress, Single<T> request, @NonNull PlainConsumer<T> responseConsumer) {
+        execute(showProgress, request, responseConsumer, null);
+    }
+
     protected <T> void execute(boolean showProgress, Single<T> request,
-                               @Nullable PlainConsumer<T> responseConsumer) {
-        Disposable disposable = RestHelper.makeRequest(request, true, tApiResponse -> {
-
+                               @NonNull PlainConsumer<T> responseConsumer,
+                               @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
+        if (showProgress) {
+            stateLiveData.setValue(State.loading(null));
+        }
+        Disposable disposable = RestHelper.makeRequest(request, true, response -> {
+            stateLiveData.setValue(State.success(null));
+            responseConsumer.accept(response);
         }, errorEntity -> {
-
+            if (errorConsumer != null) {
+                errorConsumer.accept(errorEntity);
+            } else {
+                stateLiveData.setValue(State.error(errorEntity.getMessage()));
+            }
         });
         mCompositeDisposable.add(disposable);
     }

@@ -8,6 +8,8 @@ import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.main.ProfileActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragment;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivity;
@@ -38,6 +40,10 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = FeedModule.class)
     abstract FeedFragment feedFragment();
+
+    @ContributesAndroidInjector(modules = OverviewFragmentModule.class)
+    abstract OverviewFragment overviewFragment();
+
 
     @ContributesAndroidInjector(modules = RepoListFragmentModule.class)
     abstract RepoListFragment repoListFragment();

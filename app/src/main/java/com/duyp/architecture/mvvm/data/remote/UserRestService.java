@@ -7,6 +7,7 @@ import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.Pageable;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.data.model.UserDetail;
 
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public interface UserRestService {
     Single<Login> getUser();
 
     @GET("users/{username}")
-    Single<User> getUser(@Path("username") @NonNull String username);
+    Single<UserDetail> getUser(@Path("username") @NonNull String username);
 
     @GET("users/{username}/received_events")
     Single<Pageable<Event>> getReceivedEvents(@NonNull @Path("username") String userName, @Query("page") int page);

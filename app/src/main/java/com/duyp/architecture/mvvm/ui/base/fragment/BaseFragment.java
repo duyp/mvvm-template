@@ -21,7 +21,7 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
 
     protected String TAG;
 
-    B binding;
+    protected B binding;
 
     @Nullable
     @Override

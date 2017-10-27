@@ -52,6 +52,19 @@ public class ProfileViewModel extends BaseViewModel{
         }
         userLogin = target.getLogin();
         this.user = userRepo.initUser(target);
+        refresh();
+    }
+
+    public void refresh() {
+        execute(false, userRepo.getUser(userLogin), null);
+    }
+
+    public boolean isMe() {
+        return getUserManager().getCurrentUser() != null && getUserManager().getCurrentUser().equals(userLogin);
+    }
+
+    public boolean isMyOrOrganization() {
+        return isMe() && user.getData() != null && user.getData().isOrganizationType();
     }
 
     @Override

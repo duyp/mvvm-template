@@ -137,12 +137,20 @@ public class User extends RealmObject implements Parcelable {
     @Expose
     public Plan plan;
 
+    public boolean equals(String userLogin) {
+        return this.login.equals(userLogin);
+    }
+
     public boolean equals(@Nullable User user) {
         return user != null && id.equals(user.getId());
     }
 
     public String getDisplayName() {
         return TextUtils.isEmpty(name) ? login : name;
+    }
+
+    public boolean isOrganizationType() {
+        return type != null && type.equalsIgnoreCase("Organization");
     }
 
     public User partialClone() {
@@ -153,10 +161,6 @@ public class User extends RealmObject implements Parcelable {
         user.setLogin(login);
         user.setBio(bio);
         return user;
-    }
-
-    public boolean isOrganizationType() {
-        return type != null && type.equalsIgnoreCase("Organization");
     }
 
     @Override

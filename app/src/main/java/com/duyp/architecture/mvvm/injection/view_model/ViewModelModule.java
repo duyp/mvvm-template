@@ -7,6 +7,7 @@ import com.duyp.architecture.mvvm.ui.modules.feed.FeedViewModel;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModel;
 import com.duyp.architecture.mvvm.ui.modules.main.MainViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
 
 import dagger.Binds;
@@ -40,6 +41,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel.class)
     abstract ViewModel profileViewModel(ProfileViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OverviewViewModel.class)
+    abstract ViewModel provideOverviewViewModel(OverviewViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
