@@ -1,6 +1,6 @@
 # Android MVVM template project
 
-This project demonstrates how to use android [architecture components][1] (ViewmModel, DataBinding, LiveData, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain and support offline mode).
+This project demonstrates how to use [Android Architecture Components][1] (ViewmModel, DataBinding, LiveData, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain and support offline mode).
 
 ## App
 I used [official Github Rest API][4] to develop a Github Application on Android with a lot of features like github webpage.
