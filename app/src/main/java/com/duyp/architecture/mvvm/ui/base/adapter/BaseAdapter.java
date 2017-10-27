@@ -88,7 +88,7 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         T item = getItem(position);
         if (item != null) {
             bindItemViewHolder(viewHolder, item);
-            animate(viewHolder, position);
+//            animate(viewHolder, position);
         }
     }
 

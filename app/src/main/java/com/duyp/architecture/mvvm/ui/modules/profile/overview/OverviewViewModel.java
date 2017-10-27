@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.profile.overview;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +10,7 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
 import com.apollographql.apollo.rx2.Rx2Apollo;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
-import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.data.remote.OrganizationService;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.data.source.Resource;
@@ -19,8 +18,10 @@ import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.helper.RxHelper;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.organizations.OrganizationAdapter;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.pinned.PinnedAdapter;
+import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsDay;
+import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +29,6 @@ import javax.inject.Inject;
 import github.GetPinnedReposQuery;
 import io.reactivex.Observable;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Created by duypham on 10/27/17.
@@ -38,54 +38,57 @@ import lombok.Setter;
 @Getter
 public class OverviewViewModel extends BaseViewModel {
 
+    private static final String CONTRIBUTION_URL = "https://github.com/users/%s/contributions";
+
     private String user;
 
-    private MutableLiveData<FollowingState> followState = new MutableLiveData<>();
-    private MutableLiveData<State> organsState = new MutableLiveData<>();
-    private MutableLiveData<State> pinnedState = new MutableLiveData<>();
+    private final MutableLiveData<FollowingState> followState = new MutableLiveData<>();
+    private final MutableLiveData<State> organsState = new MutableLiveData<>();
+    private final MutableLiveData<State> pinnedState = new MutableLiveData<>();
+    private final MutableLiveData<Resource<List<ContributionsDay>>> contributionsData = new MutableLiveData<>();
 
     private final UserRestService userRestService;
     private final OrganizationService organizationService;
     private final ApolloClient apolloClient;
 
-    @Getter
-    private final OrganizationAdapter organizationAdapter;
-
-    private List<GetPinnedReposQuery.Node> pinnedRepos = new ArrayList<>();
+    private final OrganizationAdapter organizationAdapter = new OrganizationAdapter();
+    private final PinnedAdapter pinnedAdapter = new PinnedAdapter();
 
     @Inject
-    public OverviewViewModel(UserManager userManager,
+    OverviewViewModel(UserManager userManager,
                              UserRestService service,
                              OrganizationService organizationService,
-                             ApolloClient apolloClient,
-                             OrganizationAdapter adapter) {
+                             ApolloClient apolloClient) {
         super(userManager);
         this.userRestService = service;
         this.organizationService = organizationService;
         this.apolloClient = apolloClient;
-        this.organizationAdapter = adapter;
     }
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 
-    public void initUser(String userLogin, boolean isMeOrOrganization) {
-        this.user = userLogin;
-        followState.setValue(null);
-        new Handler(Looper.myLooper()).postDelayed(() -> {
-            if (!isMeOrOrganization) {
-                checkFollowState();
-            }
-            loadOrganizations();
-            loadPinnedRepos();
-        }, 300);
+    void initUser(String userLogin, boolean isMeOrOrganization) {
+        if (this.user == null) {
+            this.user = userLogin;
+            followState.setValue(null);
+            new Handler(Looper.myLooper()).postDelayed(() -> {
+                if (!isMeOrOrganization) {
+                    checkFollowState();
+                }
+                loadOrganizations();
+                loadPinnedRepos();
+                getContributions();
+            }, 300);
+        }
     }
 
-    // ===========================
+    // =============================================================================================
     // Following
-    // ===========================
+    // =============================================================================================
 
-    public void checkFollowState() {
+    private void checkFollowState() {
+        followState.setValue(FollowingState.LOADING);
         execute(false, userRestService.getFollowStatus(user), booleanResponse -> {
             followState.setValue(booleanResponse.code() == 204 ? FollowingState.FOLLOWED : FollowingState.UNFOLLOWED);
         }, errorEntity -> {
@@ -115,28 +118,32 @@ public class OverviewViewModel extends BaseViewModel {
         UNFOLLOWED
     }
 
-    // ===========================
+    // =============================================================================================
     // Organizations
-    // ===========================
+    // =============================================================================================
 
-    public void loadOrganizations() {
+    private void loadOrganizations() {
         boolean isMe = isMe(user);
         organsState.setValue(State.loading(null));
         execute(false,
                 isMe ? organizationService.getMyOrganizations() : organizationService.getMyOrganizations(user),
                 userPageable -> {
                     organizationAdapter.setData(userPageable.getItems());
-                    organsState.setValue(State.success(null));
+                    if (userPageable.getItems().size() > 0) {
+                        organsState.setValue(State.success(null));
+                    } else {
+                        organsState.setValue(State.error(null));
+                    }
                 }, errorEntity -> {
                     organsState.setValue(State.error(null));
                 });
     }
 
-    // ===========================
+    // =============================================================================================
     // Pinned Repos
-    // ===========================
+    // =============================================================================================
 
-    public void loadPinnedRepos() {
+    private void loadPinnedRepos() {
         pinnedState.setValue(State.loading(null));
         ApolloCall<GetPinnedReposQuery.Data> apolloCall = apolloClient.query(GetPinnedReposQuery.builder()
                         .login(user)
@@ -154,13 +161,35 @@ public class OverviewViewModel extends BaseViewModel {
                 .toList()
                 .toObservable()
                 .subscribe(nodes1 -> {
-                    pinnedRepos.clear();
-                    pinnedRepos.addAll(nodes1);
-                    pinnedState.setValue(State.success(null));
+                    pinnedAdapter.setData(nodes1);
+                    if (nodes1.size() > 0) {
+                        pinnedState.setValue(State.success(null));
+                    } else {
+                        pinnedState.setValue(State.error(null));
+                    }
                 }, throwable -> {
                     throwable.printStackTrace();
                     pinnedState.setValue(State.error(null));
                 });
+    }
+
+    // =============================================================================================
+    // Contributions
+    // =============================================================================================
+
+    private void getContributions() {
+        contributionsData.setValue(Resource.loading(null));
+        String url = String.format(CONTRIBUTION_URL, user);
+        execute(false, ServiceFactory.getContributionService().getContributions(url), s -> {
+            Observable.just(new ContributionsProvider().getContributions(s))
+                    .subscribe(contributionsDays -> {
+                        contributionsData.setValue(Resource.success(contributionsDays));
+                    }, throwable -> {
+                        contributionsData.setValue(Resource.error(null, null));
+                    });
+        }, errorEntity -> {
+            contributionsData.setValue(Resource.error(null, null));
+        });
     }
 
 }

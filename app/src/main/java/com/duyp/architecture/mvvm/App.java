@@ -12,6 +12,7 @@ import com.duyp.architecture.mvvm.helper.DeviceNameGetter;
 import com.duyp.architecture.mvvm.helper.TypeFaceHelper;
 import com.duyp.architecture.mvvm.injection.AppComponent;
 import com.duyp.architecture.mvvm.injection.AppInjector;
+import com.google.gson.Gson;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -31,6 +32,10 @@ public class App extends Application implements HasActivityInjector {
     protected static App sInstance;
 
     protected static AppComponent sAppComponent;
+
+    @Getter
+    @Inject
+    Gson gson;
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;

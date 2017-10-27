@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:animateLayoutChanges="true">
+            android:descendantFocusability="blocksDescendants">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,8 +23,8 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_normal"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:descendantFocusability="blocksDescendants">
 
                 <Button
                     android:id="@+id/chooseBanner"
@@ -46,7 +46,6 @@
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                         android:id="@+id/organization"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/spacing_xs_large"
@@ -58,7 +57,6 @@
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                         android:id="@+id/location"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/top_border"
@@ -71,7 +69,6 @@
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                         android:id="@+id/email"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autoLink="email"
@@ -86,7 +83,6 @@
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                         android:id="@+id/link"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autoLink="web"
@@ -100,7 +96,6 @@
 
                     <com.duyp.architecture.mvvm.ui.widgets.FontTextView
                         android:id="@+id/joined"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/top_border"
@@ -122,6 +117,7 @@
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:visibility="visible"/>
 
@@ -132,8 +128,7 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_normal"
-                android:id="@+id/organsLayout"
-                android:animateLayoutChanges="true">
+                android:id="@+id/organsLayout">
 
                 <com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView
                     android:id="@+id/organizationList"
@@ -164,6 +159,7 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:text="@string/pinned"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:visibility="visible"/>
 
@@ -174,8 +170,7 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_normal"
-                android:id="@+id/pinnedLayout"
-                android:animateLayoutChanges="true">
+                android:id="@+id/pinnedLayout">
 
                 <com.duyp.architecture.mvvm.ui.widgets.recyclerview.DynamicRecyclerView
                     android:id="@+id/pinnedList"
@@ -204,6 +199,7 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:text="@string/contributions"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:visibility="visible"/>
 
@@ -214,14 +210,13 @@
                 android:paddingLeft="@dimen/spacing_xs_large"
                 android:paddingRight="@dimen/spacing_xs_large"
                 android:paddingTop="@dimen/spacing_normal"
-                android:id="@+id/contributionLayout"
-                android:animateLayoutChanges="true">
+                android:id="@+id/contributionLayout">
 
                 <com.duyp.architecture.mvvm.ui.widgets.contributions.GitHubContributionsView
                     android:id="@+id/contributionView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="100dp"
+                    android:minHeight="@dimen/base150"
                     app:baseColor="@color/colorAccent"
                     app:baseEmptyColor="@color/material_grey_400"
                     app:displayMonth="true"

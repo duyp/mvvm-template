@@ -8,8 +8,8 @@
             <padding
                 android:top="@dimen/spacing_normal"/>
             <stroke
-                android:width="0.5dp"
-                android:color="?dividerColor"/>
+                android:width="@dimen/line_thin"
+                android:color="@color/default_mid_gray"/>
             <solid android:color="@color/transparent"/>
         </shape>
     </item>

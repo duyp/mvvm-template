@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.profile.overview;
 
-import android.animation.LayoutTransition;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.R;
-import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.model.UserDetail;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
@@ -19,7 +17,13 @@ import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseViewModelFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
+import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsDay;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager;
+
+import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.disposables.Disposable;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -32,6 +36,8 @@ import static android.view.View.VISIBLE;
 public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBinding, OverviewViewModel> {
 
     ProfileViewModel profileViewModel;
+
+    Disposable disposable;
 
     @Override
     protected int getLayout() {
@@ -50,11 +56,14 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         viewModel.getFollowState().observe(this, this::invalidateFollowBtn);
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);
         viewModel.getPinnedState().observe(this, this::invalidatePinned);
+        viewModel.getContributionsData().observe(this, this::invalidateContributions);
 
-        binding.organsLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
         binding.organizationList.setAdapter(viewModel.getOrganizationAdapter());
         ((GridManager) binding.organizationList.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources()
                 .getDimensionPixelSize(R.dimen.spacing_xs_large));
+
+        binding.pinnedList.setAdapter(viewModel.getPinnedAdapter());
+        binding.pinnedList.addDivider();
     }
 
     private void populateUserDetail(UserDetail user) {
@@ -93,14 +102,40 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
 
     public void invalidateOrgans(State state) {
         binding.organizationPb.setVisibility(state.getStatus() == Status.LOADING ? VISIBLE : GONE);
-        binding.organizationList.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+        binding.organizationsCaption.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+        binding.organsLayout.setVisibility(state.getStatus() == Status.ERROR ? GONE : VISIBLE);
     }
 
     public void invalidatePinned(State state) {
-        binding.pinnedPb.setVisibility(state.getStatus() == Status.LOADING ? VISIBLE : GONE);
-        binding.pinnedList.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+        binding.pinnedReposTextView.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+        binding.pinnedLayout.setVisibility(state.getStatus() == Status.SUCCESS ? VISIBLE : GONE);
     }
-    
+
+    public void invalidateContributions(Resource<List<ContributionsDay>> data) {
+        binding.contributionsCaption.setVisibility(data.getState().getStatus() == Status.SUCCESS ? VISIBLE : GONE);
+        if (data.getData() != null) {
+            List<ContributionsDay> filter = binding.contributionView.getLastContributions(data.data);
+            if (filter != null) {
+                disposable = Completable.create( e -> {
+                    binding.contributionView.drawOnCanvas(filter, data.getData());
+                     e.onComplete();
+                }).subscribe(() -> {
+                    binding.contributionLayout.setVisibility(VISIBLE);
+                });
+            }
+        } else {
+            binding.contributionLayout.setVisibility(GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
+
     @Override
     protected Class<OverviewViewModel> getViewModelClass() {
         return OverviewViewModel.class;

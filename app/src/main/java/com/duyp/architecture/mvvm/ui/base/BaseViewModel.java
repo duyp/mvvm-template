@@ -113,6 +113,10 @@ public abstract class BaseViewModel extends ViewModel {
         return getUserManager().getCurrentUser() != null && getUserManager().getCurrentUser().equals(userLogin);
     }
 
+    public void addDisposable(@NonNull Disposable disposable) {
+        mCompositeDisposable.add(disposable);
+    }
+
     /**
      * Add and execute an resource flowable created by
      * {@link RestHelper#createRemoteSiourceMapper(boolean, Single, RestHelper.OnSaveCallResult)}

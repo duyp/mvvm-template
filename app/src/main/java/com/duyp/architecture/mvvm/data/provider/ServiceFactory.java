@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.duyp.androidutils.network.Tls12SocketFactory;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.BuildConfig;
 import com.duyp.architecture.mvvm.data.remote.RemoteConstants;
+import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.data.remote.converters.GithubResponseConverter;
 import com.duyp.architecture.mvvm.data.remote.interceptors.AuthorizationInterceptor;
 import com.duyp.architecture.mvvm.data.remote.interceptors.ContentTypeInterceptor;
@@ -118,5 +120,15 @@ public class ServiceFactory {
         }
 
         return client;
+    }
+
+    @NonNull
+    public static UserRestService getContributionService() {
+        return new Retrofit.Builder()
+                .baseUrl(BuildConfig.REST_URL)
+                .addConverterFactory(new GithubResponseConverter(App.getInstance().getGson()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(UserRestService.class);
     }
 }
