@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.realm.RealmConfiguration;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * Created by duypham on 10/24/17.
@@ -42,32 +43,19 @@ public class FeedRepo extends BaseRepo<Event, EventDao> {
         this.userRestService = userRestService;
     }
 
-    public void initTargetUser(String user) {
-        String myUser = getCurrentUserLogin();
-        if (myUser == null && user == null) {
-            throw new IllegalStateException("Both saved user and target user is null");
-        }
-        isMyUser = user == null || (myUser != null && user.equals(myUser));
+    public void initTargetUser(@NonNull String user) {
+        targetUser = user;
+        isMyUser = user.equals(getCurrentUserLogin());
         if (isMyUser) {
-            targetUser = myUser;
             data = dao.getReceivedEventsByUser(targetUser);
         } else {
-            targetUser = user;
             data = dao.getEventsByActor(targetUser);
         }
     }
 
     public Flowable<Resource<Pageable<Event>>> getEvents(int page) {
-        return RestHelper.createRemoteSiourceMapper(page == 1,
-                isMyUser ? userRestService.getReceivedEvents(targetUser, page) :
-                        userRestService.getUserEvents(targetUser, page), (events, isRefresh) -> {
-            if (isRefresh) {
-//                if (isMyUser) {
-//                    dao.deleteAllUserReceivedEvents(targetUser);
-//                } else {
-//                    dao.deleteAllEventsByActor(targetUser);
-//                }
-            }
+        return RestHelper.createRemoteSourceMapper(isMyUser ? userRestService.getReceivedEvents(targetUser, page) :
+                        userRestService.getUserEvents(targetUser, page), events -> {
             if (isMyUser) {
                 for (Event event : events.getItems()) {
                     event.setReceivedOwner(targetUser);

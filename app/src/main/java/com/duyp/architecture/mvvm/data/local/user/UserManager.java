@@ -3,12 +3,14 @@ package com.duyp.architecture.mvvm.data.local.user;
 import android.app.NotificationManager;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.GithubService;
+import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.utils.Events;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 
@@ -55,6 +57,17 @@ public class UserManager {
         return mUserDataStore;
     }
 
+    @NonNull
+    public String extractUser(@Nullable Bundle bundle) {
+        String user = null;
+        if (bundle != null) {
+            user = bundle.getString(BundleConstant.EXTRA);
+        }
+        if (user == null && getCurrentUser() == null) {
+            throw new IllegalStateException("Both current user and bundle user are NULL is not allowed");
+        }
+        return user != null ? user : getCurrentUser().getLogin();
+    }
 
     /**
      * Start user session in test environment

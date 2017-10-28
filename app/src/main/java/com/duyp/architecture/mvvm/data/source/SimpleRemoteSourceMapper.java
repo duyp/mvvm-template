@@ -18,14 +18,14 @@ public abstract class SimpleRemoteSourceMapper<T> {
 
     public static final String TAG = "source";
 
-    public SimpleRemoteSourceMapper(FlowableEmitter<Resource<T>> emitter, final boolean isRefresh) {
+    public SimpleRemoteSourceMapper(FlowableEmitter<Resource<T>> emitter) {
         emitter.onNext(Resource.loading(null));
         // since realm instance was created on Main Thread, so if we need to touch on realm database after calling
         // api (such as save response data to local database, we must make request on main thread
         // by setting shouldUpdateUi params = true
         Disposable disposable = RestHelper.makeRequest(getRemote(), true, response -> {
             Log.d(TAG, "SimpleRemoteSourceMapper: call API success!");
-            saveCallResult(response, isRefresh);
+            saveCallResult(response);
             emitter.onNext(Resource.success(response));
         }, errorEntity -> {
             Log.d(TAG, "SimpleRemoteSourceMapper: call API error: " + errorEntity.getMessage());
@@ -38,5 +38,5 @@ public abstract class SimpleRemoteSourceMapper<T> {
 
     public abstract Single<T> getRemote();
 
-    public abstract void saveCallResult(T data, boolean isRefresh);
+    public abstract void saveCallResult(T data);
 }

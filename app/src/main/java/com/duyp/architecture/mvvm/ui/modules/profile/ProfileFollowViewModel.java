@@ -32,19 +32,7 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
-        String user = null;
-        if (bundle != null) {
-            user = bundle.getString(BundleConstant.EXTRA);
-        }
-        String target = user != null ? user : userManager.getCurrentUser().getLogin();
-        if (target == null) {
-            throw new IllegalStateException("Both target user and current user are NULL is not allowed!");
-        }
-        targetUser = target;
-        User user1 = new User();
-        ArrayList<User> users = new ArrayList<>();
-//        users.add(user1);
-        setData(users, true);
+        targetUser = userManager.extractUser(bundle);
         new Handler().postDelayed(this::refresh, 100);
     }
 

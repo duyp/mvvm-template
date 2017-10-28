@@ -65,7 +65,6 @@ public class RestHelper {
     }
 
     /**
-     * USE FOR A SINGLE OBJECT DATA
      * Create a mapper from retrofit service to {@link Resource} with rx's {@link Flowable}
      * To indicate current state while execute an rest api (loading, error, success with status and message if error)
      * @param remote from retrofit service
@@ -76,7 +75,7 @@ public class RestHelper {
     public static <T> Flowable<Resource<T>> createRemoteSourceMapper(@Nullable Single<T> remote,
                                                                      @Nullable PlainConsumer<T> onSave) {
         return Flowable.create(emitter -> {
-            new SimpleRemoteSourceMapper<T>(emitter, true) {
+            new SimpleRemoteSourceMapper<T>(emitter) {
 
                 @Override
                 public Single<T> getRemote() {
@@ -84,7 +83,7 @@ public class RestHelper {
                 }
 
                 @Override
-                public void saveCallResult(T data, boolean isRefresh) {
+                public void saveCallResult(T data) {
                     if (onSave != null) {
                         onSave.accept(data);
                     }
@@ -93,35 +92,35 @@ public class RestHelper {
         }, BackpressureStrategy.BUFFER);
     }
 
-    /**
-     * USE FOR A LIST OF DATA (REFRESHABLE)
-     * Create a mapper from retrofit service to {@link Resource} with rx's {@link Flowable}
-     * To indicate current state while execute an rest api (loading, error, success with status and message if error)
-     * @param refresh true if come from a refresh action, after remote respond, we should clear all local cache
-     * @param remote from retrofit service
-     * @param onSave will be called after success response come, to save response data into local database
-     * @param <T> type of response
-     * @return a {@link Flowable} instance to deal with progress showing and error handling
-     */
-    public static <T> Flowable<Resource<T>> createRemoteSiourceMapper(boolean refresh, @Nullable Single<T> remote,
-                                                                      @Nullable OnSaveCallResult<T> onSave) {
-        return Flowable.create(emitter -> {
-            new SimpleRemoteSourceMapper<T>(emitter, refresh) {
-
-                @Override
-                public Single<T> getRemote() {
-                    return remote;
-                }
-
-                @Override
-                public void saveCallResult(T data, boolean isRefresh) {
-                    if (onSave != null) {
-                        onSave.call(data, isRefresh);
-                    }
-                }
-            };
-        }, BackpressureStrategy.BUFFER);
-    }
+//    /**
+//     * USE FOR A LIST OF DATA (REFRESHABLE)
+//     * Create a mapper from retrofit service to {@link Resource} with rx's {@link Flowable}
+//     * To indicate current state while execute an rest api (loading, error, success with status and message if error)
+//     * @param refresh true if come from a refresh action, after remote respond, we should clear all local cache
+//     * @param remote from retrofit service
+//     * @param onSave will be called after success response come, to save response data into local database
+//     * @param <T> type of response
+//     * @return a {@link Flowable} instance to deal with progress showing and error handling
+//     */
+//    public static <T> Flowable<Resource<T>> createRemoteSiourceMapper(boolean refresh, @Nullable Single<T> remote,
+//                                                                      @Nullable OnSaveCallResult<T> onSave) {
+//        return Flowable.create(emitter -> {
+//            new SimpleRemoteSourceMapper<T>(emitter, refresh) {
+//
+//                @Override
+//                public Single<T> getRemote() {
+//                    return remote;
+//                }
+//
+//                @Override
+//                public void saveCallResult(T data, boolean isRefresh) {
+//                    if (onSave != null) {
+//                        onSave.call(data, isRefresh);
+//                    }
+//                }
+//            };
+//        }, BackpressureStrategy.BUFFER);
+//    }
 
     public interface OnSaveCallResult<T> {
         void call(T data, boolean isRefresh);
