@@ -17,6 +17,7 @@ import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
@@ -141,9 +142,12 @@ public abstract class BaseViewModel extends ViewModel {
                             // do nothing if progress showing is not allowed
                         } else {
                             stateLiveData.setValue(resource.state);
-                            // if state has a message, after show it, we should reset to prevent
-                            // message will still be shown if fragment / activity is rotated (re-observe state live data)
-                            new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
+
+                            if (!InputHelper.isEmpty(resource.state.getMessage())) {
+                                // if state has a message, after show it, we should reset to prevent
+                                // message will still be shown if fragment / activity is rotated (re-observe state live data)
+                                new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
+                            }
                         }
                     }
                 });
@@ -157,6 +161,25 @@ public abstract class BaseViewModel extends ViewModel {
     protected <T> void execute(boolean showProgress, Single<T> request,
                                @NonNull PlainConsumer<T> responseConsumer,
                                @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
-        execute(showProgress, RestHelper.createRemoteSourceMapper(request, null), responseConsumer);
+        // execute(showProgress, RestHelper.createRemoteSourceMapper(request, null), responseConsumer);
+        if (showProgress) {
+            stateLiveData.setValue(State.loading(null));
+        }
+        Disposable disposable = RestHelper.makeRequest(request, true, response -> {
+            stateLiveData.setValue(State.success(null));
+            responseConsumer.accept(response);
+        }, errorEntity -> {
+            if (errorConsumer != null) {
+                errorConsumer.accept(errorEntity);
+            }
+            stateLiveData.setValue(State.error(errorEntity.getMessage()));
+
+            if (!InputHelper.isEmpty(errorEntity.getMessage())) {
+                // if state has a message, after show it, we should reset to prevent
+                // message will still be shown if fragment / activity is rotated (re-observe state live data)
+                new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
+            }
+        });
+        mCompositeDisposable.add(disposable);
     }
 }

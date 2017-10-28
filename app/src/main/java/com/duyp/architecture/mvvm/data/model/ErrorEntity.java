@@ -17,7 +17,7 @@ public class ErrorEntity {
     public static final int HTTP_ERROR_CODE_UNAUTHORIZED = 401;
 
     public static final String OOPS = "Unexpected error while requesting API";
-    public static final String NETWORK_UNAVAILABLE = "Error occurred while communicating to the server";
+    public static final String NETWORK_UNAVAILABLE = "Network problem!";
     public static final String ERROR_UNAUTHORIZED = "Error! Please re-login!";
 
     private String message = "";

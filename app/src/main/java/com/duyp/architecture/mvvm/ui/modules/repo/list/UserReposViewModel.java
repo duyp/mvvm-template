@@ -30,16 +30,11 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     private final UserReposRepo repo;
 
     private FilterOptionsModel filterOptions = new FilterOptionsModel();
-
-    private final Context context;
-
     @Inject
-    public UserReposViewModel(@ApplicationContext Context context, UserManager userManager,
+    public UserReposViewModel(UserManager userManager,
                               UserReposRepo repo, RepoAdapter adapter) {
         super(userManager, adapter);
         this.repo = repo;
-        this.context = context;
-        new Handler().postDelayed(this::refresh, 300);
     }
 
     @Override
@@ -53,6 +48,7 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
         repo.initUser(targetUser);
         getAdapter().setHasAvatar(hasImage);
         setData(repo.getData().getData(), true);
+        new Handler().postDelayed(this::refresh, 300);
     }
 
     @Override
@@ -63,7 +59,5 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     }
 
     @Override
-    protected void onItemClick(Repo item) {
-        AlertUtils.showToastLongMessage(context, "Clicked:" + item.getFullName());
-    }
+    protected void onItemClick(Repo item) {}
 }

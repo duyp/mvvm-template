@@ -37,7 +37,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
 
     ProfileViewModel profileViewModel;
 
-    Disposable disposable;
+    private Disposable disposable;
 
     @Override
     protected int getLayout() {
@@ -51,7 +51,12 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         profileViewModel = ViewModelProviders.of(getActivity()).get(ProfileViewModel.class);
         profileViewModel.getUser().observe(this, this::populateUserDetail);
 
-        binding.follow.setVm(viewModel);
+        if (profileViewModel.isMyOrOrganization()) {
+            binding.follow.followBtn.setVisibility(GONE);
+        } else {
+            binding.follow.followBtn.setVisibility(VISIBLE);
+            binding.follow.setVm(viewModel);
+        }
         viewModel.initUser(profileViewModel.getUser().getData().getLogin(), profileViewModel.isMyOrOrganization());
         viewModel.getFollowState().observe(this, this::invalidateFollowBtn);
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);

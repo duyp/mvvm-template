@@ -76,7 +76,7 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
                 AlertUtils.showAlertDialog(getContext(), state.getMessage());
                 Log.d(TAG, "handleMessageState: " + state.getMessage());
             } else {
-                AlertUtils.showToastLongMessage(getContext(), state.getMessage());
+                AlertUtils.showToastShortMessage(getContext(), state.getMessage());
                 Log.d(TAG, "handleMessageState: " + state.getMessage());
             }
         }

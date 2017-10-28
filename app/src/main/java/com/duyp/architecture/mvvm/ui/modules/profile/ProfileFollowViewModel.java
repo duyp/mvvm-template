@@ -43,7 +43,7 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
         targetUser = target;
         User user1 = new User();
         ArrayList<User> users = new ArrayList<>();
-        users.add(user1);
+//        users.add(user1);
         setData(users, true);
         new Handler().postDelayed(this::refresh, 100);
     }

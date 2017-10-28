@@ -131,13 +131,17 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
     public void addProgress() {
         Log.d(TAG, "addProgress: ");
         isProgressAdded = true;
-        addFooter(getProgressView());
+        try {
+            addFooter(getProgressView());
+        } catch (Exception ignored) {}
     }
 
     public void removeProgress() {
         Log.d(TAG, "removeProgress: ");
         isProgressAdded = false;
-        removeFooter(getProgressView());
+        try {
+            removeFooter(getProgressView());
+        } catch (Exception ignored) {}
     }
 
     private View getProgressView() {
