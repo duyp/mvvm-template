@@ -5,12 +5,17 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
+import com.duyp.architecture.mvvm.data.repository.FeedRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.adapter.UsersAdapter;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
+import com.duyp.architecture.mvvm.ui.modules.feed.FeedAdapter;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileFollowViewModel;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -22,9 +27,8 @@ import javax.inject.Inject;
 public class ProfileFollowersViewModel extends ProfileFollowViewModel {
 
     @Inject
-    public ProfileFollowersViewModel(UserManager userManager, UserRestService service) {
-        super(userManager, service);
-        new Handler().postDelayed(this::refresh, 300);
+    public ProfileFollowersViewModel(UserManager userManager, UserRestService service, UsersAdapter usersAdapter) {
+        super(userManager, service, usersAdapter);
     }
 
     @Override

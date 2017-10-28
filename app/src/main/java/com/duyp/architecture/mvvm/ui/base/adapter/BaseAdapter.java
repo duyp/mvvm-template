@@ -20,6 +20,7 @@ import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
 
+import io.realm.RealmResults;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,9 +56,19 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         setHasStableIds(true);
     }
 
-    public void setData(@Nullable List<T> newData) {
-        if (newData != data) {
+    public void setData(@Nullable List<T> newData, boolean refresh) {
+        if (newData == null) {
+            data = null;
+            notifyDataSetChanged();
+            return;
+        }
+        if (data == null || data instanceof RealmResults || newData instanceof RealmResults) {
             this.data = newData;
+        } else {
+            if (refresh) {
+                data.clear();
+            }
+            data.addAll(newData);
         }
         notifyDataSetChanged();
     }

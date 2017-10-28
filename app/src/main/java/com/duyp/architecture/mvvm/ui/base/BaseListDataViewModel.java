@@ -11,6 +11,7 @@ import com.duyp.architecture.mvvm.ui.base.interfaces.PaginationListener;
 import com.duyp.architecture.mvvm.ui.base.interfaces.Refreshable;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.RealmObject;
@@ -37,8 +38,6 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     private int lastPage = Integer.MAX_VALUE;
 
-    private List<T> data;
-
     public BaseListDataViewModel(UserManager userManager, A adapter) {
         super(userManager);
         this.adapter = adapter;
@@ -58,17 +57,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
      * @param refresh true if data come from refresh action (call remote api)
      */
     protected void setData(@NonNull List<T> list, boolean refresh) {
-        if (data == null || data instanceof RealmResults || list instanceof RealmResults) {
-            if (list.size() > 0) { // we should ignore if new list is empty (eg. response from load more event)
-                this.data = list;
-            }
-        } else {
-            if (refresh) {
-                data.clear();
-            }
-            data.addAll(list);
-        }
-        adapter.setData(data);
+        adapter.setData(list, refresh);
     }
 
     @Override

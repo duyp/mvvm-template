@@ -120,7 +120,6 @@ public abstract class BaseRecyclerViewFragment<
             refreshLayout.setRefreshing(false);
         }
         isRefreshing = false;
-        shouldRefreshUi = false;
     }
 
     @Override
@@ -138,14 +137,10 @@ public abstract class BaseRecyclerViewFragment<
         }
     }
 
-    private boolean shouldRefreshUi = true;
     protected void refreshUi() {
-        shouldRefreshUi = true;
-        new android.os.Handler().postDelayed(() -> {
-            if (shouldRefreshUi && refreshLayout != null) {
-                refreshLayout.setRefreshing(true);
-            }
-        }, Constants.PROGRESS_DIALOG_DELAY);
+        if (refreshLayout != null) {
+            refreshLayout.setRefreshing(true);
+        }
     }
 
     @Override

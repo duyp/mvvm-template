@@ -40,10 +40,10 @@ public class ProfilePagerAdapter extends BasePagerAdapterWithIcon{
     public Fragment getItem(int position) {
         switch (position) {
             case 0: return new OverviewFragment();
-            case 2: return RepoListFragment.newInstance(user, false);
-            case 3: return FeedFragment.newInstance(user, false);
-            case 1: return ProfileFollowersFragment.newInstance(user);
-//            case 2: return ProfileFollowingFragment.newInstance(user);
+            case 1: return RepoListFragment.newInstance(user, false);
+            case 2: return FeedFragment.newInstance(user, false);
+            case 3: return ProfileFollowersFragment.newInstance(user);
+            case 4: return ProfileFollowingFragment.newInstance(user);
             default: return FeedFragment.newInstance(user, false);
         }
     }

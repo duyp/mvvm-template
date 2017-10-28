@@ -11,6 +11,8 @@ import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.adapter.UsersAdapter;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 /**
@@ -23,8 +25,8 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
     protected String targetUser;
     protected final UserRestService userRestService;
 
-    public ProfileFollowViewModel(UserManager userManager, UserRestService service) {
-        super(userManager, new UsersAdapter());
+    public ProfileFollowViewModel(UserManager userManager, UserRestService service, UsersAdapter usersAdapter) {
+        super(userManager, usersAdapter);
         this.userRestService = service;
     }
 
@@ -39,7 +41,11 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
             throw new IllegalStateException("Both target user and current user are NULL is not allowed!");
         }
         targetUser = target;
-//        new Handler().postDelayed(this::refresh, 100);
+        User user1 = new User();
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user1);
+        setData(users, true);
+        new Handler().postDelayed(this::refresh, 100);
     }
 
     @Override

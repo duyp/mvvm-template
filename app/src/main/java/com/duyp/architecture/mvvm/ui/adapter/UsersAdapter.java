@@ -23,20 +23,21 @@ public class UsersAdapter extends BaseAdapter<User> {
     private boolean isContributor;
 
     @Setter
-    private boolean isFilter;
+    private boolean isFilter = true;
 
+    @Inject
     public UsersAdapter() {
-        this(false);
+        super();
     }
-
-    public UsersAdapter(boolean isContributor) {
-        this(isContributor, false);
-    }
-
-    public UsersAdapter(boolean isContributor, boolean isFilter) {
-        this.isContributor = isContributor;
-        this.isFilter = isFilter;
-    }
+//
+//    public UsersAdapter(boolean isContributor) {
+//        this(isContributor, false);
+//    }
+//
+//    public UsersAdapter(boolean isContributor, boolean isFilter) {
+//        this.isContributor = isContributor;
+//        this.isFilter = isFilter;
+//    }
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int itemType) {

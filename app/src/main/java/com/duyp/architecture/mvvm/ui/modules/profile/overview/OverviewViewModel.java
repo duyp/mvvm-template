@@ -128,7 +128,7 @@ public class OverviewViewModel extends BaseViewModel {
         execute(false,
                 isMe ? organizationService.getMyOrganizations() : organizationService.getMyOrganizations(user),
                 userPageable -> {
-                    organizationAdapter.setData(userPageable.getItems());
+                    organizationAdapter.setData(userPageable.getItems(), true);
                     if (userPageable.getItems().size() > 0) {
                         organsState.setValue(State.success(null));
                     } else {
@@ -161,7 +161,7 @@ public class OverviewViewModel extends BaseViewModel {
                 .toList()
                 .toObservable()
                 .subscribe(nodes1 -> {
-                    pinnedAdapter.setData(nodes1);
+                    pinnedAdapter.setData(nodes1, true);
                     if (nodes1.size() > 0) {
                         pinnedState.setValue(State.success(null));
                     } else {

@@ -22,8 +22,8 @@ import javax.inject.Inject;
 public class ProfileFollowingViewModel extends ProfileFollowViewModel {
 
     @Inject
-    public ProfileFollowingViewModel(UserManager userManager, UserRestService service) {
-        super(userManager, service);
+    public ProfileFollowingViewModel(UserManager userManager, UserRestService service, UsersAdapter adapter) {
+        super(userManager, service, adapter);
     }
 
     @Override

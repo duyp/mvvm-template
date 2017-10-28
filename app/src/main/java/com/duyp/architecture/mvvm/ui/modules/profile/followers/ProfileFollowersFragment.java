@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.databinding.RefreshRecyclerViewBinding;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.adapter.UsersAdapter;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseRecyclerViewFragment;
+import com.duyp.architecture.mvvm.ui.modules.feed.FeedAdapter;
 import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingViewModel;
 import com.duyp.architecture.mvvm.utils.FragmentUtils;
 

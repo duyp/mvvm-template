@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Event;
+import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.data.repository.FeedRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
@@ -25,12 +26,16 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
 
     private final FeedRepo feedRepo;
 
+
+    protected final UserRestService userRestService;
+
     @Inject
-    public FeedViewModel(UserManager userManager, FeedRepo repo, FeedAdapter adapter) {
+    public FeedViewModel(UserManager userManager, FeedRepo repo, FeedAdapter adapter, UserRestService userRestService) {
         super(userManager, adapter);
         this.feedRepo = repo;
         Log.d(TAG, "FeedViewModel: creating..." + this);
         new Handler().postDelayed(this::refresh, 300);
+        this.userRestService = userRestService;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
 
     @Override
     protected void callApi(int page, OnCallApiDone<Event> onCallApiDone) {
-        execute(feedRepo.getEvents(page), eventPageable -> {
+        execute(true, feedRepo.getEvents(page), eventPageable -> {
             onCallApiDone.onDone(eventPageable.getLast(), page == 1, eventPageable.getItems());
         });
     }

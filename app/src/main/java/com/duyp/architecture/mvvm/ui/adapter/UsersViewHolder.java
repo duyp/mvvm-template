@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.ui.adapter;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.User;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 public class UsersViewHolder extends BaseViewHolder<User> {
 
     @BindView(R.id.avatarLayout)
-    AvatarLayout avatar;
+    ImageView avatar;
     @BindView(R.id.title)
     FontTextView title;
     @BindView(R.id.date)
@@ -42,7 +43,7 @@ public class UsersViewHolder extends BaseViewHolder<User> {
     @Override public void bind(@NonNull User user) {}
 
     public void bind(@NonNull User user, boolean isContributor) {
-        avatar.bindData(avatarLoader, user);
+        avatarLoader.loadImage(user.getAvatarUrl(), avatar);
         title.setText(user.getLogin());
         date.setVisibility(!isContributor ? View.GONE : View.VISIBLE);
         if (isContributor) {

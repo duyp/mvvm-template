@@ -150,13 +150,6 @@ public abstract class BaseViewModel extends ViewModel {
         mCompositeDisposable.add(disposable);
     }
 
-    /**
-     * see {@link #execute(boolean, Flowable, PlainConsumer)}
-     */
-    protected  <T> void execute(Flowable<Resource<T>> resourceFlowable, PlainConsumer<T> response) {
-        execute(true, resourceFlowable, response);
-    }
-
     protected <T> void execute(boolean showProgress, Single<T> request, @NonNull PlainConsumer<T> responseConsumer) {
         execute(showProgress, request, responseConsumer, null);
     }
@@ -164,19 +157,6 @@ public abstract class BaseViewModel extends ViewModel {
     protected <T> void execute(boolean showProgress, Single<T> request,
                                @NonNull PlainConsumer<T> responseConsumer,
                                @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
-        if (showProgress) {
-            stateLiveData.setValue(State.loading(null));
-        }
-        Disposable disposable = RestHelper.makeRequest(request, true, response -> {
-            stateLiveData.setValue(State.success(null));
-            responseConsumer.accept(response);
-        }, errorEntity -> {
-            if (errorConsumer != null) {
-                errorConsumer.accept(errorEntity);
-            } else {
-                stateLiveData.setValue(State.error(errorEntity.getMessage()));
-            }
-        });
-        mCompositeDisposable.add(disposable);
+        execute(showProgress, RestHelper.createRemoteSourceMapper(request, null), responseConsumer);
     }
 }

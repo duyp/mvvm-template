@@ -57,7 +57,7 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
 
     @Override
     protected void callApi(int page, OnCallApiDone<Repo> onCallApiDone) {
-        execute(repo.getUserRepositories(filterOptions, page), repoPageable -> {
+        execute(true, repo.getUserRepositories(filterOptions, page), repoPageable -> {
             onCallApiDone.onDone(repoPageable.getLast(), page == 1, repoPageable.getItems());
         });
     }
