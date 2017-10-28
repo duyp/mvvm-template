@@ -31,6 +31,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/default_dark_gray"
+                android:onClick="@{() -> vm.onFollowingClick()}"
                 tools:text="Following (40)"/>
 
             <View
@@ -49,6 +50,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:onClick="@{() -> vm.onFollowersClick()}"
                 android:textColor="@color/default_dark_gray"
                 tools:text="Followers(140)"/>
         </LinearLayout>

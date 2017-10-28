@@ -6,6 +6,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
@@ -27,7 +28,7 @@ import lombok.Getter;
  */
 
 @Getter
-public class ProfileViewModel extends BaseViewModel{
+public class ProfileViewModel extends BaseViewModel implements ViewPager.OnPageChangeListener{
 
     LiveRealmObject<UserDetail> user;
 
@@ -36,11 +37,13 @@ public class ProfileViewModel extends BaseViewModel{
     private String userLogin;
 
     private SafeMutableLiveData<Integer> staredCount = new SafeMutableLiveData<>();
+    private SafeMutableLiveData<Integer> currentTab = new SafeMutableLiveData<>();
 
     @Inject
     public ProfileViewModel(UserManager userManager, UserRepo userRepo) {
         super(userManager);
         this.userRepo = userRepo;
+        currentTab.setValue(0);
     }
 
     @Override
@@ -62,6 +65,10 @@ public class ProfileViewModel extends BaseViewModel{
         execute(false, userRepo.getUser(userLogin), null);
     }
 
+    public void selectTab(@ProfilePagerAdapter.Tab int position) {
+        currentTab.setValue(position);
+    }
+
     public boolean isMe() {
         return isMe(userLogin);
     }
@@ -75,4 +82,15 @@ public class ProfileViewModel extends BaseViewModel{
         super.onCleared();
         userRepo.onDestroy();
     }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        currentTab.setValue(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
 }

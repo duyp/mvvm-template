@@ -57,7 +57,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
             binding.follow.followBtn.setVisibility(VISIBLE);
             binding.follow.setVm(viewModel);
         }
-        viewModel.initUser(profileViewModel.getUser().getData().getLogin(), profileViewModel.isMyOrOrganization());
+        viewModel.initUser(profileViewModel.getUser().getData().getLogin(), profileViewModel);
         viewModel.getFollowState().observe(this, this::invalidateFollowBtn);
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);
         viewModel.getPinnedState().observe(this, this::invalidatePinned);

@@ -17,6 +17,8 @@ import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.helper.RxHelper;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.ProfilePagerAdapter;
+import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.organizations.OrganizationAdapter;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.pinned.PinnedAdapter;
 import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsDay;
@@ -54,6 +56,9 @@ public class OverviewViewModel extends BaseViewModel {
     private final OrganizationAdapter organizationAdapter = new OrganizationAdapter();
     private final PinnedAdapter pinnedAdapter = new PinnedAdapter();
 
+    @Nullable
+    private ProfileViewModel profileViewModel;
+
     @Inject
     OverviewViewModel(UserManager userManager,
                              UserRestService service,
@@ -68,12 +73,13 @@ public class OverviewViewModel extends BaseViewModel {
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 
-    void initUser(String userLogin, boolean isMeOrOrganization) {
+    void initUser(String userLogin, @Nullable ProfileViewModel viewModel) {
         if (this.user == null) {
+            this.profileViewModel = viewModel;
             this.user = userLogin;
             followState.setValue(null);
             new Handler(Looper.myLooper()).postDelayed(() -> {
-                if (!isMeOrOrganization) {
+                if (profileViewModel != null && !profileViewModel.isMyOrOrganization()) {
                     checkFollowState();
                 }
                 loadOrganizations();
@@ -110,6 +116,18 @@ public class OverviewViewModel extends BaseViewModel {
         }, errorEntity -> {
             followState.setValue(oldState);
         });
+    }
+
+    public void onFollowersClick() {
+        if (profileViewModel != null) {
+            profileViewModel.selectTab(ProfilePagerAdapter.Tab.TAB_FOLLOWERS);
+        }
+    }
+
+    public void onFollowingClick() {
+        if (profileViewModel != null) {
+            profileViewModel.selectTab(ProfilePagerAdapter.Tab.TAB_FOLLOWING);
+        }
     }
 
     public enum FollowingState {

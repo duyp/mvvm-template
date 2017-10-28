@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import jp.wasabeef.blurry.Blurry;
 
+import static com.duyp.architecture.mvvm.ui.modules.profile.ProfilePagerAdapter.Tab.TAB_STARRED;
 /**
  * Created by duypham on 10/26/17.
  *
@@ -55,7 +56,13 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
             } else {
                 title = getString(R.string.starred_format, starredCount);
             }
-            binding.tab.setTitleAt(3, title);
+            binding.tab.setTitleAt(TAB_STARRED, title);
+        });
+        binding.viewPager.addOnPageChangeListener(viewModel);
+        viewModel.getCurrentTab().observe(this, tab -> {
+            if (tab != null && binding.viewPager.getCurrentItem() != tab) {
+                binding.viewPager.setCurrentItem(tab);
+            }
         });
     }
 
