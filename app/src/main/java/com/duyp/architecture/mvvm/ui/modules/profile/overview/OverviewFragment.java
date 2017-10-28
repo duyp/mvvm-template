@@ -98,11 +98,13 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
     }
 
     public void invalidateFollowBtn(@Nullable OverviewViewModel.FollowingState state) {
-        binding.follow.followBtn.setEnabled(state != OverviewViewModel.FollowingState.LOADING);
-        binding.follow.followBtn.setActivated(state == OverviewViewModel.FollowingState.FOLLOWED);
+        if (binding.follow.followBtn.getVisibility() == VISIBLE) {
+            binding.follow.followBtn.setEnabled(state != OverviewViewModel.FollowingState.LOADING);
+            binding.follow.followBtn.setActivated(state == OverviewViewModel.FollowingState.FOLLOWED);
 
-        binding.follow.followBtn.setText(state == OverviewViewModel.FollowingState.FOLLOWED
-                ? getString(R.string.unfollow) : getString(R.string.follow));
+            binding.follow.followBtn.setText(state == OverviewViewModel.FollowingState.FOLLOWED
+                    ? getString(R.string.unfollow) : getString(R.string.follow));
+        }
     }
 
     public void invalidateOrgans(State state) {

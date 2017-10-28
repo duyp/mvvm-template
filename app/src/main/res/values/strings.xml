@@ -15,6 +15,7 @@
     <string name="repos" translatable="false">Repositories</string>
     <string name="forked" translatable="false">Forked</string>
     <string name="starred" translatable="false">Starred</string>
+    <string name="starred_format" translatable="false">Starred (%d)</string>
     <string name="icon_transition" translatable="false">profile_image_transition</string>
     <string name="title_transition" translatable="false">profile_title_transition</string>
     <string name="code" translatable="false">Code</string>

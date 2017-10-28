@@ -15,6 +15,7 @@ import com.duyp.architecture.mvvm.data.repository.UserRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
+import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,8 @@ public class ProfileViewModel extends BaseViewModel{
     private final UserRepo userRepo;
 
     private String userLogin;
+
+    private SafeMutableLiveData<Integer> staredCount = new SafeMutableLiveData<>();
 
     @Inject
     public ProfileViewModel(UserManager userManager, UserRepo userRepo) {
@@ -64,7 +67,7 @@ public class ProfileViewModel extends BaseViewModel{
     }
 
     public boolean isMyOrOrganization() {
-        return isMe() && user.getData() != null && user.getData().isOrganizationType();
+        return isMe() || (user.getData() != null && user.getData().isOrganizationType());
     }
 
     @Override

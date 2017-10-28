@@ -60,4 +60,10 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
 
     @Override
     protected void onItemClick(Repo item) {}
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        repo.onDestroy();
+    }
 }

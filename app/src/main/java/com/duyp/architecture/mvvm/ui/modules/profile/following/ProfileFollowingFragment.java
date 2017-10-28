@@ -25,7 +25,7 @@ public class ProfileFollowingFragment extends BaseRecyclerViewFragment<RefreshRe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView.addKeyLineDivider();
+        recyclerView.addDivider();
     }
 
     @Override

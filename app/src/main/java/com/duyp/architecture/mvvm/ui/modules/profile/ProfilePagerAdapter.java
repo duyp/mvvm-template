@@ -9,6 +9,7 @@ import com.duyp.architecture.mvvm.ui.modules.feed.FeedFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.followers.ProfileFollowersFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragment;
+import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.ui.widgets.BasePagerAdapterWithIcon;
 
@@ -21,9 +22,9 @@ import javax.inject.Inject;
 
 public class ProfilePagerAdapter extends BasePagerAdapterWithIcon{
 
-    public static final int[] ICONS = new int[] {R.drawable.ic_github, R.drawable.ic_repo, R.drawable.ic_github,
-            R.drawable.ic_github, R.drawable.ic_github, R.drawable.ic_github, R.drawable.ic_github};
-    public static final String[] TITLES = new String[] {"Overview", "Repositories", "Events","Followers", "Followings"};
+    public static final int[] ICONS = new int[] {R.drawable.ic_profile, R.drawable.ic_repo, R.drawable.ic_clock,
+            R.drawable.ic_star_filled, R.drawable.ic_follower, R.drawable.ic_following};
+    public static final String[] TITLES = new String[] {"Overview", "Repositories", "Events", "Starred", "Followers", "Followings"};
 
     private String user;
 
@@ -42,15 +43,16 @@ public class ProfilePagerAdapter extends BasePagerAdapterWithIcon{
             case 0: return new OverviewFragment();
             case 1: return RepoListFragment.newInstance(user, false);
             case 2: return FeedFragment.newInstance(user, false);
-            case 3: return ProfileFollowersFragment.newInstance(user);
-            case 4: return ProfileFollowingFragment.newInstance(user);
+            case 3: return StarredFragment.newInstance(user);
+            case 4: return ProfileFollowersFragment.newInstance(user);
+            case 5: return ProfileFollowingFragment.newInstance(user);
             default: return FeedFragment.newInstance(user, false);
         }
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
 
     @Override

@@ -48,6 +48,15 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
 
         binding.viewPager.setAdapter(adapter);
         binding.tab.setupWithViewPager(binding.viewPager);
+        viewModel.getStaredCount().observe(this, starredCount -> {
+            String title;
+            if (starredCount == null || starredCount == 0) {
+                title = getString(R.string.starred);
+            } else {
+                title = getString(R.string.starred_format, starredCount);
+            }
+            binding.tab.setTitleAt(3, title);
+        });
     }
 
     public void onUserUpdated(@Nullable UserDetail user) {

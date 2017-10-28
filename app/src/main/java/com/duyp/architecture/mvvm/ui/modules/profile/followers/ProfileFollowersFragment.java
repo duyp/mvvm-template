@@ -26,6 +26,12 @@ public class ProfileFollowersFragment extends BaseRecyclerViewFragment<RefreshRe
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView.addDivider();
+    }
+
+    @Override
     protected Class<ProfileFollowersViewModel> getViewModelClass() {
         return ProfileFollowersViewModel.class;
     }

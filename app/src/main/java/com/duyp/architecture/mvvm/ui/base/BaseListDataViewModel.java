@@ -86,6 +86,6 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     protected abstract void onItemClick(T item);
 
     public interface OnCallApiDone<E extends RealmObject> {
-        void onDone(int lastPage, boolean isRefresh, List<E> response);
+        void onDone(int last, boolean isRefresh, List<E> response);
     }
 }

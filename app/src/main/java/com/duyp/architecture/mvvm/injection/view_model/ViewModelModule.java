@@ -10,6 +10,7 @@ import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.followers.ProfileFollowersViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
 
 import dagger.Binds;
@@ -60,6 +61,10 @@ public abstract class ViewModelModule {
     @ViewModelKey(ProfileFollowersViewModel.class)
     abstract ViewModel provideProfileFollowersViewModel(ProfileFollowersViewModel viewModel);
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(StarredViewModel.class)
+    abstract ViewModel provideStarredViewModel(StarredViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
