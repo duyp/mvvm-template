@@ -32,4 +32,27 @@
         <item name="android:layout_width">@dimen/avatar_size_small</item>
         <item name="android:layout_height">@dimen/avatar_size_small</item>
     </style>
+
+    <style name="icon_repo_action">
+        <item name="android:layout_width">@dimen/base20</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="repo_action_container">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/base35</item>
+        <item name="android:background">@drawable/bg_corner_gray_solid_white</item>
+        <item name="android:paddingLeft">@dimen/spacing_normal</item>
+        <item name="android:paddingRight">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="text_repo_action">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/default_dark_gray</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/base5</item>
+        <item name="android:paddingRight">@dimen/base5</item>
+    </style>
 </resources>

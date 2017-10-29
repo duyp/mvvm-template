@@ -13,6 +13,7 @@ import com.duyp.architecture.mvvm.data.model.MilestoneModel;
 import com.duyp.architecture.mvvm.data.model.Pageable;
 import com.duyp.architecture.mvvm.data.model.Release;
 import com.duyp.architecture.mvvm.data.model.Repo;
+import com.duyp.architecture.mvvm.data.model.RepoDetail;
 import com.duyp.architecture.mvvm.data.model.RepoFile;
 import com.duyp.architecture.mvvm.data.model.RepoSubscriptionModel;
 import com.duyp.architecture.mvvm.data.model.TreeResponseModel;
@@ -48,7 +49,7 @@ public interface RepoService {
 
     @NonNull @GET("repos/{login}/{repoId}")
     @Headers({"Accept: application/vnd.github.drax-preview+json, application/vnd.github.mercy-preview+json"})
-    Single<Repo> getRepo(@Path("login") String login, @Path("repoId") String repoId);
+    Single<RepoDetail> getRepo(@Path("login") String login, @Path("repoId") String repoId);
 
     @NonNull @DELETE("repos/{login}/{repoId}")
     Single<Response<Boolean>> deleteRepo(@Path("login") String login, @Path("repoId") String repoId);

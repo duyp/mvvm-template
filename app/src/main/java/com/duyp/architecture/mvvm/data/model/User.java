@@ -24,7 +24,6 @@ import lombok.Setter;
 @Setter
 public class User extends RealmObject implements Parcelable {
 
-    @PrimaryKey
     @SerializedName("id")
     @Expose
     public Long id;

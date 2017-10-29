@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent">
+
+            <LinearLayout style="@style/repo_action_container"
+                android:id="@+id/btnStar">
+
+                <ImageView style="@style/icon_repo_action"
+                    android:padding="@dimen/base2"
+                    android:src="@drawable/ic_star"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:text="@string/star" />
+
+                <View
+                    android:layout_width="@dimen/line_thin"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_mid_gray"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:layout_marginLeft="@dimen/base5"
+                    android:text="0"
+                    android:id="@+id/tvStarCount"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/repo_action_container"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:id="@+id/btnWatch">
+
+                <ImageView style="@style/icon_repo_action"
+                    android:src="@drawable/ic_eye_off"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:text="@string/watch" />
+
+                <View
+                    android:layout_width="@dimen/line_thin"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_mid_gray"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:layout_marginLeft="@dimen/base5"
+                    android:text="0"
+                    android:id="@+id/tvWatchCount"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/repo_action_container"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:id="@+id/btnFork">
+
+                <ImageView style="@style/icon_repo_action"
+                    android:src="@drawable/ic_fork"
+                    android:padding="@dimen/base2"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:text="@string/fork" />
+
+                <View
+                    android:layout_width="@dimen/line_thin"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_mid_gray"/>
+
+                <TextView style="@style/text_repo_action"
+                    android:layout_marginLeft="@dimen/base5"
+                    android:text="0"
+                    android:id="@+id/tvForkCount"/>
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</layout>

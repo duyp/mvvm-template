@@ -16,6 +16,8 @@ import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivity;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivity;
@@ -62,4 +64,7 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = StarredFragmentModule.class)
     abstract StarredFragment starredFragment();
+
+    @ContributesAndroidInjector(modules = RepoDetailActivityModule.class)
+    abstract RepoDetailActivity repoDetailActivity();
 }

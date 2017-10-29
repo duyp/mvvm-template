@@ -27,6 +27,9 @@
     <integer name="small_spans">1</integer>
     <item name="drawable_callback" type="id">drawable_callback</item>
 
+    <dimen name="base20">20dp</dimen>
+    <dimen name="base2">2dp</dimen>
+    <dimen name="base35">35dp</dimen>
     <dimen name="base5">5dp</dimen>
     <dimen name="base10">10dp</dimen>
     <dimen name="base32">32dp</dimen>
@@ -50,4 +53,5 @@
 
     <dimen name="line_thin">0.5dp</dimen>
     <dimen name="line_normal">1dp</dimen>
+    <dimen name="android_status_bar_height">24dp</dimen>
 </resources>

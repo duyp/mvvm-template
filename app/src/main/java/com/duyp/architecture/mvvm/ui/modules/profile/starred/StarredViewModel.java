@@ -73,6 +73,6 @@ public class StarredViewModel extends BaseListDataViewModel<Repo, RepoAdapter> {
 
     @Override
     protected void onItemClick(Repo item) {
-
+        navigatorHelper.navigateRepoDetail(item);
     }
 }

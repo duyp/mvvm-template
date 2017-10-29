@@ -59,7 +59,9 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
     }
 
     @Override
-    protected void onItemClick(Repo item) {}
+    protected void onItemClick(Repo item) {
+        navigatorHelper.navigateRepoDetail(item);
+    }
 
     @Override
     protected void onCleared() {

@@ -120,7 +120,7 @@ public abstract class BaseViewModel extends ViewModel {
 
     /**
      * Add and execute an resource flowable created by
-     * {@link RestHelper#createRemoteSiourceMapper(boolean, Single, RestHelper.OnSaveCallResult)}
+     * {@link RestHelper#createRemoteSourceMapper(Single, PlainConsumer)}
      * Loading, error, success status will be updated automatically via {@link #stateLiveData} which should be observed
      * by fragments / activities to update UI appropriately
      * @param showProgress true if should show progress when executing, false if not

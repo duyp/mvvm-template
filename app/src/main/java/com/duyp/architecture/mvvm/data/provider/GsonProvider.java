@@ -1,15 +1,19 @@
 package com.duyp.architecture.mvvm.data.provider;
 
+import com.duyp.architecture.mvvm.data.model.RealmString;
 import com.duyp.architecture.mvvm.data.remote.RemoteConstants;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -19,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
@@ -33,14 +38,7 @@ public class GsonProvider {
      * @return {@link Gson} object
      */
     public static Gson makeGson() {
-        return new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-//                .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                .registerTypeAdapter(Date.class, new DateDeserializer())
-                .disableHtmlEscaping()
-                .setPrettyPrinting()
-                .create();
+        return makeDefaultGsonBuilder().create();
     }
 
     /**
@@ -48,7 +46,7 @@ public class GsonProvider {
      * @return {@link Gson} object
      */
     public static Gson makeGsonForRealm() {
-        return new GsonBuilder()
+        return makeDefaultGsonBuilder()
                 .setExclusionStrategies(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipField(FieldAttributes f) {
@@ -60,12 +58,17 @@ public class GsonProvider {
                         return false;
                     }
                 })
+                .create();
+    }
+
+    public static GsonBuilder makeDefaultGsonBuilder() {
+        return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
                 .registerTypeAdapter(Date.class, new DateDeserializer())
-                .create();
+                .registerTypeAdapter(new TypeToken<RealmList<RealmString>>() {}.getType(), new RealmStringDeserializer());
     }
 
     private static class DateDeserializer implements JsonDeserializer<Date> {
@@ -80,6 +83,20 @@ public class GsonProvider {
                 e.printStackTrace();
                 return null;
             }
+        }
+    }
+
+    private static class RealmStringDeserializer implements JsonDeserializer<RealmList<RealmString>> {
+
+        @Override
+        public RealmList<RealmString> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            RealmList<RealmString> list = new RealmList<>();
+            JsonArray ja = json.getAsJsonArray();
+            for (JsonElement je : ja) {
+                list.add(new RealmString(je.getAsString()));
+            }
+            return list;
         }
     }
 }

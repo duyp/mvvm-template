@@ -1,14 +1,17 @@
 package com.duyp.architecture.mvvm.ui.navigator;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.navigation.Navigator;
+import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivity;
 
 /**
  * Created by duypham on 9/7/17.
@@ -52,6 +55,12 @@ public class NavigatorHelper {
     public void navigateUserProfile(@Nullable User user) {
         mNavigator.startActivity(ProfileActivity.class, intent -> {
             intent.putExtra(BundleConstant.EXTRA, user);
+        });
+    }
+
+    public void navigateRepoDetail(@NonNull Repo repo) {
+        mNavigator.startActivity(RepoDetailActivity.class, intent -> {
+            intent.putExtra(BundleConstant.EXTRA, repo);
         });
     }
 //
