@@ -199,8 +199,8 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
     public void invalidateStarred(RepoDetailViewModel.State state, RepoDetail repoModel) {
         headerIconBinding.starRepoLayout.setEnabled(state != RepoDetailViewModel.State.NONE);
-        headerIconBinding.starRepoImage.tintDrawableColor(state == RepoDetailViewModel.State.TRUE ? accentColor : iconColor);
         headerIconBinding.starRepoImage.setImageResource(state == RepoDetailViewModel.State.TRUE ? R.drawable.ic_star_filled : R.drawable.ic_star);
+        headerIconBinding.starRepoImage.tintDrawableColor(state == RepoDetailViewModel.State.TRUE ? accentColor : iconColor);
         headerIconBinding.starRepo.setText(numberFormat.format(repoModel.getStargazersCount()));
     }
 

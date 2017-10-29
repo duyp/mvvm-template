@@ -12,6 +12,7 @@ import com.duyp.androidutils.rx.Rx;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.RealmString;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
+import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.repository.RepoDetailRepo;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
@@ -43,14 +44,17 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
 
     @Getter private final TopicsAdapter topicsAdapter;
 
+    private final RepoService repoService;
+
     @Inject
-    public RepoDetailViewModel(UserManager userManager, RepoDetailRepo repo, TopicsAdapter adapter) {
+    public RepoDetailViewModel(UserManager userManager, RepoDetailRepo repo, RepoService repoService, TopicsAdapter adapter) {
         super(userManager);
+        this.repoService = repoService;
         this.repoDetailRepo = repo;
         this.topicsAdapter = adapter;
         watchStatus.setValue(State.NONE);
         starStatus.setValue(State.NONE);
-        folkStatus.setValue(State.NONE);
+        folkStatus.setValue(State.FALSE);
     }
 
     @Override
@@ -63,6 +67,10 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
         repoName = data.getData().getName();
         topicsAdapter.setData(Rx.map(data.getData().getTopics(), RealmString::getValue), false);
         new Handler(Looper.myLooper()).postDelayed(this::refresh, 300);
+        new Handler(Looper.myLooper()).postDelayed(() -> {
+            checkStarred();
+            checkWatched();
+        }, 100);
     }
 
     public void refresh() {
@@ -77,6 +85,22 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
     @Override
     public void onMenuItemReselect(int i, int i1, boolean b) {
 
+    }
+
+    private void checkWatched() {
+        execute(false, repoService.isWatchingRepo(owner, repoName), repoSubscriptionModel -> {
+               watchStatus.setValue(repoSubscriptionModel.isSubscribed() ? State.TRUE : State.FALSE);
+        }, errorEntity -> {
+            watchStatus.setValue(State.NONE);
+        });
+    }
+
+    private void checkStarred() {
+        execute(false, repoService.checkStarring(owner, repoName), booleanResponse -> {
+            starStatus.setValue(booleanResponse.code() == 204 ? State.TRUE : State.FALSE);
+        }, errorEntity -> {
+            starStatus.setValue(State.NONE);
+        });
     }
 
     @Nullable
