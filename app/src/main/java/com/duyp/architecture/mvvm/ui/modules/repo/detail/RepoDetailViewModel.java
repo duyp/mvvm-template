@@ -22,8 +22,10 @@ import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import lombok.Getter;
+import retrofit2.Response;
 
 /**
  * Created by duypham on 10/29/17.
@@ -38,9 +40,9 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
     private String owner;
     private String repoName;
 
-    @Getter private MutableLiveData<State> watchStatus = new MutableLiveData<>();
-    @Getter private MutableLiveData<State> starStatus = new MutableLiveData<>();
-    @Getter private MutableLiveData<State> folkStatus = new MutableLiveData<>();
+    @Getter private MutableLiveData<Boolean> watchStatus = new MutableLiveData<>();
+    @Getter private MutableLiveData<Boolean> starStatus = new MutableLiveData<>();
+    @Getter private MutableLiveData<Boolean> folkStatus = new MutableLiveData<>();
 
     @Getter private final TopicsAdapter topicsAdapter;
 
@@ -52,9 +54,9 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
         this.repoService = repoService;
         this.repoDetailRepo = repo;
         this.topicsAdapter = adapter;
-        watchStatus.setValue(State.NONE);
-        starStatus.setValue(State.NONE);
-        folkStatus.setValue(State.FALSE);
+        watchStatus.setValue(null);
+        starStatus.setValue(null);
+        folkStatus.setValue(null);
     }
 
     @Override
@@ -89,18 +91,60 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
 
     private void checkWatched() {
         execute(false, repoService.isWatchingRepo(owner, repoName), repoSubscriptionModel -> {
-               watchStatus.setValue(repoSubscriptionModel.isSubscribed() ? State.TRUE : State.FALSE);
+               watchStatus.setValue(repoSubscriptionModel.isSubscribed());
         }, errorEntity -> {
-            watchStatus.setValue(State.NONE);
+            watchStatus.setValue(false);
         });
     }
 
     private void checkStarred() {
         execute(false, repoService.checkStarring(owner, repoName), booleanResponse -> {
-            starStatus.setValue(booleanResponse.code() == 204 ? State.TRUE : State.FALSE);
+            starStatus.setValue(booleanResponse.code() == 204);
         }, errorEntity -> {
-            starStatus.setValue(State.NONE);
+            starStatus.setValue(false);
         });
+    }
+
+    public void starRepoClick() {
+        if (starStatus.getValue() != null) {
+            boolean star = !starStatus.getValue();
+            repoDetailRepo.updateStarred(star);
+            starStatus.setValue(star);
+            execute(false, star ? repoService.starRepo(owner, repoName) : repoService.unstarRepo(owner, repoName), booleanResponse -> {
+                if (booleanResponse.code() != 204) {
+                    repoDetailRepo.updateStarred(!star);
+                    starStatus.setValue(!star); // reverse if error
+                }
+            }, errorEntity -> {
+                repoDetailRepo.updateStarred(!star);
+                starStatus.setValue(!star); // reverse if error
+            });
+        }
+    }
+
+    public void watchRepoClick() {
+        if (watchStatus.getValue() != null) {
+            boolean watch = !watchStatus.getValue();
+            repoDetailRepo.updateWatched(watch);
+            watchStatus.setValue(watch);
+            execute(false, watch ? repoService.watchRepo(owner, repoName) : repoService.unwatchRepo(owner, repoName), booleanResponse -> {
+                if (booleanResponse.code() != 204) {
+                    repoDetailRepo.updateWatched(!watch);
+                    watchStatus.setValue(!watch); // reverse if error
+                }
+            }, errorEntity -> {
+                repoDetailRepo.updateWatched(!watch);
+                watchStatus.setValue(!watch); // reverse if error
+            });
+        }
+    }
+
+    public void forkRepoClick() {
+
+    }
+
+    public void pinRepoClick() {
+
     }
 
     @Nullable
@@ -111,9 +155,9 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
         return null;
     }
 
-    public enum State {
-        NONE,
-        TRUE,
-        FALSE
-    }
+//    public enum State {
+//        NONE,
+//        TRUE,
+//        FALSE
+//    }
 }

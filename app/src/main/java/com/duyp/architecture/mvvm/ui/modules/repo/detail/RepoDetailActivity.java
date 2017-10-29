@@ -174,6 +174,7 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         headerInfo.headerTitle.setTextColor(ViewHelper.getPrimaryTextColor(this));
 
         ///////////// ICONS /////////////////
+        headerIconBinding.setVm(viewModel);
         headerIconBinding.wikiLayout.setVisibility(repoModel.isHasWiki() ? View.VISIBLE : View.GONE);
         headerIconBinding.pinText.setText(R.string.pin);
 
@@ -191,22 +192,22 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         if (!PrefGetter.isRepoGuideShowed()) {}
     }
 
-    public void invalidateWatched(RepoDetailViewModel.State state, RepoDetail repoModel) {
-        headerIconBinding.watchRepoLayout.setEnabled(state != RepoDetailViewModel.State.NONE);
-        headerIconBinding.watchRepoImage.tintDrawableColor(state == RepoDetailViewModel.State.TRUE ? accentColor : iconColor);
+    public void invalidateWatched(Boolean b, RepoDetail repoModel) {
+        headerIconBinding.watchRepoLayout.setEnabled(b != null);
+        headerIconBinding.watchRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
         headerIconBinding.watchRepo.setText(numberFormat.format(repoModel.getSubsCount()));
     }
 
-    public void invalidateStarred(RepoDetailViewModel.State state, RepoDetail repoModel) {
-        headerIconBinding.starRepoLayout.setEnabled(state != RepoDetailViewModel.State.NONE);
-        headerIconBinding.starRepoImage.setImageResource(state == RepoDetailViewModel.State.TRUE ? R.drawable.ic_star_filled : R.drawable.ic_star);
-        headerIconBinding.starRepoImage.tintDrawableColor(state == RepoDetailViewModel.State.TRUE ? accentColor : iconColor);
+    public void invalidateStarred(Boolean b, RepoDetail repoModel) {
+        headerIconBinding.starRepoLayout.setEnabled(b != null);
+        headerIconBinding.starRepoImage.setImageResource(b != null && b ? R.drawable.ic_star_filled : R.drawable.ic_star);
+        headerIconBinding.starRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
         headerIconBinding.starRepo.setText(numberFormat.format(repoModel.getStargazersCount()));
     }
 
-    public void invalidateForked(RepoDetailViewModel.State state, RepoDetail repoModel) {
-        headerIconBinding.forkRepoLayout.setEnabled(state != RepoDetailViewModel.State.NONE);
-        headerIconBinding.forkRepoImage.tintDrawableColor(state == RepoDetailViewModel.State.TRUE ? accentColor : iconColor);
+    public void invalidateForked(Boolean b, RepoDetail repoModel) {
+        headerIconBinding.forkRepoLayout.setEnabled(b != null);
+        headerIconBinding.forkRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
         headerIconBinding.forkRepo.setText(numberFormat.format(repoModel.getForksCount()));
     }
 }

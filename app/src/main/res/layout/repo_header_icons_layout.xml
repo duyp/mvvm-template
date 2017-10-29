@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
+    <data>
+        <variable
+            name="vm"
+            type="com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel" />
+    </data>
+
     <HorizontalScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -24,6 +31,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:enabled="false"
+                android:onClick="@{() -> vm.watchRepoClick()}"
                 android:orientation="vertical">
 
                 <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
@@ -51,6 +59,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:enabled="false"
+                android:onClick="@{() -> vm.starRepoClick()}"
                 android:orientation="vertical">
 
                 <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
@@ -76,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
+                android:onClick="@{() -> vm.forkRepoClick()}"
                 android:orientation="vertical">
 
                 <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
@@ -129,6 +139,7 @@
                 android:layout_marginStart="@dimen/spacing_medium"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
+                android:onClick="@{() -> vm.pinRepoClick()}"
                 android:orientation="vertical">
 
                 <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView

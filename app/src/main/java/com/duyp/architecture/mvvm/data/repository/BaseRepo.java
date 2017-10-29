@@ -15,6 +15,7 @@ import com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.realm.Realm;
 import io.realm.RealmObject;
 import lombok.Getter;
 
@@ -45,6 +46,10 @@ public abstract class BaseRepo<T extends RealmObject, DAO extends BaseRealmDaoIm
     @Nullable
     public String getCurrentUserLogin() {
         return getCurrentUser() != null ? getCurrentUser().getLogin() : null;
+    }
+
+    public Realm getRealm(){
+        return dao.getRealm();
     }
 
     @CallSuper

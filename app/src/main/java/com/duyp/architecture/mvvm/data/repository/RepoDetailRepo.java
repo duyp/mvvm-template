@@ -12,6 +12,7 @@ import com.duyp.architecture.mvvm.helper.RestHelper;
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -22,6 +23,8 @@ import lombok.NonNull;
 public class RepoDetailRepo extends BaseRepo<RepoDetail, RepoDetailDao> {
 
     private final RepoService repoService;
+    @Getter
+    private LiveRealmObject<RepoDetail> data;
 
     @Inject
     public RepoDetailRepo(UserManager userManager, RepoDetailDao dao, RepoService repoService) {
@@ -30,10 +33,24 @@ public class RepoDetailRepo extends BaseRepo<RepoDetail, RepoDetailDao> {
     }
 
     public LiveRealmObject<RepoDetail> initRepo(@NonNull Repo repo) {
-        return dao.getRepoDetail(repo);
+        data = dao.getRepoDetail(repo);
+        return data;
     }
 
     public Flowable<Resource<RepoDetail>> getRepo(String login, String repoName) {
         return RestHelper.createRemoteSourceMapper(repoService.getRepo(login, repoName), dao::addOrUpdate);
+    }
+
+    public void updateWatched(boolean increase) {
+        getRealm().executeTransaction(realm -> {
+            data.getData().setSubsCount(data.getData().getSubsCount() + (increase ? 1 : -1));
+            data.getData().setWatchersCount(data.getData().getWatchersCount() + (increase ? 1 : -1));
+        });
+    }
+
+    public void updateStarred(boolean increase) {
+        getRealm().executeTransaction(realm -> {
+            data.getData().setStargazersCount(data.getData().getStargazersCount() + (increase ? 1 : -1));
+        });
     }
 }
