@@ -50,23 +50,23 @@ public class RepoDetailFragmentManager extends BaseFragmentManager implements Bo
         switch (tab) {
             case CODE:
                 if (codePagerView == null) {
-                    onAddAndHide(RepoCodePagerFragment.newInstance(repoDetail.getName(), repoDetail.getOwner().getLogin(),
+                    onAddAndHide(RepoCodePagerFragment.newInstance(repoName(), login(),
                             repoDetail.getHtmlUrl(), repoDetail.getUrl(), repoDetail.getDefaultBranch()), currentVisible);
                 } else {
                     onShowHideFragment(codePagerView, currentVisible);
                 }
                 break;
-//            case RepoPagerMvp.ISSUES:
+            case ISSUES:
 //                if ((!getRepo().isHasIssues())) {
 //                    sendToView(view -> view.showMessage(R.string.error, R.string.repo_issues_is_disabled));
 //                    break;
 //                }
-//                if (repoIssuesPagerView == null) {
-//                    onAddAndHide(fragmentManager, RepoIssuesPagerFragment.newInstance(repoId(), login()), currentVisible);
-//                } else {
-//                    onShowHideFragment(fragmentManager, repoIssuesPagerView, currentVisible);
-//                }
-//                break;
+                if (repoIssuesPagerView == null) {
+                    onAddAndHide(RepoIssuesPagerFragment.newInstance(repoName(), login()), currentVisible);
+                } else {
+                    onShowHideFragment(repoIssuesPagerView, currentVisible);
+                }
+                break;
 //            case RepoPagerMvp.PULL_REQUEST:
 //                if (pullRequestPagerView == null) {
 //                    onAddAndHide(fragmentManager, RepoPullRequestPagerFragment.newInstance(repoId(), login()), currentVisible);
@@ -83,6 +83,14 @@ public class RepoDetailFragmentManager extends BaseFragmentManager implements Bo
 //                break;
             default: break;
         }
+    }
+
+    private String repoName() {
+        return repoDetail.getName();
+    }
+
+    private String login() {
+        return repoDetail.getOwner().getLogin();
     }
 
     @Override

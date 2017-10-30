@@ -13,6 +13,7 @@ import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.IssuesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
 
 import dagger.Binds;
@@ -77,6 +78,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ViewerViewModel.class)
     abstract ViewModel provideViewerViewModel(ViewerViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IssuesViewModel.class)
+    abstract ViewModel provideIssuesViewModel(IssuesViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);

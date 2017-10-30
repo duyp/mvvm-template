@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class IssueRequestModel {
 
-    private String state; // todo IssueState
+    @IssueState private String state;
     private String title;
     private String body;
     private Integer milestone;
@@ -38,8 +38,8 @@ public class IssueRequestModel {
         model.setAssignee(issue.getAssignee() != null ? issue.getAssignee().getLogin() : null);
         model.setBody(issue.getBody());
         model.setMilestone(issue.getMilestone() != null ? issue.getMilestone().getNumber() : null);
-        model.setState(toClose ? issue.getState().equalsIgnoreCase(IssueState.closed.getStatus())
-                ? IssueState.open.getStatus() : IssueState.closed.getStatus() : issue.getState());
+        model.setState(toClose ? issue.getState().equalsIgnoreCase(IssueState.CLOSED)
+                ? IssueState.OPEN : IssueState.CLOSED : issue.getState());
         model.setTitle(issue.getTitle());
         return model;
     }
@@ -54,8 +54,8 @@ public class IssueRequestModel {
         model.setAssignee(issue.getAssignee() != null ? issue.getAssignee().getLogin() : null);
         model.setBody(issue.getBody());
         model.setMilestone(issue.getMilestone() != null ? issue.getMilestone().getNumber() : null);
-        model.setState(toClose ? issue.getState().equalsIgnoreCase(IssueState.closed.getStatus())
-                ? IssueState.open.getStatus() : IssueState.closed.getStatus() : issue.getState());
+        model.setState(toClose ? issue.getState().equalsIgnoreCase(IssueState.CLOSED)
+                ? IssueState.OPEN : IssueState.CLOSED : issue.getState());
         model.setTitle(issue.getTitle());
         return model;
     }

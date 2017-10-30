@@ -1,17 +1,20 @@
 package com.duyp.architecture.mvvm.data.model.type;
 
-public enum IssueState {
-    open("Opened"),
-    closed("Closed"),
-    all("All");
+import android.support.annotation.StringDef;
 
-    String status;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import static com.duyp.architecture.mvvm.data.model.type.IssueState.*;
 
-    IssueState(String status) {
-        this.status = status;
-    }
+/**
+ * Created by duypham on 10/30/17.
+ *
+ */
 
-    public String getStatus() {
-        return status;
-    }
+@Retention(RetentionPolicy.SOURCE)
+@StringDef({OPEN, CLOSED, ALL})
+public @interface IssueState {
+    String OPEN = "open";
+    String CLOSED = "closed";
+    String ALL = "all";
 }

@@ -22,6 +22,10 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerFragm
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.RepoIssuesPagerFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.RepoIssuesPagerFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.IssuesFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.IssuesFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivity;
@@ -77,5 +81,11 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = RepoCodePagerFragmentModule.class)
     abstract RepoCodePagerFragment repoCodePagerFragment();
+
+    @ContributesAndroidInjector(modules = RepoIssuesPagerFragmentModule.class)
+    abstract RepoIssuesPagerFragment repoIssuesPagerFragment();
+
+    @ContributesAndroidInjector(modules = IssuesFragmentModule.class)
+    abstract IssuesFragment issuesFragment();
 
 }

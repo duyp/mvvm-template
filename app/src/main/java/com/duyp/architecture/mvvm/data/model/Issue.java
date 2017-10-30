@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.data.model;
 
 import com.duyp.architecture.mvvm.data.model.def.IssueStates;
+import com.duyp.architecture.mvvm.data.model.type.IssueState;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -28,14 +29,14 @@ public class Issue extends RealmObject{
     int comments;
     int number;
     boolean locked;
-    String state; //IssueState
+    @IssueState String state; //IssueState2
     String repoUrl;
     String bodyHtml;
     String htmlUrl;
     Date closedAt;
     Date createdAt;
     Date updatedAt;
-    long repoId;
+    String repoName;
     String login;
     User user;
     User assignee;

@@ -32,7 +32,7 @@ public class PullRequest extends RealmObject{
     int commits;
     int additions;
     int deletions;
-    String state; // todo IssueState
+    String state; // todo IssueState2
     String bodyHtml;
     String htmlUrl;
     Date closedAt;

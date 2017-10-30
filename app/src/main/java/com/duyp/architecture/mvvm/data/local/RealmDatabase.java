@@ -29,7 +29,7 @@ public class RealmDatabase {
     }
 
     public IssueDao newIssueDao() {
-        return new IssueDaoImpl(Realm.getInstance(mRealmConfiguration));
+        return new IssueDaoImpl(mRealmConfiguration);
     }
 
     public void clearAll() {
