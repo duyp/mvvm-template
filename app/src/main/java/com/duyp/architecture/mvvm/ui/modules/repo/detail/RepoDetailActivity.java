@@ -2,6 +2,9 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.TextViewCompat;
 import android.text.format.Formatter;
 import android.view.Menu;
@@ -48,6 +51,9 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
     @Inject
     TopicsAdapter topicsAdapter;
+
+    @Inject
+    RepoDetailFragmentManager repoDetailFragmentManager;
 
     private RepoHeaderIconsLayoutBinding headerIconBinding;
     private TitleHeaderLayoutBinding headerInfo;
@@ -138,10 +144,14 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
     }
 
     public void populateData(RepoDetail repoModel) {
+        if (repoDetailFragmentManager.getRepoDetail() == null) {
+            repoDetailFragmentManager.init(repoModel);
+            binding.bottom.bottomNavigation.setOnMenuItemClickListener(repoDetailFragmentManager);
+        }
+
         if (repoModel.isHasProjects()) {
             binding.bottom.bottomNavigation.inflateMenu(R.menu.repo_with_project_bottom_nav_menu);
         }
-        binding.bottom.bottomNavigation.setOnMenuItemClickListener(viewModel);
 
         ///////////// HEADER INFO /////////////////////////////////////////
         if (repoModel.getTopics() != null && !repoModel.getTopics().isEmpty()) {

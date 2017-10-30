@@ -37,4 +37,8 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
     protected Bundle getFragmentArguments() {
         return getArguments();
     }
+
+    public void onScrollTop(int index) {
+
+    }
 }

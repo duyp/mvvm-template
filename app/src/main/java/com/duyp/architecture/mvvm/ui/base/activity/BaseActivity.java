@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;

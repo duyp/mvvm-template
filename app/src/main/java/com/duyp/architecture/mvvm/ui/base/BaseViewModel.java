@@ -150,13 +150,7 @@ public abstract class BaseViewModel extends ViewModel {
                         if (resource.state.getStatus() == Status.LOADING && !showProgress) {
                             // do nothing if progress showing is not allowed
                         } else {
-                            stateLiveData.setValue(resource.state);
-
-                            if (!InputHelper.isEmpty(resource.state.getMessage())) {
-                                // if state has a message, after show it, we should reset to prevent
-                                // message will still be shown if fragment / activity is rotated (re-observe state live data)
-                                new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
-                            }
+                            publishState(resource.state);
                         }
                     }
                 });
@@ -172,23 +166,26 @@ public abstract class BaseViewModel extends ViewModel {
                                @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
         // execute(showProgress, RestHelper.createRemoteSourceMapper(request, null), responseConsumer);
         if (showProgress) {
-            stateLiveData.setValue(State.loading(null));
+            publishState(State.loading(null));
         }
         Disposable disposable = RestHelper.makeRequest(request, true, response -> {
-            stateLiveData.setValue(State.success(null));
+            publishState(State.success(null));
             responseConsumer.accept(response);
         }, errorEntity -> {
             if (errorConsumer != null) {
                 errorConsumer.accept(errorEntity);
             }
-            stateLiveData.setValue(State.error(errorEntity.getMessage()));
-
-            if (!InputHelper.isEmpty(errorEntity.getMessage())) {
-                // if state has a message, after show it, we should reset to prevent
-                // message will still be shown if fragment / activity is rotated (re-observe state live data)
-                new Handler().postDelayed(() -> stateLiveData.setValue(State.error(null)), 100);
-            }
+            publishState(State.error(errorEntity.getMessage()));
         });
         mCompositeDisposable.add(disposable);
+    }
+
+    public void publishState(State state) {
+        stateLiveData.setValue(state);
+        if (!InputHelper.isEmpty(state.getMessage())) {
+            // if state has a message, after show it, we should reset to prevent
+            // message will still be shown if fragment / activity is rotated (re-observe state live data)
+            new Handler().postDelayed(() -> stateLiveData.setValue(State.success(null)), 100);
+        }
     }
 }

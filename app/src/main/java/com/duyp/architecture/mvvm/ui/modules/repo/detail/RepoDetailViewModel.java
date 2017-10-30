@@ -34,7 +34,7 @@ import retrofit2.Response;
  *
  */
 
-public class RepoDetailViewModel extends BaseViewModel implements BottomNavigation.OnMenuItemSelectionListener{
+public class RepoDetailViewModel extends BaseViewModel{
 
     private final RepoDetailRepo repoDetailRepo;
 
@@ -77,16 +77,6 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
 
     public void refresh() {
         execute(false, repoDetailRepo.getRepo(owner, repoName), null);
-    }
-
-    @Override
-    public void onMenuItemSelect(int i, int i1, boolean b) {
-
-    }
-
-    @Override
-    public void onMenuItemReselect(int i, int i1, boolean b) {
-
     }
 
     private void checkWatched() {
