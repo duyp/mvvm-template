@@ -83,7 +83,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
 
         binding.pinnedList.setAdapter(pinnedAdapter);
         binding.pinnedList.addDivider();
-        pinnedAdapter.setItemClickListener(node -> {
+        pinnedAdapter.setItemClickListener( (v, node) -> {
             SchemeParser.launchUri(getContext(), node.url().toString());
         });
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Pageable;
@@ -77,7 +78,7 @@ public class StarredViewModel extends BaseListDataViewModel<Repo, RepoAdapter> {
     }
 
     @Override
-    protected void onItemClick(Repo item) {
+    public void onItemClick(View view, Repo item) {
         navigatorHelper.navigateRepoDetail(item);
     }
 }

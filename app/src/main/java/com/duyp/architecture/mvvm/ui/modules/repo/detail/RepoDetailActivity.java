@@ -27,6 +27,7 @@ import com.duyp.architecture.mvvm.helper.AppHelper;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.helper.Bundler;
 import com.duyp.architecture.mvvm.helper.InputHelper;
+import com.duyp.architecture.mvvm.helper.NameParser;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
@@ -261,5 +262,18 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
                 .put(BundleConstant.EXTRA_THREE, showWhat)
                 .end());
         return intent;
+    }
+
+    public static void startRepoDetailActivity(@NonNull Context context, @NonNull NameParser nameParser) {
+        if (!InputHelper.isEmpty(nameParser.getName()) && !InputHelper.isEmpty(nameParser.getUsername())) {
+            Intent intent = new Intent(context, RepoDetailActivity.class);
+            intent.putExtras(Bundler.start()
+                    .put(BundleConstant.ID, nameParser.getName())
+                    .put(BundleConstant.EXTRA_TWO, nameParser.getUsername())
+                    .put(BundleConstant.EXTRA_TYPE, Tab.CODE)
+                    .put(BundleConstant.IS_ENTERPRISE, nameParser.isEnterprise())
+                    .end());
+            context.startActivity(intent);
+        }
     }
 }

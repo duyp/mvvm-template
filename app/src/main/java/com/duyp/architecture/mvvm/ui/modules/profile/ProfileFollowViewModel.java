@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.ui.modules.profile;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.User;
@@ -37,7 +38,7 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
     }
 
     @Override
-    protected void onItemClick(User item) {
+    public void onItemClick(View v, User item) {
         navigatorHelper.navigateUserProfile(item);
     }
 }

@@ -6,9 +6,11 @@ import android.os.Looper;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
+import com.duyp.architecture.mvvm.ui.base.interfaces.OnItemClickListener;
 import com.duyp.architecture.mvvm.ui.base.interfaces.PaginationListener;
 import com.duyp.architecture.mvvm.ui.base.interfaces.Refreshable;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
@@ -28,7 +30,7 @@ import lombok.Setter;
 
 @Getter
 public abstract class BaseListDataViewModel<T extends RealmObject, A extends BaseAdapter<T>>
-        extends BaseViewModel implements PaginationListener, Refreshable{
+        extends BaseViewModel implements PaginationListener, Refreshable, OnItemClickListener<T> {
 
     @Nullable
     protected A adapter;
@@ -48,7 +50,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     @CallSuper
     public void initAdapter(@NonNull A adapter) {
         this.adapter = adapter;
-        adapter.setItemClickListener(this::onItemClick);
+        adapter.setItemClickListener(this);
     }
 
     @CallSuper
@@ -94,8 +96,6 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     }
 
     protected abstract void callApi(int page, OnCallApiDone<T> onCallApiDone);
-
-    protected abstract void onItemClick(T item);
 
     public interface OnCallApiDone<E extends RealmObject> {
         void onDone(int last, boolean isRefresh, List<E> response);

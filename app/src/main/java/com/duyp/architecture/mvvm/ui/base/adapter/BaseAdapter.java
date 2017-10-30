@@ -16,6 +16,7 @@ import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
+import com.duyp.architecture.mvvm.ui.base.interfaces.OnItemClickListener;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
 
     @Nullable
     @Setter
-    protected PlainConsumer<T> itemClickListener;
+    protected OnItemClickListener<T> itemClickListener;
 
     private static final String TAG = "adapter";
 
@@ -87,7 +88,7 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
             holder.itemView.setOnClickListener(v -> {
                 T item = getItem(holder.getAdapterPosition());
                 if (item != null) {
-                    itemClickListener.accept(item);
+                    itemClickListener.onItemClick(holder.itemView, item);
                 }
             });
         }
