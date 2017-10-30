@@ -226,8 +226,10 @@ public class ViewerFragment extends BaseViewModelFragment<GeneralViewerLayoutBin
     public void setLoading(boolean loading) {
         binding.readmeLoader.setVisibility(loading ? View.VISIBLE : View.GONE);
         if (loading) {
+            binding.readmeLoader.setIndeterminate(true);
             binding.stateLayout.showProgress();
         } else {
+            binding.readmeLoader.setIndeterminate(false);
             binding.stateLayout.hideProgress();
         }
         if (!viewModel.isImage()) {

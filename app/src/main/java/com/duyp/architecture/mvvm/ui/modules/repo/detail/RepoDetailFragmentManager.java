@@ -38,6 +38,7 @@ public class RepoDetailFragmentManager extends BaseFragmentManager implements Bo
 
     public void init(RepoDetail repo) {
         this.repoDetail = repo;
+        onModuleChanged(Tab.CODE);
     }
 
     public void onModuleChanged(@Tab int tab) {
