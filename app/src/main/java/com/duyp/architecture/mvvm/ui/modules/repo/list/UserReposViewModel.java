@@ -3,6 +3,7 @@ package com.duyp.architecture.mvvm.ui.modules.repo.list;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.AlertUtils;
@@ -29,25 +30,31 @@ public class UserReposViewModel extends BaseListDataViewModel<Repo, RepoAdapter>
 
     private final UserReposRepo repo;
 
+    private boolean hasAvatar = true;
+
     private FilterOptionsModel filterOptions = new FilterOptionsModel();
+
     @Inject
-    public UserReposViewModel(UserManager userManager,
-                              UserReposRepo repo, RepoAdapter adapter) {
-        super(userManager, adapter);
+    public UserReposViewModel(UserManager userManager, UserReposRepo repo) {
+        super(userManager);
         this.repo = repo;
+    }
+
+    @Override
+    public void initAdapter(@NonNull RepoAdapter adapter) {
+        super.initAdapter(adapter);
+        adapter.setHasAvatar(hasAvatar);
+        setData(repo.getData().getData(), true);
     }
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         String targetUser = null;
-        boolean hasImage = true;
         if (bundle != null) {
             targetUser = bundle.getString(BundleConstant.EXTRA);
-            hasImage = bundle.getBoolean(BundleConstant.EXTRA_TWO, true);
+            hasAvatar = bundle.getBoolean(BundleConstant.EXTRA_TWO, true);
         }
         repo.initUser(targetUser);
-        getAdapter().setHasAvatar(hasImage);
-        setData(repo.getData().getData(), true);
         new Handler().postDelayed(this::refresh, 300);
     }
 

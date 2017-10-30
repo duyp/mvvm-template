@@ -36,8 +36,8 @@ public class StarredViewModel extends BaseListDataViewModel<Repo, RepoAdapter> {
     private SafeMutableLiveData<Integer> staredCount;
 
     @Inject
-    public StarredViewModel(UserManager userManager, UserRestService userRestService, RepoAdapter adapter) {
-        super(userManager, adapter);
+    public StarredViewModel(UserManager userManager, UserRestService userRestService) {
+        super(userManager);
         this.userRestService = userRestService;
     }
 
@@ -46,9 +46,14 @@ public class StarredViewModel extends BaseListDataViewModel<Repo, RepoAdapter> {
     }
 
     @Override
+    public void initAdapter(@NonNull RepoAdapter adapter) {
+        super.initAdapter(adapter);
+        adapter.setHasAvatar(false);
+    }
+
+    @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         targetUser = userManager.extractUser(bundle);
-        adapter.setHasAvatar(false);
         new Handler().postDelayed(this::refresh, 100);
     }
 

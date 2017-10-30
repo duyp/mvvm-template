@@ -10,6 +10,7 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
 import com.apollographql.apollo.rx2.Rx2Apollo;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.data.remote.OrganizationService;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
@@ -48,13 +49,12 @@ public class OverviewViewModel extends BaseViewModel {
     private final MutableLiveData<State> organsState = new MutableLiveData<>();
     private final MutableLiveData<State> pinnedState = new MutableLiveData<>();
     private final MutableLiveData<Resource<List<ContributionsDay>>> contributionsData = new MutableLiveData<>();
+    private final MutableLiveData<List<User>> organizations = new MutableLiveData<>();
+    private final MutableLiveData<List<GetPinnedReposQuery.Node>> pinnedNodes = new MutableLiveData<>();
 
     private final UserRestService userRestService;
     private final OrganizationService organizationService;
     private final ApolloClient apolloClient;
-
-    private final OrganizationAdapter organizationAdapter = new OrganizationAdapter();
-    private final PinnedAdapter pinnedAdapter = new PinnedAdapter();
 
     @Nullable
     private ProfileViewModel profileViewModel;
@@ -146,7 +146,7 @@ public class OverviewViewModel extends BaseViewModel {
         execute(false,
                 isMe ? organizationService.getMyOrganizations() : organizationService.getMyOrganizations(user),
                 userPageable -> {
-                    organizationAdapter.setData(userPageable.getItems(), true);
+                    organizations.setValue(userPageable.getItems());
                     if (userPageable.getItems().size() > 0) {
                         organsState.setValue(State.success(null));
                     } else {
@@ -179,7 +179,7 @@ public class OverviewViewModel extends BaseViewModel {
                 .toList()
                 .toObservable()
                 .subscribe(nodes1 -> {
-                    pinnedAdapter.setData(nodes1, true);
+                    pinnedNodes.setValue(nodes1);
                     if (nodes1.size() > 0) {
                         pinnedState.setValue(State.success(null));
                     } else {

@@ -20,6 +20,8 @@ import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.adapter.TopicsAdapter;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -40,20 +42,18 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
     private String owner;
     private String repoName;
 
-    @Getter private MutableLiveData<Boolean> watchStatus = new MutableLiveData<>();
-    @Getter private MutableLiveData<Boolean> starStatus = new MutableLiveData<>();
-    @Getter private MutableLiveData<Boolean> folkStatus = new MutableLiveData<>();
-
-    @Getter private final TopicsAdapter topicsAdapter;
+    @Getter private final MutableLiveData<Boolean> watchStatus = new MutableLiveData<>();
+    @Getter private final MutableLiveData<Boolean> starStatus = new MutableLiveData<>();
+    @Getter private final MutableLiveData<Boolean> folkStatus = new MutableLiveData<>();
+    @Getter private final MutableLiveData<List<String>> topics = new MutableLiveData<>();
 
     private final RepoService repoService;
 
     @Inject
-    public RepoDetailViewModel(UserManager userManager, RepoDetailRepo repo, RepoService repoService, TopicsAdapter adapter) {
+    public RepoDetailViewModel(UserManager userManager, RepoDetailRepo repo, RepoService repoService) {
         super(userManager);
         this.repoService = repoService;
         this.repoDetailRepo = repo;
-        this.topicsAdapter = adapter;
         watchStatus.setValue(null);
         starStatus.setValue(null);
         folkStatus.setValue(null);
@@ -67,7 +67,7 @@ public class RepoDetailViewModel extends BaseViewModel implements BottomNavigati
         data = repoDetailRepo.initRepo(bundle.getParcelable(BundleConstant.EXTRA));
         owner = data.getData().getOwner().getLogin();
         repoName = data.getData().getName();
-        topicsAdapter.setData(Rx.map(data.getData().getTopics(), RealmString::getValue), false);
+        topics.setValue(Rx.map(data.getData().getTopics(), RealmString::getValue));
         new Handler(Looper.myLooper()).postDelayed(this::refresh, 300);
         new Handler(Looper.myLooper()).postDelayed(() -> {
             checkStarred();

@@ -27,8 +27,8 @@ import javax.inject.Inject;
 public class ProfileFollowersViewModel extends ProfileFollowViewModel {
 
     @Inject
-    public ProfileFollowersViewModel(UserManager userManager, UserRestService service, UsersAdapter usersAdapter) {
-        super(userManager, service, usersAdapter);
+    public ProfileFollowersViewModel(UserManager userManager, UserRestService service) {
+        super(userManager, service);
     }
 
     @Override

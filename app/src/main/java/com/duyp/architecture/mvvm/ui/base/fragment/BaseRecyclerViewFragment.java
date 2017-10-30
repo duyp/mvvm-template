@@ -40,6 +40,7 @@ public abstract class BaseRecyclerViewFragment<
     protected RecyclerViewFastScroller fastScroller;
     private boolean isRefreshing;
 
+    @Inject
     A adapter;
 
     @Inject
@@ -53,7 +54,7 @@ public abstract class BaseRecyclerViewFragment<
         stateLayout = view.findViewById(R.id.stateLayout);
         fastScroller = view.findViewById(R.id.fastScroller);
 
-        adapter = viewModel.getAdapter();
+        viewModel.initAdapter(adapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(stateLayout, refreshLayout);
         stateLayout.setOnReloadListener(v -> refreshWithUi());

@@ -83,6 +83,15 @@ public abstract class BaseViewModel extends ViewModel {
      */
     protected abstract void onFirsTimeUiCreate(@Nullable Bundle bundle);
 
+    /**
+     * It is importance to un-reference activity / fragment instance after they are destroyed
+     * For situation of configuration changes, activity / fragment will be destroyed and recreated,
+     * but view model will survive, so if we don't un-reference them, memory leaks will occur
+     */
+    public void onDestroyView() {
+        navigatorHelper = null;
+    }
+
     @CallSuper
     @Override
     protected void onCleared() {

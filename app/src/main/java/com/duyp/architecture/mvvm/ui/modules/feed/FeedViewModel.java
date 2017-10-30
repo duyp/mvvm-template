@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.modules.feed;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -25,29 +26,32 @@ import javax.inject.Inject;
 public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
 
     private final FeedRepo feedRepo;
-
+    private boolean hasImage = true;
 
     protected final UserRestService userRestService;
 
     @Inject
-    public FeedViewModel(UserManager userManager, FeedRepo repo, FeedAdapter adapter, UserRestService userRestService) {
-        super(userManager, adapter);
-        this.feedRepo = repo;
-        Log.d(TAG, "FeedViewModel: creating..." + this);
-        new Handler().postDelayed(this::refresh, 300);
+    public FeedViewModel(UserManager userManager, FeedRepo repo, UserRestService userRestService) {
+        super(userManager);
         this.userRestService = userRestService;
+        this.feedRepo = repo;
+        refresh(300);
+    }
+
+    @Override
+    public void initAdapter(@NonNull FeedAdapter adapter) {
+        super.initAdapter(adapter);
+        adapter.setHasAvatar(hasImage);
+        setData(feedRepo.getData().getData(), true);
     }
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         String targetUser = userManager.extractUser(bundle);
-        boolean hasImage = true;
         if (bundle != null) {
             hasImage = bundle.getBoolean(BundleConstant.EXTRA_TWO, true);
         }
         feedRepo.initTargetUser(targetUser);
-        getAdapter().setHasAvatar(hasImage);
-        setData(feedRepo.getData().getData(), true);
     }
 
     @Override

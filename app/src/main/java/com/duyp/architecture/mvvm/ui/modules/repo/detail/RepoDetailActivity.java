@@ -23,6 +23,7 @@ import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
+import com.duyp.architecture.mvvm.ui.adapter.TopicsAdapter;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
@@ -44,6 +45,9 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
     @Inject
     AvatarLoader glideLoader;
+
+    @Inject
+    TopicsAdapter topicsAdapter;
 
     private RepoHeaderIconsLayoutBinding headerIconBinding;
     private TitleHeaderLayoutBinding headerInfo;
@@ -82,6 +86,7 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         viewModel.getWatchStatus().observe(this, state -> this.invalidateWatched(state, viewModel.getRepoDetail()));
         viewModel.getFolkStatus().observe(this, state -> this.invalidateForked(state, viewModel.getRepoDetail()));
         viewModel.getStarStatus().observe(this, state -> this.invalidateStarred(state, viewModel.getRepoDetail()));
+        viewModel.getTopics().observe(this, strings -> topicsAdapter.setData(strings, true));
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,7 +146,9 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         ///////////// HEADER INFO /////////////////////////////////////////
         if (repoModel.getTopics() != null && !repoModel.getTopics().isEmpty()) {
             headerInfo.tagsIcon.setVisibility(View.VISIBLE);
-            headerInfo.topicsList.setAdapter(viewModel.getTopicsAdapter());
+            if (headerInfo.topicsList.getAdapter() == null) {
+                headerInfo.topicsList.setAdapter(topicsAdapter);
+            }
         } else {
             headerInfo.tagsIcon.setVisibility(View.GONE);
         }

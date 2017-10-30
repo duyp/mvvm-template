@@ -1,6 +1,8 @@
 package com.duyp.architecture.mvvm.ui.base;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,7 +30,8 @@ import lombok.Setter;
 public abstract class BaseListDataViewModel<T extends RealmObject, A extends BaseAdapter<T>>
         extends BaseViewModel implements PaginationListener, Refreshable{
 
-    protected final A adapter;
+    @Nullable
+    protected A adapter;
 
     @Setter
     private int currentPage;
@@ -38,8 +41,12 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     private int lastPage = Integer.MAX_VALUE;
 
-    public BaseListDataViewModel(UserManager userManager, A adapter) {
+    public BaseListDataViewModel(UserManager userManager) {
         super(userManager);
+    }
+
+    @CallSuper
+    public void initAdapter(@NonNull A adapter) {
         this.adapter = adapter;
         adapter.setItemClickListener(this::onItemClick);
     }
@@ -48,7 +55,6 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     @Override
     public void onCreate(@Nullable Bundle bundle, NavigatorHelper navigatorHelper) {
         super.onCreate(bundle, navigatorHelper);
-        adapter.initNavigator(navigatorHelper);
     }
 
     /**
@@ -57,12 +63,18 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
      * @param refresh true if data come from refresh action (call remote api)
      */
     protected void setData(@NonNull List<T> list, boolean refresh) {
-        adapter.setData(list, refresh);
+        if (adapter != null) {
+            adapter.setData(list, refresh);
+        }
     }
 
     @Override
     public void refresh() {
         onCallApi(1);
+    }
+
+    public void refresh(int delay) {
+        new Handler(Looper.myLooper()).postDelayed(this::refresh, delay);
     }
 
     @Override
@@ -87,5 +99,11 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     public interface OnCallApiDone<E extends RealmObject> {
         void onDone(int last, boolean isRefresh, List<E> response);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.adapter = null;
     }
 }

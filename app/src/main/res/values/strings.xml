@@ -8,7 +8,7 @@
     <string name="grid_layout_manager" translatable="false">com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager</string>
     <string name="staggered_layout_manager" translatable="false">com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
     <string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
-    <string name="custom_tablet_provider" translatable="false">com.fastaccess.ui.widgets.TabletBehavior</string>
+    <string name="custom_tablet_provider" translatable="false">com.duyp.architecture.mvvm.ui.widgets.behaviors.TabletBehavior</string>
     <string name="gists" translatable="false">Gists</string>
     <string name="readme" translatable="false">Readme</string>
     <string name="commits" translatable="false">Commits</string>

@@ -91,4 +91,10 @@ public abstract class BaseViewModelActivity<B extends ViewDataBinding, VM extend
     public void navigateLogin() {
         navigatorHelper.navigateLoginActivity(true);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.onDestroyView(); // importance
+    }
 }

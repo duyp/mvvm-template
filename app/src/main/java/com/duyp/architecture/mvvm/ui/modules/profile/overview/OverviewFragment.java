@@ -16,11 +16,15 @@ import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseViewModelFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.organizations.OrganizationAdapter;
+import com.duyp.architecture.mvvm.ui.modules.profile.overview.pinned.PinnedAdapter;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsDay;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.disposables.Disposable;
@@ -38,6 +42,12 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
     ProfileViewModel profileViewModel;
 
     private Disposable disposable;
+
+    @Inject
+    OrganizationAdapter organizationAdapter;
+
+    @Inject
+    PinnedAdapter pinnedAdapter;
 
     @Override
     protected int getLayout() {
@@ -62,12 +72,14 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);
         viewModel.getPinnedState().observe(this, this::invalidatePinned);
         viewModel.getContributionsData().observe(this, this::invalidateContributions);
+        viewModel.getOrganizations().observe(this, users -> organizationAdapter.setData(users, true));
+        viewModel.getPinnedNodes().observe(this, nodes -> pinnedAdapter.setData(nodes, true));
 
-        binding.organizationList.setAdapter(viewModel.getOrganizationAdapter());
+        binding.organizationList.setAdapter(organizationAdapter);
         ((GridManager) binding.organizationList.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources()
                 .getDimensionPixelSize(R.dimen.spacing_xs_large));
 
-        binding.pinnedList.setAdapter(viewModel.getPinnedAdapter());
+        binding.pinnedList.setAdapter(pinnedAdapter);
         binding.pinnedList.addDivider();
     }
 

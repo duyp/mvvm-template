@@ -25,15 +25,15 @@ public abstract class ProfileFollowViewModel extends BaseListDataViewModel<User,
     protected String targetUser;
     protected final UserRestService userRestService;
 
-    public ProfileFollowViewModel(UserManager userManager, UserRestService service, UsersAdapter usersAdapter) {
-        super(userManager, usersAdapter);
+    public ProfileFollowViewModel(UserManager userManager, UserRestService service) {
+        super(userManager);
         this.userRestService = service;
     }
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {
         targetUser = userManager.extractUser(bundle);
-        new Handler().postDelayed(this::refresh, 100);
+        refresh(100);
     }
 
     @Override

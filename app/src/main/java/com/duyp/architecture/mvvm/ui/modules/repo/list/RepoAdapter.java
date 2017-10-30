@@ -1,11 +1,13 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.list;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.Repo;
+import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
@@ -24,8 +26,8 @@ public class RepoAdapter extends BaseAdapter<Repo> {
     private boolean hasAvatar = true;
 
     @Inject
-    public RepoAdapter() {
-        super();
+    public RepoAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
+        super(context, navigatorHelper);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class RepoAdapter extends BaseAdapter<Repo> {
         if (holder.imvAvatar != null) {
             holder.imvAvatar.setOnClickListener(v -> {
                 Repo repo = getItem(holder.getAdapterPosition());
-                if (repo != null && navigatorHelper != null) {
+                if (repo != null) {
                     navigatorHelper.navigateUserProfile(repo.getOwner());
                 }
             });

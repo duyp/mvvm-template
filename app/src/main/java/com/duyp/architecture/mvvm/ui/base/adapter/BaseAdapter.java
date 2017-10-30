@@ -20,6 +20,9 @@ import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.List;
 
+import javax.security.auth.DestroyFailedException;
+import javax.security.auth.Destroyable;
+
 import io.realm.RealmResults;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,13 +50,17 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
 
     private View progressView;
 
-    protected LayoutInflater mInflater;
+    @NonNull protected LayoutInflater mInflater;
 
-    @Nullable
-    protected NavigatorHelper navigatorHelper;
+    @NonNull protected NavigatorHelper navigatorHelper;
 
-    public BaseAdapter() {
+    @NonNull protected final Context mContext;
+
+    public BaseAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
         setHasStableIds(true);
+        this.mContext = context;
+        this.navigatorHelper = navigatorHelper;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     public void setData(@Nullable List<T> newData, boolean refresh) {
@@ -73,15 +80,8 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         notifyDataSetChanged();
     }
 
-    public void initNavigator(NavigatorHelper navigatorHelper) {
-        this.navigatorHelper = navigatorHelper;
-    }
-
     @Override
     protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int itemType) {
-        if (mInflater == null) {
-            mInflater = LayoutInflater.from(viewGroup.getContext());
-        }
         RecyclerView.ViewHolder holder = createItemHolder(viewGroup, itemType);
         if (itemClickListener != null) {
             holder.itemView.setOnClickListener(v -> {

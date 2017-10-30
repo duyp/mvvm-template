@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -10,9 +11,11 @@ import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.AppHelper;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
+import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.adapter.viewholder.SimpleViewHolder;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import javax.inject.Inject;
 
@@ -27,7 +30,9 @@ public class TopicsAdapter extends BaseAdapter<String> {
     @ColorInt private int cardBackground;
 
     @Inject
-    public TopicsAdapter() {}
+    public TopicsAdapter(@NonNull @ActivityContext Context context, @NonNull NavigatorHelper navigatorHelper) {
+        super(context, navigatorHelper);
+    }
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int itemType) {

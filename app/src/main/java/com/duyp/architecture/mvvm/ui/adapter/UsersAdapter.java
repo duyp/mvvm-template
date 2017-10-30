@@ -1,11 +1,14 @@
 package com.duyp.architecture.mvvm.ui.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import java.util.ArrayList;
 
@@ -26,9 +29,10 @@ public class UsersAdapter extends BaseAdapter<User> {
     private boolean isFilter = true;
 
     @Inject
-    public UsersAdapter() {
-        super();
+    public UsersAdapter(@NonNull @ActivityContext Context context, @NonNull NavigatorHelper navigatorHelper) {
+        super(context, navigatorHelper);
     }
+
 //
 //    public UsersAdapter(boolean isContributor) {
 //        this(isContributor, false);

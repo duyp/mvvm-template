@@ -86,5 +86,11 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
         ((BaseActivity)getActivity()).setLoading(loading);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.onDestroyView();
+    }
+
     protected abstract Class<VM> getViewModelClass();
 }
