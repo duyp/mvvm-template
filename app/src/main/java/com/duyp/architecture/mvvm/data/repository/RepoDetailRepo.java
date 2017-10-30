@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.data.repository;
 
+import android.support.annotation.Nullable;
+
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.architecture.mvvm.data.local.daos.RepoDetailDao;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
@@ -32,8 +34,15 @@ public class RepoDetailRepo extends BaseRepo<RepoDetail, RepoDetailDao> {
         this.repoService = repoService;
     }
 
+    @NonNull
     public LiveRealmObject<RepoDetail> initRepo(@NonNull Repo repo) {
         data = dao.getRepoDetail(repo);
+        return data;
+    }
+
+    @Nullable
+    public LiveRealmObject<RepoDetail> initRepo(String owner, String repoName) {
+        data = dao.getRepoDetail(owner, repoName);
         return data;
     }
 
@@ -42,15 +51,19 @@ public class RepoDetailRepo extends BaseRepo<RepoDetail, RepoDetailDao> {
     }
 
     public void updateWatched(boolean increase) {
-        getRealm().executeTransaction(realm -> {
-            data.getData().setSubsCount(data.getData().getSubsCount() + (increase ? 1 : -1));
-            data.getData().setWatchersCount(data.getData().getWatchersCount() + (increase ? 1 : -1));
-        });
+        if (data.getData() != null) {
+            getRealm().executeTransaction(realm -> {
+                data.getData().setSubsCount(data.getData().getSubsCount() + (increase ? 1 : -1));
+                data.getData().setWatchersCount(data.getData().getWatchersCount() + (increase ? 1 : -1));
+            });
+        }
     }
 
     public void updateStarred(boolean increase) {
-        getRealm().executeTransaction(realm -> {
-            data.getData().setStargazersCount(data.getData().getStargazersCount() + (increase ? 1 : -1));
-        });
+        if (data.getData() != null) {
+            getRealm().executeTransaction(realm -> {
+                data.getData().setStargazersCount(data.getData().getStargazersCount() + (increase ? 1 : -1));
+            });
+        }
     }
 }

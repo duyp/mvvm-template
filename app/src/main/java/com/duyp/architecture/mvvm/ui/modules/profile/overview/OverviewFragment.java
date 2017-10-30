@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.UserDetail;
+import com.duyp.architecture.mvvm.data.provider.scheme.SchemeParser;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.State;
 import com.duyp.architecture.mvvm.data.source.Status;
@@ -65,8 +66,9 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
             binding.follow.followBtn.setVisibility(GONE);
         } else {
             binding.follow.followBtn.setVisibility(VISIBLE);
-            binding.follow.setVm(viewModel);
         }
+        binding.follow.setVm(viewModel);
+
         viewModel.initUser(profileViewModel.getUser().getData().getLogin(), profileViewModel);
         viewModel.getFollowState().observe(this, this::invalidateFollowBtn);
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);
@@ -81,6 +83,9 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
 
         binding.pinnedList.setAdapter(pinnedAdapter);
         binding.pinnedList.addDivider();
+        pinnedAdapter.setItemClickListener(node -> {
+            SchemeParser.launchUri(getContext(), node.url().toString());
+        });
     }
 
     private void populateUserDetail(UserDetail user) {

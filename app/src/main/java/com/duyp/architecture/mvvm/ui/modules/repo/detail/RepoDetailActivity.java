@@ -1,8 +1,10 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.TextViewCompat;
@@ -22,6 +24,8 @@ import com.duyp.architecture.mvvm.databinding.RepoHeaderIconsLayoutBinding;
 import com.duyp.architecture.mvvm.databinding.TitleHeaderLayoutBinding;
 import com.duyp.architecture.mvvm.helper.ActivityHelper;
 import com.duyp.architecture.mvvm.helper.AppHelper;
+import com.duyp.architecture.mvvm.helper.BundleConstant;
+import com.duyp.architecture.mvvm.helper.Bundler;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
@@ -88,7 +92,14 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
             headerInfo.description.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
         });
 
-        viewModel.getData().observe(this, this::populateData);
+        viewModel.getOnDataReady().observe(this, ready -> {
+            if (ready != null && ready) {
+                //noinspection ConstantConditions
+                viewModel.getData().observe(this, this::populateData);
+                invalidateOptionsMenu();
+            }
+        });
+
         viewModel.getWatchStatus().observe(this, state -> this.invalidateWatched(state, viewModel.getRepoDetail()));
         viewModel.getFolkStatus().observe(this, state -> this.invalidateForked(state, viewModel.getRepoDetail()));
         viewModel.getStarStatus().observe(this, state -> this.invalidateStarred(state, viewModel.getRepoDetail()));
@@ -101,14 +112,17 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
     }
 
     @Override public boolean onPrepareOptionsMenu(Menu menu) {
-        RepoDetail repoModel = viewModel.getData().getData();
-        if (repoModel != null && repoModel.isFork() && repoModel.getParent() != null) {
-            MenuItem menuItem = menu.findItem(R.id.originalRepo);
-            menuItem.setVisible(true);
-            menuItem.setTitle(repoModel.getParent().getFullName());
-        }
+        if (viewModel.getData() != null) {
+            RepoDetail repoModel = viewModel.getData().getData();
+            if (repoModel != null && repoModel.isFork() && repoModel.getParent() != null) {
+                MenuItem menuItem = menu.findItem(R.id.originalRepo);
+                menuItem.setVisible(true);
+                menuItem.setTitle(repoModel.getParent().getFullName());
+            }
 //        menu.findItem(R.id.deleteRepo).setVisible(getPresenter().isRepoOwner());
-        if (menu.findItem(R.id.deleteRepo) != null) menu.findItem(R.id.deleteRepo).setVisible(false);//removing delete permission.
+            if (menu.findItem(R.id.deleteRepo) != null)
+                menu.findItem(R.id.deleteRepo).setVisible(false);//removing delete permission.
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -209,22 +223,43 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         if (!PrefGetter.isRepoGuideShowed()) {}
     }
 
-    public void invalidateWatched(Boolean b, RepoDetail repoModel) {
-        headerIconBinding.watchRepoLayout.setEnabled(b != null);
-        headerIconBinding.watchRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
-        headerIconBinding.watchRepo.setText(numberFormat.format(repoModel.getSubsCount()));
+    public void invalidateWatched(Boolean b, @Nullable RepoDetail repoModel) {
+        headerIconBinding.watchRepoLayout.setEnabled(b != null && repoModel != null);
+        headerIconBinding.watchRepoImage.tintDrawableColor(b != null && b && repoModel != null ? accentColor : iconColor);
+        headerIconBinding.watchRepo.setText(numberFormat.format(repoModel != null ? repoModel.getSubsCount() : 0));
     }
 
-    public void invalidateStarred(Boolean b, RepoDetail repoModel) {
-        headerIconBinding.starRepoLayout.setEnabled(b != null);
-        headerIconBinding.starRepoImage.setImageResource(b != null && b ? R.drawable.ic_star_filled : R.drawable.ic_star);
-        headerIconBinding.starRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
-        headerIconBinding.starRepo.setText(numberFormat.format(repoModel.getStargazersCount()));
+    public void invalidateStarred(Boolean b, @Nullable RepoDetail repoModel) {
+        headerIconBinding.starRepoLayout.setEnabled(b != null && repoModel != null);
+        headerIconBinding.starRepoImage.setImageResource(b != null && b && repoModel != null? R.drawable.ic_star_filled : R.drawable.ic_star);
+        headerIconBinding.starRepoImage.tintDrawableColor(b != null && b && repoModel != null? accentColor : iconColor);
+        headerIconBinding.starRepo.setText(numberFormat.format(repoModel != null ? repoModel.getStargazersCount(): 0));
     }
 
-    public void invalidateForked(Boolean b, RepoDetail repoModel) {
-        headerIconBinding.forkRepoLayout.setEnabled(b != null);
-        headerIconBinding.forkRepoImage.tintDrawableColor(b != null && b ? accentColor : iconColor);
-        headerIconBinding.forkRepo.setText(numberFormat.format(repoModel.getForksCount()));
+    public void invalidateForked(Boolean b, @Nullable RepoDetail repoModel) {
+        headerIconBinding.forkRepoLayout.setEnabled(b != null && repoModel != null);
+        headerIconBinding.forkRepoImage.tintDrawableColor(b != null && b && repoModel != null ? accentColor : iconColor);
+        headerIconBinding.forkRepo.setText(numberFormat.format(repoModel!= null ? repoModel.getForksCount(): 0));
+    }
+
+    public static Intent createIntent(@NonNull Context context, @NonNull String repoName, @NonNull String login) {
+        return createIntent(context, repoName, login, Tab.CODE);
+    }
+
+    public static Intent createIntent(@NonNull Context context, @NonNull String repoName, @NonNull String login,
+                                      @Tab int tab) {
+        return createIntent(context, repoName, login, tab, -1);
+    }
+
+    public static Intent createIntent(@NonNull Context context, @NonNull String repoName, @NonNull String login,
+                                      @Tab int tab, int showWhat) {
+        Intent intent = new Intent(context, RepoDetailActivity.class);
+        intent.putExtras(Bundler.start()
+                .put(BundleConstant.ID, repoName)
+                .put(BundleConstant.EXTRA_TWO, login)
+                .put(BundleConstant.EXTRA_TYPE, tab)
+                .put(BundleConstant.EXTRA_THREE, showWhat)
+                .end());
+        return intent;
     }
 }

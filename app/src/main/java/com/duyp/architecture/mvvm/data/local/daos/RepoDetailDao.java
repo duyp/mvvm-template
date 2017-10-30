@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.data.local.daos;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.realm.BaseRealmDaoImpl;
 import com.duyp.androidutils.realm.LiveRealmObject;
@@ -41,5 +42,16 @@ public class RepoDetailDao extends BaseRealmDaoImpl<RepoDetail> {
         RepoDetail data = getRealm().copyToRealm(temp);
         getRealm().commitTransaction();
         return asLiveData(data);
+    }
+
+    @Nullable
+    public LiveRealmObject<RepoDetail> getRepoDetail(String owner, String repoName) {
+        RepoDetail repoDetail = query().equalTo("owner.login", owner)
+                .equalTo("name", repoName)
+                .findFirst();
+        if (repoDetail != null) {
+            return asLiveData(repoDetail);
+        }
+        return null;
     }
 }

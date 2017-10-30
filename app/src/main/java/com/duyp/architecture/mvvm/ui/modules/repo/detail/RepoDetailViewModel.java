@@ -11,6 +11,7 @@ import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.androidutils.rx.Rx;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.RealmString;
+import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.repository.RepoDetailRepo;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import lombok.Getter;
+import lombok.NonNull;
 import retrofit2.Response;
 
 /**
@@ -38,7 +40,11 @@ public class RepoDetailViewModel extends BaseViewModel{
 
     private final RepoDetailRepo repoDetailRepo;
 
+    @Nullable
     @Getter private LiveRealmObject<RepoDetail> data;
+
+    @NonNull @Getter private MutableLiveData<Boolean> onDataReady = new MutableLiveData<>();
+
     private String owner;
     private String repoName;
 
@@ -64,19 +70,47 @@ public class RepoDetailViewModel extends BaseViewModel{
         if (bundle == null) {
             throw new IllegalArgumentException("Must pass repo data to use this fragment");
         }
-        data = repoDetailRepo.initRepo(bundle.getParcelable(BundleConstant.EXTRA));
-        owner = data.getData().getOwner().getLogin();
-        repoName = data.getData().getName();
-        topics.setValue(Rx.map(data.getData().getTopics(), RealmString::getValue));
-        new Handler(Looper.myLooper()).postDelayed(this::refresh, 300);
+        Repo repo = bundle.getParcelable(BundleConstant.EXTRA);
+        if (repo != null) {
+            data = repoDetailRepo.initRepo(repo);
+            owner = repo.getOwner().getLogin();
+            repoName = repo.getName();
+            assert data != null;
+            topics.setValue(Rx.map(data.getData().getTopics(), RealmString::getValue));
+            onDataReady.setValue(true);
+        } else {
+            repoName = bundle.getString(BundleConstant.ID);
+            owner = bundle.getString(BundleConstant.EXTRA_TWO);
+            initRepo(owner, repoName);
+        }
+
+        if (data == null) {
+            refresh(true, 100);
+        } else {
+            refresh(false, 300);
+        }
+
         new Handler(Looper.myLooper()).postDelayed(() -> {
             checkStarred();
             checkWatched();
         }, 100);
     }
 
-    public void refresh() {
-        execute(false, repoDetailRepo.getRepo(owner, repoName), null);
+    private void initRepo(String owner, String repoName) {
+        data = repoDetailRepo.initRepo(owner, repoName);
+        if (data != null) {
+            onDataReady.setValue(true);
+        }
+    }
+
+    public void refresh(boolean showProgress, int delay) {
+        new Handler(Looper.myLooper()).postDelayed(() -> {
+            execute(showProgress, repoDetailRepo.getRepo(owner, repoName), repoDetail -> {
+                if (data == null) {
+                    initRepo(owner, repoName);
+                }
+            });
+        }, delay);
     }
 
     private void checkWatched() {
