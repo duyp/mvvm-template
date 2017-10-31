@@ -161,21 +161,23 @@ public abstract class BaseViewModel extends ViewModel {
         execute(showProgress, true, request, responseConsumer, null);
     }
 
-    protected <T> void execute(boolean showProgress, boolean publishErrorState, Single<T> request,
+    protected <T> void execute(boolean showProgress, boolean publishState, Single<T> request,
                                @NonNull PlainConsumer<T> responseConsumer,
                                @Nullable PlainConsumer<ErrorEntity> errorConsumer) {
         // execute(showProgress, RestHelper.createRemoteSourceMapper(request, null), responseConsumer);
-        if (showProgress) {
+        if (showProgress && publishState) {
             publishState(State.loading(null));
         }
         Disposable disposable = RestHelper.makeRequest(request, true, response -> {
             responseConsumer.accept(response);
-            publishState(State.success(null));
+            if (publishState) {
+                publishState(State.success(null));
+            }
         }, errorEntity -> {
             if (errorConsumer != null) {
                 errorConsumer.accept(errorEntity);
             }
-            if (publishErrorState) {
+            if (publishState) {
                 publishState(State.error(errorEntity.getMessage()));
             }
         });

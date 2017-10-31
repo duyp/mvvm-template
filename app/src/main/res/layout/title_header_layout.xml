@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/spacing_normal"
         android:paddingTop="@dimen/spacing_normal"
-        app:layout_scrollFlags="scroll|enterAlways"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
         android:animateLayoutChanges="true"
         android:id="@+id/root"
         tools:ignore="RtlSymmetry">

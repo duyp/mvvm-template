@@ -110,9 +110,21 @@ public class Issue extends RealmObject implements Parcelable {
         this.repoName = in.readString();
         this.login = in.readString();
         this.user = in.readParcelable(User.class.getClassLoader());
+
         this.assignee = in.readParcelable(User.class.getClassLoader());
-        this.assignees = new RealmList<>(); assignees.addAll(in.createTypedArrayList(User.CREATOR));
-        this.labels = new RealmList<>(); labels.addAll(in.createTypedArrayList(Label.CREATOR));
+
+        ArrayList<User> userList = in.createTypedArrayList(User.CREATOR);
+        this.assignees = new RealmList<>();
+        if (userList != null && !userList.isEmpty()) {
+            assignees.addAll(userList);
+        }
+
+        ArrayList<Label> labelList = in.createTypedArrayList(Label.CREATOR);
+        this.labels = new RealmList<>();
+        if (labelList != null && labelList.size() > 0) {
+            this.labels.addAll(labelList);
+        }
+
         this.milestone = in.readParcelable(MilestoneModel.class.getClassLoader());
         this.repository = in.readParcelable(Repo.class.getClassLoader());
         this.pullRequest = in.readParcelable(PullRequest.class.getClassLoader());

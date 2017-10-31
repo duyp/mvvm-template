@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.duyp.architecture.mvvm.data.model.type.IssueState;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.RealmList;
@@ -146,12 +147,24 @@ public class PullRequest extends RealmObject implements Parcelable {
         this.reviewComments = in.readInt();
         this.repoId = in.readString();
         this.login = in.readString();
-        this.assignees = new RealmList<>(); assignees.addAll(in.createTypedArrayList(User.CREATOR));
+
+        ArrayList<User> userList = in.createTypedArrayList(User.CREATOR);
+        this.assignees = new RealmList<>();
+        if (userList != null && !userList.isEmpty()) {
+            assignees.addAll(userList);
+        }
+
         this.mergedBy = in.readParcelable(User.class.getClassLoader());
         this.closedBy = in.readParcelable(User.class.getClassLoader());
         this.user = in.readParcelable(User.class.getClassLoader());
         this.assignee = in.readParcelable(User.class.getClassLoader());
-        this.labels = new RealmList<>(); this.labels.addAll(in.createTypedArrayList(Label.CREATOR));
+
+        ArrayList<Label> labelList = in.createTypedArrayList(Label.CREATOR);
+        this.labels = new RealmList<>();
+        if (labelList != null && labelList.size() > 0) {
+            this.labels.addAll(labelList);
+        }
+
         this.milestone = in.readParcelable(MilestoneModel.class.getClassLoader());
         this.base = in.readParcelable(Commit.class.getClassLoader());
         this.head = in.readParcelable(Commit.class.getClassLoader());

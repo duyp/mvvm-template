@@ -2,12 +2,18 @@ package com.duyp.architecture.mvvm.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import github.PullRequestTimelineQuery;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -49,50 +55,50 @@ public class ReactionsModel extends RealmObject implements Parcelable {
                 '}';
     }
 
-//    @NonNull
-//    public static List<ReactionsModel> getReactionGroup(@Nullable List<PullRequestTimelineQuery.ReactionGroup> reactions) {
-//        List<ReactionsModel> models = new ArrayList<>();
-//        if (reactions != null && !reactions.isEmpty()) {
-//            for (PullRequestTimelineQuery.ReactionGroup reaction : reactions) {
-//                ReactionsModel model = new ReactionsModel();
-//                model.setContent(reaction.content().name());
-//                model.setViewerHasReacted(reaction.viewerHasReacted());
-//                model.setTotal_count(reaction.users().totalCount());
-//                models.add(model);
-//            }
-//        }
-//        return models;
-//    }
-//
-//    @NonNull
-//    public static List<ReactionsModel> getReaction(@Nullable List<PullRequestTimelineQuery.ReactionGroup1> reactions) {
-//        List<ReactionsModel> models = new ArrayList<>();
-//        if (reactions != null && !reactions.isEmpty()) {
-//            for (PullRequestTimelineQuery.ReactionGroup1 reaction : reactions) {
-//                ReactionsModel model = new ReactionsModel();
-//                model.setContent(reaction.content().name());
-//                model.setViewerHasReacted(reaction.viewerHasReacted());
-//                model.setTotal_count(reaction.users().totalCount());
-//                models.add(model);
-//            }
-//        }
-//        return models;
-//    }
-//
-//    @NonNull
-//    public static List<ReactionsModel> getReaction2(@Nullable List<PullRequestTimelineQuery.ReactionGroup2> reactions) {
-//        List<ReactionsModel> models = new ArrayList<>();
-//        if (reactions != null && !reactions.isEmpty()) {
-//            for (PullRequestTimelineQuery.ReactionGroup2 reaction : reactions) {
-//                ReactionsModel model = new ReactionsModel();
-//                model.setContent(reaction.content().name());
-//                model.setViewerHasReacted(reaction.viewerHasReacted());
-//                model.setTotal_count(reaction.users().totalCount());
-//                models.add(model);
-//            }
-//        }
-//        return models;
-//    }
+    @NonNull
+    public static List<ReactionsModel> getReactionGroup(@Nullable List<PullRequestTimelineQuery.ReactionGroup> reactions) {
+        List<ReactionsModel> models = new ArrayList<>();
+        if (reactions != null && !reactions.isEmpty()) {
+            for (PullRequestTimelineQuery.ReactionGroup reaction : reactions) {
+                ReactionsModel model = new ReactionsModel();
+                model.setContent(reaction.content().name());
+                model.setViewerHasReacted(reaction.viewerHasReacted());
+                model.setTotal_count(reaction.users().totalCount());
+                models.add(model);
+            }
+        }
+        return models;
+    }
+
+    @NonNull
+    public static List<ReactionsModel> getReaction(@Nullable List<PullRequestTimelineQuery.ReactionGroup1> reactions) {
+        List<ReactionsModel> models = new ArrayList<>();
+        if (reactions != null && !reactions.isEmpty()) {
+            for (PullRequestTimelineQuery.ReactionGroup1 reaction : reactions) {
+                ReactionsModel model = new ReactionsModel();
+                model.setContent(reaction.content().name());
+                model.setViewerHasReacted(reaction.viewerHasReacted());
+                model.setTotal_count(reaction.users().totalCount());
+                models.add(model);
+            }
+        }
+        return models;
+    }
+
+    @NonNull
+    public static List<ReactionsModel> getReaction2(@Nullable List<PullRequestTimelineQuery.ReactionGroup2> reactions) {
+        List<ReactionsModel> models = new ArrayList<>();
+        if (reactions != null && !reactions.isEmpty()) {
+            for (PullRequestTimelineQuery.ReactionGroup2 reaction : reactions) {
+                ReactionsModel model = new ReactionsModel();
+                model.setContent(reaction.content().name());
+                model.setViewerHasReacted(reaction.viewerHasReacted());
+                model.setTotal_count(reaction.users().totalCount());
+                models.add(model);
+            }
+        }
+        return models;
+    }
 
     @Override
     public int describeContents() {

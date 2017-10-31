@@ -234,8 +234,9 @@ public class IssueDetailActivity extends BaseViewModelActivity<IssuePagerActivit
                     .append(ContextCompat.getDrawable(this,
                             issueModel.getState().equals(IssueState.OPEN) ? R.drawable.ic_issue_opened_small : R.drawable.ic_issue_closed_small))
                     .append(" ")
-                    .append(issueModel.getState())
-                    .append(" ").append(getString(R.string.by)).append(" ").append(username).append(" ")
+                    .append(issueModel.getState()).append(" ")
+                    .append(getString(R.string.by)).append(" ")
+                    .bold(username).append(" ")
                     .append(parsedDate));
             binding.header.avatarLayout.bindData(avatarLoader, userModel);
         }
