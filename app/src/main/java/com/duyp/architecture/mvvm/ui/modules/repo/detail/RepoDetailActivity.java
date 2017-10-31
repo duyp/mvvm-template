@@ -78,9 +78,7 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("");
-        }
+        setToolbarTitle("");
         headerIconBinding = binding.header.icons;
         headerInfo = binding.header.info;
         accentColor = ViewHelper.getAccentColor(this);

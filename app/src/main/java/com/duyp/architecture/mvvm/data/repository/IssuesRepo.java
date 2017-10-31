@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.data.remote;
+package com.duyp.architecture.mvvm.data.repository;
 
 import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.local.daos.IssueDaoImpl;
@@ -6,6 +6,7 @@ import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.Pageable;
 import com.duyp.architecture.mvvm.data.model.type.IssueState;
+import com.duyp.architecture.mvvm.data.remote.IssueService;
 import com.duyp.architecture.mvvm.data.repository.BaseRepo;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.helper.RestHelper;

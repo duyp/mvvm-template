@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedViewModel;
+import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailViewModel;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginViewModel;
 import com.duyp.architecture.mvvm.ui.modules.main.MainViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
@@ -83,6 +84,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RepoIssuesViewModel.class)
     abstract ViewModel provideIssuesViewModel(RepoIssuesViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IssueDetailViewModel.class)
+    abstract ViewModel provideIssueDetailViewModel(IssueDetailViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);

@@ -8,6 +8,7 @@ import com.duyp.architecture.mvvm.data.model.Comment;
 import com.duyp.architecture.mvvm.data.model.CommentRequestModel;
 import com.duyp.architecture.mvvm.data.model.CreateIssueModel;
 import com.duyp.architecture.mvvm.data.model.Issue;
+import com.duyp.architecture.mvvm.data.model.IssueDetail;
 import com.duyp.architecture.mvvm.data.model.IssueEvent;
 import com.duyp.architecture.mvvm.data.model.IssueRequestModel;
 import com.duyp.architecture.mvvm.data.model.IssuesPageable;
@@ -44,8 +45,9 @@ public interface IssueService {
 
     @GET("repos/{owner}/{repo}/issues/{number}")
     @Headers("Accept: application/vnd.github.VERSION.full+json, application/vnd.github.squirrel-girl-preview")
-    Single<Issue> getIssue(@Path("owner") String owner, @Path("repo") String repo,
-                               @Path("number") int number);
+    Single<IssueDetail> getIssue(@Path("owner") String owner,
+                                 @Path("repo") String repo,
+                                 @Path("number") int number);
 
     @GET("repos/{owner}/{repo}/issues/{issue_number}/events?per_page=100")
     Single<Pageable<IssueEvent>> getTimeline(@Path("owner") String owner, @Path("repo") String repo,

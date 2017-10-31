@@ -5,11 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityFragmentManager;
-import com.duyp.architecture.mvvm.ui.modules.Issue.IssueFragment;
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedFragment;
-import com.duyp.architecture.mvvm.ui.modules.pullrequest.PullRequestFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
-import com.duyp.architecture.mvvm.utils.FragmentUtils;
 
 import javax.inject.Inject;
 

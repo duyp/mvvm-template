@@ -8,7 +8,7 @@ import android.view.View;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.type.IssueState;
-import com.duyp.architecture.mvvm.data.remote.IssuesRepo;
+import com.duyp.architecture.mvvm.data.repository.IssuesRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 
@@ -60,7 +60,7 @@ public class RepoIssuesViewModel extends BaseListDataViewModel<Issue, RepoIssues
 
     @Override
     public void onItemClick(View v, Issue item) {
-
+        navigatorHelper.navigateIssuePagerActivity(item);
     }
 
     public String getSortBy() {

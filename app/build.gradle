@@ -166,6 +166,8 @@ dependencies {
     // graphql
     implementation 'com.apollographql.apollo:apollo-rx2-support:0.4.1'
 
+    implementation 'com.airbnb.android:lottie:2.2.5'
+
     // =============================================================================================
     // TESTING DEPENDENCIES
     // =============================================================================================

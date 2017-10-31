@@ -1,13 +1,17 @@
 package com.duyp.architecture.mvvm.ui.navigator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.navigation.Navigator;
+import com.duyp.architecture.mvvm.data.model.Issue;
+import com.duyp.architecture.mvvm.data.model.PullsIssuesParser;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
+import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailPagerActivity;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
@@ -62,6 +66,17 @@ public class NavigatorHelper {
         mNavigator.startActivity(RepoDetailActivity.class, intent -> {
             intent.putExtra(BundleConstant.EXTRA, repo);
         });
+    }
+
+    public void navigateIssuePagerActivity(Issue issue) {
+//        PullsIssuesParser parser = PullsIssuesParser.getForIssue(issue.getHtmlUrl());
+        mNavigator.startActivity(IssueDetailPagerActivity.class, intent -> {
+            intent.putExtra(BundleConstant.ITEM, issue);
+        });
+    }
+
+    public void navigateIssuePagerActivity(PullsIssuesParser parser) {
+
     }
 //
 //    public void navigateUserProfileActivity(@Nullable User user, View... transitionViews) {

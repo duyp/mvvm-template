@@ -1,6 +1,7 @@
 package com.duyp.architecture.mvvm.ui.base.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -11,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -24,6 +24,7 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
+import com.duyp.architecture.mvvm.ui.widgets.dialog.ProgressDialogFragment;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.eventbus.EventBus;
@@ -159,6 +160,16 @@ public abstract class BaseActivity extends BasePermissionActivity
     // UI setting
     // ========================================================================================
 
+    protected void setTaskName(@Nullable String name) {
+        setTaskDescription(new ActivityManager.TaskDescription(name, null, ViewHelper.getPrimaryDarkColor(this)));
+    }
+
+    public void setToolbarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
     private void setupToolbarAndStatusBar() {
         changeStatusBarColor(isTransparent());
         if (toolbar != null) {
@@ -259,27 +270,25 @@ public abstract class BaseActivity extends BasePermissionActivity
     // Progress showing
     // ========================================================================================
 
-    private ProgressDialog progress_dialog;
-    public void showProgressDialog() {
-        showProgressDialog(null);
-    }
+    private ProgressDialogFragment progressDialog;
 
-    public void showProgressDialog(@Nullable String message) {
-        if (progress_dialog == null) {
-            progress_dialog = new ProgressDialog(this);
+    public void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialogFragment();
         }
 
-        if (!progress_dialog.isShowing()) {
-            progress_dialog.setMessage(message == null? "Loading" : message);
-            progress_dialog.setCancelable(false);
-            progress_dialog.show();
+        if (!progressDialog.isVisible()) {
+            progressDialog.setCancelable(false);
+            progressDialog.show(getSupportFragmentManager(), ProgressDialogFragment.TAG);
         }
 
     }
 
     public void hideProgressDialog() {
-        if (progress_dialog != null && progress_dialog.isShowing()) {
-            progress_dialog.dismiss();
+        if (progressDialog != null) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception ignored) {}
         }
     }
 
