@@ -1,6 +1,8 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -231,9 +233,11 @@ public class ViewerFragment extends BaseViewModelFragment<GeneralViewerLayoutBin
         } else {
             binding.readmeLoader.setIndeterminate(false);
             binding.stateLayout.hideProgress();
-        }
-        if (!viewModel.isImage()) {
-            binding.stateLayout.showReload(viewModel.getDownloadedStream() == null ? 0 : 1);
+            if (!viewModel.isImage()) {
+                new Handler(Looper.myLooper()).postDelayed(() -> {
+                    binding.stateLayout.showReload(viewModel.getDownloadedStream() == null ? 0 : 1);
+                }, 100);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ import io.reactivex.Single;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import retrofit2.Response;
 
 /**
@@ -44,6 +45,9 @@ public class RepoDetailViewModel extends BaseViewModel{
     @Getter private LiveRealmObject<RepoDetail> data;
 
     @NonNull @Getter private MutableLiveData<Boolean> onDataReady = new MutableLiveData<>();
+
+    @Getter @Setter
+    @Tab private int currentTab = Tab.CODE;
 
     private String owner;
     private String repoName;
@@ -114,7 +118,7 @@ public class RepoDetailViewModel extends BaseViewModel{
     }
 
     private void checkWatched() {
-        execute(false, repoService.isWatchingRepo(owner, repoName), repoSubscriptionModel -> {
+        execute(false, false, repoService.isWatchingRepo(owner, repoName), repoSubscriptionModel -> {
                watchStatus.setValue(repoSubscriptionModel.isSubscribed());
         }, errorEntity -> {
             watchStatus.setValue(false);
@@ -122,7 +126,7 @@ public class RepoDetailViewModel extends BaseViewModel{
     }
 
     private void checkStarred() {
-        execute(false, repoService.checkStarring(owner, repoName), booleanResponse -> {
+        execute(false, false, repoService.checkStarring(owner, repoName), booleanResponse -> {
             starStatus.setValue(booleanResponse.code() == 204);
         }, errorEntity -> {
             starStatus.setValue(false);
@@ -134,7 +138,7 @@ public class RepoDetailViewModel extends BaseViewModel{
             boolean star = !starStatus.getValue();
             repoDetailRepo.updateStarred(star);
             starStatus.setValue(star);
-            execute(false, star ? repoService.starRepo(owner, repoName) : repoService.unstarRepo(owner, repoName), booleanResponse -> {
+            execute(false, true, star ? repoService.starRepo(owner, repoName) : repoService.unstarRepo(owner, repoName), booleanResponse -> {
                 if (booleanResponse.code() != 204) {
                     repoDetailRepo.updateStarred(!star);
                     starStatus.setValue(!star); // reverse if error
@@ -151,7 +155,7 @@ public class RepoDetailViewModel extends BaseViewModel{
             boolean watch = !watchStatus.getValue();
             repoDetailRepo.updateWatched(watch);
             watchStatus.setValue(watch);
-            execute(false, watch ? repoService.watchRepo(owner, repoName) : repoService.unwatchRepo(owner, repoName), booleanResponse -> {
+            execute(false,true, watch ? repoService.watchRepo(owner, repoName) : repoService.unwatchRepo(owner, repoName), booleanResponse -> {
                 if (booleanResponse.code() != 204) {
                     repoDetailRepo.updateWatched(!watch);
                     watchStatus.setValue(!watch); // reverse if error
@@ -178,10 +182,4 @@ public class RepoDetailViewModel extends BaseViewModel{
         }
         return null;
     }
-
-//    public enum State {
-//        NONE,
-//        TRUE,
-//        FALSE
-//    }
 }

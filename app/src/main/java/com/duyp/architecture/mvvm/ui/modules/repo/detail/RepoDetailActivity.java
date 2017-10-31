@@ -3,6 +3,8 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -160,8 +162,10 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
     public void populateData(RepoDetail repoModel) {
         if (repoDetailFragmentManager.getRepoDetail() == null) {
-            repoDetailFragmentManager.init(repoModel);
             binding.bottom.bottomNavigation.setOnMenuItemClickListener(repoDetailFragmentManager);
+            // delay for better activity's start up time
+            new Handler(Looper.myLooper()).postDelayed(() -> repoDetailFragmentManager.init(repoModel, viewModel), 300);
+
         }
 
         if (repoModel.isHasProjects()) {

@@ -95,7 +95,7 @@ public class OverviewViewModel extends BaseViewModel {
 
     private void checkFollowState() {
         followState.setValue(FollowingState.LOADING);
-        execute(false, userRestService.getFollowStatus(user), booleanResponse -> {
+        execute(false, false, userRestService.getFollowStatus(user), booleanResponse -> {
             followState.setValue(booleanResponse.code() == 204 ? FollowingState.FOLLOWED : FollowingState.UNFOLLOWED);
         }, errorEntity -> {
             followState.setValue(null);
@@ -106,7 +106,7 @@ public class OverviewViewModel extends BaseViewModel {
         final FollowingState oldState = followState.getValue();
         final boolean followed = oldState == FollowingState.FOLLOWED;
         followState.setValue(FollowingState.LOADING);
-        execute(false, followed ? userRestService.unfollowUser(user) : userRestService.followUser(user), booleanResponse -> {
+        execute(false, false, followed ? userRestService.unfollowUser(user) : userRestService.followUser(user), booleanResponse -> {
             boolean success = booleanResponse.code() == 204;
             if (followed) {
                 followState.setValue(success ? FollowingState.UNFOLLOWED : FollowingState.FOLLOWED);
@@ -143,7 +143,7 @@ public class OverviewViewModel extends BaseViewModel {
     private void loadOrganizations() {
         boolean isMe = isMe(user);
         organsState.setValue(State.loading(null));
-        execute(false,
+        execute(false, false,
                 isMe ? organizationService.getMyOrganizations() : organizationService.getMyOrganizations(user),
                 userPageable -> {
                     organizations.setValue(userPageable.getItems());
@@ -198,7 +198,7 @@ public class OverviewViewModel extends BaseViewModel {
     private void getContributions() {
         contributionsData.setValue(Resource.loading(null));
         String url = String.format(CONTRIBUTION_URL, user);
-        execute(false, ServiceFactory.getContributionService().getContributions(url), s -> {
+        execute(false, false, ServiceFactory.getContributionService().getContributions(url), s -> {
             Observable.just(new ContributionsProvider().getContributions(s))
                     .subscribe(contributionsDays -> {
                         contributionsData.setValue(Resource.success(contributionsDays));

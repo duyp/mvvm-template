@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
@@ -28,20 +29,26 @@ import lombok.Getter;
 
 public class RepoDetailFragmentManager extends BaseFragmentManager implements BottomNavigation.OnMenuItemSelectionListener {
 
+    public static final String TAG = RepoDetailFragmentManager.class.getSimpleName();
+
     @Getter
     private RepoDetail repoDetail;
+    private RepoDetailViewModel viewModel;
 
     @Inject
     public RepoDetailFragmentManager(@ActivityFragmentManager FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
-    public void init(RepoDetail repo) {
+    public void init(RepoDetail repo, RepoDetailViewModel viewModel) {
         this.repoDetail = repo;
-        onModuleChanged(Tab.CODE);
+        this.viewModel = viewModel;
+        onModuleChanged(viewModel.getCurrentTab());
     }
 
     public void onModuleChanged(@Tab int tab) {
+        Log.d(TAG, "onModuleChanged: " + tab);
+        viewModel.setCurrentTab(tab);
         Fragment currentVisible = getVisibleFragment(fragmentManager);
         RepoCodePagerFragment codePagerView = (RepoCodePagerFragment) findFragmentByTag(RepoCodePagerFragment.TAG);
         RepoIssuesPagerFragment repoIssuesPagerView = (RepoIssuesPagerFragment) findFragmentByTag(RepoIssuesPagerFragment.TAG);
@@ -96,8 +103,11 @@ public class RepoDetailFragmentManager extends BaseFragmentManager implements Bo
     @Override
     public void onMenuItemSelect(int id, int position, boolean fromUser) {
         onModuleChanged(position);
+        Log.d(TAG, "onMenuItemSelect: ");
     }
 
     @Override
-    public void onMenuItemReselect(int id, int position, boolean v) {}
+    public void onMenuItemReselect(int id, int position, boolean v) {
+        Log.d(TAG, "onMenuItemReselect: ");
+    }
 }
