@@ -9,4 +9,4 @@ import dagger.Module;
  */
 
 @Module
-public class IssueDetailPagerActivityModule extends BaseActivityModule<IssueDetailPagerActivity> {}
+public class IssueDetailActivityModule extends BaseActivityModule<IssueDetailActivity> {}

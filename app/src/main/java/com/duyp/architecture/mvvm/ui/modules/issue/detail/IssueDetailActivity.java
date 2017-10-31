@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.helper.Bundler;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
-import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivity;
@@ -37,7 +35,7 @@ import javax.inject.Inject;
  *
  */
 
-public class IssueDetailPagerActivity extends BaseViewModelActivity<IssuePagerActivityBinding, IssueDetailViewModel> {
+public class IssueDetailActivity extends BaseViewModelActivity<IssuePagerActivityBinding, IssueDetailViewModel> {
 
     @Inject
     AvatarLoader avatarLoader;
@@ -279,7 +277,7 @@ public class IssueDetailPagerActivity extends BaseViewModelActivity<IssuePagerAc
     public static Intent createIntent(@NonNull Context context, @NonNull String repoId,
                                       @NonNull String login, int number, boolean showToRepoBtn,
                                       boolean isEnterprise, long commentId) {
-        Intent intent = new Intent(context, IssueDetailPagerActivity.class);
+        Intent intent = new Intent(context, IssueDetailActivity.class);
         intent.putExtras(Bundler.start()
                 .put(BundleConstant.ID, number)
                 .put(BundleConstant.EXTRA, login)

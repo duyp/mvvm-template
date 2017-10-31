@@ -2,8 +2,8 @@ package com.duyp.architecture.mvvm.injection.ui_modules;
 
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedFragment;
 import com.duyp.architecture.mvvm.ui.modules.feed.FeedModule;
-import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailPagerActivity;
-import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailPagerActivityModule;
+import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailActivity;
+import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
@@ -90,7 +90,7 @@ public abstract class BuildersModule {
     @ContributesAndroidInjector(modules = RepoIssuesFragmentModule.class)
     abstract RepoIssuesFragment issuesFragment();
 
-    @ContributesAndroidInjector(modules = IssueDetailPagerActivityModule.class)
-    abstract IssueDetailPagerActivity issueDetailPagerActivity();
+    @ContributesAndroidInjector(modules = IssueDetailActivityModule.class)
+    abstract IssueDetailActivity issueDetailPagerActivity();
 
 }
