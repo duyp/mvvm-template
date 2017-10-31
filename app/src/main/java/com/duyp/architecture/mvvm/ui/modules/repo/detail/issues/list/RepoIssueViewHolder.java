@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ import butterknife.BindView;
 public class RepoIssueViewHolder extends BaseViewHolder<Issue> {
 
     @BindView(R.id.title) FontTextView title;
-    @Nullable @BindView(R.id.avatarLayout) AvatarLayout avatarLayout;
+    @Nullable @BindView(R.id.avatarLayout) ImageView avatarLayout;
     @BindView(R.id.issue_state) AppCompatImageView issueState;
     @BindView(R.id.details) FontTextView details;
     @BindView(R.id.commentsNo) FontTextView commentsNo;
@@ -126,8 +127,8 @@ public class RepoIssueViewHolder extends BaseViewHolder<Issue> {
         } else {
             issueState.setVisibility(View.GONE);
         }
-        if (withAvatar && avatarLayout != null) {
-            avatarLayout.bindData(avatarLoader, issueModel.getUser());
+        if (withAvatar && avatarLayout != null && issueModel.getUser() != null) {
+            avatarLoader.loadImage(issueModel.getUser().getAvatarUrl(), avatarLayout);
             avatarLayout.setVisibility(View.VISIBLE);
         }
 

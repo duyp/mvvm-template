@@ -40,7 +40,16 @@ public class RepoIssuesAdapter extends BaseAdapter<Issue> {
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int itemType) {
-        return RepoIssueViewHolder.newInstance(viewGroup, avatarLoader, withAvatar, showRepoName, showState);
+        RepoIssueViewHolder holder = RepoIssueViewHolder.newInstance(viewGroup, avatarLoader, withAvatar, showRepoName, showState);
+        if (withAvatar && holder.avatarLayout != null) {
+            holder.avatarLayout.setOnClickListener(v -> {
+                Issue issue = getItem(holder.getAdapterPosition());
+                if (issue != null) {
+                    navigatorHelper.navigateUserProfile(issue.getUser());
+                }
+            });
+        }
+        return holder;
     }
 
     @Override

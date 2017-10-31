@@ -22,10 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.duyp.architecture.mvvm.ui.widgets.AvatarLayout
+            <com.mikhaellopez.circularimageview.CircularImageView
+                style="@style/avatar_circle"
                 android:id="@+id/avatarLayout"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/avatar_margin_end"
                 android:layout_marginStart="@dimen/avatar_margin"
                 android:visibility="gone"
