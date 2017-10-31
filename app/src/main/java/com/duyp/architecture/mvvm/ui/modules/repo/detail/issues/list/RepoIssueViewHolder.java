@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -32,7 +31,7 @@ import butterknife.BindView;
  *
  */
 
-public class IssueViewHolder extends BaseViewHolder<Issue> {
+public class RepoIssueViewHolder extends BaseViewHolder<Issue> {
 
     @BindView(R.id.title) FontTextView title;
     @Nullable @BindView(R.id.avatarLayout) AvatarLayout avatarLayout;
@@ -51,11 +50,11 @@ public class IssueViewHolder extends BaseViewHolder<Issue> {
 
     private final AvatarLoader avatarLoader;
 
-    private IssueViewHolder(@NonNull View itemView, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName) {
+    private RepoIssueViewHolder(@NonNull View itemView, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName) {
         this(itemView, avatarLoader, withAvatar, showRepoName, false);
     }
 
-    private IssueViewHolder(@NonNull View itemView, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName, boolean showState) {
+    private RepoIssueViewHolder(@NonNull View itemView, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName, boolean showState) {
         super(itemView);
         this.withAvatar = withAvatar;
         this.showRepoName = showRepoName;
@@ -63,15 +62,15 @@ public class IssueViewHolder extends BaseViewHolder<Issue> {
         this.avatarLoader = avatarLoader;
     }
 
-    public static IssueViewHolder newInstance(ViewGroup viewGroup, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName) {
+    public static RepoIssueViewHolder newInstance(ViewGroup viewGroup, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName) {
         return newInstance(viewGroup, avatarLoader, withAvatar, showRepoName, false);
     }
 
-    public static IssueViewHolder newInstance(ViewGroup viewGroup, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName, boolean showState) {
+    public static RepoIssueViewHolder newInstance(ViewGroup viewGroup, AvatarLoader avatarLoader, boolean withAvatar, boolean showRepoName, boolean showState) {
         if (withAvatar) {
-            return new IssueViewHolder(getView(viewGroup, R.layout.issue_row_item), avatarLoader, true, showRepoName, showState);
+            return new RepoIssueViewHolder(getView(viewGroup, R.layout.issue_row_item), avatarLoader, true, showRepoName, showState);
         } else {
-            return new IssueViewHolder(getView(viewGroup, R.layout.issue_row_item_no_image), avatarLoader,false, showRepoName, showState);
+            return new RepoIssueViewHolder(getView(viewGroup, R.layout.issue_row_item_no_image), avatarLoader,false, showRepoName, showState);
         }
     }
 

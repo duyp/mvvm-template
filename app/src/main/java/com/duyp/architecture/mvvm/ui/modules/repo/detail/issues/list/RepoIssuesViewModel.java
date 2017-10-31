@@ -19,7 +19,7 @@ import javax.inject.Inject;
  *
  */
 
-public class IssuesViewModel extends BaseListDataViewModel<Issue, IssuesAdapter> {
+public class RepoIssuesViewModel extends BaseListDataViewModel<Issue, RepoIssuesAdapter> {
 
     private String repoName;
     private String login;
@@ -29,13 +29,13 @@ public class IssuesViewModel extends BaseListDataViewModel<Issue, IssuesAdapter>
     private final IssuesRepo issuesRepo;
 
     @Inject
-    public IssuesViewModel(UserManager userManager, IssuesRepo issuesRepo) {
+    public RepoIssuesViewModel(UserManager userManager, IssuesRepo issuesRepo) {
         super(userManager);
         this.issuesRepo = issuesRepo;
     }
 
     @Override
-    public void initAdapter(@NonNull IssuesAdapter adapter) {
+    public void initAdapter(@NonNull RepoIssuesAdapter adapter) {
         super.initAdapter(adapter);
         adapter.setData(issuesRepo.getData().getData(), true);
     }

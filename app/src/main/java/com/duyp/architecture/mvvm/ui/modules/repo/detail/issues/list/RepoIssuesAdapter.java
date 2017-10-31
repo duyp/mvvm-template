@@ -18,7 +18,7 @@ import javax.inject.Inject;
  *
  */
 
-public class IssuesAdapter extends BaseAdapter<Issue> {
+public class RepoIssuesAdapter extends BaseAdapter<Issue> {
 
     private boolean withAvatar = true;
     private boolean showRepoName = false;
@@ -27,7 +27,7 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
     private final AvatarLoader avatarLoader;
 
     @Inject
-    public IssuesAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper, AvatarLoader avatarLoader) {
+    public RepoIssuesAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper, AvatarLoader avatarLoader) {
         super(context, navigatorHelper);
         this.avatarLoader = avatarLoader;
     }
@@ -40,11 +40,11 @@ public class IssuesAdapter extends BaseAdapter<Issue> {
 
     @Override
     protected RecyclerView.ViewHolder createItemHolder(ViewGroup viewGroup, int itemType) {
-        return IssueViewHolder.newInstance(viewGroup, avatarLoader, withAvatar, showRepoName, showState);
+        return RepoIssueViewHolder.newInstance(viewGroup, avatarLoader, withAvatar, showRepoName, showState);
     }
 
     @Override
     protected void bindItemViewHolder(RecyclerView.ViewHolder viewHolder, @NonNull Issue issue) {
-        ((IssueViewHolder)viewHolder).bind(issue);
+        ((RepoIssueViewHolder)viewHolder).bind(issue);
     }
 }

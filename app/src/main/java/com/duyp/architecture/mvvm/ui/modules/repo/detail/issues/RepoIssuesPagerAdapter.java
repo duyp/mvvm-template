@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.duyp.architecture.mvvm.data.model.type.IssueState;
 import com.duyp.architecture.mvvm.injection.qualifier.ChildFragmentManager;
-import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.IssuesFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesFragment;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -34,9 +34,9 @@ public class RepoIssuesPagerAdapter extends FragmentStatePagerAdapter{
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return IssuesFragment.newInstance(repoName, login, IssueState.OPEN);
+            return RepoIssuesFragment.newInstance(repoName, login, IssueState.OPEN);
         } else {
-            return IssuesFragment.newInstance(repoName, login, IssueState.CLOSED);
+            return RepoIssuesFragment.newInstance(repoName, login, IssueState.CLOSED);
         }
     }
 

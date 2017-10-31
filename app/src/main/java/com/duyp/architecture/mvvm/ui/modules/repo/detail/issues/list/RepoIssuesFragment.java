@@ -17,10 +17,10 @@ import com.duyp.architecture.mvvm.utils.FragmentUtils;
  *
  */
 
-public class IssuesFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Issue, IssuesAdapter, IssuesViewModel> {
+public class RepoIssuesFragment extends BaseRecyclerViewFragment<RefreshRecyclerViewBinding, Issue, RepoIssuesAdapter, RepoIssuesViewModel> {
 
-    public static IssuesFragment newInstance(@NonNull String repoId, @NonNull String login, @IssueState String state) {
-        return FragmentUtils.createFragmentInstance(new IssuesFragment(), bundle -> {
+    public static RepoIssuesFragment newInstance(@NonNull String repoId, @NonNull String login, @IssueState String state) {
+        return FragmentUtils.createFragmentInstance(new RepoIssuesFragment(), bundle -> {
             bundle.putString(BundleConstant.ID, repoId);
             bundle.putString(BundleConstant.EXTRA, login);
             bundle.putString(BundleConstant.EXTRA_TWO, state);
@@ -34,7 +34,7 @@ public class IssuesFragment extends BaseRecyclerViewFragment<RefreshRecyclerView
     }
 
     @Override
-    protected Class<IssuesViewModel> getViewModelClass() {
-        return IssuesViewModel.class;
+    protected Class<RepoIssuesViewModel> getViewModelClass() {
+        return RepoIssuesViewModel.class;
     }
 }

@@ -9,5 +9,5 @@ import dagger.Module;
  */
 
 @Module
-public class IssuesFragmentModule extends BaseFragmentModule<IssuesFragment> {
+public class RepoIssuesFragmentModule extends BaseFragmentModule<RepoIssuesFragment> {
 }
