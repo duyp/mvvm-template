@@ -84,14 +84,14 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
     @Override
     protected RecyclerView.ViewHolder createHolder(ViewGroup viewGroup, int itemType) {
         RecyclerView.ViewHolder holder = createItemHolder(viewGroup, itemType);
-        if (itemClickListener != null) {
-            holder.itemView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
                 T item = getItem(holder.getAdapterPosition());
                 if (item != null) {
                     itemClickListener.onItemClick(holder.itemView, item);
                 }
-            });
-        }
+            }
+        });
         return holder;
     }
 

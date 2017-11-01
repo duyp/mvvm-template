@@ -40,7 +40,7 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
     protected VM viewModel;
 
     @Inject
-    NavigatorHelper navigatorHelper;
+    protected NavigatorHelper navigatorHelper;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

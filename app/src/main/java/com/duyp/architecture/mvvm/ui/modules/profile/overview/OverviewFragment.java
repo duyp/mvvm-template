@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.R;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.model.UserDetail;
 import com.duyp.architecture.mvvm.data.provider.scheme.SchemeParser;
 import com.duyp.architecture.mvvm.data.source.Resource;
@@ -16,9 +17,11 @@ import com.duyp.architecture.mvvm.databinding.ProfileOverviewBinding;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseViewModelFragment;
+import com.duyp.architecture.mvvm.ui.base.interfaces.OnItemClickListener;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.organizations.OrganizationAdapter;
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.pinned.PinnedAdapter;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 import com.duyp.architecture.mvvm.ui.widgets.contributions.ContributionsDay;
 import com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager;
@@ -74,15 +77,20 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         viewModel.getOrgansState().observe(this, this::invalidateOrgans);
         viewModel.getPinnedState().observe(this, this::invalidatePinned);
         viewModel.getContributionsData().observe(this, this::invalidateContributions);
-        viewModel.getOrganizations().observe(this, users -> organizationAdapter.setData(users, true));
-        viewModel.getPinnedNodes().observe(this, nodes -> pinnedAdapter.setData(nodes, true));
 
+        // organizations
         binding.organizationList.setAdapter(organizationAdapter);
         ((GridManager) binding.organizationList.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources()
                 .getDimensionPixelSize(R.dimen.spacing_xs_large));
+        viewModel.getOrganizations().observe(this, users -> organizationAdapter.setData(users, true));
+        organizationAdapter.setItemClickListener((v, item) -> {
+            navigatorHelper.navigateUserProfile(item);
+        });
 
+        // pinned
         binding.pinnedList.setAdapter(pinnedAdapter);
         binding.pinnedList.addDivider();
+        viewModel.getPinnedNodes().observe(this, nodes -> pinnedAdapter.setData(nodes, true));
         pinnedAdapter.setItemClickListener( (v, node) -> {
             SchemeParser.launchUri(getContext(), node.url().toString());
         });

@@ -8,7 +8,8 @@
     android:layout_margin="@dimen/spacing_micro"
     android:orientation="vertical">
 
-    <com.duyp.architecture.mvvm.ui.widgets.AvatarLayout
+    <com.mikhaellopez.circularimageview.CircularImageView
+        style="@style/avatar_circle_large"
         android:id="@+id/avatarLayout"
         android:layout_width="@dimen/header_icon_zie"
         android:layout_height="@dimen/header_icon_zie"/>
