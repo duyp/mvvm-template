@@ -36,6 +36,10 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesF
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoListFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.search.RepoSearchFragment;
+import com.duyp.architecture.mvvm.ui.modules.search.RepoSearchFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.search.SearchActivity;
+import com.duyp.architecture.mvvm.ui.modules.search.SearchActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivity;
 import com.duyp.architecture.mvvm.ui.modules.splash.SplashActivityModule;
 
@@ -107,5 +111,11 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = CommitsFragmentModule.class)
     abstract CommitsFragment commitsFragment();
+
+    @ContributesAndroidInjector(modules = RepoSearchFragmentModule.class)
+    abstract RepoSearchFragment repoSearchFragment();
+
+    @ContributesAndroidInjector(modules = SearchActivityModule.class)
+    abstract SearchActivity searchActivity();
 
 }

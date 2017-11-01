@@ -161,6 +161,8 @@ dependencies {
     implementation 'com.jaredrummler:android-device-names:1.1.5'
     implementation 'org.jsoup:jsoup:1.10.3'
 
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
     // image plur
     compile 'jp.wasabeef:blurry:2.1.1'
 

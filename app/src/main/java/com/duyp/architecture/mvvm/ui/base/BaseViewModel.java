@@ -46,7 +46,7 @@ public abstract class BaseViewModel extends ViewModel {
     private boolean isFirstTimeUiCreate = true;
 
     @NonNull
-    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Getter
     @NonNull
@@ -90,6 +90,11 @@ public abstract class BaseViewModel extends ViewModel {
      */
     public void onDestroyView() {
         navigatorHelper = null;
+    }
+
+    public void disposeAllExecutions() {
+        mCompositeDisposable.dispose();
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @CallSuper

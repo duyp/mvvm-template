@@ -28,6 +28,7 @@ public class Repo extends RealmObject implements Parcelable {
     @SerializedName("name")
     @Expose
     String name;
+
     @SerializedName("full_name")
     @Expose
     String fullName;

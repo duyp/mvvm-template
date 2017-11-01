@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.ui.modules.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.databinding.ActivityMainBinding;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
+import com.duyp.architecture.mvvm.ui.modules.search.SearchActivity;
 
 import javax.inject.Inject;
 
@@ -75,8 +77,8 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
             if (binding.drawer != null) binding.drawer.openDrawer(GravityCompat.START);
             return true;
         } else if (item.getItemId() == R.id.search) {
-//            startActivity(new Intent(this, SearchActivity.class));
-//            return true;
+            startActivity(new Intent(this, SearchActivity.class));
+            return true;
         } else if (item.getItemId() == R.id.notifications) {
             AlertUtils.showToastLongMessage(this, "Notification feature will be implemented soon!");
 //            ViewHelper.tintDrawable(item.setIcon(R.drawable.ic_notifications_none).getIcon(), ViewHelper.getIconColor(this));

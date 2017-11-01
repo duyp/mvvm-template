@@ -39,8 +39,7 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
     @BindView(R.id.language) FontTextView language;
     @BindView(R.id.size) FontTextView size;
 
-    @Nullable @BindView(R.id.imvAvatar)
-    ImageView imvAvatar;
+    @Nullable @BindView(R.id.imvAvatar) public ImageView imvAvatar;
 
     @BindView(R.id.tvDes)
     FontTextView tvDes;

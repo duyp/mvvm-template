@@ -10,6 +10,7 @@ import com.duyp.architecture.mvvm.data.provider.ServiceFactory;
 import com.duyp.architecture.mvvm.data.remote.IssueService;
 import com.duyp.architecture.mvvm.data.remote.OrganizationService;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
+import com.duyp.architecture.mvvm.data.remote.SearchService;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.google.gson.Gson;
@@ -65,6 +66,12 @@ public class NetworkModule {
     @Singleton
     static OrganizationService organizationService(Gson gson, OkHttpClient okHttpClient) {
         return ServiceFactory.makeService(OrganizationService.class, gson, okHttpClient);
+    }
+
+    @Provides
+    @Singleton
+    static SearchService provideSearchService(Gson gson, OkHttpClient okHttpClient) {
+        return ServiceFactory.makeService(SearchService.class, gson, okHttpClient);
     }
 
     @Provides

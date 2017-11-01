@@ -19,6 +19,7 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerV
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
+import com.duyp.architecture.mvvm.ui.modules.search.RepoSearchViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -110,4 +111,9 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CommitsViewModel.class)
     abstract ViewModel provideCommitsViewModel(CommitsViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RepoSearchViewModel.class)
+    abstract ViewModel provideRepoSearchViewModel(RepoSearchViewModel viewModel);
 }
