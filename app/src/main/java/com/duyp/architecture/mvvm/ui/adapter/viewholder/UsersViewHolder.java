@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui.adapter;
+package com.duyp.architecture.mvvm.ui.adapter.viewholder;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
-import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 import butterknife.BindView;

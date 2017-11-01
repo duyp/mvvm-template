@@ -9,7 +9,7 @@ import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.databinding.RefreshRecyclerViewBinding;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseRecyclerViewFragment;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
-import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoAdapter;
+import com.duyp.architecture.mvvm.ui.adapter.RepoAdapter;
 import com.duyp.architecture.mvvm.utils.FragmentUtils;
 
 /**

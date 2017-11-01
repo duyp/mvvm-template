@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui.modules.repo.list;
+package com.duyp.architecture.mvvm.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
+import com.duyp.architecture.mvvm.ui.adapter.viewholder.ReposViewHolder;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 

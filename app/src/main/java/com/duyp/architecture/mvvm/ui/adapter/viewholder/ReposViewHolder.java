@@ -1,4 +1,4 @@
-package com.duyp.architecture.mvvm.ui.modules.repo.list;
+package com.duyp.architecture.mvvm.ui.adapter.viewholder;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;

@@ -11,6 +11,7 @@ import com.duyp.architecture.mvvm.data.model.FilterOptionsModel;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.repository.UserReposRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
+import com.duyp.architecture.mvvm.ui.adapter.RepoAdapter;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 
 import javax.inject.Inject;

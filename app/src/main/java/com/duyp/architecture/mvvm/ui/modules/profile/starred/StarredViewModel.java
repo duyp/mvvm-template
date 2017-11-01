@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.profile.starred;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,7 +12,7 @@ import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.remote.UserRestService;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileViewModel;
-import com.duyp.architecture.mvvm.ui.modules.repo.list.RepoAdapter;
+import com.duyp.architecture.mvvm.ui.adapter.RepoAdapter;
 import com.duyp.architecture.mvvm.utils.SafeMutableLiveData;
 
 import javax.inject.Inject;

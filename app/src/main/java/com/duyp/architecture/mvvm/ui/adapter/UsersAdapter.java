@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
+import com.duyp.architecture.mvvm.ui.adapter.viewholder.UsersViewHolder;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
