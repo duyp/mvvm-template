@@ -116,7 +116,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
 
     public void invalidateFollowBtn(@Nullable OverviewViewModel.FollowingState state) {
         if (binding.follow.followBtn.getVisibility() == VISIBLE) {
-            binding.follow.followBtn.setEnabled(state != OverviewViewModel.FollowingState.LOADING);
+            binding.follow.followBtn.setEnabled(state != null && state != OverviewViewModel.FollowingState.LOADING);
             binding.follow.followBtn.setActivated(state == OverviewViewModel.FollowingState.FOLLOWED);
 
             binding.follow.followBtn.setText(state == OverviewViewModel.FollowingState.FOLLOWED

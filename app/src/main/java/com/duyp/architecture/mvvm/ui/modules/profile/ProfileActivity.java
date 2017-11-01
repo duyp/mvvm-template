@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.duyp.androidutils.glide.GlideUtils;
 import com.duyp.architecture.mvvm.R;
@@ -61,7 +62,7 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
         if (user != null) {
 
             if (binding.viewPager.getAdapter() == null) {
-                new Handler(Looper.myLooper()).postDelayed(this::initPager, 500);
+                new Handler(Looper.myLooper()).postDelayed(this::initPager, 300);
             }
 
             binding.tvName.setText(user.getDisplayName());
@@ -99,7 +100,12 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
                 binding.viewPager.setCurrentItem(tab);
             }
         });
-        AnimHelper.animateVisibility(binding.pagerContent, true);
+//        AnimHelper.animateVisibility(binding.pagerContent, true, 500);
+        binding.pagerContent.animate()
+                .alpha(1.0f)
+                .setDuration(300)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
     }
 
     public static void startActivity(@NonNull Context context, @NonNull String login, boolean isOrg,

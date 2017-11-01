@@ -65,6 +65,8 @@
             android:drawableStart="@drawable/asl_follow"
             android:minWidth="150dp"
             android:text="@string/follow"
+            android:enabled="false"
+            tools:enabled="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/white"
             android:onClick="@{() -> vm.onFollowClick()}"

@@ -36,7 +36,7 @@ public class AnimHelper {
     private static final Interpolator LINEAR_OUT_SLOW_IN_INTERPOLATOR = new LinearOutSlowInInterpolator();
     private static final Interpolator interpolator = new LinearInterpolator();
 
-    @UiThread private static void animateVisibility(@Nullable final View view, final boolean show, int visibility) {
+    @UiThread private static void animateVisibility(@Nullable final View view, final boolean show, int visibility, int duration) {
         if (view == null) {
             return;
         }
@@ -44,22 +44,26 @@ public class AnimHelper {
             view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override public boolean onPreDraw() {
                     view.getViewTreeObserver().removeOnPreDrawListener(this);
-                    animateSafeVisibility(show, view, visibility);
+                    animateSafeVisibility(show, view, visibility, duration);
                     return true;
                 }
             });
         } else {
-            animateSafeVisibility(show, view, visibility);
+            animateSafeVisibility(show, view, visibility, duration);
         }
     }
 
-    @UiThread public static void animateVisibility(@Nullable final View view, final boolean show) {
-        animateVisibility(view, show, View.GONE);
+    @UiThread public static void animateVisibility(@Nullable final View view, final boolean show, int duration) {
+        animateVisibility(view, show, View.GONE, duration);
     }
 
-    @UiThread private static void animateSafeVisibility(final boolean show, @NonNull final View view, int visibility) {
+    @UiThread public static void animateVisibility(@Nullable final View view, final boolean show) {
+        animateVisibility(view, show, View.GONE, 200);
+    }
+
+    @UiThread private static void animateSafeVisibility(final boolean show, @NonNull final View view, int visibility, int duration) {
         view.animate().cancel();
-        ViewPropertyAnimator animator = view.animate().setDuration(200).alpha(show ? 1F : 0F).setInterpolator(new AccelerateInterpolator())
+        ViewPropertyAnimator animator = view.animate().setDuration(duration).alpha(show ? 1F : 0F).setInterpolator(new AccelerateInterpolator())
                 .setListener(new AnimatorListenerAdapter() {
                     @Override public void onAnimationStart(Animator animation) {
                         super.onAnimationStart(animation);
