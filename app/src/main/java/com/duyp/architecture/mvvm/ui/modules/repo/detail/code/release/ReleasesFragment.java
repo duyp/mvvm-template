@@ -32,6 +32,7 @@ public class ReleasesFragment extends BaseRecyclerViewFragment<RefreshRecyclerVi
         viewModel.getReleasesCount().observe(this, count -> {
 //            updateTabCount(3, count);
         });
+        setNoDataText("No releases");
     }
 
     @Override
