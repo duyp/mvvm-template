@@ -23,7 +23,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PullRequest extends RealmObject implements Parcelable {
-    @PrimaryKey
     long id;
     String url;
     String body;
