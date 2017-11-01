@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.duyp.androidutils.AlertUtils;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.databinding.ActivityMainBinding;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
@@ -77,6 +78,7 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
 //            startActivity(new Intent(this, SearchActivity.class));
 //            return true;
         } else if (item.getItemId() == R.id.notifications) {
+            AlertUtils.showToastLongMessage(this, "Notification feature will be implemented soon!");
 //            ViewHelper.tintDrawable(item.setIcon(R.drawable.ic_notifications_none).getIcon(), ViewHelper.getIconColor(this));
 //            startActivity(new Intent(this, NotificationActivity.class));
 //            return true;
@@ -86,6 +88,9 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
 
     @Override
     public void onMenuItemSelect(int id, int position, boolean fromUser) {
+        if (position > 1) {
+            AlertUtils.showToastLongMessage(this, "Coming soon...");
+        }
         if (fromUser) {
             binding.pager.setCurrentItem(position);
         }

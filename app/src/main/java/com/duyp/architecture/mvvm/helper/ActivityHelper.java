@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -42,21 +43,21 @@ public class ActivityHelper {
     }
 
     public static void startCustomTab(@NonNull Activity context, @NonNull Uri url) {
-//        String packageNameToUse = CustomTabsHelper.getPackageNameToUse(context);
-//        if (packageNameToUse != null) {
-//            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-//                    .setToolbarColor(ViewHelper.getPrimaryColor(context))
-//                    .setShowTitle(true)
-//                    .build();
-//            customTabsIntent.intent.setPackage(packageNameToUse);
-//            try {
-//                customTabsIntent.launchUrl(context, url);
-//            } catch (ActivityNotFoundException ignored) {
-//                openChooser(context, url, true);
-//            }
-//        } else {
-//            openChooser(context, url, true);
-//        }
+        String packageNameToUse = CustomTabsHelper.getPackageNameToUse(context);
+        if (packageNameToUse != null) {
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                    .setToolbarColor(ViewHelper.getPrimaryColor(context))
+                    .setShowTitle(true)
+                    .build();
+            customTabsIntent.intent.setPackage(packageNameToUse);
+            try {
+                customTabsIntent.launchUrl(context, url);
+            } catch (ActivityNotFoundException ignored) {
+                openChooser(context, url, true);
+            }
+        } else {
+            openChooser(context, url, true);
+        }
     }
 
     public static void startCustomTab(@NonNull Activity context, @NonNull String url) {

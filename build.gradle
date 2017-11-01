@@ -78,6 +78,7 @@ ext {
             supportCardView         : "com.android.support:cardview-v7:${supportVersion}",
             supportTransition       : "com.android.support:transition:${supportVersion}",
             supportPreference       : "com.android.support:preference-v14:${supportVersion}",
+            supportCustomTab        : "com.android.support:customtabs:${supportVersion}",
 
             // rx
             rxAndroid               : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",

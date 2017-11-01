@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import com.duyp.androidutils.AlertUtils;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.Event;
 import com.duyp.architecture.mvvm.data.model.EventRepo;
@@ -74,46 +76,54 @@ public class FeedViewModel extends BaseListDataViewModel<Event, FeedAdapter>{
 
     @Override
     public void onItemClick(View v, Event item) {
+
         if (item.getType().equals(EventType.ForkEvent)) {
             NameParser parser = new NameParser(item.getPayload().getForkee().getHtmlUrl());
             RepoDetailActivity.startRepoDetailActivity(v.getContext(), parser);
         } else {
-            PayloadModel payloadModel = item.getPayload();
-            if (payloadModel != null) {
-                if (payloadModel.getHead() != null) {
-                    if (payloadModel.getCommits() != null && payloadModel.getCommits().size() > 1) {
-//                        sendToView(view -> view.onOpenCommitChooser(payloadModel.getCommits()));
-                    } else {
-//                        EventRepo repoModel = item.getRepo();
-//                        NameParser nameParser = new NameParser(repoModel.getUrl());
-//                        Intent intent = CommitPagerActivity.createIntent(v.getContext(), nameParser.getName(),
-//                                nameParser.getUsername(), payloadModel.getHead(), true,
-//                                LinkParserHelper.isEnterprise(repoModel.getUrl()));
-//                        v.getContext().startActivity(intent);
-                    }
-                } else if (payloadModel.getIssue() != null) {
-                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getIssue().getHtmlUrl()), true);
-                } else if (payloadModel.getPullRequest() != null) {
-                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getPullRequest().getHtmlUrl()), true);
-                } else if (payloadModel.getComment() != null) {
-                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getComment().getHtmlUrl()), true);
-                } else if (item.getType().equals(EventType.ReleaseEvent) && payloadModel.getRelease() != null) {
-                    NameParser nameParser = new NameParser(payloadModel.getRelease().getHtmlUrl());
-//                    v.getContext().startActivity(ReleasesListActivity.getIntent(v.getContext(), nameParser.getUsername(), nameParser.getName(),
-//                            payloadModel.getRelease().getId(), LinkParserHelper.isEnterprise(payloadModel.getRelease().getHtmlUrl())));
-
-                } else if (item.getType().equals(EventType.CreateEvent) && "tag".equalsIgnoreCase(payloadModel.getRefType())) {
-                    EventRepo repoModel = item.getRepo();
-                    NameParser nameParser = new NameParser(repoModel.getUrl());
-//                    v.getContext().startActivity(ReleasesListActivity.getIntent(v.getContext(), nameParser.getUsername(), nameParser.getName(),
-//                            payloadModel.getRef(), LinkParserHelper.isEnterprise(repoModel.getUrl())));
-                } else {
-                    EventRepo repoModel = item.getRepo();
-                    NameParser parser = new NameParser(repoModel.getUrl());
-                    RepoDetailActivity.startRepoDetailActivity(v.getContext(), parser);
-                }
+            if (item.getRepo() != null) {
+                NameParser parser = new NameParser(item.getRepo().getUrl());
+                RepoDetailActivity.startRepoDetailActivity(v.getContext(), parser);
+            } else {
+                AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
             }
         }
+//            PayloadModel payloadModel = item.getPayload();
+//            if (payloadModel != null) {
+//                if (payloadModel.getHead() != null) {
+//                    if (payloadModel.getCommits() != null && payloadModel.getCommits().size() > 1) {
+////                        sendToView(view -> view.onOpenCommitChooser(payloadModel.getCommits()));
+//                    } else {
+////                        EventRepo repoModel = item.getRepo();
+////                        NameParser nameParser = new NameParser(repoModel.getUrl());
+////                        Intent intent = CommitPagerActivity.createIntent(v.getContext(), nameParser.getName(),
+////                                nameParser.getUsername(), payloadModel.getHead(), true,
+////                                LinkParserHelper.isEnterprise(repoModel.getUrl()));
+////                        v.getContext().startActivity(intent);
+//                    }
+//                } else if (payloadModel.getIssue() != null) {
+//                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getIssue().getHtmlUrl()), true);
+//                } else if (payloadModel.getPullRequest() != null) {
+//                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getPullRequest().getHtmlUrl()), true);
+//                } else if (payloadModel.getComment() != null) {
+//                    SchemeParser.launchUri(v.getContext(), Uri.parse(payloadModel.getComment().getHtmlUrl()), true);
+//                } else if (item.getType().equals(EventType.ReleaseEvent) && payloadModel.getRelease() != null) {
+//                    NameParser nameParser = new NameParser(payloadModel.getRelease().getHtmlUrl());
+////                    v.getContext().startActivity(ReleasesListActivity.getIntent(v.getContext(), nameParser.getUsername(), nameParser.getName(),
+////                            payloadModel.getRelease().getId(), LinkParserHelper.isEnterprise(payloadModel.getRelease().getHtmlUrl())));
+//
+//                } else if (item.getType().equals(EventType.CreateEvent) && "tag".equalsIgnoreCase(payloadModel.getRefType())) {
+//                    EventRepo repoModel = item.getRepo();
+//                    NameParser nameParser = new NameParser(repoModel.getUrl());
+////                    v.getContext().startActivity(ReleasesListActivity.getIntent(v.getContext(), nameParser.getUsername(), nameParser.getName(),
+////                            payloadModel.getRef(), LinkParserHelper.isEnterprise(repoModel.getUrl())));
+//                } else {
+//                    EventRepo repoModel = item.getRepo();
+//                    NameParser parser = new NameParser(repoModel.getUrl());
+//                    RepoDetailActivity.startRepoDetailActivity(v.getContext(), parser);
+//                }
+//            }
+//        }
     }
 
     @Override

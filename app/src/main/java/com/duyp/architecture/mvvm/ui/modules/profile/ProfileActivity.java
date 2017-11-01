@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.duyp.androidutils.glide.GlideUtils;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.UserDetail;
 import com.duyp.architecture.mvvm.databinding.ActivityProfileUserBinding;
+import com.duyp.architecture.mvvm.helper.AnimHelper;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.helper.Bundler;
 import com.duyp.architecture.mvvm.helper.InputHelper;
@@ -52,8 +55,33 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.getUser().observe(this, this::onUserUpdated);
-        adapter.initUser(viewModel.getUserLogin());
+    }
 
+    public void onUserUpdated(@Nullable UserDetail user) {
+        if (user != null) {
+
+            if (binding.viewPager.getAdapter() == null) {
+                new Handler(Looper.myLooper()).postDelayed(this::initPager, 500);
+            }
+
+            binding.tvName.setText(user.getDisplayName());
+            binding.tvLink.setText(user.getHtmlUrl());
+
+            if (InputHelper.isEmpty(user.getBio())) {
+                binding.tvBio.setVisibility(View.GONE);
+            } else {
+                binding.tvBio.setVisibility(View.VISIBLE);
+                binding.tvBio.setText(user.getBio());
+            }
+            GlideUtils.loadImageBitmap(this, user.getAvatarUrl(), bitmap -> {
+                binding.imvAvatar.setImageBitmap(bitmap);
+                Blurry.with(this).radius(25).from(bitmap).into(binding.imvBackground);
+            });
+        }
+    }
+
+    private void initPager() {
+        adapter.initUser(viewModel.getUserLogin());
         binding.viewPager.setAdapter(adapter);
         binding.tab.setupWithViewPager(binding.viewPager);
         viewModel.getStaredCount().observe(this, starredCount -> {
@@ -71,24 +99,7 @@ public class ProfileActivity extends BaseViewModelActivity<ActivityProfileUserBi
                 binding.viewPager.setCurrentItem(tab);
             }
         });
-    }
-
-    public void onUserUpdated(@Nullable UserDetail user) {
-        if (user != null) {
-            binding.tvName.setText(user.getDisplayName());
-            binding.tvLink.setText(user.getHtmlUrl());
-
-            if (InputHelper.isEmpty(user.getBio())) {
-                binding.tvBio.setVisibility(View.GONE);
-            } else {
-                binding.tvBio.setVisibility(View.VISIBLE);
-                binding.tvBio.setText(user.getBio());
-            }
-            GlideUtils.loadImageBitmap(this, user.getAvatarUrl(), bitmap -> {
-                binding.imvAvatar.setImageBitmap(bitmap);
-                Blurry.with(this).radius(25).from(bitmap).into(binding.imvBackground);
-            });
-        }
+        AnimHelper.animateVisibility(binding.pagerContent, true);
     }
 
     public static void startActivity(@NonNull Context context, @NonNull String login, boolean isOrg,

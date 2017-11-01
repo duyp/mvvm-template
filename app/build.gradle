@@ -91,6 +91,7 @@ dependencies {
     implementation libs.supportCardView
     implementation libs.supportTransition
     implementation libs.supportPreference
+    implementation libs.supportCustomTab
 
     // dagger
     implementation libs.dagger

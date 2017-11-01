@@ -144,7 +144,7 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
                 return true;
             } else if (item.getItemId() == R.id.originalRepo) {
                 if (repoModel.getParent() != null) {
-//                    SchemeParser.launchUri(this, repoModel.getParent().getHtmlUrl());
+                    SchemeParser.launchUri(this, repoModel.getParent().getHtmlUrl());
                 }
                 return true;
             } else if (item.getItemId() == R.id.deleteRepo) {

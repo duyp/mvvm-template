@@ -66,6 +66,9 @@ public class MainDrawerHolder {
                     userManager.logout();
                     navigatorHelper.navigateLoginActivity(true);
                     break;
+                default:
+                    AlertUtils.showToastLongMessage(context, "Comming soon!");
+                    break;
             }
             drawer.closeDrawer(GravityCompat.START);
             return true;
