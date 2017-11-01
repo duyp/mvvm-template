@@ -41,7 +41,7 @@ public abstract class BaseRecyclerViewFragment<
     private boolean isRefreshing;
 
     @Inject
-    A adapter;
+    protected A adapter;
 
     @Inject
     OnLoadMore onLoadMore;
@@ -142,6 +142,10 @@ public abstract class BaseRecyclerViewFragment<
         if (refreshLayout != null) {
             refreshLayout.setRefreshing(true);
         }
+    }
+
+    protected void setNoDataText(String text) {
+        stateLayout.setEmptyText(text);
     }
 
     @Override

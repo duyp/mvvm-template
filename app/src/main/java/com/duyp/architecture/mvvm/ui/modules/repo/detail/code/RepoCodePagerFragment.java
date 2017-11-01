@@ -15,7 +15,11 @@ import com.duyp.architecture.mvvm.injection.Injectable;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseFragment;
 import com.duyp.architecture.mvvm.ui.base.interfaces.TabBadgeListener;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
+
+import static com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerAdapter.TITLES;
 
 /**
  * Created by duypham on 10/30/17.
@@ -73,6 +77,15 @@ public class RepoCodePagerFragment extends BaseFragment<TabbedViewpagerBinding> 
 
     @Override
     public void setBadge(int index, int count) {
-        // TODO: 10/30/17 update badge count
+        if (binding.tabs.getTabCount() > index) {
+            TabLayout.Tab tab = binding.tabs.getTabAt(index);
+            if (tab != null) {
+                if (count > 0) {
+                    tab.setText(String.format(Locale.ENGLISH, "%s (%d)", getString(TITLES[index]), count));
+                } else {
+                    tab.setText(getString(TITLES[index]));
+                }
+            }
+        }
     }
 }

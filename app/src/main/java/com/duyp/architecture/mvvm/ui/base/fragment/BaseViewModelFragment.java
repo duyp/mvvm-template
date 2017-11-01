@@ -34,7 +34,7 @@ public abstract class BaseViewModelFragment<B extends ViewDataBinding, VM extend
     implements Injectable {
 
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    protected ViewModelProvider.Factory viewModelFactory;
 
 //    @Inject
     protected VM viewModel;

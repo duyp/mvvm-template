@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 
 import com.duyp.androidutils.AlertUtils;
 import com.duyp.androidutils.realm.LiveRealmObject;
@@ -59,6 +60,8 @@ public class RepoDetailViewModel extends BaseViewModel{
     @Getter private final MutableLiveData<Boolean> folkStatus = new MutableLiveData<>();
     @Getter private final MutableLiveData<List<String>> topics = new MutableLiveData<>();
 
+    @Getter private final MutableLiveData<Integer> commitCount = new MutableLiveData<>();
+
     private final RepoService repoService;
 
     @Inject
@@ -68,7 +71,7 @@ public class RepoDetailViewModel extends BaseViewModel{
         this.repoDetailRepo = repo;
         watchStatus.setValue(null);
         starStatus.setValue(null);
-        folkStatus.setValue(null);
+        folkStatus.setValue(false);
     }
 
     @Override
@@ -179,6 +182,10 @@ public class RepoDetailViewModel extends BaseViewModel{
 
     public void wikiClick() {
         AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
+    }
+
+    @UiThread public void updateCommitCount(int count) {
+        commitCount.setValue(count);
     }
 
     @Nullable

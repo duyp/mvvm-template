@@ -31,6 +31,7 @@ public class RepoIssuesFragment extends BaseRecyclerViewFragment<RefreshRecycler
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView.addKeyLineDivider();
+        setNoDataText("No Issues");
     }
 
     @Override

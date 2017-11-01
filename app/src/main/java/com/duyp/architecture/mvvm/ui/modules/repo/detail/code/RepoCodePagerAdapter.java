@@ -11,7 +11,9 @@ import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.injection.qualifier.ChildFragmentManager;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesFragment;
 
 import javax.inject.Inject;
 
@@ -21,6 +23,8 @@ import javax.inject.Inject;
  */
 
 public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
+
+    public static final int TITLES[] = new int[] {R.string.readme, R.string.contributors, R.string.releases};
 
     private final Context context;
     private String repoId;
@@ -48,21 +52,21 @@ public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return ViewerFragment.newInstance(url, htmlUrl, true);
+            case 1:
+                return new ContributorsFragment();
+            case 2:
+                return new ReleasesFragment();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return context.getString(R.string.readme);
-            default: return "";
-        }
+        return context.getString(TITLES[position]);
     }
 }

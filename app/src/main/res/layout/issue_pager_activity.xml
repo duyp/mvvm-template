@@ -68,7 +68,15 @@
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/scroll_behavior"/>
+                app:layout_behavior="@string/scroll_behavior">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_huge"
+                    android:gravity="center"
+                    android:text="Coming soon..."/>
+            </FrameLayout>
 
             <include layout="@layout/review_changes_bottom_layout"/>
 

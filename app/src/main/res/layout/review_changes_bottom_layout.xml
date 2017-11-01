@@ -11,7 +11,7 @@
     android:layout_marginStart="@dimen/fab_margin"
     android:layout_marginTop="@dimen/fab_margin"
     android:focusable="true"
-    android:visibility="gone"
+    android:visibility="visible"
     app:cardBackgroundColor="?colorAccent"
     app:contentPadding="@dimen/spacing_normal"
     app:layout_anchor="@+id/container"

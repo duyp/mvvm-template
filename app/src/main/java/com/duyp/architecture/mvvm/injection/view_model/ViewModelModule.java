@@ -13,7 +13,9 @@ import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingV
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.list.UserReposViewModel;
 
@@ -89,6 +91,16 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(IssueDetailViewModel.class)
     abstract ViewModel provideIssueDetailViewModel(IssueDetailViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ContributorsViewModel.class)
+    abstract ViewModel provideContributorsViewModel(ContributorsViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ReleasesViewModel.class)
+    abstract ViewModel provideReleasesViewModel(ReleasesViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
