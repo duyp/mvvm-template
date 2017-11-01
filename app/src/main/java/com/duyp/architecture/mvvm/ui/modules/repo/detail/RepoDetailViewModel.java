@@ -7,8 +7,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 
+import com.duyp.androidutils.AlertUtils;
 import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.androidutils.rx.Rx;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.RealmString;
 import com.duyp.architecture.mvvm.data.model.Repo;
@@ -168,11 +170,15 @@ public class RepoDetailViewModel extends BaseViewModel{
     }
 
     public void forkRepoClick() {
-
+        AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
     }
 
     public void pinRepoClick() {
+        AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
+    }
 
+    public void wikiClick() {
+        AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
     }
 
     @Nullable

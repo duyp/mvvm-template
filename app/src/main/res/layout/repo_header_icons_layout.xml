@@ -113,7 +113,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:onClick="@{() -> vm.wikiClick()}"
+                android:visibility="visible">
 
                 <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
                     android:layout_width="wrap_content"
