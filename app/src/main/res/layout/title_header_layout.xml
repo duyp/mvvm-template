@@ -23,7 +23,7 @@
             android:layout_marginEnd="@dimen/spacing_micro"
             android:orientation="horizontal">
 
-            <com.duyp.architecture.mvvm.ui.widgets.AvatarLayout
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/avatarLayout"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

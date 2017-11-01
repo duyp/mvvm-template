@@ -1,15 +1,11 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.SimpleAdapter;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
@@ -63,19 +59,26 @@ public class CommitsFragment extends BaseRecyclerViewFragment<CommitWithBranchLa
                         if (!list.isEmpty()) {
                             branchesAdapter.clear();
                             branchesAdapter.addAll(list);
+
                             int index = list.indexOf(viewModel.getCurrentBranch());
 
-                            binding.branches.setSelection(index);
+                            if (index >= 0) {
+                                binding.branches.setSelection(index);
+                            } else {
+                                branchesAdapter.insert(viewModel.getCurrentBranch(), 0);
+                                binding.branches.setSelection(0);
+                            }
                         }
                     } else {
                         branchesAdapter.clear();
                         branchesAdapter.add(viewModel.getCurrentBranch());
+                        binding.branches.setSelection(0);
                     }
                 });
             }
         });
 
-        viewModel.getCommitsCount().observe(this, count -> updateTabCount(1, count));
+        viewModel.getCommitsCount().observe(this, count -> updateTabCount(2, count));
     }
 
     @Override

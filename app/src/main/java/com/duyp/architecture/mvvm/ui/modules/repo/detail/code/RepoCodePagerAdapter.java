@@ -13,6 +13,7 @@ import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.injection.qualifier.ChildFragmentManager;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesFragment;
 
@@ -25,7 +26,7 @@ import javax.inject.Inject;
 
 public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
 
-    public static final int TITLES[] = new int[] {R.string.readme, R.string.commits, R.string.contributors, R.string.releases};
+    public static final int TITLES[] = new int[] {R.string.readme, R.string.files, R.string.commits, R.string.contributors, R.string.releases};
 
     private final Context context;
     private String repoId;
@@ -54,10 +55,12 @@ public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return ViewerFragment.newInstance(url, htmlUrl, true);
             case 1:
-                return new CommitsFragment();
+                return new RepoFilesFragment();
             case 2:
-                return new ContributorsFragment();
+                return new CommitsFragment();
             case 3:
+                return new ContributorsFragment();
+            case 4:
                 return new ReleasesFragment();
         }
         return null;
@@ -65,7 +68,7 @@ public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override

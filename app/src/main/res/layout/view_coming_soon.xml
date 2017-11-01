@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <com.duyp.architecture.mvvm.ui.widgets.FontTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/spacing_huge"
+        android:text="Coming soon....">
+
+    </com.duyp.architecture.mvvm.ui.widgets.FontTextView>
+</layout>

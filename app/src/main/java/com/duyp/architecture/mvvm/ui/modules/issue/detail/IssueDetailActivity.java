@@ -238,7 +238,7 @@ public class IssueDetailActivity extends BaseViewModelActivity<IssuePagerActivit
                     .append(getString(R.string.by)).append(" ")
                     .bold(username).append(" ")
                     .append(parsedDate));
-            binding.header.avatarLayout.bindData(avatarLoader, userModel);
+            avatarLoader.loadImage(userModel.getAvatarUrl(), binding.header.avatarLayout);
         }
     }
 

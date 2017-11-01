@@ -15,6 +15,7 @@ import android.view.View;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.LicenseModel;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.provider.color.ColorsProvider;
 import com.duyp.architecture.mvvm.data.provider.scheme.SchemeParser;
 import com.duyp.architecture.mvvm.databinding.ActivityRepoDetailBinding;
@@ -31,6 +32,7 @@ import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
 import com.duyp.architecture.mvvm.ui.adapter.TopicsAdapter;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
+import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;
 
@@ -57,6 +59,9 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
     @Inject
     RepoDetailFragmentManager repoDetailFragmentManager;
+
+    @Inject
+    NavigatorHelper navigatorHelper;
 
     private RepoHeaderIconsLayoutBinding headerIconBinding;
     private TitleHeaderLayoutBinding headerInfo;
@@ -185,9 +190,9 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         }
 
         if (repoModel.getOwner() != null) {
-            headerInfo.avatarLayout.bindData(glideLoader, repoModel.getOwner());
+            populateUserAvatar(repoModel.getOwner());
         } else if (repoModel.getOrganization() != null) {
-            headerInfo.avatarLayout.bindData(glideLoader, repoModel.getOrganization());
+            populateUserAvatar(repoModel.getOrganization());
         }
 
         headerInfo.description.setText(repoModel.getDescription());
@@ -220,6 +225,13 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
 
         supportInvalidateOptionsMenu();
         if (!PrefGetter.isRepoGuideShowed()) {}
+    }
+
+    public void populateUserAvatar(@NonNull User user) {
+        glideLoader.loadImage(user.getAvatarUrl(), headerInfo.avatarLayout);
+        if (!headerInfo.avatarLayout.hasOnClickListeners()) {
+            headerInfo.avatarLayout.setOnClickListener(v -> navigatorHelper.navigateUserProfile(user));
+        }
     }
 
     public void invalidateWatched(Boolean b, @Nullable RepoDetail repoModel) {
