@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.detail;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,27 +12,23 @@ import com.duyp.androidutils.realm.LiveRealmObject;
 import com.duyp.androidutils.rx.Rx;
 import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
+import com.duyp.architecture.mvvm.data.model.BranchesModel;
 import com.duyp.architecture.mvvm.data.model.RealmString;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.repository.RepoDetailRepo;
-import com.duyp.architecture.mvvm.data.source.State;
-import com.duyp.architecture.mvvm.data.source.Status;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
-import com.duyp.architecture.mvvm.ui.adapter.TopicsAdapter;
 import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import retrofit2.Response;
 
 /**
  * Created by duypham on 10/29/17.
@@ -60,7 +55,7 @@ public class RepoDetailViewModel extends BaseViewModel{
     @Getter private final MutableLiveData<Boolean> folkStatus = new MutableLiveData<>();
     @Getter private final MutableLiveData<List<String>> topics = new MutableLiveData<>();
 
-    @Getter private final MutableLiveData<Integer> commitCount = new MutableLiveData<>();
+    @Getter private final MutableLiveData<List<BranchesModel>> branchesData = new MutableLiveData<>();
 
     private final RepoService repoService;
 
@@ -102,6 +97,7 @@ public class RepoDetailViewModel extends BaseViewModel{
         new Handler(Looper.myLooper()).postDelayed(() -> {
             checkStarred();
             checkWatched();
+            getBranches(1);
         }, 100);
     }
 
@@ -136,6 +132,25 @@ public class RepoDetailViewModel extends BaseViewModel{
         }, errorEntity -> {
             starStatus.setValue(false);
         });
+    }
+
+    public void getBranches(int page) {
+        execute(false, false, repoService.getBranches(owner, repoName, page), branches -> {
+            if (branchesData.getValue() == null) {
+                branchesData.setValue(new ArrayList<>());
+            }
+            List<BranchesModel> list = branchesData.getValue();
+            if (page == 1) {
+                // noinspection ConstantConditions
+                list.clear();
+            }
+            // noinspection ConstantConditions
+            list.addAll(branches.getItems());
+            branchesData.setValue(list);
+            if (branches.getLast() > page) {
+                getBranches(page + 1);
+            }
+        }, errorEntity -> {});
     }
 
     public void starRepoClick() {
@@ -182,10 +197,6 @@ public class RepoDetailViewModel extends BaseViewModel{
 
     public void wikiClick() {
         AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
-    }
-
-    @UiThread public void updateCommitCount(int count) {
-        commitCount.setValue(count);
     }
 
     @Nullable

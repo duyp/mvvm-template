@@ -15,8 +15,6 @@ import com.duyp.architecture.mvvm.data.provider.color.ColorsProvider;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
-import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
-import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.LabelSpan;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;

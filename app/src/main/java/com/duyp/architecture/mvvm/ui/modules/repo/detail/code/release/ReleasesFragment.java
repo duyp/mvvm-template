@@ -3,13 +3,11 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.data.model.Release;
 import com.duyp.architecture.mvvm.databinding.RefreshRecyclerViewBinding;
 import com.duyp.architecture.mvvm.ui.base.fragment.BaseRecyclerViewFragment;
-import com.duyp.architecture.mvvm.ui.base.interfaces.TabBadgeListener;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
 
 /**
@@ -32,11 +30,7 @@ public class ReleasesFragment extends BaseRecyclerViewFragment<RefreshRecyclerVi
             }
         });
         viewModel.getReleasesCount().observe(this, count -> {
-            int n = count != null ? count : 0;
-            Fragment fragment = getParentFragment();
-            if (fragment != null && fragment instanceof TabBadgeListener) {
-//                ((TabBadgeListener) fragment).setBadge(2, n);
-            }
+//            updateTabCount(3, count);
         });
     }
 

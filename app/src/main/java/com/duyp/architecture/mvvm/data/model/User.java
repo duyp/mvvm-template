@@ -115,6 +115,9 @@ public class User extends RealmObject implements Parcelable {
     @SerializedName("updated_at")
     @Expose
     public Date updatedAt;
+
+    public Date date;
+
     @SerializedName("private_gists")
     @Expose
     public long privateGists;

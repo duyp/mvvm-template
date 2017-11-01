@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
-import com.duyp.architecture.mvvm.data.model.RepoDetail;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.ui.adapter.UsersAdapter;

@@ -2,9 +2,7 @@ package com.duyp.architecture.mvvm.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -12,11 +10,16 @@ import java.util.ArrayList;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+/**
+ * Created by Kosh on 08 Dec 2016, 8:59 PM
+ */
 
 @Getter
 @Setter
-public class Commit extends RealmObject implements Parcelable {
+public class GitCommitModel extends RealmObject implements Parcelable {
 
     public String sha;
     public String url;
@@ -25,19 +28,18 @@ public class Commit extends RealmObject implements Parcelable {
     public User committer;
     public User tree;
     public @SerializedName("distinct") boolean distincted;
-    public RealmList<Commit> parents;
+    public RealmList<GitCommitModel> parents;
     public int commentCount;
-    String ref;
 
-    @SerializedName("commit")
-    GitCommitModel gitCommit;
+    public GitCommitModel() {}
 
-    @Nullable
-    public User getUser() {
-        return author != null ? author : gitCommit.getAuthor();
-    }
-
-    public Commit() {
+    @Override public String toString() {
+	if (message != null) {
+            return (sha != null && sha.length() > 7 ? sha.substring(0, 7) + " - " : "") + message.split(System.lineSeparator())[0];
+        } else if (sha != null && sha.length() > 10) {
+            return sha.substring(0, 10);
+        }
+        return "N/A";
     }
 
     @Override
@@ -56,11 +58,9 @@ public class Commit extends RealmObject implements Parcelable {
         dest.writeByte(this.distincted ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.parents);
         dest.writeInt(this.commentCount);
-        dest.writeString(this.ref);
-        dest.writeParcelable(this.gitCommit, flags);
     }
 
-    protected Commit(Parcel in) {
+    protected GitCommitModel(Parcel in) {
         this.sha = in.readString();
         this.url = in.readString();
         this.message = in.readString();
@@ -70,25 +70,23 @@ public class Commit extends RealmObject implements Parcelable {
         this.distincted = in.readByte() != 0;
 
         this.parents = new RealmList<>();
-        ArrayList<Commit> list = in.createTypedArrayList(Commit.CREATOR);
+        ArrayList<GitCommitModel> list = in.createTypedArrayList(GitCommitModel.CREATOR);
         if (list != null && list.size() > 0) {
             parents.addAll(list);
         }
 
         this.commentCount = in.readInt();
-        this.ref = in.readString();
-        this.gitCommit = in.readParcelable(GitCommitModel.class.getClassLoader());
     }
 
-    public static final Creator<Commit> CREATOR = new Creator<Commit>() {
+    public static final Creator<GitCommitModel> CREATOR = new Creator<GitCommitModel>() {
         @Override
-        public Commit createFromParcel(Parcel source) {
-            return new Commit(source);
+        public GitCommitModel createFromParcel(Parcel source) {
+            return new GitCommitModel(source);
         }
 
         @Override
-        public Commit[] newArray(int size) {
-            return new Commit[size];
+        public GitCommitModel[] newArray(int size) {
+            return new GitCommitModel[size];
         }
     };
 }

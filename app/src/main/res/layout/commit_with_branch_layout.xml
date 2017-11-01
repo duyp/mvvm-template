@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base5"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_micro"
+            android:paddingStart="@dimen/spacing_xs_large"
+            android:paddingTop="@dimen/spacing_micro"
+            android:background="@drawable/bg_corner_border_solid_white"
+            tools:ignore="RtlSymmetry">
+
+            <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_xs_large"
+                android:contentDescription="@string/switch_branch"
+                android:padding="@dimen/spacing_micro"
+                android:src="@drawable/ic_branch"/>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/branches"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="Escargot combines greatly with minced sausages."/>
+
+        </LinearLayout>
+
+        <include layout="@layout/refresh_recycler_view" />
+
+    </LinearLayout>
+</layout>

@@ -3,7 +3,6 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;

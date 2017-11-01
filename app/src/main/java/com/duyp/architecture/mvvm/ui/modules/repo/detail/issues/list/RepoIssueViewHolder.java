@@ -18,7 +18,6 @@ import com.duyp.architecture.mvvm.data.model.PullsIssuesParser;
 import com.duyp.architecture.mvvm.data.model.type.IssueState;
 import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
-import com.duyp.architecture.mvvm.ui.widgets.AvatarLayout;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
 import com.duyp.architecture.mvvm.utils.AvatarLoader;

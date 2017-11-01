@@ -13,6 +13,7 @@ import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingV
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesViewModel;
@@ -25,6 +26,9 @@ import dagger.multibindings.IntoMap;
 
 @Module
 public abstract class ViewModelModule {
+
+    @Binds
+    abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
 
     @Binds
     @IntoMap
@@ -103,5 +107,7 @@ public abstract class ViewModelModule {
     abstract ViewModel provideReleasesViewModel(ReleasesViewModel viewModel);
 
     @Binds
-    abstract ViewModelProvider.Factory bindViewModelFactory(GithubViewModelFactory factory);
+    @IntoMap
+    @ViewModelKey(CommitsViewModel.class)
+    abstract ViewModel provideCommitsViewModel(CommitsViewModel viewModel);
 }

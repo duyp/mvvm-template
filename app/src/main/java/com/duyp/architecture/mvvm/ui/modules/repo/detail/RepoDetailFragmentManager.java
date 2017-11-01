@@ -4,9 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
-import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
-import com.duyp.architecture.mvvm.helper.AppHelper;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityFragmentManager;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.RepoIssuesPagerFragment;
@@ -14,13 +12,14 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.project.RepoProjectsPag
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.pullrequest.RepoPullRequestPagerFragment;
 import com.duyp.architecture.mvvm.ui.navigator.BaseFragmentManager;
 
-import static com.duyp.architecture.mvvm.helper.ActivityHelper.getVisibleFragment;
-import static com.duyp.architecture.mvvm.ui.modules.repo.detail.Tab.*;
-
 import javax.inject.Inject;
 
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import lombok.Getter;
+
+import static com.duyp.architecture.mvvm.helper.ActivityHelper.getVisibleFragment;
+import static com.duyp.architecture.mvvm.ui.modules.repo.detail.Tab.CODE;
+import static com.duyp.architecture.mvvm.ui.modules.repo.detail.Tab.ISSUES;
 
 /**
  * Created by duypham on 10/30/17.

@@ -22,6 +22,8 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivity;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivityModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.RepoCodePagerFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
@@ -102,5 +104,8 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = ReleasesFragmentModule.class)
     abstract ReleasesFragment releasesFragment();
+
+    @ContributesAndroidInjector(modules = CommitsFragmentModule.class)
+    abstract CommitsFragment commitsFragment();
 
 }

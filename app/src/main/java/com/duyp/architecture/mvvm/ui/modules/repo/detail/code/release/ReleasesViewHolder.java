@@ -1,7 +1,6 @@
 package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,9 +12,9 @@ import com.duyp.architecture.mvvm.helper.ParseDateFormat;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseViewHolder;
 import com.duyp.architecture.mvvm.ui.widgets.FontTextView;
 import com.duyp.architecture.mvvm.ui.widgets.SpannableBuilder;
+
 import butterknife.BindString;
 import butterknife.BindView;
-import lombok.Setter;
 
 /**
  * Created by Kosh on 11 Nov 2016, 2:08 PM
