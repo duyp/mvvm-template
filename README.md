@@ -7,7 +7,7 @@ This project demonstrates how to use [Android Architecture Components][1] (Viewm
 
 I used [official Github Rest API][4] to develop a Github Application on Android with a lot of features like github webpage.
 
-This project focuses on android application architecture, so, to faster my work, I used some resources and helper classes of [Fasthub][5] open source project, but the architecture is definitely different (he used MVP design pattern and SQLite database). Thanks [k0shk0sh][6] so much for his amazing app!
+This project focuses on android application architecture, so, to faster my work, I used some resources and helper classes of [Fasthub][5] open source project, but the architecture is definitely different (he used MVP design pattern and SQLite database). Thank [k0shk0sh][6] so much for his amazing app!
 
 Sample app:
 
