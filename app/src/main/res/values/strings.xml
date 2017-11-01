@@ -2,8 +2,8 @@
            tools:ignore="MissingTranslation">
     <!-- DO NOT COPY!  -->
 
-    <string name="app_name" translatable="false">Git Client</string>
-    <string name="app_name_full" translatable="false">FastHub for Android</string>
+    <string name="app_name" translatable="false">GitHub</string>
+    <string name="app_name_full" translatable="false">GitHub client for Android</string>
     <string name="linear_layout_manager" translatable="false">com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.LinearManager</string>
     <string name="grid_layout_manager" translatable="false">com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.GridManager</string>
     <string name="staggered_layout_manager" translatable="false">com.duyp.architecture.mvvm.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>

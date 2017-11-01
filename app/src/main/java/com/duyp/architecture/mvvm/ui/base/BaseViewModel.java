@@ -32,7 +32,7 @@ import lombok.Getter;
 
 /**
  * Created by duypham on 10/19/17.
- * Base class that provides base implementation for handling loading status, and hole api request disposable.
+ * Base class that provides base implementation for handling loading status, and hole all api request disposables.
  * All api requests called from {@link com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper}
  * will be added to a composite disposable which is disposed when view model is cleared
  *

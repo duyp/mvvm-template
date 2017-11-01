@@ -28,7 +28,9 @@ android {
     }
     buildTypes {
         release {
+            // this project is open source, there is no need to use proguard anymore :)
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
