@@ -16,6 +16,7 @@ import com.duyp.architecture.mvvm.data.model.BranchesModel;
 import com.duyp.architecture.mvvm.data.model.RealmString;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.RepoDetail;
+import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.repository.RepoDetailRepo;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
@@ -59,6 +60,8 @@ public class RepoDetailViewModel extends BaseViewModel{
 
     private final RepoService repoService;
 
+    private boolean isCollaborator;
+
     @Inject
     public RepoDetailViewModel(UserManager userManager, RepoDetailRepo repo, RepoService repoService) {
         super(userManager);
@@ -98,6 +101,7 @@ public class RepoDetailViewModel extends BaseViewModel{
             checkStarred();
             checkWatched();
             getBranches(1);
+            checkCollaborator();
         }, 100);
     }
 
@@ -132,6 +136,19 @@ public class RepoDetailViewModel extends BaseViewModel{
         }, errorEntity -> {
             starStatus.setValue(false);
         });
+    }
+
+    private void checkCollaborator() {
+        String currentUser = repoDetailRepo.getCurrentUserLogin();
+        if (currentUser == null) {
+            isCollaborator = false;
+        } else {
+            execute(false, false, repoService.isCollaborator(owner, repoName, currentUser), booleanResponse -> {
+                isCollaborator = booleanResponse.code() == 204;
+            }, errorEntity -> {
+                isCollaborator = false;
+            });
+        }
     }
 
     public void getBranches(int page) {
@@ -197,6 +214,14 @@ public class RepoDetailViewModel extends BaseViewModel{
 
     public void wikiClick() {
         AlertUtils.showToastShortMessage(App.getInstance(), "Coming soon...");
+    }
+
+    public boolean isOwnerOrCollaborator() {
+        User user = getUserManager().getCurrentUser();
+        if (user == null) {
+            return false;
+        }
+        return owner.equals(user.getLogin()) || isCollaborator;
     }
 
     @Nullable

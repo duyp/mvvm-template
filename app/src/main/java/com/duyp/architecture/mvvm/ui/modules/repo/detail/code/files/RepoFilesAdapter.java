@@ -9,6 +9,7 @@ import com.duyp.androidutils.rx.functions.PlainConsumer;
 import com.duyp.architecture.mvvm.data.model.RepoFile;
 import com.duyp.architecture.mvvm.injection.qualifier.ActivityContext;
 import com.duyp.architecture.mvvm.ui.base.adapter.BaseAdapter;
+import com.duyp.architecture.mvvm.ui.base.interfaces.OnItemClickListener;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
 import javax.annotation.Nullable;
@@ -25,7 +26,7 @@ public class RepoFilesAdapter extends BaseAdapter<RepoFile> {
 
     @Setter
     @Nullable
-    PlainConsumer<RepoFile> onMenuClick;
+    OnItemClickListener<RepoFile> onMenuClick;
 
     @Inject
     public RepoFilesAdapter(@ActivityContext Context context, NavigatorHelper navigatorHelper) {
@@ -39,7 +40,7 @@ public class RepoFilesAdapter extends BaseAdapter<RepoFile> {
             if (onMenuClick != null) {
                 RepoFile repoFile = getItem(viewHolder.getAdapterPosition());
                 if (repoFile != null) {
-                    onMenuClick.accept(repoFile);
+                    onMenuClick.onItemClick(viewHolder.menu, repoFile);
                 }
             }
         });

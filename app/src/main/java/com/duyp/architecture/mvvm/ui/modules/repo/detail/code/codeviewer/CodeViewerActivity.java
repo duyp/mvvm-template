@@ -11,6 +11,7 @@ import com.annimon.stream.Objects;
 import com.duyp.androidutils.navigation.Navigator;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.provider.scheme.LinkParserHelper;
+import com.duyp.architecture.mvvm.databinding.ContainerWithToolbarBinding;
 import com.duyp.architecture.mvvm.helper.ActivityHelper;
 import com.duyp.architecture.mvvm.helper.AppHelper;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
@@ -18,8 +19,10 @@ import com.duyp.architecture.mvvm.helper.DownloadHelper;
 import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.helper.RestHelper;
 import com.duyp.architecture.mvvm.ui.base.activity.BaseActivity;
+import com.duyp.architecture.mvvm.ui.base.activity.BaseViewModelActivity;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
 import com.evernote.android.state.State;
+import com.evernote.android.state.StateSaver;
 
 import javax.inject.Inject;
 
@@ -28,11 +31,7 @@ import javax.inject.Inject;
  *
  */
 
-public class CodeViewerActivity extends BaseActivity {
-
-    @State String url;
-    @State String htmlUrl;
-
+public class CodeViewerActivity extends BaseViewModelActivity<ContainerWithToolbarBinding, CodeViewerViewModel> {
     @Inject
     Navigator navigator;
 
@@ -50,16 +49,13 @@ public class CodeViewerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            Intent intent = Objects.requireNonNull(getIntent(), "Intent is null");
-            Bundle bundle = Objects.requireNonNull(intent.getExtras());
             //noinspection ConstantConditions
-            url = Objects.requireNonNull(bundle.getString(BundleConstant.EXTRA), "Url is null");
-            htmlUrl = bundle.getString(BundleConstant.EXTRA_TWO);
-            navigator.replaceFragment(R.id.container, ViewerFragment.newInstance(url, htmlUrl), ViewerFragment.TAG, null);
+            navigator.replaceFragment(R.id.container,
+                    ViewerFragment.newInstance(viewModel.getUrl(), viewModel.getHtmlUrl()), ViewerFragment.TAG, null);
         }
-        String title = Uri.parse(url).getLastPathSegment();
+        String title = Uri.parse(viewModel.getUrl()).getLastPathSegment();
         setTitle(title);
-        if (toolbar != null) toolbar.setSubtitle(MimeTypeMap.getFileExtensionFromUrl(url));
+        if (toolbar != null) toolbar.setSubtitle(MimeTypeMap.getFileExtensionFromUrl(viewModel.getUrl()));
         setTaskName(title);
     }
 
@@ -69,6 +65,8 @@ public class CodeViewerActivity extends BaseActivity {
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
+        String url = viewModel.getUrl();
+        String htmlUrl = viewModel.getHtmlUrl();
         if (InputHelper.isEmpty(url)) return super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.viewAsCode) {
             ViewerFragment viewerFragment = (ViewerFragment) AppHelper.getFragmentByTag(getSupportFragmentManager(), ViewerFragment.TAG);

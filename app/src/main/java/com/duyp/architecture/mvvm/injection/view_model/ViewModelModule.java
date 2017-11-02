@@ -13,6 +13,7 @@ import com.duyp.architecture.mvvm.ui.modules.profile.following.ProfileFollowingV
 import com.duyp.architecture.mvvm.ui.modules.profile.overview.OverviewViewModel;
 import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.codeviewer.CodeViewerViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesViewModel;
@@ -128,4 +129,9 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RepoFilesViewModel.class)
     abstract ViewModel provideRepoFilesViewModel(RepoFilesViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CodeViewerViewModel.class)
+    abstract ViewModel provideCodeViewerViewModel(CodeViewerViewModel viewModel);
 }

@@ -40,7 +40,7 @@ public abstract class BaseRecyclerViewFragment<
     protected DynamicRecyclerView recyclerView;
     protected StateLayout stateLayout;
     protected RecyclerViewFastScroller fastScroller;
-    private boolean isRefreshing;
+    protected boolean isRefreshing;
 
     @Inject
     protected A adapter;

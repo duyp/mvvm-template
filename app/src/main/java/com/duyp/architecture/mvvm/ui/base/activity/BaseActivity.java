@@ -25,6 +25,7 @@ import com.duyp.architecture.mvvm.helper.PrefGetter;
 import com.duyp.architecture.mvvm.helper.ViewHelper;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.widgets.dialog.ProgressDialogFragment;
+import com.evernote.android.state.StateSaver;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +63,8 @@ public abstract class BaseActivity extends BasePermissionActivity
         super.onCreate(savedInstanceState);
 
         setupLayoutStableFullscreen();
+
+        restoreState(savedInstanceState);
 
         if (!shouldUseDataBinding()) {
             // set contentView if child activity not use dataBinding
@@ -361,5 +364,16 @@ public abstract class BaseActivity extends BasePermissionActivity
                         return true;
                     }
                 });
+    }
+
+    @Override protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        StateSaver.saveInstanceState(this, outState);
+    }
+
+    private void restoreState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
+            StateSaver.restoreInstanceState(this, savedInstanceState);
+        }
     }
 }
