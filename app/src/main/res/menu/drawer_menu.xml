@@ -20,10 +20,10 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_profile"
             android:title="@string/profile"/>
-        <item
-            android:id="@+id/orgs"
-            android:icon="@drawable/ic_people"
-            android:title="@string/organizations"/>
+        <!--<item-->
+            <!--android:id="@+id/orgs"-->
+            <!--android:icon="@drawable/ic_people"-->
+            <!--android:title="@string/organizations"/>-->
         <item
             android:id="@+id/notifications"
             android:icon="@drawable/ic_ring"
@@ -56,19 +56,19 @@
             android:id="@+id/reportBug"
             android:icon="@drawable/ic_bug"
             android:title="@string/report_issue"/>
-        <item
-            android:id="@+id/faq"
-            android:icon="@drawable/ic_info"
-            android:title="@string/faq"/>
+        <!--<item-->
+            <!--android:id="@+id/faq"-->
+            <!--android:icon="@drawable/ic_info"-->
+            <!--android:title="@string/faq"/>-->
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/settings"/>
 
-        <item
-            android:id="@+id/restorePurchase"
-            android:icon="@drawable/ic_money"
-            android:title="@string/restore_purchases"/>
+        <!--<item-->
+            <!--android:id="@+id/restorePurchase"-->
+            <!--android:icon="@drawable/ic_money"-->
+            <!--android:title="@string/restore_purchases"/>-->
 
         <item
             android:id="@+id/about"
