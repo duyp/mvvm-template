@@ -4,9 +4,16 @@ Android MVVM template project
 This project demonstrates how to use [Android Architecture Components][1] (ViewmModel, DataBinding, LiveData, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain and support offline mode).
 
 ## App
+
 I used [official Github Rest API][4] to develop a Github Application on Android with a lot of features like github webpage.
 
-This project focuses on android application architecture, so, to faster my work, I used some resources and helper classes of [Fasthub][5] open source project, but the architecture is definitely different (he used MVP design pattern and SQLite database). Thanks [k0shk0sh][6] so much for his amazing app!
+This project focuses on android application architecture, so, to faster my work, I used some resources and helper classes of [Fasthub][5] open source project, but the architecture is definitely different (he used MVP design pattern and SQLite database). Thank [k0shk0sh][6] so much for his amazing app!
+
+Sample app:
+
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+      alt="Download from Google Play"
+      height="80">](https://play.google.com/store/apps/details?id=com.duyp.architecture.mvvm)
 
 ### Architecture overview
 Comming soon...
@@ -31,6 +38,16 @@ JUnit 4, [Mockito][7], [PowerMock][8] and [Robolectric][9] for Unit testing.
 * [Fasthub][5] open source project
 * [Google Architecture Components sample][10] project
 * [MVVM countries][11]
+
+## Screenshots
+| Feeds | Drawer |
+|:-:|:-:|
+| ![First](/screenshots/1.png?raw=true) | ![Sec](/screenshots/2.png?raw=true) |
+
+| Repo | Profile |
+|:-:|:-:|
+| ![Third](/screenshots/7.png?raw=true) | ![Fourth](/screenshots/5.png?raw=true) |
+
 
 
 [1]: https://developer.android.com/topic/libraries/architecture/index.html
@@ -60,14 +77,6 @@ License
 
     Copyright 2017 Duy Pham.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Licensed under the the [GPL-3.0](https://www.gnu.org/licenses/gpl.html) license.
+    
+See the [LICENSE](https://github.com/duyp/mvvm-template/blob/master/LICENSE) file for the whole license text.
