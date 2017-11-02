@@ -125,6 +125,9 @@ public abstract class BaseListDataViewModel<T, A extends BaseAdapter<T>>
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (adapter != null) {
+            this.data = adapter.getData();
+        }
         this.adapter = null;
     }
 }

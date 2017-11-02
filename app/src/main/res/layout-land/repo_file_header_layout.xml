@@ -43,7 +43,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/base40"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -51,7 +51,7 @@
             <com.duyp.architecture.mvvm.ui.widgets.ForegroundImageView
                 android:id="@+id/toParentFolder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/avatar_margin_end"
                 android:layout_marginStart="@dimen/avatar_margin"
@@ -63,7 +63,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:orientation="horizontal"
