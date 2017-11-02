@@ -19,6 +19,7 @@ import com.duyp.architecture.mvvm.injection.qualifier.ApplicationContext;
 import com.duyp.architecture.mvvm.ui.base.interfaces.OnItemClickListener;
 import com.duyp.architecture.mvvm.ui.navigator.NavigatorHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.DestroyFailedException;
@@ -64,19 +65,9 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(@Nullable List<T> newData, boolean refresh) {
-        if (newData == null) {
-            data = null;
-            notifyDataSetChanged();
-            return;
-        }
-        if (data == null || data instanceof RealmResults || newData instanceof RealmResults) {
+    public void setData(@Nullable List<T> newData) {
+        if (this.data != newData) {
             this.data = newData;
-        } else {
-            if (refresh) {
-                data.clear();
-            }
-            data.addAll(newData);
         }
         notifyDataSetChanged();
     }
@@ -128,6 +119,68 @@ public abstract class BaseAdapter<T> extends BaseHeaderFooterAdapter {
         }
         return null;
     }
+
+    /**
+     * Add an item to adapter data
+     * @param item item to be added
+     */
+    public void addItem(@NonNull T item) {
+        if (data == null) {
+            data = new ArrayList<>();
+        }
+        data.add(item);
+        notifyItemInserted(getItemCount() - 1);
+    }
+
+    /**
+     * Remove some items from adapter data
+     * @param fromPosition start item should be removed
+     * @param toPosition end position of items should be removed
+     */
+    public void subList(int fromPosition, int toPosition) {
+        if (data == null || data.isEmpty()) return;
+        data.subList(fromPosition, toPosition).clear();
+        notifyItemRangeRemoved(fromPosition, toPosition);
+    }
+
+    public void removeItem(int adapterPosition) {
+        if (data == null || data.isEmpty()) return;
+        int itemPosition = getRealItemPosition(adapterPosition);
+        if (itemPosition >=0 && itemPosition < data.size()) {
+            data.remove(itemPosition);
+            notifyItemRemoved(adapterPosition);
+        }
+    }
+
+    public void removeLastItem() {
+        int pos = getHeaders().size() + getItemCountExceptHeaderFooter();
+        removeItem(pos - 1);
+    }
+
+    /**
+     * Get adapter position of given item
+     * @param item
+     * @return adapter position (header size + realm item position)
+     */
+    public int getAdapterPosition(T item) {
+        if (data == null) {
+            return -1;
+        }
+        int position = data.indexOf(item);
+        if (position >= 0) {
+            return getHeaders().size() + position;
+        }
+        return position;
+    }
+
+    /**
+     * clear adapter data
+     */
+    public void clear() {
+        data = null;
+        notifyDataSetChanged();
+    }
+
 
     public void addProgress() {
         Log.d(TAG, "addProgress: ");

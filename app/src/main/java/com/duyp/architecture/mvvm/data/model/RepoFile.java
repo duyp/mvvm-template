@@ -1,14 +1,20 @@
 package com.duyp.architecture.mvvm.data.model;
 
+import com.duyp.architecture.mvvm.data.model.type.FilesType;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by duypham on 10/21/17.
  *
  */
 
-public class RepoFile extends RealmObject {
+@Setter
+@Getter
+public class RepoFile {
     @PrimaryKey
     long id;
     String name;
@@ -19,7 +25,7 @@ public class RepoFile extends RealmObject {
     String htmlUrl;
     String gitUrl;
     String downloadUrl;
-    String type; // todo file type icon
+    FilesType type; // todo file type icon
     String repoId;
     String login;
 }

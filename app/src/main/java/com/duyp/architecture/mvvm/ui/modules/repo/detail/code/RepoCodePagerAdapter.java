@@ -14,6 +14,7 @@ import com.duyp.architecture.mvvm.injection.qualifier.ChildFragmentManager;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.paths.RepoFilePathsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesFragment;
 
@@ -55,7 +56,7 @@ public class RepoCodePagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return ViewerFragment.newInstance(url, htmlUrl, true);
             case 1:
-                return new RepoFilesFragment();
+                return RepoFilePathsFragment.newInstance(login, repoId, null, defaultBranch);
             case 2:
                 return new CommitsFragment();
             case 3:

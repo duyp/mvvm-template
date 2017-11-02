@@ -47,12 +47,14 @@ public class CommitsViewModel extends BaseListDataViewModel<Commit, CommitsAdapt
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 
     public void initRepoDetail(@NonNull RepoDetail repoDetail) {
-        this.repoDetail = repoDetail;
-        login = repoDetail.getOwner().getLogin();
-        repoName = repoDetail.getName();
-        currentBranch = repoDetail.getDefaultBranch();
-        getCommitCount(currentBranch);
-        refresh(100);
+        if (this.repoDetail == null) {
+            this.repoDetail = repoDetail;
+            login = repoDetail.getOwner().getLogin();
+            repoName = repoDetail.getName();
+            currentBranch = repoDetail.getDefaultBranch();
+            getCommitCount(currentBranch);
+            refresh(100);
+        }
     }
 
     @Override

@@ -29,8 +29,10 @@ import lombok.Setter;
  */
 
 @Getter
-public abstract class BaseListDataViewModel<T extends RealmObject, A extends BaseAdapter<T>>
+public abstract class BaseListDataViewModel<T, A extends BaseAdapter<T>>
         extends BaseViewModel implements PaginationListener, Refreshable, OnItemClickListener<T> {
+
+    protected List<T> data;
 
     @Nullable
     protected A adapter;
@@ -50,6 +52,7 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
     @CallSuper
     public void initAdapter(@NonNull A adapter) {
         this.adapter = adapter;
+        adapter.setData(data);
         adapter.setItemClickListener(this);
     }
 
@@ -61,12 +64,20 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     /**
      * Call this to fill data to {@link #adapter}
-     * @param list new data list
+     * @param newData new data
      * @param refresh true if data come from refresh action (call remote api)
      */
-    protected void setData(@NonNull List<T> list, boolean refresh) {
+    protected void setData(@NonNull List<T> newData, boolean refresh) {
+        if (data == null || data instanceof RealmResults || newData instanceof RealmResults) {
+            this.data = newData;
+        } else {
+            if (refresh) {
+                data.clear();
+            }
+            data.addAll(newData);
+        }
         if (adapter != null) {
-            adapter.setData(list, refresh);
+            adapter.setData(data);
         }
     }
 
@@ -97,10 +108,20 @@ public abstract class BaseListDataViewModel<T extends RealmObject, A extends Bas
 
     protected abstract void callApi(int page, OnCallApiDone<T> onCallApiDone);
 
-    public interface OnCallApiDone<E extends RealmObject> {
+    public interface OnCallApiDone<E> {
+
+        /**
+         * Called after success response come
+         * @param last last page
+         * @param isRefresh true if refreshed
+         * @param response response data
+         */
         void onDone(int last, boolean isRefresh, List<E> response);
     }
 
+    /**
+     * IMPORTANCE to clear adapter reference since adapter instance is related to activity / fragment
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

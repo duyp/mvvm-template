@@ -49,9 +49,11 @@ public class ReleasesViewModel extends BaseListDataViewModel<Release, ReleaseAda
     }
 
     public void initRepoDetail(@NonNull RepoDetailViewModel viewModel) {
-        this.repoDetailViewModel = viewModel;
-        this.repoDetail = viewModel.getRepoDetail();
-        refresh(100);
+        if (repoDetailViewModel == null) {
+            this.repoDetailViewModel = viewModel;
+            this.repoDetail = viewModel.getRepoDetail();
+            refresh(100);
+        }
     }
 
     @Override

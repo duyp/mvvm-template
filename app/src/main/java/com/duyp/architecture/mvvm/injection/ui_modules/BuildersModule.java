@@ -26,6 +26,10 @@ import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFrag
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesFragmentModule;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.paths.RepoFilePathsFragment;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.paths.RepoFilePathsModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragment;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerFragmentModule;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesFragment;
@@ -117,5 +121,11 @@ public abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = SearchActivityModule.class)
     abstract SearchActivity searchActivity();
+
+    @ContributesAndroidInjector(modules = RepoFilePathsModule.class)
+    abstract RepoFilePathsFragment repoFilePathsFragment();
+
+    @ContributesAndroidInjector(modules = RepoFilesFragmentModule.class)
+    abstract RepoFilesFragment repoFilesFragment();
 
 }

@@ -37,7 +37,7 @@ public class RepoIssuesViewModel extends BaseListDataViewModel<Issue, RepoIssues
     @Override
     public void initAdapter(@NonNull RepoIssuesAdapter adapter) {
         super.initAdapter(adapter);
-        adapter.setData(issuesRepo.getData().getData(), true);
+        adapter.setData(issuesRepo.getData().getData());
     }
 
     @Override

@@ -43,10 +43,12 @@ public class ContributorsViewModel extends BaseListDataViewModel<User, UsersAdap
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
 
     public void initRepoDetail(@NonNull RepoDetailViewModel viewModel) {
-        this.repoDetailViewModel = viewModel;
-        repoName = viewModel.getRepoDetail().getName();
-        login = viewModel.getRepoDetail().getOwner().getLogin();
-        refresh(100);
+        if (this.repoDetailViewModel == null) {
+            this.repoDetailViewModel = viewModel;
+            repoName = viewModel.getRepoDetail().getName();
+            login = viewModel.getRepoDetail().getOwner().getLogin();
+            refresh(100);
+        }
     }
 
     @Override

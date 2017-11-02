@@ -82,7 +82,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         binding.organizationList.setAdapter(organizationAdapter);
         ((GridManager) binding.organizationList.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources()
                 .getDimensionPixelSize(R.dimen.spacing_xs_large));
-        viewModel.getOrganizations().observe(this, users -> organizationAdapter.setData(users, true));
+        viewModel.getOrganizations().observe(this, users -> organizationAdapter.setData(users));
         organizationAdapter.setItemClickListener((v, item) -> {
             navigatorHelper.navigateUserProfile(item);
         });
@@ -90,7 +90,7 @@ public class OverviewFragment extends BaseViewModelFragment<ProfileOverviewBindi
         // pinned
         binding.pinnedList.setAdapter(pinnedAdapter);
         binding.pinnedList.addDivider();
-        viewModel.getPinnedNodes().observe(this, nodes -> pinnedAdapter.setData(nodes, true));
+        viewModel.getPinnedNodes().observe(this, nodes -> pinnedAdapter.setData(nodes));
         pinnedAdapter.setItemClickListener( (v, node) -> {
             SchemeParser.launchUri(getContext(), node.url().toString());
         });

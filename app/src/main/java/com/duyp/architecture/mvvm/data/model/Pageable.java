@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Pageable<M extends RealmObject> {
+public class Pageable<M> {
 
     public int first;
     public int next;

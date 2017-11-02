@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.data.model;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import lombok.Getter;
@@ -13,9 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TreeResponseModel extends RealmObject{
+public class TreeResponseModel{
     private String sha;
     private String url;
     boolean truncated;
-    RealmList<RepoFile> tree;
+    List<RepoFile> tree;
 }

@@ -105,7 +105,7 @@ public class RepoDetailActivity extends BaseViewModelActivity<ActivityRepoDetail
         viewModel.getWatchStatus().observe(this, state -> this.invalidateWatched(state, viewModel.getRepoDetail()));
         viewModel.getFolkStatus().observe(this, state -> this.invalidateForked(state, viewModel.getRepoDetail()));
         viewModel.getStarStatus().observe(this, state -> this.invalidateStarred(state, viewModel.getRepoDetail()));
-        viewModel.getTopics().observe(this, strings -> topicsAdapter.setData(strings, true));
+        viewModel.getTopics().observe(this, strings -> topicsAdapter.setData(strings));
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {

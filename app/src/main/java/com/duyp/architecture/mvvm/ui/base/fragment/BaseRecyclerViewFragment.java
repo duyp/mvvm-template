@@ -31,7 +31,7 @@ import io.realm.RealmObject;
 
 public abstract class BaseRecyclerViewFragment<
         B extends ViewDataBinding,
-        T extends RealmObject,
+        T,
         A extends BaseAdapter<T>,
         VM extends BaseListDataViewModel<T, A>>
         extends BaseViewModelFragment<B, VM> implements UiRefreshable, Scrollable{

@@ -15,6 +15,8 @@ import com.duyp.architecture.mvvm.ui.modules.profile.starred.StarredViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.commit.CommitsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.contributors.ContributorsViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.RepoFilesViewModel;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.paths.RepoFilePathsViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.prettifier.ViewerViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.release.ReleasesViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.issues.list.RepoIssuesViewModel;
@@ -116,4 +118,14 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RepoSearchViewModel.class)
     abstract ViewModel provideRepoSearchViewModel(RepoSearchViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RepoFilePathsViewModel.class)
+    abstract ViewModel provideRepoFilePathsViewModel(RepoFilePathsViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RepoFilesViewModel.class)
+    abstract ViewModel provideRepoFilesViewModel(RepoFilesViewModel viewModel);
 }

@@ -95,6 +95,7 @@ public abstract class BaseViewModel extends ViewModel {
     public void disposeAllExecutions() {
         mCompositeDisposable.dispose();
         mCompositeDisposable = new CompositeDisposable();
+        publishState(State.success(null));
     }
 
     @CallSuper
