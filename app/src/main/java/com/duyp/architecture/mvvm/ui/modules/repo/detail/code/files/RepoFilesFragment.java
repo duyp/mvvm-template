@@ -25,6 +25,7 @@ public class RepoFilesFragment extends BaseRecyclerViewFragment<RefreshRecyclerV
         super.onViewCreated(view, savedInstanceState);
         RepoFilePathsViewModel parentViewModel = ViewModelProviders.of(getParentFragment()).get(RepoFilePathsViewModel.class);
         viewModel.initParentViewModel(parentViewModel);
+        viewModel.initFragmentManager(getChildFragmentManager());
 
         parentViewModel.getOnRefresh().observe(this, o -> {
             if (o != null) {

@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.duyp.androidutils.AlertUtils;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.R;
 
 import java.util.ArrayList;
@@ -206,7 +207,7 @@ public class ActivityHelper {
             return false;
         } else if (isExplanationNeeded(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
                 || isExplanationNeeded(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//            Toasty.error(App.getInstance(), activity.getString(R.string.read_write_permission_explanation), Toast.LENGTH_LONG).show();
+            AlertUtils.showToastShortMessage(App.getInstance(), activity.getString(R.string.read_write_permission_explanation));
             return false;
         }
         return true;

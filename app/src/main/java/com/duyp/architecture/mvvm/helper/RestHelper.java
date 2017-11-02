@@ -1,14 +1,24 @@
 package com.duyp.architecture.mvvm.helper;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.duyp.androidutils.rx.functions.PlainConsumer;
+import com.duyp.architecture.mvvm.App;
+import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.model.ErrorEntity;
 import com.duyp.architecture.mvvm.data.model.GitHubErrorResponse;
+import com.duyp.architecture.mvvm.data.provider.scheme.LinkParserHelper;
 import com.duyp.architecture.mvvm.data.source.Resource;
 import com.duyp.architecture.mvvm.data.source.SimpleRemoteSourceMapper;
 import com.google.gson.Gson;
+
+import java.io.File;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -121,8 +131,4 @@ public class RestHelper {
 //            };
 //        }, BackpressureStrategy.BUFFER);
 //    }
-
-    public interface OnSaveCallResult<T> {
-        void call(T data, boolean isRefresh);
-    }
 }

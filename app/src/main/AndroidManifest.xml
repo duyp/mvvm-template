@@ -33,6 +33,7 @@
         <activity android:name=".ui.modules.repo.detail.RepoDetailActivity" />
         <activity android:name=".ui.modules.issue.detail.IssueDetailActivity" />
         <activity android:name=".ui.modules.search.SearchActivity" />
+        <activity android:name=".ui.modules.repo.detail.code.codeviewer.CodeViewerActivity" />
     </application>
 
 </manifest>

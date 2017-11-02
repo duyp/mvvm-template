@@ -9,12 +9,15 @@ import com.duyp.architecture.mvvm.data.model.Issue;
 import com.duyp.architecture.mvvm.data.model.PullsIssuesParser;
 import com.duyp.architecture.mvvm.data.model.Repo;
 import com.duyp.architecture.mvvm.data.model.User;
+import com.duyp.architecture.mvvm.data.provider.scheme.LinkParserHelper;
 import com.duyp.architecture.mvvm.helper.BundleConstant;
+import com.duyp.architecture.mvvm.helper.Bundler;
 import com.duyp.architecture.mvvm.ui.modules.issue.detail.IssueDetailActivity;
 import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 import com.duyp.architecture.mvvm.ui.modules.profile.ProfileActivity;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.RepoDetailActivity;
+import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.codeviewer.CodeViewerActivity;
 
 /**
  * Created by duypham on 9/7/17.
@@ -76,6 +79,17 @@ public class NavigatorHelper {
 
     public void navigateIssuePagerActivity(PullsIssuesParser parser) {
 
+    }
+
+    public void navigateCodeViewerActivity(String url, String htmlUrl) {
+        mNavigator.startActivity(CodeViewerActivity.class, intent -> {
+            boolean isEnterprise = LinkParserHelper.isEnterprise(htmlUrl);
+            intent.putExtras(Bundler.start()
+                .put(BundleConstant.EXTRA_TWO, htmlUrl)
+                .put(BundleConstant.EXTRA, url)
+                .put(BundleConstant.IS_ENTERPRISE, isEnterprise)
+                .end());
+        });
     }
 //
 //    public void navigateUserProfileActivity(@Nullable User user, View... transitionViews) {

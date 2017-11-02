@@ -7,10 +7,12 @@ import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.duyp.androidutils.rx.functions.PlainAction;
 import com.duyp.androidutils.rx.functions.PlainConsumer;
+import com.duyp.architecture.mvvm.App;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.ErrorEntity;
 import com.duyp.architecture.mvvm.data.model.User;
@@ -82,6 +84,11 @@ public abstract class BaseViewModel extends ViewModel {
      * @param bundle
      */
     protected abstract void onFirsTimeUiCreate(@Nullable Bundle bundle);
+
+
+    protected String getString(@StringRes int res) {
+        return App.getInstance().getString(res);
+    }
 
     /**
      * It is importance to un-reference activity / fragment instance after they are destroyed

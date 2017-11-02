@@ -2,16 +2,26 @@ package com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.annimon.stream.Stream;
+import com.duyp.androidutils.AlertUtils;
+import com.duyp.architecture.mvvm.App;
+import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
 import com.duyp.architecture.mvvm.data.model.RepoFile;
 import com.duyp.architecture.mvvm.data.model.type.FilesType;
+import com.duyp.architecture.mvvm.data.provider.markdown.MarkDownProvider;
 import com.duyp.architecture.mvvm.data.remote.RepoService;
 import com.duyp.architecture.mvvm.data.source.Status;
+import com.duyp.architecture.mvvm.helper.BundleConstant;
+import com.duyp.architecture.mvvm.helper.Bundler;
+import com.duyp.architecture.mvvm.helper.FileHelper;
+import com.duyp.architecture.mvvm.helper.InputHelper;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 import com.duyp.architecture.mvvm.ui.modules.repo.detail.code.files.paths.RepoFilePathsViewModel;
+import com.duyp.architecture.mvvm.ui.widgets.dialog.MessageDialogView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,8 @@ public class RepoFilesViewModel extends BaseListDataViewModel<RepoFile, RepoFile
 
     private final RepoService repoService;
 
+    FragmentManager fragmentManager;
+
     @Inject
     public RepoFilesViewModel(UserManager userManager, RepoService repoService) {
         super(userManager);
@@ -40,6 +52,10 @@ public class RepoFilesViewModel extends BaseListDataViewModel<RepoFile, RepoFile
 
     @Override
     protected void onFirsTimeUiCreate(@Nullable Bundle bundle) {}
+
+    public void initFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
 
     public void initParentViewModel(RepoFilePathsViewModel parentViewModel) {
         if (this.parentViewModel == null) {
@@ -77,7 +93,30 @@ public class RepoFilesViewModel extends BaseListDataViewModel<RepoFile, RepoFile
             if (item.getType() == FilesType.dir) {
                 parentViewModel.appendPath(item);
                 refresh();
+            } else {
+                if (item.getSize() == 0 && InputHelper.isEmpty(item.getDownloadUrl()) && !InputHelper.isEmpty(item.getGitUrl())) {
+//                    RepoFilesActivity.startActivity(getContext(), model.getGitUrl().replace("trees/", ""), isEnterprise());
+                } else {
+                    String url = InputHelper.isEmpty(item.getDownloadUrl()) ? item.getUrl() : item.getDownloadUrl();
+                    if (InputHelper.isEmpty(url)) return;
+                    if (item.getSize() > FileHelper.ONE_MB && !MarkDownProvider.isImage(url)) {
+                        MessageDialogView.newInstance(getString(R.string.big_file), getString(R.string.big_file_description),
+                                false, true, Bundler.start()
+                                        .put(BundleConstant.EXTRA, item.getDownloadUrl())
+                                        .put(BundleConstant.YES_NO_EXTRA, true)
+                                        .end())
+                                .show(fragmentManager, "MessageDialogView");
+                    } else {
+                        navigatorHelper.navigateCodeViewerActivity(url, item.getHtmlUrl());
+                    }
+                }
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        fragmentManager = null;
     }
 }

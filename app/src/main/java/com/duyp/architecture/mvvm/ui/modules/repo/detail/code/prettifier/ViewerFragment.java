@@ -31,6 +31,8 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 public class ViewerFragment extends BaseViewModelFragment<GeneralViewerLayoutBinding, ViewerViewModel> 
         implements PrettifyWebView.OnContentChangedListener, AppBarLayout.OnOffsetChangedListener{
 
+    public static final String TAG = ViewerFragment.class.getSimpleName();
+
     public static ViewerFragment newInstance(@NonNull String url, @Nullable String htmlUrl) {
         return newInstance(url, htmlUrl, false);
     }
