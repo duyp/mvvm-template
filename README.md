@@ -1,7 +1,7 @@
 Android MVVM template project
 ======
 
-This project demonstrates how to use [Android Architecture Components][1] (ViewmModel, DataBinding, LiveData, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain and support offline mode).
+This project demonstrates how to use [Android Architecture Components][1] (View Model, Data Binding, Live Data, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain, support offline mode and lanscape mode).
 
 ## App
 
