@@ -1,7 +1,7 @@
 Android MVVM template project
 ======
 
-This project demonstrates how to use [Android Architecture Components][1] (View Model, Data Binding, Live Data, Lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain, support offline mode and lanscape mode).
+This project demonstrates how to use [Android Architecture Components][1] (View Model, Data Binding, Live Data, lifecycle aware) along with [Realm][2] database and [Dagger 2][3] dependency injection to build a robust application (scalable, testable, less bug, easy to maintain, support offline mode and lanscape mode).
 
 ## App
 
@@ -19,7 +19,7 @@ Sample app:
 Comming soon...
 
 ### Persistence - why Realm, not Room?
-[Room Persistence Library][14] is a part of google's android acrhitecture components announced Google IO 2017. It provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite, works well with [LiveData][14].
+[Room Persistence Library][14] is a part of google's android architecture components announced Google IO 2017. It provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite, works well with [LiveData][14].
 
 But, SQLite is not simple, and relational database is not easy for a lot of android developers. In almost android application, local database is offen used for data caching only, and isn't center of bussiness processes.
 
