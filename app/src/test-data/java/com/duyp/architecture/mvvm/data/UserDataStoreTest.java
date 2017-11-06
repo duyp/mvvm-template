@@ -9,6 +9,7 @@ import com.duyp.architecture.mvvm.data.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.local.daos.UserDetailDao;
 import com.duyp.architecture.mvvm.data.model.User;
 import com.duyp.architecture.mvvm.data.local.user.UserDataStore;
+import com.duyp.architecture.mvvm.data.model.UserDetail;
 import com.google.gson.Gson;
 
 import org.junit.Before;
@@ -47,12 +48,6 @@ public class UserDataStoreTest {
     private Gson gson; // final class, should be mocked by PowerMockito
 
     @Mock
-    private RealmDatabase mockRealmDatabase;
-
-    @Mock
-    private UserDetailDao userDao;
-
-    @Mock
     private MutableLiveData<User> mockUserLiveData;
 
     private final User sampleUser = sampleUser(1L, "duyp");
@@ -61,9 +56,8 @@ public class UserDataStoreTest {
     public void setup() {
         mockStatic(Gson.class);
         gson = mock(Gson.class);
-        when(mockRealmDatabase.getUserDao()).thenReturn(userDao);
-        userDataStore = new UserDataStore(mockSharedPreferences, gson, mockRealmDatabase);
-        Whitebox.setInternalState(userDataStore, "mUserLiveData", mockUserLiveData);
+        userDataStore = new UserDataStore(mockSharedPreferences, gson);
+//        Whitebox.setInternalState(userDataStore, "mUserLiveData", mockUserLiveData);
     }
 
     @Test
@@ -107,7 +101,7 @@ public class UserDataStoreTest {
 
         boolean set = userDataStore.updateUserIfEquals(testUser);
 
-        verifyZeroInteractions(mockSharedPreferences, userDao);
+        verifyZeroInteractions(mockSharedPreferences);
         assertThat(set, is(false));
     }
 
@@ -143,7 +137,6 @@ public class UserDataStoreTest {
 
         userDataStore.clearUser();
 
-        verify(userDao).delete(sampleUser.getId());
         verify(mockSharedPreferences).setPreferences(Constants.PREF_USER_TOKEN, emptyString);
         verify(mockSharedPreferences).setPreferences(Constants.PREF_USER_ID, UserDataStore.USER_ID_NOT_EXIST);
         verify(mockSharedPreferences).setPreferences(Constants.PREF_USER, emptyString);
@@ -154,7 +147,7 @@ public class UserDataStoreTest {
 
     private void verifySetUserInteractionWithSharedPreferenceAndDao(User userToBeSet) {
         verify(mockSharedPreferences).setPreferences(any(), any());
-        verify(userDao).addOrUpdate(userToBeSet);
+//        verify(userDao).addOrUpdate(userToBeSet);
         verify(mockUserLiveData).setValue(userToBeSet);
     }
 }

@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Created by duypham on 10/25/17.

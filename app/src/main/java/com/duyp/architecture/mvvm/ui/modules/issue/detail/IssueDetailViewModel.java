@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -21,7 +22,6 @@ import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 import javax.inject.Inject;
 
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Created by duypham on 10/31/17.

@@ -46,7 +46,7 @@ public class ModelTestUtils {
     public static Issue sampleIssue(Long id, Long repoId) {
         Issue issue = new Issue();
         issue.setId(id);
-        issue.setRepoId(repoId);
+//        issue.setRepoId(repoId);
         issue.setTitle("This is title of issue " + id);
         issue.setBody("This is body of issue " + id);
         issue.setCreatedAt(new Date());

@@ -1,5 +1,7 @@
 package com.duyp.architecture.mvvm.data.repository;
 
+import android.support.annotation.NonNull;
+
 import com.duyp.androidutils.realm.LiveRealmResults;
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
 import com.duyp.architecture.mvvm.data.local.daos.EventDao;
@@ -20,7 +22,6 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.realm.RealmConfiguration;
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Created by duypham on 10/24/17.

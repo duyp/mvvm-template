@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.realm.RealmModel;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -17,6 +19,8 @@ import static com.duyp.architecture.mvvm.local.RealmTestUtils.initFindAllSorted;
 import static com.duyp.architecture.mvvm.local.RealmTestUtils.initRealmQuery;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
@@ -31,7 +35,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class BaseRealmDaoTest extends BaseRealmTest {
 
-    private TestDao dao;
+    @Inject
+    TestDao dao;
 
     private RealmQuery<TestModel> query;
 
@@ -39,7 +44,6 @@ public class BaseRealmDaoTest extends BaseRealmTest {
     public void setup() throws Exception {
         super.setup();
         testComponent.inject(this);
-        dao = realmDatabase.newTestDao();
 
         query = initRealmQuery(mockRealm, TestModel.class);
         doNothing().when(mockRealm).beginTransaction();
@@ -108,6 +112,14 @@ public class BaseRealmDaoTest extends BaseRealmTest {
 
         verifyRealmTransaction();
         verify(mockRealm).delete(TestModel.class);
+    }
+
+    @Test
+    public void test_AddAllAsync() throws Exception {
+        List<TestModel> models = sampleModelList(20);
+        dao.addAllAsync(models);
+
+        verify(mockRealm, times(1)).executeTransactionAsync(any());
     }
 
     @Test

@@ -31,14 +31,11 @@ public class UserDataStore {
     @NonNull
     private final MutableLiveData<User> mUserLiveData;
 
-    private final UserDetailDao userDao;
-
     @Inject
-    public UserDataStore(@NonNull CustomSharedPreferences sharedPreferences, @NonNull Gson gson, UserDetailDao userDao) {
+    public UserDataStore(@NonNull CustomSharedPreferences sharedPreferences, @NonNull Gson gson) {
         this.mSharedPreferences = sharedPreferences;
         this.mGson = gson;
         mUserLiveData = new MutableLiveData<>();
-        this.userDao = userDao;
     }
 
     public CustomSharedPreferences getSharedPreferences() {
@@ -104,10 +101,6 @@ public class UserDataStore {
      * Clear user from database
      */
     public void clearUser() {
-        User user = getUser();
-        if (user != null) {
-            userDao.delete(user.getId());
-        }
         mSharedPreferences.setPreferences(Constants.PREF_USER_ID, USER_ID_NOT_EXIST);
         mSharedPreferences.setPreferences(Constants.PREF_USER_TOKEN, "");
         mSharedPreferences.setPreferences(Constants.PREF_USER, "");

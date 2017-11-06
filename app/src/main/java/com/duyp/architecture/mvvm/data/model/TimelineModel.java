@@ -2,6 +2,7 @@ package com.duyp.architecture.mvvm.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.architecture.mvvm.data.model.timeline.GenericEvent;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 /**

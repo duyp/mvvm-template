@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.RealmConfiguration;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 
@@ -40,5 +41,11 @@ public class TestDataModule {
     @Singleton
     RealmDatabase provideRealmDatabase() {
         return mock(RealmDatabase.class);
+    }
+
+    @Provides
+    @Singleton
+    RealmConfiguration provideRealmConfiguration() {
+        return mock(RealmConfiguration.class);
     }
 }

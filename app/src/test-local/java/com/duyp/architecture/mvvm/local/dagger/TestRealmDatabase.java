@@ -2,7 +2,6 @@ package com.duyp.architecture.mvvm.local.dagger;
 
 import com.duyp.architecture.mvvm.data.local.RealmDatabase;
 import com.duyp.architecture.mvvm.local.base_test.TestDao;
-import com.duyp.architecture.mvvm.local.base_test.TestDaoImpl;
 import com.duyp.architecture.mvvm.local.base_test.TestModel;
 
 import io.realm.Realm;
@@ -19,7 +18,4 @@ public class TestRealmDatabase extends RealmDatabase {
         super(realmConfiguration);
     }
 
-    public TestDao newTestDao() {
-        return new TestDaoImpl(Realm.getInstance(mRealmConfiguration), TestModel.class);
-    }
 }

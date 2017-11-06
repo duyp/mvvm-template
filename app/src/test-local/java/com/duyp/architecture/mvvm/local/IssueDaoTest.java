@@ -2,11 +2,14 @@ package com.duyp.architecture.mvvm.local;
 
 
 import com.duyp.architecture.mvvm.data.local.daos.IssueDao;
+import com.duyp.architecture.mvvm.data.local.daos.IssueDaoImpl;
 import com.duyp.architecture.mvvm.data.model.Issue;
 
 import org.junit.Test;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -30,7 +33,8 @@ public class IssueDaoTest extends BaseRealmTest {
 
     private static final Long REPO_ID = 100L;
 
-    private IssueDao issueDao;
+    @Inject
+    IssueDaoImpl issueDao;
 
     private RealmQuery<Issue> mockQuery;
     private RealmResults<Issue> mockResults;
@@ -41,7 +45,6 @@ public class IssueDaoTest extends BaseRealmTest {
     public void setup() throws Exception{
         super.setup();
         testComponent.inject(this);
-        issueDao = realmDatabase.newIssueDao();
 
         mockQuery = initRealmQuery(mockRealm, Issue.class);
         mockResults = initFindAllSorted(mockQuery, issues);

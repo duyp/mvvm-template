@@ -16,11 +16,14 @@ import com.duyp.architecture.mvvm.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
 
+import lombok.Setter;
+
 /**
  * Created by duypham on 10/21/17.
  *
  */
 
+@Setter
 public class LoginViewModel extends BaseViewModel {
 
     private final GithubService githubService;

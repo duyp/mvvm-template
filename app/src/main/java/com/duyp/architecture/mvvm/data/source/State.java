@@ -1,9 +1,9 @@
 package com.duyp.architecture.mvvm.data.source;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 /**

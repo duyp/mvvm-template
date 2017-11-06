@@ -1,5 +1,6 @@
 package com.duyp.architecture.mvvm.data.repository;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.duyp.androidutils.realm.LiveRealmObject;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Created by duypham on 10/29/17.

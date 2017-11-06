@@ -59,43 +59,10 @@ public abstract class BaseRealmTest {
     public TestComponent testComponent;
 
     @Inject
-    public TestRealmDatabase realmDatabase;
-
     protected Realm mockRealm;
 
     @Before
     public void setup() throws Exception{
-        mockStatic(RealmCore.class);
-        mockStatic(RealmLog.class);
-        mockStatic(Realm.class);
-        mockStatic(RealmConfiguration.class);
-        Realm.init(RuntimeEnvironment.application);
-
-        // TODO: Better solution would be just mock the RealmConfiguration.Builder class. But it seems there is some
-        // problems for powermock to mock it (static inner class). We just mock the RealmCore.loadLibrary(Context) which
-        // will be called by RealmConfiguration.Builder's constructor.
-        doNothing().when(RealmCore.class);
-        RealmCore.loadLibrary(any(Context.class));
-
-        // TODO: Mock the RealmConfiguration's constructor. If the RealmConfiguration.Builder.build can be mocked, this
-        // is not necessary anymore.
-        try {
-            mockRealm = PowerMockito.mock(Realm.class);
-            final RealmConfiguration mockRealmConfig = PowerMockito.mock(RealmConfiguration.class);
-
-            whenNew(RealmConfiguration.class).withAnyArguments().thenReturn(mockRealmConfig);
-
-            when(Realm.getDefaultConfiguration()).thenReturn(mockRealmConfig);
-
-            // Anytime getInstance is called with any configuration, then return the mockRealm
-            when(Realm.getDefaultInstance()).thenReturn(mockRealm);
-
-            when(Realm.getInstance(any())).thenReturn(mockRealm);
-
-        } catch (Exception e) {
-            throw new IllegalStateException("Can't create new Realm configuration instance");
-        }
-
         testComponent = DaggerTestComponent.builder()
                 .testDataModule(new TestDataModule())
                 .build();

@@ -30,8 +30,8 @@ public class DataModule {
 
     @Provides
     @Singleton
-    UserDataStore provideUserRepo(CustomSharedPreferences sharedPreferences, Gson gson, UserDetailDao dao) {
-        return new UserDataStore(sharedPreferences, gson, dao);
+    UserDataStore provideUserRepo(CustomSharedPreferences sharedPreferences, Gson gson) {
+        return new UserDataStore(sharedPreferences, gson);
     }
 
     @Provides

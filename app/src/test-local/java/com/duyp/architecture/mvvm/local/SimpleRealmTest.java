@@ -26,7 +26,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * Created by duypham on 10/16/17.
- *
+ * Basic tests on realm database
  */
 
 @RunWith(RobolectricTestRunner.class)
