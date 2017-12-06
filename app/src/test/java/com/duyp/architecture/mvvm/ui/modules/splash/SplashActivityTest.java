@@ -1,6 +1,5 @@
 package com.duyp.architecture.mvvm.ui.modules.splash;
 
-import com.duyp.architecture.mvvm.BuildConfig;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.dagger.TestApplication;
 import com.duyp.architecture.mvvm.data.local.user.UserManager;
@@ -9,9 +8,6 @@ import com.duyp.architecture.mvvm.ui.modules.login.LoginActivity;
 import com.duyp.architecture.mvvm.ui.modules.main.MainActivity;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import javax.inject.Inject;
 
@@ -46,7 +42,7 @@ public class SplashActivityTest extends BaseActivityTest<SplashActivity>{
 
     @Test
     public void haveCorrectResourceAppName() {
-        assertEquals("Git Client", controller.get().getResources().getString(R.string.app_name));
+        assertEquals("GitHub", controller.get().getResources().getString(R.string.app_name));
     }
 
     @Test
