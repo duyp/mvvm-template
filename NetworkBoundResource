@@ -1,0 +1,53 @@
+
+
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
+/**
+ * Created by duypham on 4/3/18.
+ */
+
+// ResultType: Type for the Resource data
+// RequestType: Type for the API response
+public abstract class NetworkBoundResource<ResultType, RequestType> {
+
+    private final Observable<Resource<ResultType>> mResourceObservable;
+
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
+    protected NetworkBoundResource() {
+        mResourceObservable = createResourceObservable();
+        // clear all network calls and local database calls when dispose to prevent execution leaks
+        mResourceObservable.doOnDispose(() -> mCompositeDisposable.clear());
+    }
+
+    /**
+     * add an disposable which will be disposed along with the root observable to make sure we have no un-managed
+     * executions
+     */
+    protected void addDisposable(final Disposable disposable) {
+        mCompositeDisposable.add(disposable);
+    }
+
+    // Called with the data in the database to decide whether it should be
+    // fetched from the network.
+    protected abstract boolean shouldFetch();
+
+    // Called before executing api request, true if we should wait for api response before populating local data
+    // retrieved from database
+    protected abstract boolean shouldWaitApiResponseFirst();
+
+    // call to get data from database
+    protected abstract Flowable<ResultType> dbCall();
+
+    // call to get data from api
+    protected abstract Observable<RequestType> apiCall();
+
+    protected abstract Observable<Resource<ResultType>> createResourceObservable();
+
+    public Observable<Resource<ResultType>> getObservable() {
+        return mResourceObservable;
+    }
+}

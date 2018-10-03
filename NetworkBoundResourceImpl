@@ -1,0 +1,168 @@
+package ch.immoscout24.ImmoScout24.data;
+
+import ch.immoscout24.ImmoScout24.Error;
+import ch.immoscout24.ImmoScout24.NetworkBoundResource;
+import ch.immoscout24.ImmoScout24.Resource;
+import ch.immoscout24.ImmoScout24.data.utils.ApiUtils;
+import ch.xmedia.mobile.is24sdk.localization.LocalizationManager;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.annotations.Nullable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
+/**
+ * Created by duypham on 4/3/18.
+ */
+
+public abstract class NetworkBoundResourceImpl<T>
+        extends NetworkBoundResource<T, T> {
+
+    private Disposable localDisposable = null;
+
+    private final LocalizationManager mLocalizationManager;
+
+    private NetworkBoundResourceImpl(final LocalizationManager localizationManager) {
+        mLocalizationManager = localizationManager;
+    }
+
+    @Override protected Observable<Resource<T>> createResourceObservable() {
+
+        return Observable.create(emitter -> {
+
+            final Flowable<T> dbCall = dbCall();
+
+            final boolean hasDbCall = dbCall != null;
+
+            emitter.onNext(Resource.loading(null));
+
+            // local call
+            if (hasDbCall && !shouldWaitApiResponseFirst()) {
+                localDisposable = dbCall.subscribe(localData -> {
+
+                    // populate local data first
+                    emitter.onNext(Resource.success(localData, null));
+
+                    // continue show loading if api not respond yet
+                    if(shouldFetch()) {
+                        emitter.onNext(Resource.loading(localData));
+                    } else {
+                        emitter.onComplete();
+                    }
+                }, localThrowable -> {
+                    if (!shouldFetch()) {
+                        emitter.onNext(Resource.error(ApiUtils.getError(mLocalizationManager, localThrowable), null));
+                        emitter.onComplete();
+                    }
+                });
+                addDisposable(localDisposable);
+            }
+
+            // api call
+            if (shouldFetch()) {
+                addDisposable(apiCall().subscribe(apiResponseData -> {
+
+                    // dispose local call since api result has been arrival
+                    if(localDisposable != null && !localDisposable.isDisposed()) {
+                        localDisposable.dispose();
+                    }
+
+                    // populate api result
+                    emitter.onNext(Resource.success(apiResponseData, null));
+                    emitter.onComplete();
+
+                }, throwable -> {
+                    final Error error = ApiUtils.getError(mLocalizationManager, throwable);
+                    emitter.onNext(Resource.error(error, null));
+                    // api error, populate local data if db call hasn't been executed yet
+                    if(hasDbCall && localDisposable == null) {
+                        addDisposable(dbCall.subscribe(localData -> {
+                            emitter.onNext(Resource.success(localData, null));
+                            emitter.onComplete();
+                        }, localThrowable -> {
+                            emitter.onNext(Resource.error(ApiUtils.getError(mLocalizationManager, localThrowable), null));
+                            emitter.onComplete();
+                        }));
+                    } else {
+                        emitter.onComplete();
+                    }
+                    //}
+                }, () -> {
+                    // on complete (eg. if server return 204 success response without body from a POST or PUT requests,
+                    // no onNext() will be called), the retrofit api MUST use Maybe instead of Single to catch this,
+                    // otherwise onError() will be emitted.
+                    emitter.onNext(Resource.success(null, null));
+                    emitter.onComplete();
+                }));
+            }
+        });
+    }
+
+    public static class Builder<T> {
+
+        private Flowable<T> mDbCall;
+
+        private Observable<T> mApiCall;
+
+        private boolean mShouldFetch = true;
+
+        private boolean mShouldWaitForApiFirst = true;
+
+        private final LocalizationManager mLocalizationManager;
+
+        public Builder(LocalizationManager localizationManager) {
+            this.mLocalizationManager = localizationManager;
+        }
+
+        public Builder<T> dbCall(final Flowable<T> dbCall) {
+            this.mDbCall = dbCall;
+            return this;
+        }
+
+        public Builder<T> apiCall(Observable<T> apiCall) {
+            this.mApiCall = apiCall;
+            return this;
+        }
+
+        public Builder<T> shouldWaitForApiFirst(boolean showWaitForApiFirst) {
+            this.mShouldWaitForApiFirst = showWaitForApiFirst;
+            return this;
+        }
+
+        public Observable<Resource<T>> observable() {
+
+            if (mDbCall == null && mApiCall == null) {
+                throw new IllegalArgumentException("Both dbCall and apiCall are NULL");
+            }
+
+            if (mApiCall == null) {
+                mShouldFetch = false;
+                mShouldWaitForApiFirst = false;
+            }
+
+            if (mDbCall == null) {
+                mShouldFetch = true;
+            }
+
+            return new NetworkBoundResourceImpl<T>(mLocalizationManager){
+
+                @Override protected boolean shouldFetch() {
+                    return mShouldFetch;
+                }
+
+                @Override protected boolean shouldWaitApiResponseFirst() {
+                    return mShouldWaitForApiFirst;
+                }
+
+                @Override protected Flowable<T> dbCall() {
+                    return mDbCall;
+                }
+
+                @Override protected Observable<T> apiCall() {
+                    return mApiCall;
+                }
+
+            }.getObservable();
+        }
+    }
+}
