@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
-import com.duyp.architecture.mvvm.Constants;
 import com.duyp.architecture.mvvm.R;
 import com.duyp.architecture.mvvm.ui.base.BaseListDataViewModel;
 import com.duyp.architecture.mvvm.ui.base.OnLoadMore;
@@ -21,17 +20,13 @@ import com.duyp.architecture.mvvm.ui.widgets.recyclerview.scroll.RecyclerViewFas
 
 import javax.inject.Inject;
 
-import io.realm.RealmObject;
-
 /**
  * Created by duypham on 10/23/17.
  * Base fragment with {@link SwipeRefreshLayout} and {@link DynamicRecyclerView} and basic configurations on these UI objects
  *
  */
 
-public abstract class BaseRecyclerViewFragment<
-        B extends ViewDataBinding,
-        T,
+public abstract class BaseRecyclerViewFragment<B extends ViewDataBinding, T,
         A extends BaseAdapter<T>,
         VM extends BaseListDataViewModel<T, A>>
         extends BaseViewModelFragment<B, VM> implements UiRefreshable, Scrollable{

@@ -10,7 +10,7 @@ def testLibs = rootProject.ext.testLibraries
 
 android {
     compileSdkVersion cfg.compileVersion
-    buildToolsVersion cfg.buildToolsVersion
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId cfg.package
         minSdkVersion cfg.minSdk

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -90,12 +89,7 @@ public class MainActivity extends BaseViewModelActivity<ActivityMainBinding, Mai
 
     @Override
     public void onMenuItemSelect(int id, int position, boolean fromUser) {
-        if (position > 1) {
-            AlertUtils.showToastLongMessage(this, "Coming soon...");
-        }
-        if (fromUser) {
-            binding.pager.setCurrentItem(position);
-        }
+
     }
 
     @Override
