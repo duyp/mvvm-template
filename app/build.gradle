@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 //apply plugin: 'com.apollographql.android'
 
@@ -12,6 +12,19 @@ android {
     compileSdkVersion cfg.compileVersion
     buildToolsVersion '28.0.2'
     namespace "${cfg.package}"
+//    dataBinding {
+//        enabled = true
+//    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        buildConfig = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId cfg.package
         minSdkVersion cfg.minSdk
@@ -51,23 +64,6 @@ android {
 //        }
 //    }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dataBinding {
-        enabled = true
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
     sourceSets {
         androidTest.java.srcDirs += "src/androidTest/java"
         test.java.srcDirs += "src/test-local/java"
@@ -77,6 +73,15 @@ android {
         androidTest.java.srcDirs += "src/test-common/java"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
     }
@@ -84,8 +89,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    compile libs.kotlin
-//    kapt libs.kotlinDatabinding
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 //    kapt libs.lombok
 
     implementation libs.supportAppCompatV7
@@ -198,8 +202,4 @@ dependencies {
 
     // to fix Realm error Caused by: javassist.NotFoundException: rx.Observable
     testImplementation 'io.reactivex:rxjava:1.2.9'
-//    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }
